@@ -77,35 +77,38 @@ export const debounce= (fn, wait, immediate) =>{
     }
 }
 ```
-## 防抖
+## 节流
 ```js
 /**
- * 防抖 (debounce)将多次高频操作优化为只在最后一次执行
+ * 节流(throttle)将高频操作优化成低频操作，每隔 100~500 ms执行一次即可
  * 
  * @param {Function} fn 需要防抖函数
  * @param {Number} wait  需要延迟的毫秒数
- * @param {Boolean} immediate 可选参，设为true，debounce会在wait时间间隔的开始时立即调用这个函数
+ * @param {Boolean} immediate 可选参立即执行，设为true，debounce会在wait时间间隔的开始时立即调用这个函数
  * @return {Function}
  * 
  */
-export const debounce= (fn, wait, immediate) =>{
+export const throttle =(fn, wait, immediate) =>{
     let timer = null
-
+    let callNow = immediate
+    
     return function() {
-        let args = arguments
-        let context = this
+        let context = this,
+            args = arguments
 
-        if (immediate && !timer) {
+        if (callNow) {
             fn.apply(context, args)
+            callNow = false
         }
 
-        if (timer) clearTimeout(timer)
-        timer = setTimeout(() => {
-            fn.apply(context, args)
-        }, wait)
+        if (!timer) {
+            timer = setTimeout(() => {
+                fn.apply(context, args)
+                timer = null
+            }, wait)
+        }
     }
 }
-
 ```
 
 ## js浮点数计算加减乘除精度损失解决方法
