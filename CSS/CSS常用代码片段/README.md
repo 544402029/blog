@@ -1,5 +1,117 @@
 # css 常用代码片段
 
+## 检测横屏竖屏
+
+第一种：
+```js
+window.addEventListener("resize", () => {
+    if (window.orientation === 180 || window.orientation === 0) { 
+        console.log('竖屏')
+    };
+    if (window.orientation === 90 || window.orientation === -90 ){ 
+        console.log('横屏')
+    }  
+})
+```
+
+第二种：
+```css
+@media screen and (orientation: portrait) {
+  /*竖屏样式代码*/
+} 
+@media screen and (orientation: landscape) {
+  /*横屏样式代码.*/
+}
+```
+
+## 移动响应式设置
+```html
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+```
+
+```css
+/* 基于UI width=750px DPR=2的页面 */
+html {
+    font-size: calc(100vw / 7.5);
+}
+```
+
+```js
+<!-- 375px视觉设计稿 -->
+!function(e, t) {
+    var n = t.documentElement,
+        d = e.devicePixelRatio || 1;
+
+    function i() {
+        var e = n.clientWidth / 3.75;
+        n.style.fontSize = e + "px"
+    }
+    if (function e() {
+        t.body ? t.body.style.fontSize = "16px" : t.addEventListener("DOMContentLoaded", e)
+    }(), i(), e.addEventListener("resize", i), e.addEventListener("pageshow", function(e) {
+        e.persisted && i()
+    }), 2 <= d) {
+        var o = t.createElement("body"),
+            a = t.createElement("div");
+        a.style.border = ".5px solid transparent", o.appendChild(a), n.appendChild(o), 1 === a.offsetHeight && n.classList.add("hairlines"), n.removeChild(o)
+    }
+}(window, document)
+```
+
+```js
+/* 基于UI width=750px DPR=2的页面 */
+function AutoResponse(width = 750) {
+    const target = document.documentElement;
+    if (target.clientWidth >= 600) {
+        target.style.fontSize = "80px";
+    } else {
+        target.style.fontSize = target.clientWidth / width * 100 + "px";
+    }
+}
+
+AutoResponse();
+```
+
+
+
+
+## 点击元素禁止产生背景或边框
+```css
+-webkit-tap-highlight-color: rgba(0,0,0,0); 
+```
+
+## 禁止长按链接与图片弹出菜单
+```css
+-webkit-touch-callout: none;
+```
+
+## 禁止用户选中文字
+```css
+-webkit-user-select:none; 
+user-select: none;
+```
+
+## 取消 input 输入时，英文首字母的默认大写
+```html
+<input autocapitalize="off" autocorrect="off" />
+```
+
+## 视频全屏播放
+```html
+<video x-webkit-airplay="true" webkit-playsinline="true" preload="auto" autoplay src=""></video>
+```
+
+## 开启硬件加速
+```html
+transform: translate3d(0,0,0);
+```
+
+## 怎么让 Chrome 支持小于 12px 的文字？
+```css
+-webkit-text-size-adjust:none;
+```
+
+
 ## 文字超出隐藏并显示省略号
 #### 单行省略
 ```css

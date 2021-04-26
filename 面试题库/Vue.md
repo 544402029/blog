@@ -321,11 +321,13 @@ const proxyData = reactive(data);
 DOM
 
 ```html
-<div id="div1" class="container">
-  <p>vdom</p>
-  <ul style="font-size: 20px">
-    <li>a</li>
-  </ul>
+<div id="root">
+    <div title="tt1" id="container">张三</div>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
 </div>
 ```
 
@@ -334,25 +336,80 @@ JS 模拟 DOM
 ```js
 var vdom = {
   tag: 'div',
-  props: {
-    className: 'container',
-    id: 'div1',
+  type: 1,
+  value: undefined,
+  data: {
+    id: 'root',
   },
   children: [
     {
-      tag: 'p',
-      children: 'vdom',
-    },
-    {
-      tag: 'ul',
-      props: {
-        style: 'font-size: 20px',
+      tag: 'div',
+      type: 1,
+      value: undefined,
+      data: {
+        title: 'tt1',
+        id: 'container'
       },
-      children: {
-        tag: 'li',
-        children: 'a',
-      },
-    },
+      children: [
+        tag: 'undefined',
+        type: 1,
+        value: "张三",
+        data: undefined,
+        children: []
+      ]
+    },{
+      tag: "ul"
+      type: 1,
+      value: undefined,
+      data: {},
+      children: [{
+        tag: "li",
+        type: 1,
+        value: undefined,
+        data: {},
+        children: [
+          {
+            tag: undefined,
+            type: 3,
+            value: "1",
+            data: undefined,
+            children: []
+          }
+        ]
+
+      },{
+        {
+          tag: "li",
+          type: 1,
+          value: undefined,
+          data: {},
+          children: [
+            {
+              tag: undefined,
+              type: 3,
+              value: "2",
+              data: undefined,
+              children: []
+            }
+          ]
+        },
+        {
+          tag: "li",
+          type: 1,
+          value: undefined,
+          data: {},
+          children: [
+            {
+              tag: undefined,
+              type: 3,
+              value: "3",
+              data: undefined,
+              children: []
+            }
+          ]
+        }
+      }]
+    }
   ],
 };
 ```

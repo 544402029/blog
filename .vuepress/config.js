@@ -18,6 +18,7 @@ module.exports = {
         text: '面试题库',
         items: [
           { text: '基础面试', link: '/面试题库/基础面试题.md' },
+		  { text: '中级面试', link: '/面试题库/中级面试题.md' },
           { text: 'Vue常考面试题', link: '/面试题库/Vue.md' },
         ],
       },
