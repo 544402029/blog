@@ -4,7 +4,7 @@ lang: zh-CN
 heroText: 记录日常所得
 heroImage: /logo.jpg
 actionText: 开始学习 →
-actionLink: /面试题库/基础面试题/
+actionLink: /面试题库/基础面试题.html
 features:
   - title: A Blog
     details: 专注写作前端博客，记录日常所得。

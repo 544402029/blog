@@ -1,4 +1,5 @@
-## Vue 常考面试题
+# Vue常考面试题
+## Vue2.x 常考面试题
 
 ### 多页应用 VS 单页应用
 
@@ -1632,3 +1633,22 @@ export default {
 }
 </style>
 ```
+
+
+## Vue3
+
+### Vue3比Vue2有什么优势？
+
+- 性能更好
+- 体积更小
+- 更好的TS支持（Vue3采用TS开发）
+- 更好的代码组织
+- 更好的逻辑抽离
+- 更多新功能
+
+### Vue3生命周期
+
+#### Options API生命周期
+- beforeDestory 改为 beforeUnmount
+- destroyed 改为 unmounted
+- 其它沿用 Vue2 生命周期

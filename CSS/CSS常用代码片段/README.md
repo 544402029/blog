@@ -29,6 +29,9 @@ window.addEventListener("resize", () => {
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 ```
 
+单位适配：
+
+不考虑兼容性：
 ```css
 /* 基于UI width=750px DPR=2的页面 */
 html {
@@ -36,8 +39,9 @@ html {
 }
 ```
 
+考虑兼容性：
 ```js
-<!-- 375px视觉设计稿 -->
+/* 基于UI width=375px DPR=2的页面 */
 !function(e, t) {
     var n = t.documentElement,
         d = e.devicePixelRatio || 1;
