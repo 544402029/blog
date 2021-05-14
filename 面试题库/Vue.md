@@ -1646,9 +1646,18 @@ export default {
 - 更好的逻辑抽离
 - 更多新功能
 
-### Vue3生命周期
+### Vue3生命周期和Vue2生命周期有什么区别？
 
 #### Options API生命周期
 - beforeDestory 改为 beforeUnmount
 - destroyed 改为 unmounted
 - 其它沿用 Vue2 生命周期
+
+### Composition API 带来了什么？
+
+- 更好的代码组织
+- 更好的逻辑复用
+- 更好的类型推导
+
+更适用于大型项目。
+

@@ -45,6 +45,7 @@ module.exports = {
         items: [
           { text: 'Vue使用', link: '/vue/vue使用/' },
           { text: 'Vue技巧', link: '/vue/vue技巧/' },
+					{ text: 'Vue源码解析', link: '/vue/vue源码解析/' },
         ],
       },
       { text: '小程序', items: [{ text: '小程序', link: '/小程序/' }] },
