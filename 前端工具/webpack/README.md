@@ -2861,6 +2861,207 @@ Vue 内的Webpack设计理念是让我们用的更爽， 即使是webpack小白�
 如果我们想实现原生的webpack， 在脚手架参考文档使用configureWebpack
 即可。
 
+## 实现小型打包工具
+该工具可以实现以下两个功能
+
+ - 将 ES6 转换为 ES5
+ - 支持在 JS 文件中 import CSS 文件
+
+通过这个工具的实现，大家可以理解到打包工具的原理到底是什么。
+
+#### 实现
+因为涉及到 ES6 转 ES5，所以我们首先需要安装一些 Babel 相关的工具
+
+`yarn add babylon babel-traverse babel-core babel-preset-env`
+
+接下来我们将这些工具引入文件中
+
+```js
+const fs = require('fs')
+const path = require('path')
+const babylon = require('babylon')
+const traverse = require('babel-traverse').default
+const { transformFromAst } = require('babel-core')
+```
+
+首先，我们先来实现如何使用 Babel 转换代码
+```js
+function readCode(filePath) {
+  // 读取文件内容
+  const content = fs.readFileSync(filePath, 'utf-8')
+  // 生成 AST
+  const ast = babylon.parse(content, {
+    sourceType: 'module'
+  })
+  // 寻找当前文件的依赖关系
+  const dependencies = []
+  traverse(ast, {
+    ImportDeclaration: ({ node }) => {
+      dependencies.push(node.source.value)
+    }
+  })
+  // 通过 AST 将代码转为 ES5
+  const { code } = transformFromAst(ast, null, {
+    presets: ['env']
+  })
+  return {
+    filePath,
+    dependencies,
+    code
+  }
+}
+```
+
+- 首先我们传入一个文件路径参数，然后通过 `fs` 将文件中的内容读取出来
+- 接下来我们通过 `babylon` 解析代码获取 AST，目的是为了分析代码中是否还引入了别的文件
+- 通过 `dependencies` 来存储文件中的依赖，然后再将 AST 转换为 ES5 代码
+- 最后函数返回了一个对象，对象中包含了当前文件路径、当前文件依赖和当前文件转换后的代码
+
+接下来我们需要实现一个函数，这个函数的功能有以下几点
+
+ - 调用 `readCode` 函数，传入入口文件
+ - 分析入口文件的依赖
+ - 识别 JS 和 CSS 文件
+
+```js
+function getDependencies(entry) {
+  // 读取入口文件
+  const entryObject = readCode(entry)
+  const dependencies = [entryObject]
+  // 遍历所有文件依赖关系
+  for (const asset of dependencies) {
+    // 获得文件目录
+    const dirname = path.dirname(asset.filePath)
+    // 遍历当前文件依赖关系
+    asset.dependencies.forEach(relativePath => {
+      // 获得绝对路径
+      const absolutePath = path.join(dirname, relativePath)
+      // CSS 文件逻辑就是将代码插入到 `style` 标签中
+      if (/\.css$/.test(absolutePath)) {
+        const content = fs.readFileSync(absolutePath, 'utf-8')
+        const code = `
+          const style = document.createElement('style')
+          style.innerText = ${JSON.stringify(content).replace(/\\r\\n/g, '')}
+          document.head.appendChild(style)
+        `
+        dependencies.push({
+          filePath: absolutePath,
+          relativePath,
+          dependencies: [],
+          code
+        })
+      } else {
+        // JS 代码需要继续查找是否有依赖关系
+        const child = readCode(absolutePath)
+        child.relativePath = relativePath
+        dependencies.push(child)
+      }
+    })
+  }
+  return dependencies
+}
+```
+
+- 首先我们读取入口文件，然后创建一个数组，该数组的目的是存储代码中涉及到的所有文件
+- 接下来我们遍历这个数组，一开始这个数组中只有入口文件，在遍历的过程中，如果入口文件有依赖其他的文件，那么就会被 push 到这个数组中
+- 在遍历的过程中，我们先获得该文件对应的目录，然后遍历当前文件的依赖关系
+- 在遍历当前文件依赖关系的过程中，首先生成依赖文件的绝对路径，然后判断当前文件是 CSS 文件还是 JS 文件
+    - 如果是 CSS 文件的话，我们就不能用 Babel 去编译了，只需要读取 CSS 文件中的代码，然后创建一个 style标签，将代码插入进标签并且放入 head 中即可
+    - 如果是 JS 文件的话，我们还需要分析 JS 文件是否还有别的依赖关系最后将读取文件后的对象 `push` 进数组中
+
+现在我们已经获取到了所有的依赖文件，接下来就是实现打包的功能了
+```js
+function bundle(dependencies, entry) {
+  let modules = ''
+  // 构建函数参数，生成的结构为
+  // { './entry.js': function(module, exports, require) { 代码 } }
+  dependencies.forEach(dep => {
+    const filePath = dep.relativePath || entry
+    modules += `'${filePath}': (
+      function (module, exports, require) { ${dep.code} }
+    ),`
+  })
+  // 构建 require 函数，目的是为了获取模块暴露出来的内容
+  const result = `
+    (function(modules) {
+      function require(id) {
+        const module = { exports : {} }
+        modules[id](module, module.exports, require)
+        return module.exports
+      }
+      require('${entry}')
+    })({${modules}})
+  `
+  // 当生成的内容写入到文件中
+  fs.writeFileSync('./bundle.js', result)
+}
+```
+
+这段代码需要结合着 Babel 转换后的代码来看，这样大家就能理解为什么需要这样写了
+
+```js
+// entry.js
+var _a = require('./a.js')
+var _a2 = _interopRequireDefault(_a)
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj }
+}
+console.log(_a2.default)
+// a.js
+Object.defineProperty(exports, '__esModule', {
+    value: true
+})
+var a = 1
+exports.default = a
+```
+
+Babel 将我们 ES6 的模块化代码转换为了 CommonJS 的代码，但是浏览器是不支持 CommonJS 的，所以如果这段代码需要在浏览器环境下运行的话，我们需要自己实现 CommonJS 相关的代码，这就是 `bundle` 函数做的大部分事情。
+
+接下来我们再来逐行解析 `bundle` 函数
+
+- 首先遍历所有依赖文件，构建出一个函数参数对象
+- 对象的属性就是当前文件的相对路径，属性值是一个函数，函数体是当前文件下的代码，函数接受三个参数 `module`、`exports`、 `require`
+    - `module` 参数对应 CommonJS 中的 `module`
+    - `exports` 参数对应 CommonJS 中的 `module.export`
+    - `require` 参数对应我们自己创建的 `require` 函数
+
+- 接下来就是构造一个使用参数的函数了，函数做的事情很简单，就是内部创建一个 `require` 函数，然后调用 `require(entry)`，也就是 `require('./entry.js')`，这样就会从函数参数中找到 `./entry.js`对应的函数并执行，最后将导出的内容通过 module.export 的方式让外部获取到
+- 最后再将打包出来的内容写入到单独的文件中
+
+
+如果你对于上面的实现还有疑惑的话，可以阅读下打包后的部分简化代码
+```js
+;(function(modules) {
+  function require(id) {
+    // 构造一个 CommonJS 导出代码
+    const module = { exports: {} }
+    // 去参数中获取文件对应的函数并执行
+    modules[id](module, module.exports, require)
+    return module.exports
+  }
+  require('./entry.js')
+})({
+  './entry.js': function(module, exports, require) {
+    // 这里继续通过构造的 require 去找到 a.js 文件对应的函数
+    var _a = require('./a.js')
+    console.log(_a2.default)
+  },
+  './a.js': function(module, exports, require) {
+    var a = 1
+    // 将 require 函数中的变量 module 变成了这样的结构
+    // module.exports = 1
+    // 这样就能在外部取到导出的内容了
+    exports.default = a
+  }
+  // 省略
+})
+```
+
+**小结:**
+虽然实现这个工具只写了不到 100 行的代码，但是打包工具的核心原理就是这些了
+
+ 1. 找出入口文件所有的依赖关系
+ 2. 然后通过构建 CommonJS 代码来获取 `exports` 导出的内容
 
 ## 如何配置别名
 
@@ -2904,13 +3105,16 @@ extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能�
 ```json
 rules: [
   {
+    // js 文件才使用 babel
     test: /\.js$/,
     use: ['babel-loader?cacheDirectory'], //开启缓存
-    include: srcPath, //明确范围
-    exclude: /node_modules/,
+    include: [resolve('src')], //明确范围 只在 src 文件夹下查找
+    exclude: /node_modules/,// 不会去查找的路径
   },
 ];
 ```
+
+对于 Babel 来说，我们肯定是希望只作用在 JS 代码上的，然后 `node_modules` 中使用的代码都是编译过的，所以我们也完全没有必要再去处理一遍。
 
 使用`use: ['babel-loader?cacheDirectory']`开启缓存， 只要 ES6 代码没有改的就不会再重新编译，而是缓存下来。
 
@@ -2959,6 +3163,8 @@ IgnorePlugin 是直接不引入， 代码中没有
   },
 ```
 
+如果你确定一个文件下没有其他依赖，就可以使用该属性让 Webpack 不扫描该文件，这种方式对于大型的类库很有帮助
+
 一般情况下我们使用的 react.min.js 都是打包后的文件， 我们没有必要再次进行打包， 对于这种文件我们可以进行忽略。
 
 noParse 是引入， 但不进行打包。
@@ -2966,6 +3172,10 @@ noParse 是引入， 但不进行打包。
 4. happyPack （多进程打包）
  - JS 单线程，开启多进程打包
  - 提高构建速度（特别是多核 CPU）
+
+受限于 Node 是单线程运行的，所以 Webpack 在打包的过程中也是单线程的，特别是在执行 Loader 的时候，长时间编译的任务很多，这样就会导致等待的情况。
+
+**HappyPack 可以将 Loader 的同步执行转换为并行的**，这样就能充分利用系统资源来加快打包效率了
   
   webpack.prod.js
 
@@ -2997,6 +3207,8 @@ module.exports = smart(webpackCommonConf, {
       id: 'babel',
       // 如何处理 .js 文件，用法和 Loader 配置中一样
       loaders: ['babel-loader?cacheDirectory'],
+      // 开启 4 个线程
+      threads: 4
     }),
   ],
   //其他配置
@@ -3006,6 +3218,10 @@ module.exports = smart(webpackCommonConf, {
 5. ParallelUglifyPlugin （多进程压缩 JS）
     - webpack 内置 Uglify 工具压缩 JS
     - JS 单线程， 开启多进程压缩更快
+      
+在 Webpack3 中，我们一般使用 UglifyJS 来压缩代码，但是这个是单线程运行的，为了加快效率，我们可以使用 webpack-parallel-uglify-plugin 来并行运行 UglifyJS，从而提高效率。
+
+在 Webpack4 中，我们就不需要以上这些操作了，只需要将 mode 设置为 production 就可以默认开启以上功能。代码压缩也是我们必做的性能优化方案，当然我们不止可以压缩 JS 代码，还可以压缩 HTML、CSS 代码，并且在压缩 JS 代码的过程中，我们还可以通过配置实现比如删除 console.log 这类代码的功能。
 
 webpack.prod.js
 
@@ -3056,10 +3272,64 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 具体设置参考 [HMR](http://l544402029.gitee.io/blog/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/webpack/#HMR) 这一节。
 
  8. DllPlugin
-我们引入了一个 lodash 库， 我们知道这个库的文件它是不会变的， 但是每次打包都会打包它， 我们可以让它只在第一次打包， 下次就不打包了。
+
+DllPlugin 可以将特定的类库提前打包然后引入。这种方式可以极大的减少打包类库的次数，只有当类库更新版本才有需要重新打包，并且也实现了将公共代码抽离成单独文件的优化方案。
+
+举例：我们引入了一个 lodash 库， 我们知道这个库的文件它是不会变的， 但是每次打包都会打包它， 我们可以让它只在第一次打包， 下次就不打包了。
  - webpack 内置 DllPlugin 支持
  - DllPlugin 打包出 dll 文件
  - DllReferencePlugin 使用 dll 文件
+
+```js
+// 单独配置在一个文件中
+// webpack.dll.conf.js
+const path = require('path')
+const webpack = require('webpack')
+module.exports = {
+  entry: {
+    // 想统一打包的类库
+    vendor: ['react']
+  },
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].dll.js',
+    library: '[name]-[hash]'
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      // name 必须和 output.library 一致
+      name: '[name]-[hash]',
+      // 该属性需要与 DllReferencePlugin 中一致
+      context: __dirname,
+      path: path.join(__dirname, 'dist', '[name]-manifest.json')
+    })
+  ]
+}
+```
+
+然后我们需要执行这个配置文件生成依赖文件，接下来我们需要使用 DllReferencePlugin 将依赖文件引入项目中
+
+```js
+// webpack.conf.js
+module.exports = {
+  // ...省略其他配置
+  plugins: [
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      // manifest 就是之前打包出来的 json 文件
+      manifest: require('./dist/vendor-manifest.json'),
+    })
+  ]
+}
+```
+
+9. 一些小的优化点
+
+我们还可以通过一些小的优化点来加快打包速度
+
+- resolve.extensions：用来表明文件后缀列表，默认查找顺序是 ['.js', '.json']，如果你的导入文件没有添加后缀就会按照这个顺序查找文件。我们应该尽可能减少后缀列表长度，然后将出现频率高的后缀排在前面
+- resolve.alias：可以通过别名的方式来映射一个路径，能让 Webpack 更快找到路径
+
 
 **小结：**
 
@@ -3076,7 +3346,9 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
     2. 热更新
     3. DllPlugin
 
-###webpack 性能优化 - 产出代码
+
+
+### webpack 性能优化 - 产出代码
 
 解决思路：
 
@@ -3088,7 +3360,7 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 
  1. 小图片 base64 编码
  2. bundle 加 hash
- 3. 懒加载
+ 3. 懒加载（按需加载）
  4. 提取公共代码 参考 Code Splitting
  5. IngorePlugin
  6. 使用 CDN 加速
@@ -3102,15 +3374,62 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 10. Node， Npm/Yarn更新到最新版本
 11. Plugin 尽可能精简可靠
 12. resolve 参数合理配置
-13. Scope Hosting
+13. Scope Hosting（Scope Hoisting 会分析出模块之间的依赖关系，尽可能的把打包出来的模块合并到一个函数中去。）
     - 代码体积更小
     - 创建函数作用域更少
     - 代码可读性更好
+
+
+比如我们希望打包两个文件
+```js
+// test.js
+export const a = 1
+// index.js
+import { a } from './test.js'
+```
+
+对于这种情况，我们打包出来的代码会类似这样
+
+```js
+[
+  /* 0 */
+  function (module, exports, require) {
+    //...
+  },
+  /* 1 */
+  function (module, exports, require) {
+    //...
+  }
+]
+```
+
+但是如果我们使用 Scope Hoisting 的话，代码就会尽可能的合并到一个函数中去，也就变成了这样的类似代码
+
+```js
+[
+  /* 0 */
+  function (module, exports, require) {
+    //...
+  }
+]
+```
+
+这样的打包方式生成的代码明显比之前的少多了。如果在 Webpack4 中你希望开启这个功能，只需要启用 `optimization.concatenateModules` 就可以了。
+
+```js
+module.exports = {
+  optimization: {
+    concatenateModules: true
+  }
+}
+```
+
+
 配置：
 
 ![ModuleConcatenationPlugin](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586335058993.png)
 
-###前端代码为何要进行构建和打包?
+### 前端代码为何要进行构建和打包?
 
  - 体积更小（Tree-Shaking、压缩、合并），加载更快
  - 能够编译高级语言或语法（TS、ES6+、模块化、SCSS）
@@ -3122,7 +3441,7 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
  - 统一的构建流程和产出标准
  - 集成公司构建规范（提测、上线等）
 
-###Plugin 与 loader 的区别？
+### Plugin 与 loader 的区别？
 ####loader
 
 - loader 模块转换器， 如 less > css
@@ -3133,7 +3452,7 @@ plugin 扩展插件，如 HtmlWebpackPlugin
 在我们做打包的时候， 在某一个具体时刻上。 比如说， 当我打包结束后，我要自动生成一个 html 文件， 这时候我们就可以使用一个 html-webpack-plugin 的插件。它会在打包结束后生成 html 文件。
 Plugin 可以在我们打包过程的某个时刻想做一些事情。
 
-###常见 loader 有哪些？
+### 常见 loader 有哪些？
 1. file-loader
 打包图片文件，先将文件转移到打包目录下，再将 dist 中的文件路径返回给 index.js。
 
@@ -3161,7 +3480,7 @@ TypeScript 的打包配置
 9. eslint-loader
 可以使团队统一使用一套 eslint
 
-###常见 plugin 有哪些？
+### 常见 plugin 有哪些？
 1. html-webpack-plugin 会在打包结束的时刻， 自动生成一个 html 文件， 并把打包生成的 js 自动注入到这个 html 文件中。
 
 2. clean-webpack-plugin 打包流程执行前清空 dist 目录
@@ -3186,7 +3505,7 @@ TypeScript 的打包配置
 
 12. webpack.DllPlugin 我们引入了一个 lodash 库， 我们知道这个库的文件它是不会变的， 但是每次打包都会打包它， 我们可以让它只在第一次打包， 下次就不打包了。
 
-###babel 和 webpack 的区别
+### babel 和 webpack 的区别
 - babel JS 新语法编译工具， 不关心模块化
 - webpack 打包构建工具， 是多个 loader plugin 的集合
 
@@ -3197,17 +3516,17 @@ output.library
 ![output.library](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586355478433.png)
 
 
-###babel-polyfill 和 babel-runtime 的区别？
+### babel-polyfill 和 babel-runtime 的区别？
 - babel-polyfill 会污染全局
 - babel-runtime 不会污染全局
 - 产出第三方 lib 要用 babel-rumtime
 
-###webpack 如何实现懒加载？
+### webpack 如何实现懒加载？
 - import()
 - 结合 Vue React 异步组件
 - 结合 Vue-router React-router 异步加载路由
 
-###为何 Proxy 不能被 Polyfill？
+### 为何 Proxy 不能被 Polyfill？
 我们先看一下那些可以 Polyfill
 
  - Class 可以用 function 模拟
