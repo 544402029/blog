@@ -1969,6 +1969,9 @@ export default {
 
 ## Vue3
 
+
+![vue3思维导图](https://gitee.com/l544402029/res/raw/master/小书匠/1622731226157.png)
+
 ### Vue3 升级内容？
 
 - 全部用 TS 重写（响应式、vdom、模板编译等）
@@ -1997,5 +2000,12 @@ export default {
 - 更好的逻辑复用
 - 更好的类型推导
 
-更适用于大型项目。
+更适用于大型项目，复杂页面。
+
+
+![类型推导(https://gitee.com/l544402029/res/raw/master/小书匠/1622731832802.png)
+
+其中this.a, this.fn1 按照正常js规范是通过this.data.a, this.method.fn去访问。但是在vue2做了一层代理， 导致直接在this下就可以访问。这样非常不利于类型推导。
+
+
 
