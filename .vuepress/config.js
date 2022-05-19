@@ -37,7 +37,8 @@ module.exports = {
             link: '/JavaScript/JavaScript高级程序设计/',
           },
           { text: '深入理解ES6', link: '/JavaScript/ES6/' },
-          { text: '正则表达式', link: '/JavaScript/正则表达式/' }
+          { text: '正则表达式', link: '/JavaScript/正则表达式/' },
+					{ text: '设计模式', link: '/JavaScript/设计模式/' }
         ],
       },
       {
@@ -79,7 +80,12 @@ module.exports = {
             text: 'Vue全家桶+SSR+Koa2全栈开发美团网',
             link:
               '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网/',
-          }
+          },
+					{
+					  text: 'Koa2新浪博客',
+					  link:
+					    '/Node.js/Koa2新浪博客/',
+					}
         ],
       },
     ],

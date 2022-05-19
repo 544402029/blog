@@ -318,6 +318,33 @@ methodsToPatch.forEach(function (method) {
 })
 ```
 
+### 为什么vue中通过`this.`的方式就可以获取`data`,`method`,`prop`内的数据，而不是`this.data.`的方式？
+
+具体请看一下的代码， 在初始化数据`initState(vm);`中对`data`,`prop`做了一层代理，将三个属性下的所有`key`值都代理到了vue实例上。
+
+```js
+proxy(vm, "_props", key);
+```
+
+```js
+var sharedPropertyDefinition = {
+  enumerable: true,
+  configurable: true,
+  get: noop,
+  set: noop
+};
+
+function proxy (target, sourceKey, key) {
+  sharedPropertyDefinition.get = function proxyGetter () {
+    return this[sourceKey][key]
+  };
+  sharedPropertyDefinition.set = function proxySetter (val) {
+    this[sourceKey][key] = val;
+  };
+  Object.defineProperty(target, key, sharedPropertyDefinition);
+}
+```
+
 ### vue编译过程?
 
 想必大家在使用 Vue 开发的过程中，基本都是使用模板的方式。那么你有过「模板是怎么在浏览器中运行的」这种疑虑嘛？
