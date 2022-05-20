@@ -599,7 +599,7 @@ const webpack = require("webpack");
 
 index.js 内
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581001976334.png#crop=0&crop=0&crop=1&crop=1&id=ZsAJr&originHeight=404&originWidth=1085&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/peizhiwenj.png)
 
 如果开启热更新， number.js 文件只要发生变化就会重新执行一下
 
@@ -1229,7 +1229,7 @@ webpack.common.js
 
 #### 同步代码方式
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581081381057.png#crop=0&crop=0&crop=1&crop=1&id=BreIT&originHeight=283&originWidth=757&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/tonghbudaimafasngshi.png)
 
 以上为同步引入方式，可按照一下代码进行配置：
 
@@ -1251,7 +1251,7 @@ webpack.common.js
 
 异步引入指的是以下情况：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581081338119.png#crop=0&crop=0&crop=1&crop=1&id=fgqTt&originHeight=321&originWidth=711&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/yibudairu.png)
 
 <a name="49c24aaf-6"></a>
 
@@ -1554,7 +1554,7 @@ package.json
 
 打开http://webpack.github.io/analyse/，把文件上传即可得到以下的分析图。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581152208331.png#crop=0&crop=0&crop=1&crop=1&id=ZOcId&originHeight=903&originWidth=1920&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/bundleanaliy.png)
 
 当然也可以使用 Webpack Bundle Analyzer 这个插件。
 
@@ -1570,9 +1570,9 @@ show coverage 代码使用率
 
 如下：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581153293051.png#crop=0&crop=0&crop=1&crop=1&id=mso7C&originHeight=318&originWidth=1056&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/yubao.png)
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581153348107.png#crop=0&crop=0&crop=1&crop=1&id=t5K0b&originHeight=259&originWidth=829&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/woyaozhibo.png)
 
 但是异步加载交互代码时：例如当点击的时候才再加载异步代码，虽然提高了页面初始化速度，但是对用用户点击<br />的体验不好，速度太慢；
 
@@ -2096,21 +2096,21 @@ module.exports = devConfig;
 
 我们也可以在 package.json 里这样写：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581174325584.png#crop=0&crop=0&crop=1&crop=1&id=BldvJ&originHeight=128&originWidth=1028&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/packge.json.png)
 
 那么对应的 webpack.common.js 是这样的
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581174384055.png#crop=0&crop=0&crop=1&crop=1&id=TXHHc&originHeight=217&originWidth=743&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/commonjs.png)
 
 还可以这么写：
 
 package.json
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581174468888.png#crop=0&crop=0&crop=1&crop=1&id=n0z5n&originHeight=139&originWidth=1019&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/jdakdj.png)
 
 webpack.common.js
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581174516956.png#crop=0&crop=0&crop=1&crop=1&id=ywLXG&originHeight=219&originWidth=709&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/zhendeleia.png)
 
 <a name="61dd95dc-1"></a>
 
@@ -2166,7 +2166,7 @@ package.json
 
 如果你想这样通过 src 引入 js， 并且想通过 library 获取它下面的方法或属性，
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581180734179.png#crop=0&crop=0&crop=1&crop=1&id=EO5ji&originHeight=112&originWidth=761&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/srcjs.png)
 
 添加`library: 'library'`即可
 
@@ -2191,7 +2191,7 @@ module.exports = {
 
 这样配置好以下几种方式都可以正确引入了：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581181091928.png#crop=0&crop=0&crop=1&crop=1&id=Yzrqf&originHeight=425&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/houqiyingx.png)
 
 webpack.config.js
 
@@ -2216,7 +2216,7 @@ module.exports = {
 };
 ```
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581182303261.png#crop=0&crop=0&crop=1&crop=1&id=E3gtb&originHeight=79&originWidth=633&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/3nianasannian.png)
 
 package.json
 
@@ -2360,7 +2360,7 @@ webpack-config.js
 
 如下图， 如果不向`join`方法传入参数会有报错提示
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581242232646.png#crop=0&crop=0&crop=1&crop=1&id=ZCo9h&originHeight=519&originWidth=961&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/jqueryjs.png)
 
 如果还想安装 jquery 库， 那你也需要安装对应的类型文件
 
@@ -2386,7 +2386,7 @@ npm i @types/jquery --save-dev
 npm i axios --save
 ```
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581256209234.png#crop=0&crop=0&crop=1&crop=1&id=sJbRM&originHeight=556&originWidth=880&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/meibanfaces.png)
 
 在项目中我们一般会在开发环境有一个请求 api 以供测试， 线上环境有一个请求 api。 这时候我们一般需要使用相对路径写接口地址， 但是使用相对路径接口地址带上的就是 localhost 了， 这时候我们需要做一个代理：
 
@@ -2433,7 +2433,7 @@ npm i react-router-dom --save
 
 在我们使用单页应用时， 如果我们要访问 list 页面， 那么服务器会以为我们访问的是一个叫 list 的页面。但是我们的文件里并没有一个 list.html， 那它就会提示我们页面不存在。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581305524595.png#crop=0&crop=0&crop=1&crop=1&id=bSVs5&originHeight=234&originWidth=655&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/yuchengjinro.png)
 
 ![输入图片说明](../../static/images/langduibuxing.png)
 
