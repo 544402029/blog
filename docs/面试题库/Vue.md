@@ -1228,7 +1228,7 @@ export default {
 
 ### 什么是具名插槽?
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584149606280.png#crop=0&crop=0&crop=1&crop=1&id=y8Dd1&originHeight=639&originWidth=1358&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../slotchacao.png)
 
 <a name="822f2429"></a>
 
@@ -2038,7 +2038,7 @@ export default {
 
 ### 聊一下 Vuex？
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1647778406046-168ae2cd-61ec-4b2a-baa3-c3745f7bc463.png#clientId=ub255e1e9-8095-4&crop=0&crop=0&crop=1&crop=1&id=blEgU&originHeight=551&originWidth=701&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u320f5c11-3930-480b-96f7-d20abfd0335&title=)
+![输入图片说明](../../static/images/vuex.png)
 
 是一个公共存储的数据库，能够方便的在 vue 实例及其组件间传递数据。
 
