@@ -8,7 +8,7 @@ TypeScript 是 JavaScript 的超集，拥有（静态）类型机制。
 如图所示：
 
 ![输入图片说明](../../static/images/shili.png)
-![错误信息](https://gitee.com/l544402029/res/raw/master/小书匠/1584497055265.png)
+![输入图片说明](../../static/images/cuowuxinxi.png)
 
 当我定义`a`的时候已经被定义为就只能存`number`类型， 不能存其他类型。
 
@@ -24,12 +24,11 @@ TypeScript 不会在浏览器直接执行， 必须通过编译器编译为 Java
 
 首先我们需要在 VScode 中进行设置，首先将引号改为单引号
 
-![图例](https://gitee.com/l544402029/res/raw/master/小书匠/1584499716942.png)
+![输入图片说明](../../static/images/tuli.png)
 
 tab 可选择改为 2 个字符
 
-![tab](https://gitee.com/l544402029/res/raw/master/小书匠/1584500363580.png)
-
+![输入图片说明](../../static/images/tabh.png)
 保存时自动格式化
 
 ![自动格式化](https://gitee.com/l544402029/res/raw/master/小书匠/1584500439047.png)
@@ -838,7 +837,7 @@ data.getItem(0);
 
 我们来看另外一种情况：
 
-![示例](https://gitee.com/l544402029/res/raw/master/小书匠/1584668739804.png)
+![输入图片说明](../../static/images/shili41.png)
 
 由于我们不能确定 data[index]是不是有`name`属性， 所以会出现报错提示。如果想解决这个问题， 我们可以这么做：
 
@@ -943,7 +942,7 @@ new Home.Page();
 
 具体目录如下：
 
-![目录](https://gitee.com/l544402029/res/raw/master/小书匠/1584678143089.png)
+![输入图片说明](../../static/images/muliuya.png)
 
 components.ts
 
@@ -1001,7 +1000,7 @@ namespace Home {
 }
 ```
 
-![示例](https://gitee.com/l544402029/res/raw/master/小书匠/1584678254452.png)
+![输入图片说明](../../static/images/zheshshili.png)
 
 我们将所有文件都编译为一个文件， 采用 amd 规范。这样就可以使用另外一个模块的内容了。
 
@@ -1025,13 +1024,13 @@ namespace Home {
 
 这样就可以在页面打印出我们想要的内容了
 
-![效果图](https://gitee.com/l544402029/res/raw/master/小书匠/1584715847194.png)
+![输入图片说明](../../static/images/xiaoguotu.png)
 
 ### import 模块化
 
 具体目录如下：
 
-![文件目录](https://gitee.com/l544402029/res/raw/master/小书匠/1584716428974.png)
+![输入图片说明](../../static/images/wenjianmulu.png)
 
 components.ts
 
@@ -1143,7 +1142,7 @@ console.log(teacher);
 
 输出结果：
 
-![输出结果](https://gitee.com/l544402029/res/raw/master/小书匠/1584753241373.png)
+![输入图片说明](../../static/images/shuchujieguo.png)
 
 再去看 Sources 相应的 TS 资源文件已经被转换为 JS 文件了。
 
@@ -1294,7 +1293,7 @@ console.log(test);
 
 如果想要使用装饰器， 首先要开启以下设置：
 
-![装饰器设置](https://gitee.com/l544402029/res/raw/master/小书匠/1584777291733.png)
+![输入图片说明](../../static/images/zhuangshiqishezhi.png)
 
 装饰器只在类定义的时候起作用 ， 并不是实例化的时候。
 
