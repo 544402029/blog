@@ -41,11 +41,11 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 首先很久之前就有组件化的概念， 使用 asp jsp php 就可以。node.js 中也有类似的组件化。Vue 和 React 搬过来，做了一个创新：数据驱动视图。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584159494287.png#crop=0&crop=0&crop=1&crop=1&id=bhDHN&originHeight=564&originWidth=1330&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/zujianhua.png)
 
 对比 Vue， React 组件化
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584159539600.png#crop=0&crop=0&crop=1&crop=1&id=nugTV&originHeight=652&originWidth=1329&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/duibizujianhua.png)
 
 但是， 传统组件它只是静态的渲染， 也就是说我们想显示谁的个人信息， 就要在后端拼接完数据去渲染。 渲染完页面就形成了， 不会再去改变了。你再需要去改需要自己去操作 DOM。所以当时 jQuery 是很流行的。因为操作 DOM 很多。
 
@@ -53,13 +53,13 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1587266702810.png#crop=0&crop=0&crop=1&crop=1&id=gLCas&originHeight=242&originWidth=838&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/mvc.png)
 
 但是 MVC 有一个巨大的缺陷就是**控制器承担的责任太大**了，随着项目愈加复杂，控制器中的代码会越来越**臃肿**，导致出现不利于**维护**的情况。
 
 ### MVP 是什么？
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1580482042948.png#crop=0&crop=0&crop=1&crop=1&id=s9em9&originHeight=845&originWidth=1563&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/mvp.png)
 
 首先我们要了解一下 MVP 模式， 代码分为三层。 Model 层（也就是我们所说的数据层）， Presenter 呈现层(业务逻辑相关的控制层)， View 层（视图层，页面上的 DOM 展示）。
 
@@ -69,7 +69,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 ### 如何理解 MVVM ？
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584160135977.png#crop=0&crop=0&crop=1&crop=1&id=YUYmR&originHeight=635&originWidth=1053&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/mvvm.png)
 
 - M: Model 层 （数据 vuex，data ）
 - V：View 层 （视图）
@@ -81,11 +81,9 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的交互是双向的， 因此 View 数据的变化会同步到 Model 中，而 Model 数据的变化也会立即反应到 View 上。因此开发者只需关注业务逻辑，不需要手动操作 DOM，不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
 
-![](https://user-gold-cdn.xitu.io/2018/12/21/167ced454926a458?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#crop=0&crop=0&crop=1&crop=1&id=KCRHp&originHeight=354&originWidth=1166&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
 
 除了以上三个部分，其实在 MVVM 中还引入了一个隐式的 Binder 层，实现了 View 和 ViewModel 的绑定。
 
-![](https://user-gold-cdn.xitu.io/2018/12/21/167cf01bd8430243?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#crop=0&crop=0&crop=1&crop=1&id=MhNQo&originHeight=361&originWidth=1178&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
 
 同样以 Vue 框架来举例，这个隐式的 Binder 层就是 Vue 通过解析模板中的插值和指令从而实现 View 与 ViewModel 的绑定。
 
@@ -347,11 +345,11 @@ function proxy(target, sourceKey, key) {
 
 首先我们需要在自定义组件上面写入 v-model
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648138257489-be1c9424-2033-4a5f-b0c0-1eb80b6b819d.png#clientId=u3e614d12-7151-4&crop=0&crop=0&crop=1&crop=1&id=F3Z49&originHeight=227&originWidth=615&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=ud55e9541-64d8-4602-aa3f-8e9bfcab711&title=)
+![输入图片说明](../../static/images/1584147196591.png)
 
 接着在自定义组件内写入 props 和 model， 如下：
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648138257611-37d5bebc-bed3-435b-bfce-c030532ac0cd.png#clientId=u3e614d12-7151-4&crop=0&crop=0&crop=1&crop=1&id=BQtrD&originHeight=707&originWidth=823&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u87a383af-1581-421a-a324-997fff33811&title=)
+![输入图片说明](../../static/images/1584147338097.png)
 
 ### v-model 的实现原理
 
@@ -472,7 +470,7 @@ data.nums.push(4); // 监听数组
 
 ### Proxy 基本使用
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586944295809.png#crop=0&crop=0&crop=1&crop=1&id=NY9F1&originHeight=379&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/proxy.png)
 
 ### Proxy 可以实现什么功能？
 
@@ -735,7 +733,7 @@ var vdom = {
 - 基于 vnode 再执行 patch 和 diff
 - 使用 webpack vue-loader, 会在开发环境编译模板（重要）
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586183809733.png#crop=0&crop=0&crop=1&crop=1&id=FvH2c&originHeight=714&originWidth=1211&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/vuemoban.png)
 
 ### 能说一下 vue 组件渲染和更新过程吗？
 
@@ -753,7 +751,7 @@ var vdom = {
 
 流程图：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584440791063.png#crop=0&crop=0&crop=1&crop=1&id=jWijl&originHeight=561&originWidth=927&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/liuchengtu.png)
 
 ### 你能讲一下 diff 算法吗？
 
@@ -774,23 +772,23 @@ diff 即对比， 是一个广泛的概念， 如 linux diff 命令， git diff 
 
 只比较同一层级示意图：
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648432718451-3a70008e-afd8-4f08-8052-a507bc0141b0.png#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&id=xpShH&originHeight=546&originWidth=872&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=ua335718f-c4b6-492f-ab06-795027894ad&title=)
+![输入图片说明](../../static/images/1584421293247.png)
 
 - 第一步先比较 tag，tag 不相同， 则直接删掉重建， 不再深度比较
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648432718383-bfda0463-52bb-4410-976d-7d78cc74bdfc.png#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&id=K4NMk&originHeight=430&originWidth=921&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u21523c76-af90-40f9-90d2-0919534c688&title=)
+![输入图片说明](../../static/images/1584421354676.png)
 
 如图，D 和 G 的 tag 不相同，直接删掉重建为 G，即便 E 和 F 相同， 也不会再向下进行比较
 
 - tag 和 key， 两者都相同， 则认为是相同节点， 不再深度比较
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648432718335-2cb7306f-6d62-402f-a330-89f7f8217980.png#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&id=Ouc9t&originHeight=539&originWidth=1363&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u645642dc-8ce7-4f9d-b57c-7a787002824&title=)
+![输入图片说明](../../static/images/1586181939507.png)
 
 示例图：
 
 #### patchVnode
 
-<br /> <br />![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1647771883472-df1f0bad-45fb-45cb-968b-505c660e8d9d.png#clientId=ub255e1e9-8095-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=IuSGU&margin=%5Bobject%20Object%5D&originHeight=4144&originWidth=2043&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u79c7214d-5843-4cc9-8b6c-30f1c4eb18f&title=)
+<br /> <br />![输入图片说明](../../static/images/07-010.png)
 
 #### updateChildren
 
@@ -867,13 +865,13 @@ function updateChildren(parentElm, oldCh, newCh) {
 }
 ```
 
-看到代码那么多先不要着急，我们还是一点一点地讲解。<br />首先我们定义 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 分别是新老两个 VNode 的两边的索引，同时 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 分别指向这几个索引对应的 VNode 节点。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433115816-e7a906ae-7f7d-44fa-b180-ae5702af45a6.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u6d281f8d&margin=%5Bobject%20Object%5D&originHeight=397&originWidth=885&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=uea143424-ce32-44ea-9ec7-eb9490b33fe&title=)<br />接下来是一个 while 循环，在这过程中，oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 会逐渐向中间靠拢。
+看到代码那么多先不要着急，我们还是一点一点地讲解。<br />首先我们定义 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 分别是新老两个 VNode 的两边的索引，同时 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 分别指向这几个索引对应的 VNode 节点。<br />!<br />接下来是一个 while 循环，在这过程中，oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 会逐渐向中间靠拢。
 
 ```javascript
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
 ```
 
-![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433115788-20ed85db-fec8-470d-a659-53e508b39d6b.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u81824caf&margin=%5Bobject%20Object%5D&originHeight=428&originWidth=864&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=ud4345de9-b321-4963-b182-535f854e039&title=)<br />首先当 oldStartVnode 或者 oldEndVnode 不存在的时候，oldStartIdx 与 oldEndIdx 继续向中间靠拢，并更新对应的 oldStartVnode 与 oldEndVnode 的指向（注：下面讲到的 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 移动都会伴随着 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 的指向的变化，之后的部分只会讲 Idx 的移动）。
+<br />首先当 oldStartVnode 或者 oldEndVnode 不存在的时候，oldStartIdx 与 oldEndIdx 继续向中间靠拢，并更新对应的 oldStartVnode 与 oldEndVnode 的指向（注：下面讲到的 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 移动都会伴随着 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 的指向的变化，之后的部分只会讲 Idx 的移动）。
 
 ```javascript
 if (!oldStartVnode) {
@@ -907,7 +905,7 @@ else if (sameVnode(oldStartVnode, newStartVnode)) {
 }
 ```
 
-首先是 oldStartVnode 与 newStartVnode 符合 sameVnode 时，说明老 VNode 节点的头部与新 VNode 节点的头部是相同的 VNode 节点，直接进行 patchVnode，同时 oldStartIdx 与 newStartIdx 向后移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433115821-44a78e25-d47f-4d9d-98a0-7ea4fab5248e.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u92aa0d5c&margin=%5Bobject%20Object%5D&originHeight=251&originWidth=618&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u56b62862-ca28-48f6-a02f-a7950831cdc&title=)<br />其次是 oldEndVnode 与 newEndVnode 符合 sameVnode，也就是两个 VNode 的结尾是相同的 VNode，同样进行 patchVnode 操作并将 oldEndVnode 与 newEndVnode 向前移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433115823-420fcacf-5baa-4cd8-8d3d-67a041495024.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u78b47c59&margin=%5Bobject%20Object%5D&originHeight=235&originWidth=753&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u71097c42-0223-445b-8254-7ce65e865b1&title=)<br />接下来是两种交叉的情况。<br />先是 oldStartVnode 与 newEndVnode 符合 sameVnode 的时候，也就是老 VNode 节点的头部与新 VNode 节点的尾部是同一节点的时候，将 oldStartVnode.elm 这个节点直接移动到 oldEndVnode.elm 这个节点的后面即可。然后 oldStartIdx 向后移动一位，newEndIdx 向前移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433115823-1c35cbeb-59a6-422e-8f61-1b33db20c3a4.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=uab918dd0&margin=%5Bobject%20Object%5D&originHeight=657&originWidth=1304&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u9f8a1087-9230-4de5-84dc-8a652fe24e1&title=)<br />同理，oldEndVnode 与 newStartVnode 符合 sameVnode 时，也就是老 VNode 节点的尾部与新 VNode 节点的头部是同一节点的时候，将 oldEndVnode.elm 插入到 oldStartVnode.elm 前面。同样的，oldEndIdx 向前移动一位，newStartIdx 向后移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433116199-ba05c673-ee27-4ebd-9f88-95cb4181499c.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u6cd6820a&margin=%5Bobject%20Object%5D&originHeight=432&originWidth=810&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u892fd4bd-7d8d-4a16-b1f6-2afeb701544&title=)<br />最后是当以上情况都不符合的时候，这种情况怎么处理呢？
+首先是 oldStartVnode 与 newStartVnode 符合 sameVnode 时，说明老 VNode 节点的头部与新 VNode 节点的头部是相同的 VNode 节点，直接进行 patchVnode，同时 oldStartIdx 与 newStartIdx 向后移动一位。<br />其次是 oldEndVnode 与 newEndVnode 符合 sameVnode，也就是两个 VNode 的结尾是相同的 VNode，同样进行 patchVnode 操作并将 oldEndVnode 与 newEndVnode 向前移动一位。<br />接下来是两种交叉的情况。<br />先是 oldStartVnode 与 newEndVnode 符合 sameVnode 的时候，也就是老 VNode 节点的头部与新 VNode 节点的尾部是同一节点的时候，将 oldStartVnode.elm 这个节点直接移动到 oldEndVnode.elm 这个节点的后面即可。然后 oldStartIdx 向后移动一位，newEndIdx 向前移动一位。<br />同理，oldEndVnode 与 newStartVnode 符合 sameVnode 时，也就是老 VNode 节点的尾部与新 VNode 节点的头部是同一节点的时候，将 oldEndVnode.elm 插入到 oldStartVnode.elm 前面。同样的，oldEndIdx 向前移动一位，newStartIdx 向后移动一位。<br />最后是当以上情况都不符合的时候，这种情况怎么处理呢？
 
 ```javascript
 else {
@@ -971,7 +969,7 @@ if (!idxInOld) {
 }
 ```
 
-否则如果找到了节点，同时它符合 sameVnode，则将这两个节点进行 patchVnode，将该位置的老节点赋值 undefined（之后如果还有新节点与该节点 key 相同可以检测出来提示已有重复的 key ），同时将 newStartVnode.elm 插入到 oldStartVnode.elm 的前面。同理，newStartIdx 往后移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433116225-39f789ab-1120-4a08-a9c3-81fa60581216.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u21f14e4c&margin=%5Bobject%20Object%5D&originHeight=373&originWidth=750&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u6281c5c3-cb3f-4cd7-b7c3-96d5aa0b45a&title=)
+否则如果找到了节点，同时它符合 sameVnode，则将这两个节点进行 patchVnode，将该位置的老节点赋值 undefined（之后如果还有新节点与该节点 key 相同可以检测出来提示已有重复的 key ），同时将 newStartVnode.elm 插入到 oldStartVnode.elm 的前面。同理，newStartIdx 往后移动一位。<br />
 
 ```javascript
 else {
@@ -985,7 +983,7 @@ else {
 }
 ```
 
-<br />如果不符合 sameVnode，只能创建一个新节点插入到 parentElm 的子节点中，newStartIdx 往后移动一位。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433116287-37827ccf-2bdd-4b04-8c78-16578e0075e4.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u843a4038&margin=%5Bobject%20Object%5D&originHeight=462&originWidth=927&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u68af2851-c988-4cdb-a949-ba52fa55380&title=)
+<br />如果不符合 sameVnode，只能创建一个新节点插入到 parentElm 的子节点中，newStartIdx 往后移动一位。<br />
 
 ```javascript
 else {
@@ -994,7 +992,7 @@ else {
 }
 ```
 
-最后一步就很容易啦，当 while 循环结束以后，如果 oldStartIdx > oldEndIdx，说明老节点比对完了，但是新节点还有多的，需要将新节点插入到真实 DOM 中去，调用 addVnodes 将这些节点插入即可。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433116667-03059827-d1e5-4298-bdf7-cab9271e703d.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ude1580b1&margin=%5Bobject%20Object%5D&originHeight=373&originWidth=784&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u12597547-a74f-4d84-9b8d-a2048040935&title=)<br />同理，如果满足 newStartIdx > newEndIdx 条件，说明新节点比对完了，老节点还有多，将这些无用的老节点通过 removeVnodes 批量删除即可。<br />![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1648433116310-efdb88ec-4162-4552-b16b-85d4e151f976.webp#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u239bdc77&margin=%5Bobject%20Object%5D&originHeight=367&originWidth=836&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=ue1638ec3-9265-4f0a-bc96-192ea80a373&title=)
+最后一步就很容易啦，当 while 循环结束以后，如果 oldStartIdx > oldEndIdx，说明老节点比对完了，但是新节点还有多的，需要将新节点插入到真实 DOM 中去，调用 addVnodes 将这些节点插入即可。<br /><br />同理，如果满足 newStartIdx > newEndIdx 条件，说明新节点比对完了，老节点还有多，将这些无用的老节点通过 removeVnodes 批量删除即可。<br />
 
 ```javascript
 if (oldStartIdx > oldEndIdx) {
@@ -1005,7 +1003,7 @@ if (oldStartIdx > oldEndIdx) {
 }
 ```
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1647772080935-63a9133c-134c-4827-a160-d475608ac95e.png#clientId=ub255e1e9-8095-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=cJPHv&margin=%5Bobject%20Object%5D&originHeight=6569&originWidth=3312&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=uf47f5d21-5add-4224-bb03-e5ce75d73f9&title=)
+![输入图片说明](../../static/images/07-026.png)
 <a name="3932c914"></a>
 
 ### 生命周期是什么?
@@ -1024,7 +1022,7 @@ if (oldStartIdx > oldEndIdx) {
 - `deactivated`:　　 `keep-alive`组件停用时
 - `errorCaptured`:　　捕获子 , 孙组件发生错误时触发 (2.5+版本增加)
 
-![](https://cn.vuejs.org/images/lifecycle.png#crop=0&crop=0&crop=1&crop=1&id=J4yIN&originHeight=3039&originWidth=1200&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/smzqi.png)
 
 在 `beforeCreate` 钩子函数调用的时候，是获取不到 `props` 或者 `data` 中的数据的，因为这些数据的初始化都在 `initState` 中。
 
@@ -1208,7 +1206,7 @@ export default {
 
 我们需要使用发布订阅模式或者总线机制来实现非父子组件传值。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584267573447.png#crop=0&crop=0&crop=1&crop=1&id=UQQFS&originHeight=681&originWidth=907&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/feifuzishengc.png)
 
 首先我们在 Vue 的原型链上创建一个 bus 属性， 指向一个 vue 实例。然后我们在其中一个组件上触发 change 事件， 在另外一个组件上监听绑定 change 事件， 此时就可以获取到兄弟组件传来的值了。
 
@@ -1220,11 +1218,11 @@ export default {
 
 如果我们的父组件需要一个子组件内定义的标题， 我们需要使用作用域插槽。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584149133026.png#crop=0&crop=0&crop=1&crop=1&id=aQbQe&originHeight=597&originWidth=953&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/zuoyongyuchazao.png)
 
 父组件通过 `v-slot="slotProps"` 接收到数据。 通过 `slotProps.slotData` 拿到子组件的数据
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584149314804.png#crop=0&crop=0&crop=1&crop=1&id=lCic8&originHeight=165&originWidth=819&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/chacao2.1.png)
 
 <a name="7fad4e43"></a>
 
