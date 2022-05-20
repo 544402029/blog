@@ -1,16 +1,8 @@
-<a name="69dbf9de"></a>
-
 # Vue 常考面试题
-
-<a name="39010fc3"></a>
 
 ## Vue2.x 常考面试题
 
-<a name="64174758"></a>
-
 ### 多页面应用与单页应用的区别?
-
-<a name="853c1f09"></a>
 
 ##### 多页应用
 
@@ -25,8 +17,6 @@
 
 - 页面切换慢（每次跳转页面需发送 HTTP 请求）
 
-<a name="57083e39"></a>
-
 ##### 单页应用
 
 JS 感知路由（URL）变化，动态清除页面内容并将新页面的内容挂载到页面上（JS 渲染），此时由前端实现路由
@@ -36,19 +26,13 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 在 vue 中不使用`<a>`标签进行页面跳转，使用`<router-link>`标签进行页面跳转 `<router-link to="/list">`列表页`</router-link>` 其中`to=""` 相当于`href=""`
 
-<a name="a615a161"></a>
-
 ### 了解 MVVM 框架吗？
 
 了解 Vue.js。
 
-<a name="b239a1b9"></a>
-
 ### MVVM 使用了什么设计模式?
 
 观察者模式
-
-<a name="4c2b0437"></a>
 
 ### 什么是组件化？
 
@@ -62,8 +46,6 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 但是， 传统组件它只是静态的渲染， 也就是说我们想显示谁的个人信息， 就要在后端拼接完数据去渲染。 渲染完页面就形成了， 不会再去改变了。你再需要去改需要自己去操作 DOM。所以当时 jQuery 是很流行的。因为操作 DOM 很多。
 
-<a name="aad62568"></a>
-
 ### MVC 是什么？
 
 传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。
@@ -71,8 +53,6 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 ![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1587266702810.png#crop=0&crop=0&crop=1&crop=1&id=gLCas&originHeight=242&originWidth=838&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
 
 但是 MVC 有一个巨大的缺陷就是**控制器承担的责任太大**了，随着项目愈加复杂，控制器中的代码会越来越**臃肿**，导致出现不利于**维护**的情况。
-
-<a name="87bbdabf"></a>
 
 ### MVP 是什么？
 
@@ -83,8 +63,6 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 当我们视图上的按钮被点击时， 控制器里的代码会执行， 它负责了所有的业务逻辑。控制器可以去调用模型层去发`ajax`请求，或者直接处理业务逻辑， 然后通过`DOM`操作来改变视图。
 
 使用 MVP 模式我们大部分代码都是操作 DOM。可以说是面向 DOM 开发。
-
-<a name="94d2d06e"></a>
 
 ### 如何理解 MVVM ？
 
@@ -107,8 +85,6 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 ![](https://user-gold-cdn.xitu.io/2018/12/21/167cf01bd8430243?imageView2/0/w/1280/h/960/format/webp/ignore-error/1#crop=0&crop=0&crop=1&crop=1&id=MhNQo&originHeight=361&originWidth=1178&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
 
 同样以 Vue 框架来举例，这个隐式的 Binder 层就是 Vue 通过解析模板中的插值和指令从而实现 View 与 ViewModel 的绑定。
-
-<a name="58176b01"></a>
 
 ### Vue 的响应式原理?
 
@@ -257,8 +233,6 @@ new Watcher(data, "name", update);
 data.name = "yyy";
 ```
 
-<a name="26b013ba"></a>
-
 ### Object.defineProperty 的缺陷?
 
 以上已经分析完了 Vue 的响应式原理，接下来说一点 `Object.defineProperty` 中的缺陷。
@@ -339,8 +313,6 @@ methodsToPatch.forEach(function (method) {
 });
 ```
 
-<a name="4d6f4550"></a>
-
 ### 为什么 vue 中通过`this.`的方式就可以获取`data`,`method`,`prop`内的数据，而不是`this.data.`的方式？
 
 具体请看一下的代码， 在初始化数据`initState(vm);`中对`data`,`prop`做了一层代理，将三个属性下的所有`key`值都代理到了 vue 实例上。
@@ -368,8 +340,6 @@ function proxy(target, sourceKey, key) {
 }
 ```
 
-<a name="IPnVp"></a>
-
 ### 如何自己实现组件 v-model？
 
 首先我们需要在自定义组件上面写入 v-model
@@ -380,15 +350,11 @@ function proxy(target, sourceKey, key) {
 
 ![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648138257611-37d5bebc-bed3-435b-bfce-c030532ac0cd.png#clientId=u3e614d12-7151-4&crop=0&crop=0&crop=1&crop=1&id=BQtrD&originHeight=707&originWidth=823&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u87a383af-1581-421a-a324-997fff33811&title=)
 
-<a name="j692b"></a>
-
 ### v-model 的实现原理
 
 - input 元素的 `value = this.name`
 - 绑定 input 事件 `this.name = $event.target.value`
 - data 更新触发 re-render
-
-<a name="43912848"></a>
 
 ### 双向绑定是什么原理?
 
@@ -396,8 +362,6 @@ Vue 采用**数据劫持**结合**发布者-订阅者模式**的方式，通过`
 
 - data 更新 view 是使用 `Object.defineProperty()`监听 data 的变化，实现了数据响应式。通过这个函数可以监听到 `set` 和 `get` 的事件。当数据发生改变时就触发这个函数， 更新的方法放在`set`内就行了。
 - view 更新 data 通过事件监听即可。比如`input`标签监听 `input` 事件就可以实现了。只不过框架执行了我们看不到。
-
-<a name="0f042485"></a>
 
 ### 如何深度监听 data ，数组变化？
 
@@ -484,21 +448,15 @@ data.nums.push(4); // 监听数组
 
 以上代码重新定义原型，重写 push， pop 等方法， 实现监听。
 
-<a name="fa514c9b"></a>
-
 ### Object.defineProperty 的缺点？
 
 - 深度监听，需要递归到底，一次性计算量大
 - 无法监听新增属性、删除属性（Vue.set Vue.delete）
 - 无法原生监听数组，需要特殊处理
 
-<a name="f867bc28"></a>
-
 ### Object.defineProperty 的优点？
 
 - 兼容性好，支持 IE9
-
-<a name="1276932b"></a>
 
 ### Proxy 相比于 defineProperty 的优势？
 
@@ -509,13 +467,9 @@ data.nums.push(4); // 监听数组
 - 支持更多的拦截方法
 - 性能更好 （Proxy 作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利；）
 
-<a name="ebaeca8e"></a>
-
 ### Proxy 基本使用
 
 ![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586944295809.png#crop=0&crop=0&crop=1&crop=1&id=NY9F1&originHeight=379&originWidth=928&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="560f7fda"></a>
 
 ### Proxy 可以实现什么功能？
 
@@ -528,8 +482,6 @@ Proxy 代理/拦截
 - 拦截查找: `has (target, key)` // 拦截 `key in obj`操作
 - 拦截删除: `deleteProperty (target, key)`
 - 拦截遍历: `ownKeys(target)` // 拦截`Object.keys,Object.getOwnPropertySymbols,Object.getOwnPropertyNames`
-
-<a name="be066000"></a>
 
 ### Proxy 如何实现响应式？
 
@@ -608,23 +560,17 @@ const data = {
 const proxyData = reactive(data);
 ```
 
-<a name="pjzAc"></a>
-
 ### Reflect 作用
 
 - 和 proxy 能力一一对应
 - 规范化、标准化、函数式
 - 替代掉 object 上的工具函数
 
-<a name="af33a94f"></a>
-
 ### 为什么要使用虚拟 DOM？
 
 因为 DOM 操作非常耗费性能，
 
 所谓 v-dom 就是使用 JS 模拟 DOM 结构， 我们都知道 JS 执行速度很快， 我们可以使用 JS 计算出最小的变更来操作 DOM。
-
-<a name="86d4f25d"></a>
 
 ### 如何用 JS 模拟 DOM 结构？
 
@@ -724,8 +670,6 @@ var vdom = {
 };
 ```
 
-<a name="H2zpH"></a>
-
 ### vue 编译过程?
 
 想必大家在使用 Vue 开发的过程中，基本都是使用模板的方式。那么你有过「模板是怎么在浏览器中运行的」这种疑虑嘛？
@@ -764,17 +708,10 @@ var vdom = {
 接下来就是优化 AST 的阶段。在当前版本下，Vue 进行的优化内容其实还是不多的。只是对节点进行了静态内容提取，也就是将永远不会变动的节点提取了出来，实现复用 Virtual DOM，跳过对比算法的功能。在下一个大版本中，Vue 会在优化 AST 的阶段继续发力，实现更多的优化功能，尽可能的在编译阶段压榨更多的性能，比如说提取静态的属性等等优化行为。
 
 最后一个阶段就是通过 AST 生成 `render` 函数了。其实这一阶段虽然分支有很多，但是最主要的目的就是遍历整个 AST，根据不同的条件生成不同的代码罢了。
-<a name="d3728554"></a>
-
-###
-
-<a name="ea09981c"></a>
 
 ### 为什么 Virtual DOM 比原生 DOM 快？
 
 首先这个问题得分场景来说，如果无脑替换所有的 DOM 这种场景来说，Virtual DOM 的局部更新肯定要来的快。但是如果你可以人肉也同样去局部替换 DOM，那么 Virtual DOM 必然没有你直接操作 DOM 来的快，毕竟还有一层 diff 算法的损耗。
-
-<a name="Y9eB7"></a>
 
 ### Virtual DOM 的优势？
 
@@ -783,15 +720,11 @@ var vdom = {
 - 实现组件的高度抽象化。
 - 相较于 1.0，应该是粒度由 dom 元素级别改为了组件级别，这样不会因为粒度太细，反而导致性能会降低的情况。
 
-<a name="588f27df"></a>
-
 ### vue 模板到底是什么？
 
 - 模板不是 html， 有指令、插值、JS 表达式， 能实现判断、循环
 - html 只是标签语言， 只有 JS 才能实现判断、循环(图灵完备的)
 - **因此， 模板一定是转换为某种 JS 代码， 即编译模板**
-
-<a name="0115d703"></a>
 
 #### 编译模板
 
@@ -800,8 +733,6 @@ var vdom = {
 - 使用 webpack vue-loader, 会在开发环境编译模板（重要）
 
 ![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586183809733.png#crop=0&crop=0&crop=1&crop=1&id=FvH2c&originHeight=714&originWidth=1211&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="fd1ce5c0"></a>
 
 ### 能说一下 vue 组件渲染和更新过程吗？
 
@@ -820,8 +751,6 @@ var vdom = {
 流程图：
 
 ![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584440791063.png#crop=0&crop=0&crop=1&crop=1&id=jWijl&originHeight=561&originWidth=927&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="lL5GV"></a>
 
 ### 你能讲一下 diff 算法吗？
 
@@ -855,13 +784,10 @@ diff 即对比， 是一个广泛的概念， 如 linux diff 命令， git diff 
 ![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648432718335-2cb7306f-6d62-402f-a330-89f7f8217980.png#clientId=u5dbb7efe-92d6-4&crop=0&crop=0&crop=1&crop=1&id=Ouc9t&originHeight=539&originWidth=1363&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u645642dc-8ce7-4f9d-b57c-7a787002824&title=)
 
 示例图：
-<a name="i387t"></a>
 
 #### patchVnode
 
 <br /> <br />![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1647771883472-df1f0bad-45fb-45cb-968b-505c660e8d9d.png#clientId=ub255e1e9-8095-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=IuSGU&margin=%5Bobject%20Object%5D&originHeight=4144&originWidth=2043&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u79c7214d-5843-4cc9-8b6c-30f1c4eb18f&title=)
-
-<a name="SVgMt"></a>
 
 #### updateChildren
 
@@ -1305,8 +1231,6 @@ export default {
 
 <a name="822f2429"></a>
 
-###
-
 <a name="b4519cff"></a>
 
 ### extend 能做什么？
@@ -1392,10 +1316,6 @@ Vue.mixin({
 - `once`只执行一次的事件
 - `passive`事件行为立即触发，而不会等待
   <a name="ed7b186c"></a>
-
-###
-
-<a name="0c47092d"></a>
 
 ### 组合键如何使用？
 
@@ -1493,16 +1413,12 @@ export default {
 
 对于引用类型来说也拿不到原先的属性值。
 
-<a name="08c1ac75"></a>
-
 ### $nextTick 有什么用？
 
 - 首先 Vue 是异步渲染
 - data 改变之后， DOM 不会立刻渲染
 - 异步渲染时会将 data 的修改做整合， 多次 data 修改只会渲染一次。也就是说 `$nextTick` 只会触发一次
 - `$nextTick` 会在 DOM 渲染之后被触发， 以获取最新 DOM 节点
-
-<a name="c8448736"></a>
 
 ### nextTick 应用场景
 
@@ -2273,8 +2189,6 @@ window.addEventListener("hashchange", () => {
 
 Hash 模式相对来说更简单，并且兼容性也更好。
 
-<a name="FEPbl"></a>
-
 #### History 模式
 
 History 模式是 HTML5 新推出的功能，主要使用 `history.pushState` 和 `history.replaceState` 改变 URL。
@@ -2303,6 +2217,3 @@ window.addEventListener("popstate", (e) => {
 - History 模式可以通过 API 添加任意类型的数据到历史记录中，Hash 模式只能更改哈希值，也就是字符串
 - Hash 模式无需后端配置，并且兼容性好。History 模式后端需要配置。
 - Hash 丑，url 带有#号,无法使用锚点定位。history 无#， 好看。
-  <a name="Vue3"></a>
-
-##

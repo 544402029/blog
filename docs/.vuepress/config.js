@@ -4,11 +4,13 @@ module.exports = {
   base: '/blog/',
   themeConfig: {
     repo: 'https://gitee.com/l544402029/blog',
-    repoLabel: 'Github',
+    repoLabel: 'gitee',
     editLinks: true,
     editLinkText: '编辑此页',
     docsBranch: 'gh-pages',
     sidebar: 'auto',
+    nextLinks: true,
+    prevLinks: true,
     markdown: {
       // 代码块行号
       lineNumbers: true,
@@ -43,29 +45,22 @@ module.exports = {
         items: [
           { text: '深入理解ES6', link: '/前端笔记/深入理解 ES6.md' },
           { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
-          { text: '设计模式', link: '/前端笔记/设计模式.md' }
+          { text: '设计模式', link: '/前端笔记/设计模式.md' },
+          { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
         ],
       },
       {
         text: 'Vue',
         items: [
           { text: 'Vue使用', link: '/vue/vue使用/' },
-          { text: 'Vue技巧', link: '/vue/vue技巧/' },
-          { text: 'Vue源码解析', link: '/vue/vue源码解析/' },
         ],
       },
       { text: '小程序', items: [{ text: '小程序', link: '/小程序/' }] },
       {
-        text: '前端工具',
+        text: '工具',
         items: [
-          { text: 'Git', link: '/前端工具/git/' },
-          { text: 'chrome调试', link: '/前端工具/chrome调试/' },
-          { text: 'linux命令', link: '/前端工具/linux命令/' },
+          { text: 'linux命令', link: '/工具/linux命令/' },
         ],
-      },
-      {
-        text: 'TypeScript',
-        items: [{ text: 'TypeScript', link: '/TypeScript/' }],
       },
       {
         text: 'Node.js',
