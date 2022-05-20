@@ -33,7 +33,7 @@ tab 可选择改为 2 个字符
 ![输入图片说明](../../static/images/tabh.png)
 保存时自动格式化
 
-![自动格式化](https://gitee.com/l544402029/res/raw/master/小书匠/1584500439047.png)
+![输入图片说明](../../static/images/zidonggeshihua.png)
 
 需配合 Prettier - Code formatter 插件使用
 
@@ -127,8 +127,7 @@ const secondNumber = 2;
 const total = firstNumber + secondNumber;
 ```
 
-![注解](https://gitee.com/l544402029/res/raw/master/小书匠/1584518941356.png)
-
+![输入图片说明](../../static/images/zhujie.png)
 ```ts
 const obj = {
   name: 'dell',
@@ -174,11 +173,11 @@ function add(first: number, second: number): number {
 const total = add(1, 2);
 ```
 
-![函数返回值](https://gitee.com/l544402029/res/raw/master/小书匠/1584519930071.png)
+![输入图片说明](../../static/images/hansfhz.png)
 
 如果我们想要`add`函数返回值必须为数值可以在括号后面添加一个`number`类型， 此时如果返回的值不是`number`就会出现报错提示。如图所示，返回值是字符串进行了错误提示。
 
-![函数返回值为数值](https://gitee.com/l544402029/res/raw/master/小书匠/1584520244548.png)
+![输入图片说明](../../static/images/hanshufanhuizhi.png)
 
 #### 返回值为空
 
@@ -189,11 +188,11 @@ function sayHello(): void {
 }
 ```
 
-![空返回值](https://gitee.com/l544402029/res/raw/master/小书匠/1584520170166.png)
+![输入图片说明](../../static/images/kongfanhuizhi.png)
 
 如果有返回值就进行报错提示， 必须没有任何返回值才可以。
 
-![无返回值e](https://gitee.com/l544402029/res/raw/master/小书匠/1584520273275.png)
+![输入图片说明](../../static/images/wufanhuizhi.png)
 
 #### 函数永远不可能执行完
 
@@ -332,11 +331,11 @@ const setPersonName = (person: Person, name: string) => {
 
 以下我们需要注意的点：
 
-![对象变量缓存](https://gitee.com/l544402029/res/raw/master/小书匠/1584525691906.png)
+![输入图片说明](../../static/images/duixiangbianlianghuancun.png)
 
-![直接使用字面量对象作为参数](https://gitee.com/l544402029/res/raw/master/小书匠/1584525638435.png)
+![输入图片说明](../../static/images/duixiangzimianl.png)
 
-在我们使用字面量对象直接作为参数是，如果多增加属性会进行报错， 因为类型注解里并没有定义`sex`。但是先定义一个`person`对象再使用这个变量是没有问题的。
+在我们使用字面量对象直接作为参数时，如果多增加属性会进行报错， 因为类型注解里并没有定义`sex`。但是先定义一个`person`对象再使用这个变量是没有问题的。
 
 #### 接口其它定义方式
 
@@ -488,13 +487,13 @@ console.log(demo2.name);
 
 #### readonly
 
-![readonly](https://gitee.com/l544402029/res/raw/master/小书匠/1584582790106.png)
+![输入图片说明](../../static/images/readonly.png)
 
 使用`readonly`, 类里面的属性变的只能读不能修改。 如上，修改`person.name`会出现报错提示。
 
 #### 抽象类
 
-![抽象类](https://gitee.com/l544402029/res/raw/master/小书匠/1584583109890.png)
+![输入图片说明](../../static/images/chouyxianglei.png)
 
 抽象类用来抽离出一些共用的属性或方法进行封装。 它不可以被实例化， 只能用来继承。
 
@@ -641,7 +640,7 @@ compilerOptions 下的配置就是编译时需要的配置了
 
 我们定义了两个类型接口， 我们对一个参数进行类型注解， 但是使用`animal.sing()`会出现报错。 因为 Dog 接口内根本就没有`sing()`方法。
 
-![图示](https://gitee.com/l544402029/res/raw/master/小书匠/1584625548767.png)
+![输入图片说明](../../static/images/leixingduanyan.png)
 
 如果要解决这个问题， 我们必须让它强制使用 Brid 接口才可以。 在原有参数后面添加 `as` 和 接口名来强制它使用这个接口。并添加括号。
 
@@ -839,7 +838,7 @@ data.getItem(0);
 
 我们来看另外一种情况：
 
-![输入图片说明](../../static/images/shili41.png)
+![输入图片说明](../../static/images/jicheng.png)
 
 由于我们不能确定 data[index]是不是有`name`属性， 所以会出现报错提示。如果想解决这个问题， 我们可以这么做：
 
@@ -944,7 +943,7 @@ new Home.Page();
 
 具体目录如下：
 
-![输入图片说明](../../static/images/muliuya.png)
+![输入图片说明](../../static/images/mulu.png)
 
 components.ts
 
@@ -1002,8 +1001,7 @@ namespace Home {
 }
 ```
 
-![输入图片说明](../../static/images/zheshshili.png)
-
+![输入图片说明](../../static/images/womenjiang.png)
 我们将所有文件都编译为一个文件， 采用 amd 规范。这样就可以使用另外一个模块的内容了。
 
 在我们的 index.html 进行引入已经编译好的 js 文件
@@ -1026,13 +1024,13 @@ namespace Home {
 
 这样就可以在页面打印出我们想要的内容了
 
-![输入图片说明](../../static/images/xiaoguotu.png)
+![输入图片说明](../../static/images/importantimg.png)
 
 ### import 模块化
 
 具体目录如下：
 
-![输入图片说明](../../static/images/wenjianmulu.png)
+![输入图片说明](../../static/images/jutimului.png)
 
 components.ts
 
@@ -1144,7 +1142,7 @@ console.log(teacher);
 
 输出结果：
 
-![输入图片说明](../../static/images/shuchujieguo.png)
+![输入图片说明](../../static/images/fanshi.png)
 
 再去看 Sources 相应的 TS 资源文件已经被转换为 JS 文件了。
 
@@ -1295,7 +1293,7 @@ console.log(test);
 
 如果想要使用装饰器， 首先要开启以下设置：
 
-![输入图片说明](../../static/images/zhuangshiqishezhi.png)
+![输入图片说明](../../static/images/leizhuangshiqi.png)
 
 装饰器只在类定义的时候起作用 ， 并不是实例化的时候。
 
