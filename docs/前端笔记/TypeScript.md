@@ -10,6 +10,8 @@ TypeScript 是 JavaScript 的超集，拥有（静态）类型机制。
 ![输入图片说明](../../static/images/shili.png)
 ![输入图片说明](../../static/images/cuowuxinxi.png)
 
+
+
 当我定义`a`的时候已经被定义为就只能存`number`类型， 不能存其他类型。
 
 TypeScript 不会在浏览器直接执行， 必须通过编译器编译为 JavaScript 再执行。
