@@ -47,6 +47,7 @@ module.exports = {
           { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
           { text: '设计模式', link: '/前端笔记/设计模式.md' },
           { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
+          { text: 'linux命令', link: '/前端笔记/linux命令.md' },
         ],
       },
       {
@@ -56,12 +57,6 @@ module.exports = {
         ],
       },
       { text: '小程序', items: [{ text: '小程序', link: '/小程序/' }] },
-      {
-        text: '工具',
-        items: [
-          { text: 'linux命令', link: '/工具/linux命令/' },
-        ],
-      },
       {
         text: 'Node.js',
         items: [

@@ -1,0 +1,158 @@
+# TCP/IP 的分层管理
+
+TCP/IP 协议族里重要的一点就是分层。TCP/IP 协议族按层次分别分 为以下 4 层：**应用层、传输层、网络层和数据链路层。**
+把 TCP/IP 层次化是有好处的。比如，如果互联网只由一个协议统 筹，某个地方需要改变设计时，就必须把所有部分整体替换掉。而分 层之后只需把变动的层替换掉即可。**把各层之间的接口部分规划好之 后，每个层次内部的设计就能够自由改动了。 **
+值得一提的是，层次化之后，设计也变得相对简单了。处于应用层上 的应用可以只考虑分派给自己的任务，而不需要弄清对方在地球上哪 个地方、对方的传输路线是怎样的、是否能确保传输送达等问题。
+
+TCP/IP 协议族各层的作用如下。
+
+## 应用层
+
+**应用层决定了向用户提供应用服务时通信的活动。**
+TCP/IP 协议族内预存了各类通用的应用服务。比如，FTP（File Transfer Protocol，文件传输协议）和 DNS（Domain Name System，域名系统）服务就是其中两类。**HTTP 协议也处于该层。**
+
+## 传输层
+
+**传输层对上层应用层，提供处于网络连接中的两台计算机之间的数据传输。**
+**在传输层有两个性质不同的协议：TCP（Transmission Control Protocol，传输控制协议）和 UDP（User Data Protocol，用户数据报协议）。**
+
+## 网络层（又名网络互连层）
+
+**网络层用来处理在网络上流动的数据包**。
+数据包是网络传输的最小数据单位。该层规定了通过怎样的路径（所谓的传输路线）到达对方计算机，并把数据包传送给对方。
+与对方计算机之间通过多台计算机或网络设备进行传输时，网络层所起的作用就是在众多的选项内选择一条传输路线。
+
+## 链路层（又名数据链路层，网络接口层）
+
+**用来处理连接网络的硬件部分。**包括控制操作系统、硬件的设备驱动、NIC（Network Interface Card，网络适配器，即网卡），及光纤等物理可见部分（还包括连接器等一切传输媒介）。硬件上的范畴均在链路层的作用范围之内。
+
+# TCP/IP 通信传输流
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640681534333-0c7d4447-7065-408a-9271-3eb3671c76b5.png#clientId=ud9438370-1fbf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=540&id=u9150eac1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=540&originWidth=679&originalType=binary&ratio=1&rotation=0&showTitle=false&size=96054&status=done&style=none&taskId=u3cea17be-4631-4e96-b4e6-32d16108493&title=&width=679)
+
+利用 TCP/IP 协议族进行网络通信时，会通过分层顺序与对方进行通 信。发送端从应用层往下走，接收端则往应用层往上走。  
+我们用 HTTP 举例来说明，首先作为发送端的客户端在应用层（HTTP 协议）发出一个想看某个 Web 页面的 HTTP 请求。
+接着，为了传输方便，在传输层（TCP 协议）把从应用层处收到的数据（HTTP 请求报文）进行分割，并在各个报文上打上标记序号及端口号后转发给网络层。
+在网络层（IP 协议），增加作为通信目的地的 MAC 地址后转发给链路层。
+这样一来，发往网络的通信请求就准备齐全了。
+接收端的服务器在链路层接收到数据，按序往上层发送，一直到应用层。
+当传输到应用层，才能算真正接收到由客户端发送过来的 HTTP 请求。
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640681907241-dcca5d65-1a7e-41e4-a6c8-fe06d14d0cae.png#clientId=ud9438370-1fbf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=618&id=ua7560d42&margin=%5Bobject%20Object%5D&name=image.png&originHeight=618&originWidth=749&originalType=binary&ratio=1&rotation=0&showTitle=false&size=213808&status=done&style=none&taskId=u12baa6af-cd48-408e-a3d4-661b2df7c89&title=&width=749)
+
+发送端在层与层之间传输数据时，每经过一层时必定会被打上一个该层所属的首部信息。
+反之，接收端在层与层传输数据时，每经过一层时会把对应的首部消去。
+这种把数据信息包装起来的做法称为封装（encapsulate）。
+
+# 与 HTTP 关系密切的协议 : IP、TCP 和 DNS
+
+## IP
+
+IP 协议的作用是把各种数据包传送给对方。而要保证确实传送到对方 那里，则需要满足各类条件。其中两个重要的条件是 IP 地址和 MAC 地址（Media Access Control Address）。  
+IP 地址指明了节点被分配到的地址，MAC 地址是指网卡所属的固定 地址。IP 地址可以和 MAC 地址进行配对。IP 地址可变换，但 MAC 地址基本上不会更改。
+
+### ARP 协议
+
+IP 间的通信依赖 MAC 地址。在网络上，通信的双方在同一局域网 （LAN）内的情况是很少的，通常是经过多台计算机和网络设备中转 才能连接到对方。而在进行中转时，会利用下一站中转设备的 MAC 地址来搜索下一个中转目标。这时，会采用 ARP 协议（Address Resolution Protocol）。**ARP 是一种用以解析地址的协议，根据通信方 的 IP 地址就可以反查出对应的 MAC 地址。 **
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640761286796-a21b8ca8-3c87-4869-bd3a-3695b6b6fb9c.png#clientId=ue1dcc529-c706-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=633&id=u1c813a81&margin=%5Bobject%20Object%5D&name=image.png&originHeight=633&originWidth=742&originalType=binary&ratio=1&rotation=0&showTitle=false&size=270557&status=done&style=none&taskId=u25ce2f1e-ee74-4215-b4df-e7f5c7f24e2&title=&width=742)
+
+## TCP 协议
+
+按层次分，TCP 位于传输层，提供可靠的字节流服务。
+所谓的字节流服务（Byte Stream Service）是指，为了方便传输，将大 块数据分割成以报文段（segment）为单位的数据包进行管理。而可 靠的传输服务是指，能够把数据准确可靠地传给对方。一言以蔽之， **TCP 协议为了更容易传送大数据才把数据分割，而且 TCP 协议能够 确认数据最终是否送达到对方。 **
+
+为了准确无误地将数据送达目标处，TCP 协议采用了三次握手 （three-way handshaking）策略。用 TCP 协议把数据包送出去后，TCP 不会对传送后的情况置之不理，它一定会向对方确认是否成功送达。
+
+握手过程中使用了 TCP 的标志（flag） —— **SYN（synchronize） 和 ACK（acknowledgement）**。
+
+**发送端首先发送一个带 SYN 标志的数据包给对方。接收端收到后， 回传一个带有 SYN/ACK 标志的数据包以示传达确认信息。最后，发送端再回传一个带 ACK 标志的数据包，代表“握手”结束。 **
+
+若在握手过程中某个阶段莫名中断，TCP 协议会再次以相同的顺序发 送相同的数据包。
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640763000744-cd78bd94-8f23-43b7-b24c-05e401a7b8c7.png#clientId=ue1dcc529-c706-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=354&id=ube3fcd51&margin=%5Bobject%20Object%5D&name=image.png&originHeight=354&originWidth=643&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162862&status=done&style=none&taskId=u56bdebc4-dd17-4b28-a996-b3401cce0dd&title=&width=643)
+
+除了上述三次握手，TCP 协议还有其他各种手段来保证通信的可靠性。
+
+## 负责域名解析的 DNS 服务
+
+DNS（Domain Name System）服务是和 HTTP 协议一样位于应用层的 协议。它**提供域名到 IP 地址之间的解析服务。**
+计算机既可以被赋予 IP 地址，也可以被赋予主机名和域名。比如 [www.hackr.jp](https://www.hackr.jp)。
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640765532341-3b7ad387-050f-439a-80ad-832e1c9bc961.png#clientId=ue1dcc529-c706-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=414&id=uea5fb79b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=414&originWidth=638&originalType=binary&ratio=1&rotation=0&showTitle=false&size=180927&status=done&style=none&taskId=u98858a3f-1fc3-4583-85a9-d313155758a&title=&width=638)
+
+# 各种协议与 HTTP 协议的关系
+
+# ![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640766547480-6b60aad5-4af3-4d83-beb7-08caa442c5b0.png#clientId=ue1dcc529-c706-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=855&id=u7cb0c14d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=855&originWidth=601&originalType=binary&ratio=1&rotation=0&showTitle=false&size=322985&status=done&style=none&taskId=u7d8069f0-483d-4cb4-b1a2-57f0df1a9ff&title=&width=601)
+
+# URI 和 URL
+
+与 URI（统一资源标识符）相比，我们更熟悉 URL（Uniform Resource Locator，统一资源定位符）。URL 正是使用 Web 浏览器等 访问 Web 页面时需要输入的网页地址。
+
+## 统一资源标识符
+
+URI 就是由某个协议方案表示的资源的定位标识符。协议 方案是指访问资源所使用的协议类型名称。
+
+URI 用字符串标识某一互联网资源，而 URL 表示资源的地点（互联网上所处的位置）。可见 URL 是 URI 的子集。
+
+# HTTP 协议
+
+## 请求报文
+
+请求报文是由请求方法、请求 URI、协议版本、可选的请求首部字段 和内容实体构成的。  
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640770636314-525b7715-bb6a-4e8f-9425-c9b1ce769b83.png#clientId=ue1dcc529-c706-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=322&id=u93839cde&margin=%5Bobject%20Object%5D&name=image.png&originHeight=322&originWidth=625&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82234&status=done&style=none&taskId=ue89be745-d9d3-44be-b352-ef5be2f5a8a&title=&width=625)
+
+## 响应报文
+
+响应报文基本上由协议版本、状态码（表示请求成功或失败的数字代 码）、用以解释状态码的原因短语、可选的响应首部字段以及实体主 体构成。
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640842696212-d0f97d2c-2d51-4a4d-9bb1-79e3b5a1230b.png#clientId=u772b4d25-09fc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=260&id=u85211ebb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=260&originWidth=564&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64519&status=done&style=none&taskId=u07c160e1-6f72-4e8b-8c1a-24034698a39&title=&width=564)
+
+## HTTP 是不保存状态的协议
+
+HTTP 是一种不保存状态，即无状态（stateless）协议。HTTP 协议自身不对请求和响应之间的通信状态进行保存。也就是说在 HTTP 这个 级别，协议对于发送过的请求或响应都不做持久化处理。  
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640842963023-71a58fa2-e763-4e2f-9c76-278f08d62336.png#clientId=u772b4d25-09fc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=258&id=ud9c5b6ed&margin=%5Bobject%20Object%5D&name=image.png&originHeight=258&originWidth=565&originalType=binary&ratio=1&rotation=0&showTitle=false&size=105496&status=done&style=none&taskId=u6cd1ebf5-f389-4794-b91f-83636aaf9d7&title=&width=565)
+
+## 告知服务器意图的 HTTP 方法
+
+1.  GET ：获取资源
+1.  POST：传输实体主体
+1.  PUT：传输文件
+1.  HEAD：获得报文首部
+1.  DELETE：删除文件
+1.  OPTIONS：询问支持的方法
+1.  TRACE：追踪路径
+1.  CONNECT：要求用隧道协议连接代理
+
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640845203972-879072ae-6cf8-4bdb-bb89-33ee2113fecb.png#clientId=u772b4d25-09fc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=456&id=uf9a257c4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=456&originWidth=593&originalType=binary&ratio=1&rotation=0&showTitle=false&size=87128&status=done&style=none&taskId=u2554d514-164f-4fa5-81e1-e03037b1422&title=&width=593)
+
+## 持久连接
+
+HTTP 协议的初始版本中，每进行一次 HTTP 通信就要断开一次 TCP 连接。
+
+### 持久连接
+
+为解决上述 TCP 连接的问题，HTTP/1.1 和一部分的 HTTP/1.0 想出了 持久连接（HTTP Persistent Connections，也称为 HTTP keep-alive 或 HTTP connection reuse）的方法。**持久连接的特点是，只要任意一端 没有明确提出断开连接，则保持 TCP 连接状态。 **
+在 HTTP/1.1 中，所有的连接默认都是持久连接，但在 HTTP/1.0 内并 未标准化。虽然有一部分服务器通过非标准的手段实现了持久连接， 但服务器端不一定能够支持持久连接。毫无疑问，除了服务器端，客 户端也需要支持持久连接。
+
+### 管线化
+
+持久连接使得多数请求以管线化（pipelining）方式发送成为可能。从 前发送请求后需等待并收到响应，才能发送下一个请求。管线化技术 出现后，不用等待响应亦可直接发送下一个请求。
+这样就能够做到同时并行发送多个请求，而不需要一个接一个地等待 响应了。  
+![image.png](https://cdn.nlark.com/yuque/0/2021/png/2735637/1640847685821-5b6c49c4-7cee-41f6-ae91-4615bfb77560.png#clientId=u772b4d25-09fc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=295&id=u5937ed37&margin=%5Bobject%20Object%5D&name=image.png&originHeight=295&originWidth=561&originalType=binary&ratio=1&rotation=0&showTitle=false&size=105803&status=done&style=none&taskId=u71ec7c11-3982-4cd0-99be-c48baf13546&title=&width=561)
+
+# HTTP 报文内的 HTTP 信息
+
+## HTTP 报文
+
+用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符串文 本。 HTTP 报文大致可分为报文首部和报文主体两块。两者由最初出现的 空行（CR+LF）来划分。通常，并不一定要有报文主体。
+
+## 请求报文及响应报文的结构
+
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642057668498-f79114b6-85d3-47e7-a4ec-28bc51fb6c3c.png#clientId=u237babab-18c1-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=265&id=u1a299a37&margin=%5Bobject%20Object%5D&name=image.png&originHeight=265&originWidth=573&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89428&status=done&style=none&taskId=ue01fa243-56f7-45f1-9ca6-5a466f98b6b&title=&width=573)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642057760124-5d220f9e-89cd-4e15-96cb-5d96d8b299d2.png#clientId=u237babab-18c1-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=542&id=ue34005a4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=542&originWidth=616&originalType=binary&ratio=1&rotation=0&showTitle=true&size=258787&status=done&style=none&taskId=u7c73850c-9b0a-483f-b032-602a19efc69&title=%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%EF%BC%88%E4%B8%8A%EF%BC%89%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%EF%BC%88%E4%B8%8B%EF%BC%89%E7%9A%84%E7%BB%93%E6%9E%84&width=616 "请求报文（上）和响应报文（下）的结构")
+
+请求报文和响应报文的首部内容由以下数据组成。现在出现的各种首 部字段及状态码稍后会进行阐述。
+
+**请求行 包含用于请求的方法，请求 URI 和 HTTP 版本。 **
+**状态行 包含表明响应结果的状态码，原因短语和 HTTP 版本。 **
+**首部字段 包含表示请求和响应的各种条件和属性的各类首部。 **

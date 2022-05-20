@@ -1,6 +1,9 @@
-<a name="Webpack"></a>
+---
+prev: Vue3
+next: Node.js
+---
 
-# Webpack
+## Webpack
 
 ```
 本篇博客由慕课网视频[从基础到实战手把手带你掌握新版Webpack4.0](https://coding.imooc.com/class/316.html)阅读整理而来，观看视频请支持正版。

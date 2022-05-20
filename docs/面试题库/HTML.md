@@ -1,8 +1,9 @@
-<a name="5cffe6f3"></a>
+---
+prev: 通信类
+next: CSS
+---
 
-## HTML 相关:
-
-<a name="e2cc26b4"></a>
+## HTML
 
 ### W3C 标准
 
