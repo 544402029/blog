@@ -48,6 +48,9 @@ module.exports = {
           { text: '设计模式', link: '/前端笔记/设计模式.md' },
           { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
           { text: 'linux命令', link: '/前端笔记/linux命令.md' },
+          { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
+          { text: '图解HTTP', link: '/前端笔记/图解HTTP.md' },
+          { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
         ],
       },
       {
