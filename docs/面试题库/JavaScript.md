@@ -192,7 +192,7 @@ var newObj = JSON.parse(JSON.stringify(obj));
 
 **类型转换表格**
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584178443591.png#crop=0&crop=0&crop=1&crop=1&id=XedSv&originHeight=715&originWidth=806&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/boolean.png)
 
 <a name="352035bd"></a>
 
@@ -303,7 +303,7 @@ a > -1; // true
 
 `==`运算流程图
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584320285922.png#crop=0&crop=0&crop=1&crop=1&id=ZpjTD&originHeight=479&originWidth=1219&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/yuansuanliuchengtu.png)
 
 <a name="JSON"></a>
 
@@ -397,7 +397,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 作用域分为局部作用域和全局作用域，处在局部作用域里面可以访问到全局作用域的变量，而在局部作用域外面就访问不到局部作用域里面所声明的变量。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1582641721107.png#crop=0&crop=0&crop=1&crop=1&id=DhfBk&originHeight=602&originWidth=652&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)d
+![输入图片说明](../../static/images/zuoyongyu.png)
 
 <a name="f1902461"></a>
 
@@ -550,9 +550,9 @@ console.log(c.get("a")); //100
 
 #### 内存泄漏
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1644389295573-d9e7fc9b-a3c4-4a90-b493-57fc24717f1d.png#clientId=ufe45f3bf-e57d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=752&id=u99f87276&margin=%5Bobject%20Object%5D&name=image.png&originHeight=752&originWidth=639&originalType=binary&ratio=1&rotation=0&showTitle=false&size=164997&status=done&style=none&taskId=ub47bc8a1-525f-45b3-9f3c-ffe5bd520c0&title=&width=639)
+![输入图片说明](../../static/images/neicunxielou.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1644801716315-358dd31d-0d47-47ee-8f81-e0002f2318cc.png#clientId=u362e9c2e-fcaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=616&id=ud679e74c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=585&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90767&status=done&style=none&taskId=ua9306dee-aca5-47b8-8747-27e9027e379&title=&width=585)
+![输入图片说明](../../static/images/neicunxielou2.png)
 <a name="8da93974"></a>
 
 ### this 全解析
@@ -693,7 +693,7 @@ console.log(instance.user);
 
 #### 原型与原型链的理解,它们有什么特点?
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1587033507396.png#crop=0&crop=0&crop=1&crop=1&id=mKtcC&originHeight=904&originWidth=712&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/yuanxinglian.png)
 
 **原型:**
 
@@ -1595,7 +1595,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 #### 事件循环执行顺序？
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1584321815238.png#crop=0&crop=0&crop=1&crop=1&id=dtihS&originHeight=642&originWidth=1597&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/shijianxunhuan.png)
 
 Event Loop 执行顺序如下所示：
 
