@@ -379,7 +379,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 远程引入<br />![输入图片说明](../../static/images/yuanchengyinru.png)
 
-动态引入<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1647966653656-c121ebb1-c829-474b-9f14-ae7224c8ba0c.png#clientId=uc0a7b48f-3dc9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=809&id=uadde6751&margin=%5Bobject%20Object%5D&name=image.png&originHeight=809&originWidth=1487&originalType=binary&ratio=1&rotation=0&showTitle=false&size=549342&status=done&style=none&taskId=u9f70e495-4aa6-4823-870e-1dc3337ab15&title=&width=1487)
+动态引入<br />![输入图片说明](../../static/images/dongtaiyinru.png)
 
 <a name="KlxuR"></a>
 
