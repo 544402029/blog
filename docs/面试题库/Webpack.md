@@ -2435,7 +2435,7 @@ npm i react-router-dom --save
 
 ![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581305524595.png#crop=0&crop=0&crop=1&crop=1&id=bSVs5&originHeight=234&originWidth=655&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581305604057.png#crop=0&crop=0&crop=1&crop=1&id=hTU0j&originHeight=721&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/langduibuxing.png)
 
 想要达到我们预期的效果， 需要配置 devServer
 
@@ -2498,23 +2498,22 @@ npm i babel-eslint --save-dev
 
 .eslintrc.js
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581321894655.png#crop=0&crop=0&crop=1&crop=1&id=BABCM&originHeight=484&originWidth=780&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
+![输入图片说明](../../static/images/buwena.png)
 <a name="2ff3e803"></a>
 
 ### vscode 中的 ESlint
 
 其实我们也可以不借助 webpack， 直接使用编辑器自带的插件， 如 vscode 的 Eslint 插件， 这样使用会更加方便！
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581322311277.png#crop=0&crop=0&crop=1&crop=1&id=hL9r4&originHeight=719&originWidth=1206&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/zaichongyiba.png)
 
 如果我们的团队有些规范并不想要符合 airbnb 它的规范， 我们可以这么配置：<br />首先复制出规范的名称， 如下图：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581322311277.png#crop=0&crop=0&crop=1&crop=1&id=MF33T&originHeight=719&originWidth=1206&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/qiangnuzhimo.png)
 
 然后再.eslintrc.js 文件的 rules 里进行配置：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581322523659.png#crop=0&crop=0&crop=1&crop=1&id=uU23y&originHeight=844&originWidth=1215&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/eslintrc.png)
 
 假设我们团队有一个同学使用的不是 vscode， 他没有这样的语法提示， 就会跟我们写的代码不一样。 这时候我们就需要借助 webpack 了：
 
@@ -2526,7 +2525,7 @@ npm i eslint-loader --save-dev
 
 然后再 webpack.config.js 配置
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581324116998.png#crop=0&crop=0&crop=1&crop=1&id=Ad2Ba&originHeight=649&originWidth=876&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/config.jswebpack.png)
 
 ```
 eslint-loader  一定要写在后面， 只有语法正确再进行转义或者其它。因为loader是先执行后边再执行前边的。
@@ -2568,7 +2567,7 @@ fix: true   自动帮你修复比较浅显的问题<br />force: 'pre'   强制
 
 ### 最佳实践
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581325186126.png#crop=0&crop=0&crop=1&crop=1&id=NOZdM&originHeight=75&originWidth=374&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/gitgouzi.png)
 
 不用配置 webpack， 直接使用 git 的钩子， 再提交代码时验证语法。
 
@@ -2586,9 +2585,9 @@ fix: true   自动帮你修复比较浅显的问题<br />force: 'pre'   强制
 
 可以干掉的配置：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581328365481.png#crop=0&crop=0&crop=1&crop=1&id=aqgmH&originHeight=479&originWidth=1000&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/woshishui8.png)
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581328466766.png#crop=0&crop=0&crop=1&crop=1&id=T2gPF&originHeight=387&originWidth=921&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/gandiaopeizhi.png)
 
 <a name="95759741"></a>
 
@@ -2598,7 +2597,7 @@ fix: true   自动帮你修复比较浅显的问题<br />force: 'pre'   强制
 
 #### 4. resolve 参数合理配置
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581338439074.png#crop=0&crop=0&crop=1&crop=1&id=lM0La&originHeight=525&originWidth=1361&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/resolvecanshu.png)
 
 extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
 
@@ -2636,7 +2635,7 @@ module.exports = {
 
 运行命令打包组件库：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581340464578.png#crop=0&crop=0&crop=1&crop=1&id=GY3sS&originHeight=455&originWidth=1032&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/dabaozuyjianku.png)
 
 然后安装一个插件：
 
@@ -2720,7 +2719,7 @@ mode: "development",
 
 配置 entry：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581348485812.png#crop=0&crop=0&crop=1&crop=1&id=EzuQG&originHeight=531&originWidth=1063&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/entrywebpack.png)
 
 想要添加多页面首先在 src 目录增加对应的 js 文件，然后在 entry 增加入口文件
 
@@ -3001,19 +3000,19 @@ module.exports = {
 
 #### node 调试工具
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581416533175.png#crop=0&crop=0&crop=1&crop=1&id=VhIEB&originHeight=497&originWidth=1063&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/nodetiaoshigongju.png)
 
 --inspect 开启 node 调试工具<br />--inspect-brk webpack 执行命令的第一行打断点
 
 输入 npm run debug 后打开浏览器， 点击控制台左上角 node 小图标
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581417091635.png#crop=0&crop=0&crop=1&crop=1&id=kdakR&originHeight=383&originWidth=895&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/nodetiaoshi.png)
 
 这时候我们就可以看到插件的详细信息了
 
 可在 watch 增加 compilation 的监控
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581417275112.png#crop=0&crop=0&crop=1&crop=1&id=SC9KD&originHeight=311&originWidth=475&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/compations.png)
 
 <a name="a16c63c9"></a>
 
@@ -3267,7 +3266,7 @@ vue.config.js
 
 - module： 各个源码文件， webpack 中一切皆模块
 - chunk： 多模块合并成的， 如 entry import() splitChunk
-- bundle： 最终输出的文件<br />![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586269587649.png#crop=0&crop=0&crop=1&crop=1&id=ojXzu&originHeight=644&originWidth=1211&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+- bundle： 最终输出的文件<br />![输入图片说明](../../static/images/bundle.png)
 
 <a name="deb9a466"></a>
 
@@ -3275,7 +3274,7 @@ vue.config.js
 
 1. Node， Npm/Yarn 更新到最新版本
 1. Plugin 尽可能精简可靠
-1. resolve 参数合理配置<br />![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1587699103634.png#crop=0&crop=0&crop=1&crop=1&id=j1QDA&originHeight=137&originWidth=862&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)<br />extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
+1. resolve 参数合理配置<br />![输入图片说明](../../static/images/resolve.png)<br />extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
 1. 合理使用 SourceMap<br />不要太详细，配置合适的即可
 
 <a name="18207973"></a>
@@ -3437,7 +3436,7 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 - 项目较大， 打包较慢， 开启多进程能提高速度
 - 项目较小， 打包很快， 开启多进程会降低速度（进程开销/启动/销毁/通讯）
 
-6. 自动刷新<br />![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586357734941.png#crop=0&crop=0&crop=1&crop=1&id=uBN2O&originHeight=566&originWidth=1249&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+6. 自动刷新<br />![输入图片说明](../../static/images/zidongshuaxin.png)
 
 一般不用配置， 直接使用 devServer 就可以了。
 
@@ -3600,7 +3599,7 @@ module.exports = {
 
 配置：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586335058993.png#crop=0&crop=0&crop=1&crop=1&id=iANWP&originHeight=447&originWidth=1389&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/biezhuawpo.png)
 
 <a name="009d093a"></a>
 
@@ -3673,7 +3672,7 @@ module.exports = {
 
 <br />output.library
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1586355478433.png#crop=0&crop=0&crop=1&crop=1&id=ZldVc&originHeight=376&originWidth=536&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/output.png)
 
 <a name="90c940ba"></a>
 
