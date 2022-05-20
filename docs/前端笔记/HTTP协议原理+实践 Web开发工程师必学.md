@@ -1,6 +1,6 @@
 # 5 层网络模型
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1641724679523-65024daf-498d-43fb-800a-c952e0cfee27.png#clientId=u39c1ff95-5071-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=810&id=ub4259a85&margin=%5Bobject%20Object%5D&name=image.png&originHeight=810&originWidth=1192&originalType=binary&ratio=1&rotation=0&showTitle=false&size=192665&status=done&style=none&taskId=ubdf5da0c-024e-4078-b96c-f16da9fcc14&title=&width=1192)
+![输入图片说明](../../static/images/wucengmoxing.png)
 
 ## 物理层
 
@@ -37,11 +37,11 @@ TCP/IP 协议， UDP 协议处于该层。
 
 # 发展历史
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642786434418-767f577f-bf11-48e9-a2cc-5926358652d5.png#clientId=ua138ee1d-d66a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=795&id=u1dfdb6db&margin=%5Bobject%20Object%5D&name=image.png&originHeight=795&originWidth=1488&originalType=binary&ratio=1&rotation=0&showTitle=false&size=149843&status=done&style=none&taskId=uc0cc31be-2b36-492f-8615-ba654e87732&title=&width=1488)
+![输入图片说明](../../static/images/http0.9.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642786468041-b9973717-8a43-4637-b7bb-b1326b88ac0b.png#clientId=ua138ee1d-d66a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=851&id=u0f298e99&margin=%5Bobject%20Object%5D&name=image.png&originHeight=851&originWidth=1591&originalType=binary&ratio=1&rotation=0&showTitle=false&size=140913&status=done&style=none&taskId=u1cb43ff6-69c3-4daa-adf6-7d4d08cdbce&title=&width=1591)
+![输入图片说明](../../static/images/http1.0.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642786512137-21b19a0f-44f8-44ec-8562-5780af47a921.png#clientId=ua138ee1d-d66a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=828&id=u9d48ab45&margin=%5Bobject%20Object%5D&name=image.png&originHeight=828&originWidth=1572&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49638&status=done&style=none&taskId=u7c406e72-31b7-4338-b44a-29c442c5835&title=&width=1572)
+![输入图片说明](../../static/images/http1.1.png)
 
 ### 持久连接
 
