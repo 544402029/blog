@@ -17,28 +17,33 @@ module.exports = {
       {
         text: '面试题库',
         items: [
-          { text: '基础面试', link: '/面试题库/基础面试题.md' },
-		  { text: '中级面试', link: '/面试题库/中级面试题.md' },
-          { text: 'Vue常考面试题', link: '/面试题库/Vue.md' },
+          { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
+          { text: '通信类', link: '/面试题库/通信类.md' },
+          { text: 'HTML', link: '/面试题库/HTML.md' },
+          { text: 'CSS', link: '/面试题库/CSS.md' },
+          { text: 'JavaScript', link: '/面试题库/JavaScript.md' },
+          { text: '笔试题', link: '/面试题库/笔试题.md' },
+          { text: 'Vue', link: '/面试题库/Vue.md' },
+          { text: 'Vue3', link: '/面试题库/Vue3.md' },
+          { text: 'Webpack', link: '/面试题库/Webpack.md' },
+          { text: 'Node.js', link: '/面试题库/Node.js.md' },
+          { text: '其它', link: '/面试题库/其它.md' },
+          { text: 'vue的diff算法', link: '/面试题库/vue的diff算法.md' },
         ],
       },
       {
-        text: 'CSS',
+        text: '常用代码片段',
         items: [
-          { text: 'CSS常用代码片段', link: '/CSS/CSS常用代码片段/' }
+          { text: 'CSS常用代码片段', link: '/常用代码片段/CSS常用代码片段.md' },
+          { text: 'JS常用代码片段', link: '/常用代码片段/JS常用代码片段.md' },
         ],
       },
       {
-        text: 'JavaScript',
+        text: '前端笔记',
         items: [
-          { text: 'JavaScript常用代码片段', link: '/JavaScript/JavaScript常用代码片段/' },
-          {
-            text: 'JavaScript高级程序设计',
-            link: '/JavaScript/JavaScript高级程序设计/',
-          },
-          { text: '深入理解ES6', link: '/JavaScript/ES6/' },
-          { text: '正则表达式', link: '/JavaScript/正则表达式/' },
-					{ text: '设计模式', link: '/JavaScript/设计模式/' }
+          { text: '深入理解ES6', link: '/前端笔记/深入理解 ES6.md' },
+          { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
+          { text: '设计模式', link: '/前端笔记/设计模式.md' }
         ],
       },
       {
@@ -46,7 +51,7 @@ module.exports = {
         items: [
           { text: 'Vue使用', link: '/vue/vue使用/' },
           { text: 'Vue技巧', link: '/vue/vue技巧/' },
-					{ text: 'Vue源码解析', link: '/vue/vue源码解析/' },
+          { text: 'Vue源码解析', link: '/vue/vue源码解析/' },
         ],
       },
       { text: '小程序', items: [{ text: '小程序', link: '/小程序/' }] },
@@ -54,7 +59,6 @@ module.exports = {
         text: '前端工具',
         items: [
           { text: 'Git', link: '/前端工具/git/' },
-          { text: 'webpack', link: '/前端工具/webpack/' },
           { text: 'chrome调试', link: '/前端工具/chrome调试/' },
           { text: 'linux命令', link: '/前端工具/linux命令/' },
         ],
@@ -81,11 +85,11 @@ module.exports = {
             link:
               '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网/',
           },
-					{
-					  text: 'Koa2新浪博客',
-					  link:
-					    '/Node.js/Koa2新浪博客/',
-					}
+          {
+            text: 'Koa2新浪博客',
+            link:
+              '/Node.js/Koa2新浪博客/',
+          }
         ],
       },
     ],
