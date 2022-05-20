@@ -7,7 +7,6 @@ next: JavaScript
 
 ### css 单位
 
-<a name="51fe9bfc"></a>
 
 #### 解释一下 CSS 里的两个单位：em 和 rem，你一般怎么使用它们？
 
@@ -698,7 +697,7 @@ span {
 
 #### 如何实现下图九宫格的效果?鼠标滑过边框显示红色?
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1587617549626.png#crop=0&crop=0&crop=1&crop=1&id=OMOx2&originHeight=430&originWidth=432&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![输入图片说明](../../static/images/image.png)
 
 ```css
 .wrap {
