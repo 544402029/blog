@@ -5,7 +5,9 @@ next: Webpack
 
 ## Vue3
 
-![](https://cdn.nlark.com/yuque/0/2022/png/2735637/1648139575088-adaa9854-3e32-41aa-9734-629d0a5dc62d.png#clientId=ub8460f8f-9968-4&crop=0&crop=0&crop=1&crop=1&id=Q7riC&originHeight=3759&originWidth=641&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u1b6b3b78-4bd1-406b-b430-73edb4147e8&title=)
+
+
+![Vue3升级说明](../../static/images/1622731226157.png)
 
 <a name="4e686315"></a>
 
