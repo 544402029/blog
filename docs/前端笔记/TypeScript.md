@@ -7,8 +7,7 @@
 TypeScript 是 JavaScript 的超集，拥有（静态）类型机制。
 如图所示：
 
-![示例](https://gitee.com/l544402029/res/raw/master/小书匠/1584497018443.png)
-
+![输入图片说明](../../static/images/shili.png)
 ![错误信息](https://gitee.com/l544402029/res/raw/master/小书匠/1584497055265.png)
 
 当我定义`a`的时候已经被定义为就只能存`number`类型， 不能存其他类型。
