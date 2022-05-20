@@ -697,7 +697,7 @@ span {
 
 #### 如何实现下图九宫格的效果?鼠标滑过边框显示红色?
 
-![输入图片说明](../../static/images/image.png)
+![输入图片说明](../../static/images/jiugongge.png)
 
 ```css
 .wrap {
