@@ -277,7 +277,7 @@ export const throttle = (fn, wait, immediate) => {
 };
 ```
 
-## js 浮点数计算加减乘除精度损失解决方法
+## 浮点数精度丢失
 
 ```js
 /**
@@ -649,7 +649,7 @@ export const randomNumber = (n) => {
 };
 ```
 
-## 随机生成一个自定义长度，不重复的字母加数字组合，可用来做 id 标识
+## 生成随机ID
 
 ```js
 /**
@@ -664,7 +664,7 @@ export const randomId =(randomLength = 10) =>{
 },
 ```
 
-## js 数组去重(复杂数据有 ID 的情况下)
+## 数组去重
 
 ```js
 /**
