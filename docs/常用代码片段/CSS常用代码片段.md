@@ -180,7 +180,7 @@ overflow: hidden;
 
 ```css
 word-wrap: break-word;
-word-break：break-all;
+word-break: break-all;
 ```
 
 
