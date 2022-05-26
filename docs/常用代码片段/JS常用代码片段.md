@@ -1,5 +1,24 @@
 # JS 常用代码片段
 
+## Vue项目修改项目标题
+
+此配置可更改掉index.html的 `<%= htmlWebpackPlugin.options.title %>`
+
+vue.config.js
+```js
+module.exports = {
+    chainWebpack: config => {
+        config
+            .plugin('html')
+            .tap(args => {
+                args[0].title = '光伏报单'
+                return args
+            })
+    }
+}
+```
+
+
 ## 金额千分位加逗号
 
 比如说 999999999，直接阅读很不直观，格式化后 999,999,999或者999,999,999.00
