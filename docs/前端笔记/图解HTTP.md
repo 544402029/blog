@@ -197,3 +197,59 @@ HTTP 协议的初始版本中，每进行一次 HTTP 通信就要断开一次 TC
 
 HTTP/1.1 中存在一种称为传输编码（Transfer Coding）的机制，它可以在通信时按某种编码方式传输，但只定义作用于分块传输编码中。
 
+### 发送多种数据的多部分对象集合
+
+![输入图片说明](../../static/images/duobufenduixiang.png)
+
+HTTP 协议中也采纳了多部分对象集合，发送的一份报文主体内可含有多类型实体。通常是在图片或文本文件等上传时使用。
+
+- multipart/form-data
+
+    在 Web 表单文件上传时使用。
+
+- multipart/byteranges
+    
+    状态码 206（Partial Content，部分内容）响应报文包含了多个范
+围的内容时使用。
+
+- multipart/form-data
+
+    ![输入图片说明](../../static/images/from-data.png)
+
+
+- multipart/byteranges
+
+    ![输入图片说明](../../static/images/shangban.png)
+    ![输入图片说明](../../static/images/xiaban.png)
+
+在 HTTP 报文中使用多部分对象集合时，需要在首部字段里加上 ** Content-type** 。
+
+## 获取部分内容的范围请求
+
+以前，用户不能使用现在这种高速的带宽访问互联网，当时，下载一个尺寸稍大的图片或文件就已经很吃力了。如果下载过程中遇到网络
+中断的情况，那就必须重头开始。为了解决上述问题，需要一种可恢复的机制。所谓恢复是指能从之前下载中断处恢复下载。
+
+要实现该功能需要指定下载的实体范围。像这样，指定范围发送的请求叫做范围请求（Range Request）。
+
+对一份 10 000 字节大小的资源，如果使用范围请求，可以只请求
+5001~10 000 字节内的资源。
+
+![输入图片说明](../../static/images/fanweiqingqiu.png)
+
+执行范围请求时，会用到首部字段 Range 来指定资源的 byte 范围。byte 范围的指定形式如下。
+
+- 5001~10 000 字节
+
+    `Range: bytes=5001-10000`
+
+- 从 5001 字节之后全部的
+
+    `Range: bytes=5001-`
+
+- 从一开始到 3000 字节和 5000~7000 字节的多重范围
+    
+    `Range: bytes=-3000, 5000-7000`
+
+针对范围请求，响应会返回状态码为 206 Partial Content 的响应报文。另外，对于多重范围的范围请求，响应会在首部字段 ContentType 标明 multipart/byteranges 后返回响应报文。
+
+如果服务器端无法响应范围请求，则会返回状态码 200 OK 和完整的实体内容。
