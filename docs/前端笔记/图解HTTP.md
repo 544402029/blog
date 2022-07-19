@@ -273,3 +273,46 @@ HTTP 协议中也采纳了多部分对象集合，发送的一份报文主体内
 
 `Cache-Control: private, max-age=0, no-cache`
 
+![表 6-5：缓存请求指令](../../static/images/cache1.png)
+
+![表 6-6：缓存响应指令](../../static/images/biao6-6.png)
+
+#### no-cache 指令
+
+![no-cache 指令](../../static/images/no-cache.png)
+
+`Cache-Control: no-cache`
+
+使用 no-cache 指令的目的是为了防止从缓存中返回过期的资源。
+
+客户端发送的请求中如果包含 no-cache 指令，则表示客户端将不会接收缓存过的响应。于是，“中间”的缓存服务器必须把客户端请求转发给源服务器。
+
+如果服务器返回的响应中包含 no-cache 指令，那么缓存服务器不能对资源进行缓存。源服务器以后也将不再对缓存服务器请求中提出的资源有效性进行确认，且禁止其对响应资源进行缓存操作。
+
+`Cache-Control: no-cache=Location`
+
+由服务器返回的响应中，若报文首部字段 Cache-Control 中对 no-cache 字段名具体指定参数值，那么客户端在接收到这个被指定参数值的首部字段对应的响应报文后，就不能使用缓存。换言之，无参数值的首部字段可以使用缓存。只能在响应指令中指定该参数。
+
+#### 控制可执行缓存的对象的指令
+
+no-store 指令
+
+`Cache-Control: no-store`
+
+当使用 no-store 指令时，暗示请求（和对应的响应）或响应中包含机密信息。
+
+从字面意思上很容易把 no-cache 误解成为不缓存，但事实上 no-cache 代表不缓存过期的资源，缓存会向源服务器进行有效期确认后处理资源，也许称为 do-not-serve-from-cache-without-revalidation 更合适。no-store 才是真正地不进行缓存，请读者注意区别理解。
+
+因此，该指令规定缓存不能在本地存储请求或响应的任一部分。
+
+#### 指定缓存期限和认证的指令
+
+s-maxage 指令
+
+`Cache-Control: s-maxage=604800（单位 ：秒）`
+
+s-maxage 指令的功能和 max-age 指令的相同，它们的不同点是 s-maxage 指令只适用于供多位用户使用的公共缓存服务器(代理服务器)。也就是
+说，对于向同一用户重复返回响应的服务器来说，这个指令没有任何作用。
+
+
+
