@@ -255,8 +255,21 @@ HTTP 协议中也采纳了多部分对象集合，发送的一份报文主体内
 如果服务器端无法响应范围请求，则会返回状态码 200 OK 和完整的实体内容。
 
 
-# 与 HTTP 协作的 Web 服务器
+# HTTP 首部
 
+## HTTP 首部字段
 
+### HTTP 首部字段传递重要信息
 
+使用首部字段是为了给浏览器和服务器提供报文主体大小、所使用的语言、认证信息等内容。
+
+![首部字段](../../static/images/shoubuziduan.png)
+
+## HTTP/1.1 通用首部字段
+
+### Cache-Control
+
+![Cache-Control](../../static/images/cachecontrol.png)
+
+`Cache-Control: private, max-age=0, no-cache`
 
