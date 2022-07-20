@@ -345,6 +345,252 @@ min-fresh 指令要求缓存服务器返回至少还未过指定时间的缓存�
 使用 max-stale 可指示缓存资源，即使过期也照常接收。
 如果指令未指定参数值，那么无论经过多久，客户端都会接收响应；如果指令中指定了具体数值，那么即使过期，只要仍处于 max-stale指定的时间内，仍旧会被客户端接收。
 
+#### only-if-cached 指令
+
+`Cache-Control: only-if-cached`
+
+使用 only-if-cached 指令表示客户端仅在缓存服务器本地缓存目标资源的情况下才会要求其返回。换言之，该指令要求缓存服务器不重新加载响应，也不会再次确认资源有效性。若发生请求缓存服务器的本地缓存无响应，则返回状态码 504 Gateway Timeout。
+
+
+#### must-revalidate 指令
+
+`Cache-Control: must-revalidate`
+
+使用 must-revalidate 指令，代理会向源服务器再次验证即将返回的响应缓存目前是否仍然有效。
+
+若代理无法连通源服务器再次获取有效资源的话，缓存必须给客户端一条 504（Gateway Timeout）状态码。
+
+另外，使用 must-revalidate 指令会忽略请求的 max-stale 指令（即使已经在首部使用了 max-stale，也不会再有效果）。
+
+#### proxy-revalidate 指令
+
+`Cache-Control: proxy-revalidate`
+
+proxy-revalidate 指令要求所有的缓存服务器在接收到客户端带有该指令的请求返回响应之前，必须再次验证缓存的有效性。
+
+
+#### no-transform 指令
+
+`Cache-Control: no-transform`
+
+使用 no-transform 指令规定无论是在请求还是响应中，缓存都不能改变实体主体的媒体类型。
+
+这样做可防止缓存或代理压缩图片等类似操作。
+
+
+### Cache-Control 扩展
+
+#### cache-extension token
+
+`Cache-Control: private, community="UCI"`
+
+通过 cache-extension 标记（token），可以扩展 Cache-Control 首部字段内的指令。
+
+如上例，Cache-Control 首部字段本身没有 community 这个指令。借助 extension tokens 实现了该指令的添加。如果缓存服务器不能理解 community 这个新指令，就会直接忽略。因此，extension tokens 仅对能理解它的缓存服务器来说是有意义的。
+
+### Connection
+
+Connection 首部字段具备如下两个作用。
+
+* 控制不再转发给代理的首部字段
+* 管理持久连接
+* 控制不再转发给代理的首部字段
+
+![Connection](../../static/images/connection3.png)
+
+在客户端发送请求和服务器返回响应内，使用 Connection 首部字段，可控制不再转发给代理的首部字段（即 Hop-by-hop 首部）。
+
+* 管理持久连接
+
+![Connection: close](../../static/images/connection2.png)
+
+`Connection: close`
+
+HTTP/1.1 版本的默认连接都是持久连接。为此，客户端会在持久连接上连续发送请求。当服务器端想明确断开连接时，则指定 Connection 首部字段的值为 Close。
+
+![持久连接](../../static/images/keep-alive.png)
+
+`Connection: Keep-Alive`
+
+HTTP/1.1 之前的 HTTP 版本的默认连接都是非持久连接。为此，如果想在旧版本的 HTTP 协议上维持持续连接，则需要指定Connection 首部字段的值为 Keep-Alive。
+
+如上图①所示，客户端发送请求给服务器时，服务器端会像上图②那样加上首部字段 Keep-Alive 及首部字段 Connection 后返回响应。
+
+### Date
+
+首部字段 Date 表明创建 HTTP 报文的日期和时间。
+
+HTTP/1.1 协议使用在 RFC1123 中规定的日期时间的格式，如下 示例。
+
+`Date: Tue, 03 Jul 2012 04:40:59 GMT`
+
+之前的 HTTP 协议版本中使用在 RFC850 中定义的格式，如下所示。
+
+`Date: Tue, 03-Jul-12 04:40:59 GMT`
+
+除此之外，还有一种格式。它与 C 标准库内的 asctime() 函数的输出格式一致。
+
+`Date: Tue Jul 03 04:40:59 2012`
+
+
+### Pragma
+
+Pragma 是 HTTP/1.1 之前版本的历史遗留字段，仅作为与 HTTP/1.0的向后兼容而定义。
+
+规范定义的形式唯一，如下所示。
+
+`Pragma: no-cache`
+
+该首部字段属于通用首部字段，但只用在客户端发送的请求中。客户端会要求所有的中间服务器不返回缓存的资源。
+
+![Pragma](../../static/images/pragma.png)
+
+所有的中间服务器如果都能以 HTTP/1.1 为基准，那直接采用 CacheControl: no-cache 指定缓存的处理方式是最为理想的。但要整体掌握
+全部中间服务器使用的 HTTP 协议版本却是不现实的。因此，发送的请求会同时含有下面两个首部字段。
+
+
+```
+Cache-Control: no-cache
+Pragma: no-cache
+```
+
+### Trailer
+
+![Trailer](../../static/images/Trailer.png)
+
+首部字段 Trailer 会事先说明在报文主体后记录了哪些首部字段。该首部字段可应用在 HTTP/1.1 版本分块传输编码时。
+
+![分块传输编码时](../../static/images/chuanshubianma.png.png)
+
+### Transfer-Encoding
+
+![Transfer-Encoding](../../static/images/transfer.png)
+
+首部字段 Transfer-Encoding 规定了传输报文主体时采用的编码方式。
+
+HTTP/1.1 的传输编码方式仅对分块传输编码有效。
+
+![ Transfer-Encoding](../../static/images/%20Transfer-Encoding.png)
+
+以上用例中，正如在首部字段 Transfer-Encoding 中指定的那样，有效使用分块传输编码，且分别被分成 3312 字节和 914 字节大小的分块数据。
+
+
+### Upgrade
+
+首部字段 Upgrade 用于检测 HTTP 协议及其他协议是否可使用更高的版本进行通信，其参数值可以用来指定一个完全不同的通信协议。
+
+![Upgrade](../../static/images/Upgrade.png)
+
+上图用例中，首部字段 Upgrade 指定的值为 TLS/1.0。请注意此处两个字段首部字段的对应关系，Connection 的值被指定为 Upgrade。Upgrade 首部字段产生作用的 Upgrade 对象仅限于客户端和邻接服务器之间。因此，使用首部字段 Upgrade 时，还需要额外指定Connection:Upgrade。
+
+对于附有首部字段 Upgrade 的请求，服务器可用 101 Switching Protocols 状态码作为响应返回。
+
+
+### Via
+
+使用首部字段 Via 是为了追踪客户端与服务器之间的请求和响应报文的传输路径。
+
+报文经过代理或网关时，会先在首部字段 Via 中附加该服务器的信息，然后再进行转发。这个做法和 traceroute 及电子邮件的 Received
+首部的工作机制很类似。
+
+首部字段 Via 不仅用于追踪报文的转发，还可避免请求回环的发生。所以必须在经过代理时附加该首部字段内容。
+
+![via](../../static/images/via.png)
+
+上图用例中，在经过代理服务器 A 时，Via 首部附加了“1.0 gw.hackr.jp (Squid/3.1)”这样的字符串值。行头的 1.0 是指接收请求的服务器上应用的 HTTP 协议版本。接下来经过代理服务器 B 时亦是如此，在 Via 首部附加服务器信息，也可增加 1 个新的 Via 首部写入服务器信息。
+
+Via 首部是为了追踪传输路径，所以经常会和 TRACE 方法一起使用。比如，代理服务器接收到由 TRACE 方法发送过来的请求（其中Max-Forwards: 0）时，代理服务器就不能再转发该请求了。这种情况下，代理服务器会将自身的信息附加到 Via 首部后，返回该请求的响应。
+
+
+### Warning
+
+HTTP/1.1 的 Warning 首部是从 HTTP/1.0 的响应首部（Retry-After）演变过来的。该首部通常会告知用户一些与缓存相关的问题的警告。
+
+`Warning: 113 gw.hackr.jp:8080 "Heuristic expiration" Tue, 03 Jul 2012 05:09:44 GMT`
+
+Warning 首部的格式如下。最后的日期时间部分可省略。
+
+`Warning: [警告码][警告的主机:端口号]“[警告内容]”([日期时间])`
+
+HTTP/1.1 中定义了 7 种警告。警告码对应的警告内容仅推荐参考。另外，警告码具备扩展性，今后有可能追加新的警告码。
+
+![表 6-7：HTTP/1.1 警告码](../../static/images/HTTP/1.1%20%E8%AD%A6%E5%91%8A%E7%A0%81.png)
+
+
+## 请求首部字段
+
+请求首部字段是从客户端往服务器端发送请求报文中所使用的字段，用于补充请求的附加信息、客户端信息、对响应内容相关的优先级等内容。
+
+
+### Accept
+
+![Accept](../../static/images/accept.png)
+
+`Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`
+
+Accept 首部字段可通知服务器，用户代理能够处理的媒体类型及媒体类型的相对优先级。可使用 type/subtype 这种形式，一次指定多种媒体类型。
+
+下面我们试举几个媒体类型的例子。
+
+* 文本文件
+
+text/html, text/plain, text/css ...
+
+application/xhtml+xml, application/xml ...
+
+* 图片文件
+
+image/jpeg, image/gif, image/png ...
+
+* 视频文件
+
+video/mpeg, video/quicktime ...
+
+* 应用程序使用的二进制文件
+
+application/octet-stream, application/zip ...
+
+比如，如果浏览器不支持 PNG 图片的显示，那 Accept 就不指定 image/png，而指定可处理的 image/gif 和 image/jpeg 等图片类型。
+
+若想要给显示的媒体类型增加优先级，则使用 q= 来额外表示权重值，用分号（;）进行分隔。权重值 q 的范围是 0~1（可精确到小数点后 3 位），且 1 为最大值。不指定权重 q 值时，默认权重为 q=1.0。
+
+当服务器提供多种内容时，将会首先返回权重值最高的媒体类型。
+
+### Accept-Charset
+
+![Accept-Charset](../../static/images/charset.png)
+
+`Accept-Charset: iso-8859-5, unicode-1-1;q=0.8`
+
+Accept-Charset 首部字段可用来通知服务器用户代理支持的字符集及字符集的相对优先顺序。另外，可一次性指定多种字符集。与首部字
+段 Accept 相同的是可用权重 q 值来表示相对优先级。
+
+该首部字段应用于内容协商机制的服务器驱动协商。
+
+### Accept-Encoding
+
+![Accept-Encoding](../../static/images/encoding.png)
+
+`Accept-Encoding: gzip, deflate`
+
+Accept-Encoding 首部字段用来告知服务器用户代理支持的内容编码及内容编码的优先级顺序。可一次性指定多种内容编码。
+
+下面试举出几个内容编码的例子。
+
+* gzip
+
+由文件压缩程序 gzip（GNU zip）生成的编码格式（RFC1952），采用 Lempel-Ziv 算法（LZ77）及 32 位循环冗余校验（Cyclic Redundancy Check，通称 CRC）。
+
+* compress
+
+由 UNIX 文件压缩程序 compress 生成的编码格式，采用 LempelZiv-Welch 算法（LZW）。deflate 组合使用 zlib 格式（RFC1950）及由 deflate 压缩算法（RFC1951）生成的编码格式。
+
+* identity
+
+不执行压缩或不会变化的默认编码格式采用权重 q 值来表示相对优先级，这点与首部字段 Accept 相同。另外，也可使用星号（*）作为通配符，指定任意的编码格式。
+
+
+
 
 
 
