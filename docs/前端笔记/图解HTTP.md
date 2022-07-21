@@ -589,6 +589,91 @@ Accept-Encoding 首部字段用来告知服务器用户代理支持的内容编�
 
 不执行压缩或不会变化的默认编码格式采用权重 q 值来表示相对优先级，这点与首部字段 Accept 相同。另外，也可使用星号（*）作为通配符，指定任意的编码格式。
 
+### Accept-Language
+
+![Accept-Language](../../static/images/HTTP/accept-language.png)
+
+首部字段 Accept-Language 用来告知服务器用户代理能够处理的自然语言集（指中文或英文等），以及自然语言集的相对优先级。可一次
+指定多种自然语言集。
+
+和 Accept 首部字段一样，按权重值 q 来表示相对优先级。在上述图例中，客户端在服务器有中文版资源的情况下，会请求其返回中文版
+对应的响应，没有中文版时，则请求返回英文版响应。
+
+### Authorization
+
+![Authorization](../../static/images/HTTP/Authorization.png)
+
+`Authorization: Basic dWVub3NlbjpwYXNzd29yZA==`
+
+首部字段 Authorization 是用来告知服务器，用户代理的认证信息（证书值）。通常，想要通过服务器认证的用户代理会在接收到返回的401 状态码响应后，把首部字段 Authorization 加入请求中。共用缓存在接收到含有 Authorization 首部字段的请求时的操作处理会略有差异。
+
+### Expect
+
+![Expect](../../static/images/HTTP/expect.png)
+
+`Expect: 100-continue`
+
+客户端使用首部字段 Expect 来告知服务器，期望出现的某种特定行为。因服务器无法理解客户端的期望作出回应而发生错误时，会返回状态码 417 Expectation Failed。客户端可以利用该首部字段，写明所期望的扩展。虽然 HTTP/1.1 规范只定义了 100-continue（状态码 100 Continue 之意）。等待状态码 100 响应的客户端在发生请求时，需要指定 Expect:100-continue。
+
+
+### From
+
+![From](../../static/images/HTTP/From.png)
+
+首部字段 From 用来告知服务器使用用户代理的用户的电子邮件地址。通常，其使用目的就是为了显示搜索引擎等用户代理的负责人的电子邮件联系方式。使用代理时，应尽可能包含 From 首部字段（但可能会因代理不同，将电子邮件地址记录在 User-Agent 首部字段内）。
+
+### Host
+
+![Host](../../static/images/HTTP/host.png)
+
+图：虚拟主机运行在同一个 IP 上，因此使用首部字段 Host 加以区分
+
+`Host: www.hackr.jp`
+
+首部字段 Host 会告知服务器，请求的资源所处的互联网主机名和端口号。Host 首部字段在 HTTP/1.1 规范内是唯一一个必须被包含在请
+求内的首部字段。
+
+首部字段 Host 和以单台服务器分配多个域名的虚拟主机的工作机制有很密切的关联，这是首部字段 Host 必须存在的意义。
+
+请求被发送至服务器时，请求中的主机名会用 IP 地址直接替换解决。但如果这时，相同的 IP 地址下部署运行着多个域名，那么服务器就会无法理解究竟是哪个域名对应的请求。因此，就需要使用首部字段 Host 来明确指出请求的主机名。若服务器未设定主机名，那直接发送一个空值即可。如下所示。
+
+`Host:`
+
+### If-Match
+
+![图：附带条件请求](../../static/images/HTTP/If-Match.png)
+
+形如 If-xxx 这种样式的请求首部字段，都可称为条件请求。服务器接收到附带条件的请求后，只有判断指定条件为真时，才会执行请求。
+
+![ If-Match](../../static/images/HTTP/%20If-Match.png)
+
+图：只有当 If-Match 的字段值跟 ETag 值匹配一致时，服务器才会接受请求
+
+`If-Match: "123456"`
+
+首部字段 If-Match，属附带条件之一，它会告知服务器匹配资源所用的实体标记（ETag）值。这时的服务器无法使用弱 ETag 值。（请参
+照本章有关首部字段 ETag 的说明）
+
+服务器会比对 If-Match 的字段值和资源的 ETag 值，仅当两者一致时，才会执行请求。反之，则返回状态码 412 Precondition Failed 的响应。
+
+还可以使用星号（*）指定 If-Match 的字段值。针对这种情况，服务器将会忽略 ETag 的值，只要资源存在就处理请求。
+
+### If-Modified-Since
+
+![If-Modified-Since](../../static/images/HTTP/if-modified-since.png)
+
+图：如果在 If-Modified-Since 字段指定的日期时间后，资源发生了更新，服务器会接受请求
+
+`If-Modified-Since: Thu, 15 Apr 2004 00:00:00 GMT`
+
+首部字段 If-Modified-Since，属附带条件之一，它会告知服务器若 If-Modified-Since 字段值早于资源的更新时间，则希望能处理该请求。而在指定 If-Modified-Since 字段值的日期时间之后，如果请求的资源都没有过更新，则返回状态码 304 Not Modified 的响应。
+
+If-Modified-Since 用于确认代理或客户端拥有的本地资源的有效性。获取资源的更新日期时间，可通过确认首部字段 Last-Modified 来确定。
+
+
+
+
+
 
 
 
