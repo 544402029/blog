@@ -670,6 +670,226 @@ Accept-Encoding 首部字段用来告知服务器用户代理支持的内容编�
 
 If-Modified-Since 用于确认代理或客户端拥有的本地资源的有效性。获取资源的更新日期时间，可通过确认首部字段 Last-Modified 来确定。
 
+### If-None-Match
+
+![If-None-Match](../../static/images/HTTP/if-none-match.png)
+
+图：只有在 If-None-Match 的字段值与 ETag 值不一致时，可处理该请求。与 If-Match 首部字段的作用相反
+
+首部字段 If-None-Match 属于附带条件之一。它和首部字段 If-Match作用相反。用于指定 If-None-Match 字段值的实体标记（ETag）值与请求资源的 ETag 不一致时，它就告知服务器处理该请求。
+
+在 GET 或 HEAD 方法中使用首部字段 If-None-Match 可获取最新的资源。因此，这与使用首部字段 If-Modified-Since 时有些类似。
+
+### If-Range
+
+![If-Range](../../static/images/HTTP/if-range.png)
+
+首部字段 If-Range 属于附带条件之一。它告知服务器若指定的 If-Range 字段值（ETag 值或者时间）和请求资源的 ETag 值或时间相一致时，则作为范围请求处理。反之，则返回全体资源。
+
+![不使用首部字段 If-Range](../../static/images/HTTP/if-range2.png)
+
+下面我们思考一下不使用首部字段 If-Range 发送请求的情况。服务器端的资源如果更新，那客户端持有资源中的一部分也会随之无效，当然，范围请求作为前提是无效的。这时，服务器会暂且以状态码 412 Precondition Failed 作为响应返回，其目的是催促客户端再次发送请求。这样一来，与使用首部字段 If-Range 比起来，就需要花费两倍的功夫。
+
+
+### If-Unmodified-Since
+
+`If-Unmodified-Since: Thu, 03 Jul 2012 00:00:00 GMT`
+
+首部字段 If-Unmodified-Since 和首部字段 If-Modified-Since 的作用相反。它的作用的是告知服务器，指定的请求资源只有在字段值内指的日期时间之后，未发生更新的情况下，才能处理请求。如果在指定日期时间后发生了更新，则以状态码 412 Precondition Failed 作为响应返回。
+
+### Max-Forwards
+
+![图：每次转发数值减 1。当数值变 0 时返回响应](../../static/images/HTTP/Max-Forwards.png)
+
+`Max-Forwards: 10`
+
+通过 TRACE 方法或 OPTIONS 方法，发送包含首部字段 Max-Forwards 的请求时，该字段以十进制整数形式指定可经过的服务器最大数目。服务器在往下一个服务器转发请求之前，Max-Forwards 的值减 1 后重新赋值。当服务器接收到 Max-Forwards 值为 0 的请求时，则不再进行转发，而是直接返回响应。
+
+使用 HTTP 协议通信时，请求可能会经过代理等多台服务器。途中，如果代理服务器由于某些原因导致请求转发失败，客户端也就等不到服务器返回的响应了。对此，我们无从可知。
+
+可以灵活使用首部字段 Max-Forwards，针对以上问题产生的原因展开调查。由于当 Max-Forwards 字段值为 0 时，服务器就会立即返回
+响应，由此我们至少可以对以那台服务器为终点的传输路径的通信状况有所把握。
+
+![图：代理 B 到源服务器的请求失败了，但客户端不知道](../../static/images/HTTP/Max-Forwards2.png)
+
+![图：由于未知原因，导致请求陷入代理之间的循环，但客户端不知道](../../static/images/HTTP/max-forwards3.png)
+
+### Proxy-Authorization
+
+`Proxy-Authorization: Basic dGlwOjkpNLAGfFY5`
+
+接收到从代理服务器发来的认证质询时，客户端会发送包含首部字段Proxy-Authorization 的请求，以告知服务器认证所需要的信息。
+
+这个行为是与客户端和服务器之间的 HTTP 访问认证相类似的，不同之处在于，认证行为发生在客户端与代理之间。客户端与服务器之间的认证，使用首部字段 Authorization 可起到相同作用。
+
+### Range
+
+`Range: bytes=5001-10000`
+
+对于只需获取部分资源的范围请求，包含首部字段 Range 即可告知服务器资源的指定范围。上面的示例表示请求获取从第 5001 字节至第
+10000 字节的资源。
+
+接收到附带 Range 首部字段请求的服务器，会在处理请求之后返回状态码为 206 Partial Content 的响应。无法处理该范围请求时，则会返
+回状态码 200 OK 的响应及全部资源。
+
+### Referer
+
+![Referer](../../static/images/HTTP/referer.png)
+
+`Referer: http://www.hackr.jp/index.htm`
+
+首部字段 Referer 会告知服务器请求的原始资源的 URI。客户端一般都会发送 Referer 首部字段给服务器。但当直接在浏览器的地址栏输入 URI，或出于安全性的考虑时，也可以不发送该首部字段。
+
+因为原始资源的 URI 中的查询字符串可能含有 ID 和密码等保密信息，要是写进 Referer 转发给其他服务器，则有可能导致保密信息的泄露。
+
+另外，Referer 的正确的拼写应该是 Referrer，但不知为何，大家一直沿用这个错误的拼写。
+
+### TE
+
+`TE: gzip, deflate;q=0.5`
+
+首部字段 TE 会告知服务器客户端能够处理响应的传输编码方式及相对优先级。它和首部字段 Accept-Encoding 的功能很相像，但是用于传输编码。
+
+首部字段 TE 除指定传输编码之外，还可以指定伴随 trailer 字段的分块传输编码的方式。应用后者时，只需把 trailers 赋值给该字段值。
+
+`TE: trailers`
+
+### User-Agent
+
+![图：User-Agent 用于传达浏览器的种类](../../static/images/HTTP/User-Agent.png)
+
+`User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/20100101 Firefox/13.0.1`
+
+首部字段 User-Agent 会将创建请求的浏览器和用户代理名称等信息传达给服务器。
+
+由网络爬虫发起请求时，有可能会在字段内添加爬虫作者的电子邮件地址。此外，如果请求经过代理，那么中间也很可能被添加上代理服务器的名称。
+
+
+## 响应首部字段
+
+响应首部字段是由服务器端向客户端返回响应报文中所使用的字段，用于补充响应的附加信息、服务器信息，以及对客户端的附加要求等信息。
+
+### Accept-Ranges
+
+![Accept-Ranges](../../static/images/HTTP/accept-ranges.png)
+
+图：当不能处理范围请求时，Accept-Ranges: none
+
+
+`Accept-Ranges: bytes`
+
+首部字段 Accept-Ranges 是用来告知客户端服务器是否能处理范围请求，以指定获取服务器端某个部分的资源。
+
+可指定的字段值有两种，可处理范围请求时指定其为 bytes，反之则指定其为 none。
+
+
+### Age
+
+![Age](../../static/images/HTTP/age.png)
+
+`Age: 600`
+
+首部字段 Age 能告知客户端，源服务器在多久前创建了响应。字段值的单位为秒。
+
+若创建该响应的服务器是缓存服务器，Age 值是指缓存后的响应再次发起认证到认证完成的时间值。代理创建响应时必须加上首部字段Age。
+
+### ETag
+
+![ETag](../../static/images/HTTP/e-tag.png)
+
+`ETag: "82e22293907ce725faf67773957acd12"`
+
+首部字段 ETag 能告知客户端实体标识。它是一种可将资源以字符串形式做唯一性标识的方式。服务器会为每份资源分配对应的 ETag值。
+
+另外，当资源更新时，ETag 值也需要更新。生成 ETag 值时，并没有统一的算法规则，而仅仅是由服务器来分配。
+
+![ETag2](../../static/images/HTTP/e-tag2.png)
+
+资源被缓存时，就会被分配唯一性标识。例如，当使用中文版的浏览器访问 http://www.google.com/ 时，就会返回中文版对应的资源，而使用英文版的浏览器访问时，则会返回英文版对应的资源。两者的 URI 是相同的，所以仅凭 URI 指定缓存的资源是相当困难的。若在下载过程中出现连接中断、再连接的情况，都会依照 ETag 值来指定资源。
+
+
+ **强 ETag 值和弱 Tag 值** 
+
+ETag 中有强 ETag 值和弱 ETag 值之分。
+
+* 强 ETag 值
+
+强 ETag 值，不论实体发生多么细微的变化都会改变其值。
+
+`ETag: "usagi-1234"`
+
+* 弱 ETag 值
+
+弱 ETag 值只用于提示资源是否相同。只有资源发生了根本改变，产生差异时才会改变 ETag 值。这时，会在字段值最开始处附加 W/。
+
+`ETag: W/"usagi-1234"`
+
+
+### Location
+
+![Location](../../static/images/HTTP/Location.png)
+
+`Location: http://www.usagidesign.jp/sample.html`
+
+使用首部字段 Location 可以将响应接收方引导至某个与请求 URI 位置不同的资源。
+
+基本上，该字段会配合 3xx ：Redirection 的响应，提供重定向的URI。
+
+几乎所有的浏览器在接收到包含首部字段 Location 的响应后，都会强制性地尝试对已提示的重定向资源的访问。
+
+### Proxy-Authenticate
+
+`Proxy-Authenticate: Basic realm="Usagidesign Auth"`
+
+首部字段 Proxy-Authenticate 会把由代理服务器所要求的认证信息发送给客户端。
+
+它与客户端和服务器之间的 HTTP 访问认证的行为相似，不同之处在于其认证行为是在客户端与代理之间进行的。而客户端与服务器之间进行认证时，首部字段 WWW-Authorization 有着相同的作用。
+
+### Retry-After
+
+![Retry-After](../../static/images/HTTP/RETRY-AFTER.png)
+
+`Retry-After: 120`
+
+首部字段 Retry-After 告知客户端应该在多久之后再次发送请求。主要配合状态码 503 Service Unavailable 响应，或 3xx Redirect 响应一起使用。
+
+字段值可以指定为具体的日期时间（Wed, 04 Jul 2012 06：34：24 GMT 等格式），也可以是创建响应后的秒数。
+
+
+### Server
+
+![Server](../../static/images/HTTP/server.png)
+
+`Server: Apache/2.2.17 (Unix)`
+
+首部字段 Server 告知客户端当前服务器上安装的 HTTP 服务器应用程序的信息。不单单会标出服务器上的软件应用名称，还有可能包括版本号和安装时启用的可选项。
+
+`Server: Apache/2.2.6 (Unix) PHP/5.2.5`
+
+### Vary
+
+![Vary](../../static/images/HTTP/vary.png)
+
+图：当代理服务器接收到带有 Vary 首部字段指定获取资源的请求时，如果使用的 Accept-Language 字段的值相同，那么就直接从缓存返回响应。反之，则需要先从源服务器端获取资源后才能作为响应返回。
+
+`Vary: Accept-Language`
+
+首部字段 Vary 可对缓存进行控制。源服务器会向代理服务器传达关于本地缓存使用方法的命令。
+
+从代理服务器接收到源服务器返回包含 Vary 指定项的响应之后，若再要进行缓存，仅对请求中含有相同 Vary 指定首部字段的请求返回
+缓存。即使对相同资源发起请求，但由于 Vary 指定的首部字段不相同，因此必须要从源服务器重新获取资源。
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
