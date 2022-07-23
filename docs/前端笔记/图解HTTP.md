@@ -879,8 +879,66 @@ ETag 中有强 ETag 值和弱 ETag 值之分。
 从代理服务器接收到源服务器返回包含 Vary 指定项的响应之后，若再要进行缓存，仅对请求中含有相同 Vary 指定首部字段的请求返回
 缓存。即使对相同资源发起请求，但由于 Vary 指定的首部字段不相同，因此必须要从源服务器重新获取资源。
 
+### WWW-Authenticate
+
+`WWW-Authenticate: Basic realm="Usagidesign Auth"`
+
+首部字段 WWW-Authenticate 用于 HTTP 访问认证。它会告知客户端适用于访问请求 URI 所指定资源的认证方案（Basic 或是 Digest）和带参数提示的质询（challenge）。状态码 401 Unauthorized 响应中，肯定带有首部字段 WWW-Authenticate。
+
+上述示例中，realm 字段的字符串是为了辨别请求 URI 指定资源所受到的保护策略。
+
+## 实体首部字段
+
+实体首部字段是包含在请求报文和响应报文中的实体部分所使用的首部，用于补充内容的更新时间等与实体相关的信息。
+
+![实体首部字段](../../static/images/HTTP/shitishoubu.png)
+
+图：在请求和响应两方的 HTTP 报文中都含有与实体相关的首部字段。
+
+### Allow
+
+![Allow](../../static/images/HTTP/allow.png)
+
+`Allow: GET, HEAD`
+
+首部字段 Allow 用于通知客户端能够支持 Request-URI 指定资源的所有 HTTP 方法。当服务器接收到不支持的 HTTP 方法时，会以状态码
+405 Method Not Allowed 作为响应返回。与此同时，还会把所有能支持的 HTTP 方法写入首部字段 Allow 后返回。
 
 
+### Content-Encoding
+
+`Content-Encoding: gzip`
+
+首部字段 Content-Encoding 会告知客户端服务器对实体的主体部分选用的内容编码方式。内容编码是指在不丢失实体信息的前提下所进行的压缩。
+
+![Content-Encoding](../../static/images/HTTP/content-encoding.png)
+
+主要采用以下 4 种内容编码的方式。
+
+- gzip
+- compress
+- deflate
+- identity
+
+### Content-Language
+
+![Content-Language](../../static/images/HTTP/content-language.png)
+
+`Content-Language: zh-CN`
+
+`首部字段 Content-Language 会告知客户端，实体主体使用的自然语言（指中文或英文等语言）。`
+
+
+### Content-Length
+
+![Content-Length](../../static/images/HTTP/content-length.png)
+
+首部字段 Content-Length 表明了实体主体部分的大小（单位是字节）。对实体主体进行内容编码传输时，不能再使用 Content-Length 首部字段。由于实体主体大小的计算方法略微复杂，所以在此不再展开。由于实体主体大小的计算方法略微复杂，所以在此不再展开。读者若想一探究竟，可参考 RFC2616 的 4.4。
+
+
+### Content-Location
+
+`Content-Location: http://www.hackr.jp/index-ja.html`
 
 
 
