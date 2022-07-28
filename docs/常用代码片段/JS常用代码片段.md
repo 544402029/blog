@@ -1,5 +1,11 @@
 # JS 常用代码片段
 
+## input限制两位小数
+
+```
+oninput="value = value.match(/^\d*(\.?\d{0,2})/g)[0] || null"
+```
+
 ## Vue项目修改项目标题
 
 此配置可更改掉index.html的 `<%= htmlWebpackPlugin.options.title %>`
