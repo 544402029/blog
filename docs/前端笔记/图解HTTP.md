@@ -1016,6 +1016,158 @@ Cookie 的工作机制是用户识别及状态管理。Web 网站为了管理用
 
 ![为 Cookie 服务的首部字段](../../static/images/HTTP/%E4%B8%BA%20Cookie%20%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5.png)
 
+### Set-Cookie
+
+```
+Set-Cookie: status=enable; expires=Tue, 05 Jul 2011 07:26:31 GMT; path=/; domain=.hackr.jp;
+```
+
+当服务器准备开始管理客户端的状态时，会事先告知各种信息。下面的表格列举了 Set-Cookie 的字段值。
+
+Set-Cookie 字段的属性
+
+![Set-Cookie 字段的属性](../../static/images/HTTP/Set-Cookie.png)
+
+
+ **expires 属性** 
+
+Cookie 的 expires 属性指定浏览器可发送 Cookie 的有效期。当省略 expires 属性时，其有效期仅限于维持浏览器会话（Session）
+时间段内。这通常限于浏览器应用程序被关闭之前。
+
+另外，一旦 Cookie 从服务器端发送至客户端，服务器端就不存在可以显式删除 Cookie 的方法。但可通过覆盖已过期的 Cookie，实现对客户端 Cookie 的实质性删除操作。
+
+ **path 属性** 
+
+Cookie 的 path 属性可用于限制指定 Cookie 的发送范围的文件目录。不过另有办法可避开这项限制，看来对其作为安全机制的效果不能抱有期待。
+
+
+ **domain 属性** 
+
+通过 Cookie 的 domain 属性指定的域名可做到与结尾匹配一致。比如，当指定 example.com 后，除 example.com 以外，www.example.com
+或 www2.example.com 等都可以发送 Cookie。因此，除了针对具体指定的多个域名发送 Cookie 之 外，不指定domain 属性显得更安全。
+
+ **secure 属性** 
+
+Cookie 的 secure 属性用于限制 Web 页面仅在 HTTPS 安全连接时，才可以发送 Cookie。
+
+发送 Cookie 时，指定 secure 属性的方法如下所示。
+
+```
+Set-Cookie: name=value; secure
+```
+
+以上例子仅当在 https://www.example.com/（HTTPS）安全连接的情况下才会进行 Cookie 的回收。也就是说，即使域名相同，
+http://www.example.com/（HTTP）也不会发生 Cookie 回收行为。当省略 secure 属性时，不论 HTTP 还是 HTTPS，都会对 Cookie 进行回收。
+
+
+ **HttpOnly 属性** 
+
+Cookie 的 HttpOnly 属性是 Cookie 的扩展功能，它使 JavaScript 脚本无法获得 Cookie。其主要目的为防止跨站脚本攻击（Cross-site scripting，XSS）对 Cookie 的信息窃取。
+
+发送指定 HttpOnly 属性的 Cookie 的方法如下所示。
+
+```
+Set-Cookie: name=value; HttpOnly
+```
+
+通过上述设置，通常从 Web 页面内还可以对 Cookie 进行读取操作。但使用 JavaScript 的 document.cookie 就无法读取附加 HttpOnly 属性后的 Cookie 的内容了。因此，也就无法在 XSS 中利用 JavaScript 劫持Cookie 了。
+
+虽然是独立的扩展功能，但 Internet Explorer 6 SP1 以上版本等当下的主流浏览器都已经支持该扩展了。另外顺带一提，该扩展并非是为了
+防止 XSS 而开发的。
+
+
+### Cookie
+
+```
+Cookie: status=enable
+```
+
+首部字段 Cookie 会告知服务器，当客户端想获得 HTTP 状态管理支持时，就会在请求中包含从服务器接收到的 Cookie。接收到多个 Cookie 时，同样可以以多个 Cookie 形式发送。
+
+
+## 其他首部字段
+
+HTTP 首部字段是可以自行扩展的。所以在 Web 服务器和浏览器的应用上，会出现各种非标准的首部字段。
+
+接下来，我们就一些最为常用的首部字段进行说明。
+
+
+- X-Frame-Options
+- X-XSS-Protection
+- DNT
+- P3P
+
+
+### X-Frame-Options
+
+```
+X-Frame-Options: DENY
+```
+
+首部字段 X-Frame-Options 属于 HTTP 响应首部，用于控制网站内容。在其他 Web 网站的 Frame 标签内的显示问题。其主要目的是为了防止点击劫持（clickjacking）攻击。
+
+首部字段 X-Frame-Options 有以下两个可指定的字段值。
+
+- DENY ：拒绝
+- SAMEORIGIN ：仅同源域名下的页面（Top-level-browsingcontext）匹配时许可。（比如，当指定 http://hackr.jp/sample.html
+页面为 SAMEORIGIN 时，那么 hackr.jp 上所有页面的 frame 都被允许可加载该页面，而 example.com 等其他域名的页面就不行了）
+
+
+支持该首部字段的浏览器有：Internet Explorer 8、Firefox 3.6.9+、Chrome 4.1.249.1042+、Safari 4+ 和 Opera 10.50+ 等。现在主流的浏览器都已经支持。
+
+能在所有的 Web 服务器端预先设定好 X-Frame-Options 字段值是最理想的状态。
+
+对 apache2.conf 的配置实例
+
+```
+<IfModule mod_headers.c>
+Header append X-FRAME-OPTIONS "SAMEORIGIN"
+</IfModule>
+```
+
+### X-XSS-Protection
+
+```
+X-XSS-Protection: 1
+```
+
+首部字段 X-XSS-Protection 属于 HTTP 响应首部，它是针对跨站脚本攻击（XSS）的一种对策，用于控制浏览器 XSS 防护机制的开关。
+
+首部字段 X-XSS-Protection 可指定的字段值如下。
+
+- 0 ：将 XSS 过滤设置成无效状态
+- 1 ：将 XSS 过滤设置成有效状态
+
+
+### DNT
+
+![DNT](../../static/images/HTTP/DNT.png)
+
+```
+DNT: 1
+```
+
+首部字段 DNT 属于 HTTP 请求首部，其中 DNT 是 Do Not Track 的简称，意为拒绝个人信息被收集，是表示拒绝被精准广告追踪的一种方
+法。
+
+首部字段 DNT 可指定的字段值如下。
+
+0 ：同意被追踪
+
+1 ：拒绝被追踪
+
+由于首部字段 DNT 的功能具备有效性，所以 Web 服务器需要对 DNT
+做对应的支持。
+
+
+
+
+
+
+> 协议中对 X- 前缀的废除在 HTTP 等多种协议中，通过给非标准参数加上前缀 X-，来区别于标准参数，并使那些非标准的参数作为扩展变成可能。但是这种简单粗暴的做法有百害而无一益，因此在“RFC 6648 - Deprecatingthe "X-" Prefix and Similar Constructs in Application Protocols”中提议停止该做法。
+> 
+> 然而，对已经在使用中的 X- 前缀来说，不应该要求其变更。
+
 
 
 
