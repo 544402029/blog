@@ -946,11 +946,75 @@ ETag 中有强 ETag 值和弱 ETag 值之分。
 
 
 
+### Content-MD5
+
+![Content-MD5](../../static/images/HTTP/content-md5.png)
+
+图：客户端会对接收的报文主体执行相同的 MD5 算法，然后与首部字段 Content-MD5 的字段值比较
+
+```
+Content-MD5: OGFkZDUwNGVhNGY3N2MxMDIwZmQ4NTBmY2IyTY==
+```
+
+首部字段 Content-MD5 是一串由 MD5 算法生成的值，其目的在于检查报文主体在传输过程中是否保持完整，以及确认传输到达。对报文主体执行MD5 算法获得的 128 位二进制数，再通过 Base64 编码后将结果写入 Content-MD5 字段值。由于 HTTP 首部无法记录二进制值，所以要通过 Base64 编码处理。为确保报文的有效性，作为接收方的客户端会对报文主体再执行一次相同的 MD5 算法。计算出的125值与字段值作比较后，即可判断出报文主体的准确性。
+
+采用这种方法，对内容上的偶发性改变是无从查证的，也无法检测出恶意篡改。其中一个原因在于，内容如果能够被篡改，那么同时意味着 Content-MD5 也可重新计算然后被篡改。所以处在接收阶段的客户端是无法意识到报文主体以及首部字段 Content-MD5 是已经被篡改过的。
+
+### Content-Range
+
+![Content-Range](../../static/images/HTTP/Content-Range.png)
+
+```
+Content-Range: bytes 5001-10000/10000
+```
+
+针对范围请求，返回响应时使用的首部字段 Content-Range，能告知客户端作为响应返回的实体的哪个部分符合范围请求。字段值以字节为单位，表示当前发送部分及整个实体大小。
 
 
+### Content-Type
+
+```
+Content-Type: text/html; charset=UTF-8
+```
+
+首部字段 Content-Type 说明了实体主体内对象的媒体类型。和首部字段 Accept 一样，字段值用 type/subtype 形式赋值。参数 charset 使用 iso-8859-1 或 euc-jp 等字符集进行赋值。
+
+### Expires
+
+![Expires](../../static/images/HTTP/Expires.png)
+
+`Expires: Wed, 04 Jul 2012 08:26:05 GMT`
+
+首部字段 Expires 会将资源失效的日期告知客户端。缓存服务器在接收到含有首部字段 Expires 的响应后，会以缓存来应答请求，在 Expires 字段值指定的时间之前，响应的副本会一直被保存。当超过指定的时间后，缓存服务器在请求发送过来时，会转向源服务器请求资源。
+
+源服务器不希望缓存服务器对资源缓存时，最好在 Expires 字段内写入与首部字段 Date 相同的时间值。
+
+但是，当首部字段 Cache-Control 有指定 max-age 指令时，比起首部字段 Expires，会优先处理 max-age 指令。
+
+### Last-Modified
+
+![Last-Modified](../../static/images/HTTP/Last-Modified.png)
+
+```
+Last-Modified: Wed, 23 May 2012 09:59:55 GMT
+```
+
+首部字段 Last-Modified 指明资源最终修改的时间。一般来说，这个值就是 Request-URI 指定资源被修改的时间。但类似使用 CGI 脚本进行动态数据处理时，该值有可能会变成数据最终修改时的时间。
 
 
+## 为 Cookie 服务的首部字段
 
+管理服务器与客户端之间状态的 Cookie，虽然没有被编入标准化HTTP/1.1 的 RFC2616 中，但在 Web 网站方面得到了广泛的应用。
+
+Cookie 的工作机制是用户识别及状态管理。Web 网站为了管理用户的状态会通过 Web 浏览器，把一些数据临时写入用户的计算机内。接
+着当用户访问该Web网站时，可通过通信方式取回之前发放的Cookie。
+
+调用 Cookie 时，由于可校验 Cookie 的 **有效期** ，以及发送方的 **域、路径、协议** 等信息，所以正规发布的 Cookie 内的数据不会因来自其他 Web 站点和攻击者的攻击而泄露。
+
+
+为 Cookie 服务的首部字段
+
+![为 Cookie 服务的首部字段](../../static/images/HTTP/%E4%B8%BA%20Cookie%20%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5.png)
 
 
 
