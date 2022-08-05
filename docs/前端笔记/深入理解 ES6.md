@@ -1365,7 +1365,7 @@ set.forEach(function(value, key, ownerSet) {
 
 输出结果：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1572197326047.png)
+![image-20220805091503226](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091503226.png)
 
 在 Set 集合的`forEach()`方法中， 第二个参数与数组一样， 如果需要在回调函数中使用`this`引用， 则可以将它作为第二个参数传入`forEach()`函数：
 
@@ -1558,7 +1558,7 @@ map.forEach(function(val, k, ownerMap) {
 
 输出结果：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1572197360061.png)
+![image-20220805091544344](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091544344.png)
 
 遍历过程中， 会按照键值对插入 Map 集合的顺序将相应信息传入`forEach()`方法的回调函数， 而在数组中， 会按照数值型索引值的顺序依次传入回调函数。
 
@@ -1680,7 +1680,7 @@ console.log(iterator.next());
 
 输出结果：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1572268156753.png)
+![image-20220805091608066](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091608066.png)
 
 #### yield 的使用限制
 
@@ -1732,7 +1732,7 @@ for (let num of values) {
 }
 ```
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1572269670194.png)
+![image-20220805091630835](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091630835.png)
 
 如果只需迭代数组或集合中的值， 用`for-of`循环代替`for`循环是个不错的选择， 相比传统的`for`循环， `for-of`循环的控制条件更简单， 不需要追踪复杂的条件， 所以更少出错。
 

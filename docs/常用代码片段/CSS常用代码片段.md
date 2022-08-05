@@ -823,11 +823,11 @@ body { font-size: 16px; }
 
 ## css 常用字体
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509891039.png)
+![image-20220805094949217](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094949217.png)
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509965969.png)
+![image-20220805095005983](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095005983.png)
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509977692.png)
+![image-20220805095015586](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095015586.png)
 
 ## 弹窗蒙层显示隐藏
 
@@ -1191,7 +1191,7 @@ ul > li {
 
 效果图：
 
-![输入图片说明](../../static/images/image.png)
+![image-20220805095042145](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095042145.png)
 
 10倍大小模拟
 ```css
@@ -1210,7 +1210,7 @@ ul > li {
 
 效果图：
 
-![输入图片说明](../../static/images/sandaohang.png)
+![image-20220805095059804](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095059804.png)
 
 
 10倍大小模拟

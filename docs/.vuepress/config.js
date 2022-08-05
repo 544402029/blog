@@ -45,7 +45,8 @@ module.exports = {
         items: [
           { text: '深入理解ES6', link: '/前端笔记/深入理解 ES6.md' },
           { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
-          { text: '设计模式', link: '/前端笔记/设计模式.md' },
+          { text: 'JavaScript正则迷你书', link: '/前端笔记/JavaScript正则迷你书.md' },
+          { text: 'JavaScript 设计模式核⼼原理与应⽤实践', link: '/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.md' },
           { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
           { text: 'linux命令', link: '/前端笔记/linux命令.md' },
           { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
@@ -56,32 +57,32 @@ module.exports = {
       {
         text: 'Vue',
         items: [
-          { text: 'Vue使用', link: '/vue/vue使用/' },
+          { text: 'Vue使用', link: '/vue/vue使用.md' },
         ],
       },
-      { text: '小程序', items: [{ text: '小程序', link: '/小程序/' }] },
+      { text: '小程序', items: [{ text: '微信小程序', link: '/小程序/微信小程序.md' }] },
       {
         text: 'Node.js',
         items: [
           {
             text: 'Node.js从零开发Web Server博客项目',
             link:
-              '/Node.js/Node.js从零开发Web Server博客项目 前端晋升全栈工程师必备/',
+              '/Node.js/Node.js从零开发Web Server博客项目 前端晋升全栈工程师必备.md',
           },
           {
             text: 'Node.js+KOA2 从0到1打造超好用Web框架一步到位',
             link:
-              '/Node.js/Node.js+KOA2 从0到1打造超好用Web框架一步到位 掌握KOA2服务端开发/',
+              '/Node.js/Node.js+KOA2 从0到1打造超好用Web框架一步到位 掌握KOA2服务端开发.md',
           },
           {
             text: 'Vue全家桶+SSR+Koa2全栈开发美团网',
             link:
-              '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网/',
+              '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.md',
           },
           {
             text: 'Koa2新浪博客',
             link:
-              '/Node.js/Koa2新浪博客/',
+              '/Node.js/Koa2新浪博客.md',
           }
         ],
       },
