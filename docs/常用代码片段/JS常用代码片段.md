@@ -1,5 +1,40 @@
 # JS 常用代码片段
 
+## input限制两位小数
+
+```
+oninput="value = value.match(/^\d*(\.?\d{0,2})/g)[0] || null"
+```
+
+## Vue项目修改项目标题
+
+此配置可更改掉index.html的 `<%= htmlWebpackPlugin.options.title %>`
+
+vue.config.js
+```js
+module.exports = {
+    chainWebpack: config => {
+        config
+            .plugin('html')
+            .tap(args => {
+                args[0].title = '光伏报单'
+                return args
+            })
+    }
+}
+```
+
+
+## 金额千分位加逗号
+
+比如说 999999999，直接阅读很不直观，格式化后 999,999,999或者999,999,999.00
+
+```js
+function formatPrice(price) {
+  return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+```
+
 ## 正则匹配电话号码
 
 ```js
@@ -277,7 +312,7 @@ export const throttle = (fn, wait, immediate) => {
 };
 ```
 
-## js 浮点数计算加减乘除精度损失解决方法
+## 浮点数精度丢失
 
 ```js
 /**
@@ -649,7 +684,7 @@ export const randomNumber = (n) => {
 };
 ```
 
-## 随机生成一个自定义长度，不重复的字母加数字组合，可用来做 id 标识
+## 生成随机ID
 
 ```js
 /**
@@ -664,7 +699,7 @@ export const randomId =(randomLength = 10) =>{
 },
 ```
 
-## js 数组去重(复杂数据有 ID 的情况下)
+## 数组去重
 
 ```js
 /**

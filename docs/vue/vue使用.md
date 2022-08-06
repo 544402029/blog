@@ -22,7 +22,7 @@ cat ~/.ssh/id_rsa.pub
 
 #### 添加公钥
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1587537833808.png)
+![image-20220805090910386](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090910386.png)
 
 #### 克隆仓库
 
@@ -56,7 +56,7 @@ git push
 
 ### MVP 模式
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580482042948.png)
+![image-20220805090929624](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090929624.png)
 
 首先我们要了解一下 MVP 模式， 代码分为三层。 Model 层（也就是我们所说的数据层）， Presenter 呈现层(业务逻辑相关的控制层)， View 层（视图层，页面上的 DOM 展示）。
 
@@ -66,7 +66,7 @@ git push
 
 ### MVVM 模式
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580482764644.png)
+![image-20220805090942901](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090942901.png)
 
 MVVM 模式也有 Model 层来存储数据， 有 View（视图层）来显示数据， 但是没有 Presenter（控制器）层， 它有一个 ViewModel 层。ViewModel 层不需要我们自己编写， 它是 vue 自带的。
 
@@ -89,13 +89,13 @@ MVVM 模式也有 Model 层来存储数据， 有 View（视图层）来显示�
 
 #### 子组件向父组件传值
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580486002362.png)
+![image-20220805091003354](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091003354.png)
 
 在子组件接受父组件传过来的值时， 只能用但是不能来修改。 之所以有这样一个单向数据流的概念， 是因为父组件传过来的值有可能被其他组件使用。你修改了这个子组件的数据， 不仅影响这个组件， 有可能对其他组件造成影响。
 
 #### 非父子组件传值
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580568788281.png)
+![image-20220805091026417](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091026417.png)
 
 ### vue 实例
 
@@ -121,7 +121,7 @@ MVVM 模式也有 Model 层来存储数据， 有 View（视图层）来显示�
 
 ##### 计算属性
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580542616794.png)
+![image-20220805091100765](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091100765.png)
 
 计算属性拥有缓存机制， 在计算所需要的的变量没有变化时会一直使用， 不会进行更新。 只有当需要的变量发生变化才会进行更新。
 
@@ -129,21 +129,21 @@ MVVM 模式也有 Model 层来存储数据， 有 View（视图层）来显示�
 
 ##### 方法
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580542836843.png)
+![image-20220805091114399](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091114399.png)
 
 方法没有缓存机制， 每次都会进行更新。
 
 ##### 侦听器
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580543213321.png)
+![image-20220805091137999](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091137999.png)
 
 侦听器会在监听的变量发生变化时更新数据。
 
 #### vue 条件渲染
 
-##### key 值得作用
+##### key 值的作用
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580546704958.png)
+![image-20220805091153167](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091153167.png)
 
 如果加上`key`值， vue 就知道它是页面上唯一的元素。 如果两个元素`key`值不同， 他就不会复用之前的元素。
 
@@ -187,7 +187,7 @@ vm.userProfile = Object.assign({}, vm.userProfile, {
 
 把后端请求的地址填写在这里即可
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1581876970902.png)
+![image-20220805091210702](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091210702.png)
 
 ## mixin
 
@@ -239,7 +239,7 @@ import {playlistMixin} from 'common/js/mixin' export default { mixins:
 其中 state 用来存放数据， getter 用来获取数据， 它相当于是一个计算属性。
 mutation 修改数据， action 可以异步的操作数据， 还可以打包 mutation 的修改。
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1580638665713.png)
+![image-20220805091225777](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805091225777.png)
 
 ### 定义
 

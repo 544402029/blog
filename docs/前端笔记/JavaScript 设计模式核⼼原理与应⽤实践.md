@@ -1,4 +1,6 @@
-# 设计原则
+# JavaScript 设计模式核⼼原理与应⽤实践
+
+## 设计原则
 
 SOLID
 
@@ -8,16 +10,16 @@ SOLID
 - 接口隔离原则（Interface Segregation Principle）
 - 依赖反转原则（Dependency Inversion Principle）
 
-## 核心思想——封装变化
+### 核心思想——封装变化
 
 设计模式出现的背景，是软件设计的复杂度日益飙升。软件设计越来越复杂的“罪魁祸首”，就是**变化**。
 
 但在实际开发中，不发生变化的代码可以说是不存在的。我们能做的只有将这个变化造成的影响**最小化** —— **将变与不变分离，确保变化的部分灵活、不变的部分稳定**。
 这个过程，就叫“封装变化”；这样的代码，就是我们所谓的“健壮”的代码，它可以经得起变化的考验。而设计模式出现的意义，就是帮我们写出这样的代码。
 
-## 设计模式的术
+### 设计模式的术
 
-![](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/20220804225434.png)
+![image-20220805093228638](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805093228638.png)
 
 设计模式的核心思想，就是“封装变化”。确实如此，无论是创建型、结构型还是行为型，这些具体的设计模式都是在用自己的方式去封装不同类型的变化 —— 创建型模式封装了创建对象过程中的变化，比如下节的工厂模式，它做的事情就是将创建对象的过程抽离；结构型模式封装的是对象之间组合方式的变化，目的在于灵活地表达对象间的配合与依赖关系；而行为型模式则将是对象千变万化的行为进行抽离，确保我们能够更安全、更方便地对行为进行更改。
 封装变化，封装的正是软件中那些不稳定的要素，它是一种防患于未然的行为 —— 提前抽离了变化，就为后续的拓展提供了无限的可能性，如此，我们才能做到在变化到来的时候从容不迫。
@@ -417,7 +419,7 @@ const dog = new Dog("旺财", 3);
 
 这段代码里的几个实体之间就存在着这样的关系：
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1641795629067-8700f2a9-2fa4-4c0a-8aef-25ca7592be21.png#clientId=u0e7fa7bb-4dd4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=406&id=u29bff749&margin=%5Bobject%20Object%5D&name=image.png&originHeight=406&originWidth=523&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40763&status=done&style=none&taskId=u28072530-76a1-4b27-9c39-2482834e435&title=&width=523)
+![image-20220805093835167](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805093835167.png)
 
 ### 原型链
 
@@ -431,7 +433,7 @@ dog.toString();
 明明没有在 dog 实例里手动定义 eat 方法和 toString 方法，它们还是被成功地调用了。这是因为当我试图访问一个 JavaScript 实例的属性/方法时，它首先搜索这个实例本身；当发现实例没有定义对应的属性/方法时，它会转而去搜索实例的原型对象；如果原型对象中也搜索不到，它就去搜索原型对象的原型对象，这个搜索的轨迹，就叫做原型链。
 以我们的 eat 方法和 toString 方法的调用过程为例，它的搜索过程就是这样子的：
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1641796250905-c6bbcb7e-f788-4082-add6-5cefe8f5b546.png#clientId=u0e7fa7bb-4dd4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=376&id=u59d336ba&margin=%5Bobject%20Object%5D&name=image.png&originHeight=376&originWidth=686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=33197&status=done&style=none&taskId=u26676ec7-cdaf-431f-b4fb-8e488740e7a&title=&width=686)
+![image-20220805093903839](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805093903839.png)
 
 楼上这些彼此相连的 prototype，就组成了一个原型链。 注： 几乎所有 JavaScript 中的对象都是位于原型链顶端的 Object 的实例，除了 Object.prototype（当然，如果我们手动用 Object.create(null)创建一个没有任何原型的对象，那它也不是 Object 的实例）。
 以上为大家介绍了原型、原型链等 JavaScript 中核心的基础知识。这些不仅是基础中的基础，也是面试中的重点。此外在面试中，一些面试官可能会刻意混淆 JavaScript 中原型范式和强类型语言中原型模式的区别，当他们这么做的时候不一定是因为对语言、对设计模式的理解有问题，而很有可能是为了考察你**对象的深拷贝**。
@@ -711,7 +713,7 @@ const proxyAddAll = (function () {
 
 我们把这个方法丢进控制台，尝试同一套入参两次，结果喜人：
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1641806210052-6d29011c-ca29-40b8-a944-0d3170b44b1c.png#clientId=u0e7fa7bb-4dd4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=228&id=u32d5dd94&margin=%5Bobject%20Object%5D&name=image.png&originHeight=228&originWidth=710&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64414&status=done&style=none&taskId=u32d1e8cf-1f3a-4dac-ab57-aa1c8e5810e&title=&width=710)
+![image-20220805094028579](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094028579.png)
 我们发现 proxyAddAll 针对重复的入参只会计算一次，这将大大节省计算过程中的时间开销。现在我们有 6 个入参，可能还看不出来，当我们针对大量入参、做反复计算时，缓存代理的优势将得到更充分的凸显。
 
 ## 保护代理
@@ -1255,7 +1257,7 @@ class DeveloperObserver extends Observer {
 
 Vue 框架是热门的渐进式 JavaScript 框架。在 Vue 中，当我们修改状态时，视图会随之更新，这就是 Vue 的数据双向绑定（又称响应式原理）。数据双向绑定是 Vue 最独特的特性之一。
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1641893608692-0e74ff1f-4b99-4a12-820c-dde76cdbca6e.png#clientId=ue376bd42-b58f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=414&id=u3b4e8714&margin=%5Bobject%20Object%5D&name=image.png&originHeight=414&originWidth=660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=91638&status=done&style=none&taskId=u8baa827f-55f3-4372-aa9d-f421ab697ef&title=&width=660)
+![image-20220805094105245](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094105245.png)
 
 在 Vue 中，每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新——这是一个典型的观察者模式。这道面试题考察了受试者对 Vue 底层原理的理解、对观察者模式的实现能力以及一系列重要的 JS 知识点，具有较强的综合性和代表性。
 
@@ -1269,7 +1271,7 @@ Vue 框架是热门的渐进式 JavaScript 框架。在 Vue 中，当我们修�
 
 这三者的配合过程如图所示：
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/2735637/1642043639981-71891799-7730-49e6-b5ad-364ab8154490.png#clientId=ue9ff2557-1ee7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=290&id=u1b9fc111&margin=%5Bobject%20Object%5D&name=image.png&originHeight=290&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=88441&status=done&style=none&taskId=u46befa61-1a8e-44ed-8753-a6c8103bf84&title=&width=696)
+![image-20220805094133281](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094133281.png)
 OK，实现方案搞清楚了，下面我们给整个流程中**涉及到发布-订阅这一模式的代码**来个特写：
 
 ### 核心代码
@@ -1455,12 +1457,17 @@ class EventEmitter {
 为什么大家都喜欢给它们强行划等号呢？这是因为就算划了等号，也不影响我们正常使用，毕竟两者在核心思想、运作机制上没有本质的差别。但考虑到这个问题确实可以成为面试题的一个方向，此处我们还是单独拿出来讲一下。
 回到我们上文的例子里。韩梅梅把所有的开发者拉了一个群，直接把需求文档丢给每一位群成员，这种**发布者直接触及到订阅者**的操作，叫观察者模式。但如果韩梅梅没有拉群，而是把需求文档上传到了公司统一的需求平台上，需求平台感知到文件的变化、自动通知了每一位订阅了该文件的开发者，这种**发布者不直接触及到订阅者、而是由统一的第三方来完成实际的通信的操作，叫做发布-订阅模式**。
 相信大家也已经看出来了，观察者模式和发布-订阅模式之间的区别，在于是否存在第三方、发布者能否直接感知订阅者（如图所示）。
-![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1642043702422-a045ad73-68cb-4431-945d-3a024c2fe12b.webp#clientId=ue9ff2557-1ee7-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u2fe8f84f&margin=%5Bobject%20Object%5D&originHeight=156&originWidth=158&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u806863c1-0c00-40d8-bba8-fa37945a249&title=)
-![](https://cdn.nlark.com/yuque/0/2022/webp/2735637/1642043702428-a4b79399-b954-4314-a079-4d4f13108bcf.webp#clientId=ue9ff2557-1ee7-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u7ca0a4f2&margin=%5Bobject%20Object%5D&originHeight=185&originWidth=228&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u77b3565c-6a84-4fb1-a59c-5a6ba16dde8&title=)
+
+
+
+![image-20220805094256032](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094256032.png)
+
+
+
 在我们见过的这些例子里，韩梅梅拉钉钉群的操作，就是典型的观察者模式；而通过 EventBus 去实现事件监听/发布，则属于发布-订阅模式。
 既生瑜，何生亮？既然有了观察者模式，为什么还需要发布-订阅模式呢？
 大家思考一下：为什么要有观察者模式？观察者模式，解决的其实是模块间的耦合问题，有它在，即便是两个分离的、毫不相关的模块，也可以实现数据通信。但观察者模式仅仅是减少了耦合，**并没有完全地解决耦合问题**——被观察者必须去维护一套观察者的集合，这些观察者必须实现统一的方法供被观察者调用，两者之间还是有着说不清、道不明的关系。
-而发布-订阅模式，则是快刀斩乱麻了——发布者完全不用感知订阅者，不用关心它怎么实现回调方法，事件的注册和触发都发生在独立于双方的第三方平台（事件总线）上。发布-订阅模式下，实现了完全地解耦。
+而发布-订阅模式，则是快刀斩乱麻了——发布者完全不用感知订阅者，不用关心它怎么实现回调方法，事件的注册和触发都发生在独立于双方的第三方平台（事件总线)上。发布-订阅模式下，实现了完全地解耦。
 但这并不意味着，发布-订阅模式就比观察者模式“高级”。在实际开发中，我们的模块解耦诉求**并非总是需要它们完全解耦**。如果两个模块之间本身存在关联，且这种关联是稳定的、必要的，那么我们使用观察者模式就足够了。而在模块与模块之间独立性较强、且没有必要单纯为了数据通信而强行为两者制造依赖的情况下，我们往往会倾向于使用发布-订阅模式。
 
 # 迭代器模式

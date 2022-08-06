@@ -144,7 +144,7 @@ server开发： 它要承接很多客户端的请求，很多请求到了server�
 
 ### 接口设计
 
-![接口设计](https://gitee.com/l544402029/res/raw/master/小书匠/1582871498436.png)
+![image-20220805084925165](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805084925165.png)
 
 
 ## http概述
@@ -153,6 +153,7 @@ server开发： 它要承接很多客户端的请求，很多请求到了server�
 
 DNS解析获取到ip地址 -> 建立tcp连接 -> 发送http请求 -> server接受http请求，并处理请求返回数据 -> 客户端接受数据并处理数据（渲染页面，执行js）
 中间涉及到到IP协议，ARP协议，OSPF协议
+
 1. IP协议：指定出发地（你的pc）和目的地（服务器）
 2. ARP协议：找到所有路径
 3. OSPF协议：找到最优路径请求资源
@@ -216,7 +217,7 @@ const fileName = path.resolve(__dirname,'file','a.json')
 ```
 show databases;
 ```
-![创建数据库](https://gitee.com/l544402029/res/raw/master/小书匠/1602069008606.png)
+![image-20220805085004732](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085004732.png)
 
 
 ### 使用数据库
@@ -380,7 +381,7 @@ con.end()
 ```
 
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583031279742.png)
+![image-20220805085046072](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085046072.png)
 
 
 连接数据库报错
@@ -404,7 +405,7 @@ flush privileges;
 - server可以修改cookie并返回给
 - 浏览器中也可以通过JavaScript修改cookie（有限制）
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583055475947.png)
+![image-20220805085114341](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085114341.png)
 
 
 #### cookie和token的区别？
@@ -446,7 +447,7 @@ const getCookieExpires = () => {
 
 `session` 是一个统称， 它的解决方案就是用server端存储用户信息。
 
-![session介绍](https://gitee.com/l544402029/res/raw/master/小书匠/1583117639534.png)
+![image-20220805085144884](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085144884.png)
 
 如上图： 我们只在浏览器中放一个毫无意义的userid就可以了， 即便用户被截获， 他也不知道userid是什么意思。然后到我们的server中呢？ 首先我们的server是足够安全的，因为他不会来回传输。 只要做好足够的限制， 安全就可以了。server端的空间也是足够大的， 里面可以存储很多的信息。
 
@@ -466,7 +467,7 @@ const getCookieExpires = () => {
 - 双方都是独立的， 都是可扩展的（例如都扩展成集群）
 - （包括 mysql ， 也是一个单独的服务， 也可扩展）
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583123887893.png)
+![image-20220805085202784](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085202784.png)
 
 
 #### 为何session适合用 redis?
@@ -521,7 +522,7 @@ npm i redis --save
 
 比如说我们有一个server的集群，集群有5台机器。其中一台是主机器，流量都在主机器上。剩下的那几台怎么去均分流量，怎么去分摊， 怎么让每个机器能平摊各种流量。以至于我们整个集群的负载能到最高。这也可以通过nginx配置。 它内部的一个模块可以做到这些。它可以做一个入口， 流量来了它分配到不同的机器上去，平均分配。
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583202975402.png)
+![image-20220805085222095](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085222095.png)
 
 #### 反向代理
 
@@ -716,7 +717,7 @@ password = escape(password)//防止xss攻击
 
 ### 网站运行流程图
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583295277842.png)
+![image-20220805085249591](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085249591.png)
 
 
 
@@ -842,7 +843,7 @@ if (ENV !== 'production') {
 
 ### express中间件原理
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583379463533.png)
+![image-20220805085316017](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085316017.png)
 
 
 ## KOA2
@@ -1060,5 +1061,4 @@ error_file : "logs/err.log"  错误日志存放 / console.error()
 out_file : "logs/out.log" 日志存放 / console.log()
 
 log_date_format :"YYYY-MM-DD HH:mm:ss"  每条日志增加时间戳
-
 

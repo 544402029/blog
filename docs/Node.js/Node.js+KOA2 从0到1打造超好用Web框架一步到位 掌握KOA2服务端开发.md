@@ -6,7 +6,7 @@
 
 怎么让函数注册为中间件呢？
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583555248199.png)
+![image-20220805085621783](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085621783.png)
 
 一般我们都把中间件定义在app.use()内， 定义为一个箭头函数。
 
@@ -18,7 +18,7 @@
  //比如这里有两个中间件函数，但是node默认只调用第一个中间件函数，如何调用下一个中间件函数，就需要使用next函数
  next()
  })
- ```
+```
 
 ## 洋葱模型
 
@@ -26,19 +26,19 @@
 
 next()返回的一定是一个promise！！！
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1575775184653.png)
+![image-20220805085642810](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085642810.png)
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1575800944203.png)
+![image-20220805085656449](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085656449.png)
 
 ### async与await
 
 `await`主要是用来求值的， 相当于一个求值关键字， 可以代替`then`直接将promise结果返回， 如下：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1575776232022.png)
+![image-20220805085711675](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085711675.png)
 
 当然后面也可以写表达式， 不仅仅是Promise
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1575776380816.png)
+![image-20220805085731399](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085731399.png)
 
 await能堆promise直接求值， 也能阻塞程序运行， 将原本异步的代码变成同步。等待异步代码返回后再继续执行。
 
@@ -55,7 +55,7 @@ await能堆promise直接求值， 也能阻塞程序运行， 将原本异步的
 
 保证洋葱模型必须要在中间件函数前增加async， 并且next()前添加await。
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583588245836.png)
+![image-20220805085748434](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085748434.png)
 
 为什么我们非要保证洋葱模型呢？ 
 
@@ -65,7 +65,7 @@ await能堆promise直接求值， 也能阻塞程序运行， 将原本异步的
 
 将需要传的值直接写在上下文环境的属性就就可以传递值了， 但是请务必保证是洋葱模型。
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1575800622318.png)
+![image-20220805085800508](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085800508.png)
 
 
 ## 路由系统
@@ -198,19 +198,19 @@ module, 模块， 固定参数
 
 在根目录创建一个文件夹， 并创建一个js文件， 使用ES6的方法到处 `module.exports`
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1576986509619.png)
+![image-20220805085821879](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085821879.png)
 
 
 在初始化方法内写一个静态方法进行引入
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1576986763052.png)
+![image-20220805085837647](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085837647.png)
 
 
 使用
 
 一般来说不用再用`else`，`throw`抛出错误就会停止运行
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1576987025531.png)
+![image-20220805085854081](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085854081.png)
 
 
 ### 前缀
@@ -255,11 +255,11 @@ app.use(parser())
 
 exception.js
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583638465214.png)
+![image-20220805085910036](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085910036.png)
 
 未知异常：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583639083327.png)
+![image-20220805085936059](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085936059.png)
 
 在app.js中引入
 
@@ -287,7 +287,7 @@ class HttpException extends Error{
 
 使用：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583638266234.png)
+![image-20220805085951330](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805085951330.png)
 
 
 ## Lin-Validator使用指南
@@ -308,23 +308,23 @@ npm install lodash validator jsonwebtoken -S
 ### 关系型数据库与非关系型数据库
 
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1577109327824.png)
+![image-20220805090011851](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090011851.png)
 
 
 ### 新建连接
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1577456314498.png)
+![image-20220805090029255](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090029255.png)
 
 
 #### 修改连接密码
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583651146766.png)
+![image-20220805090040060](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090040060.png)
 
 如果不行请把root的都修改一下
 
 ### 新建数据库
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1583651319475.png)
+![image-20220805090326009](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090326009.png)
 
 ###  数据库操作插件
 
@@ -863,7 +863,6 @@ async function emailLogin(account, secret) {
 
 module.exports = router
 ```
-
 
 
 

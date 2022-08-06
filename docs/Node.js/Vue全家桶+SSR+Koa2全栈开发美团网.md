@@ -48,7 +48,7 @@ npm i mongoose
 
 接下来我们在项目根文件夹创建dbs文件夹， 创建 config.js 文件。目录如下：
 
-![目录](https://gitee.com/l544402029/res/raw/master/小书匠/1585045331310.png)
+![image-20220805090436497](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090436497.png)
 
 config.js
 
@@ -315,7 +315,7 @@ module.exports = app;
 vue init nuxt-community/koa-template nuxt-learn
 ```
 
-![目录](https://gitee.com/l544402029/res/raw/master/小书匠/1585106731281.png)
+![image-20220805090521381](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090521381.png)
 
 
 search.vue
@@ -354,7 +354,7 @@ default.vue是默认模板， 如果不设置 layout ， 那么使用的就是�
 
 输出结果：
 
-![输出结果](https://gitee.com/l544402029/res/raw/master/小书匠/1585106901959.png)
+![image-20220805090543428](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090543428.png)
 
 
 以上只是静态的数据， 如果想要动态数据需要进行其他配置。
@@ -364,7 +364,7 @@ default.vue是默认模板， 如果不设置 layout ， 那么使用的就是�
 
 文件目录：
 
-![文件目录](https://gitee.com/l544402029/res/raw/master/小书匠/1585110840853.png)
+![image-20220805090556136](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090556136.png)
 
 search.vue
 
@@ -486,14 +486,12 @@ mongoimport -d student -c areas areas.dat
 
 遇到mongoimport命令无效
 
-![解决方案1](https://gitee.com/l544402029/res/raw/master/小书匠/1585300869294.png)
+![image-20220805090632863](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090632863.png)
 
 环境变量有这个 系统会自动去这个路径下面找
 
-![解决方案2](https://gitee.com/l544402029/res/raw/master/小书匠/1585301559136.png)
-
+![image-20220805090651374](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090651374.png)
 
 也可以参考[mongodb——设置为全局环境变量
 ](https://blog.csdn.net/YUHUI01/article/details/80862425)此博客设置全局变量。
-
 

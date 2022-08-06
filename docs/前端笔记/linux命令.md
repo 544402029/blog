@@ -50,7 +50,7 @@ vi d.js
 
 新建完之后需要点击i， 进入INSERT模式。 表示可以输入了。
 
-![enter description here](https://markdown.xiaoshujiang.com/img/spinner.gif "[[[1582800379689]]]" )
+
 
 #### 退出INSERT
 
@@ -60,15 +60,15 @@ vi d.js
 
 输入`:w`
 
-![enter description here](https://markdown.xiaoshujiang.com/img/spinner.gif "[[[1582800592416]]]" )
+
 
 点击回车保存。
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1582800571672.png)
+![image-20220805094806265](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094806265.png)
 
 输入`:q`
 
-![enter description here](https://markdown.xiaoshujiang.com/img/spinner.gif "[[[1582800666614]]]" )
+
 
 点击回车就可以退出了。
 

@@ -180,7 +180,7 @@ overflow: hidden;
 
 ```css
 word-wrap: break-word;
-word-break：break-all;
+word-break: break-all;
 ```
 
 
@@ -537,291 +537,6 @@ template {
 }
 ```
 
-## reset.css 默认样式
-```css
-/* 初始化 */
-a,
-abbr,
-acronym,
-address,
-applet,
-area,
-article,
-aside,
-audio,
-b,
-base,
-basefont,
-bdi,
-bdo,
-big,
-blockquote,
-body,
-br,
-button,
-canvas,
-caption,
-center,
-cite,
-code,
-col,
-colgroup,
-datalist,
-dd,
-del,
-details,
-dir,
-div,
-dfn,
-dialog,
-dl,
-dt,
-em,
-embed,
-fieldset,
-figcaption,
-figure,
-font,
-footer,
-form,
-frame,
-frameset,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-head,
-header,
-hr,
-html,
-i,
-iframe,
-img,
-input,
-ins,
-isindex,
-kbd,
-keygen,
-label,
-legend,
-li,
-link,
-map,
-mark,
-menu,
-menuitem,
-meta,
-meter,
-nav,
-noscript,
-object,
-ol,
-optgroup,
-option,
-output,
-p,
-param,
-pre,
-progress,
-q,
-rp,
-rt,
-ruby,
-s,
-samp,
-script,
-section,
-select,
-small,
-source,
-span,
-strike,
-strong,
-style,
-sub,
-summary,
-sup,
-table,
-tbody,
-td,
-textarea,
-tfoot,
-th,
-thead,
-time,
-title,
-tr,
-track,
-tt,
-u,
-ul,
-var,
-video,
-wbr,
-xmp {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-*::before,
-*::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-body {
-	font: 14px/1 "PingFang SC", "Microsoft YaHei", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-img {
-	display: block;
-	border: none;
-}
-dl,
-li,
-menu,
-ol,
-ul {
-	list-style: none;
-}
-button,
-input,
-select,
-textarea {
-	box-sizing: border-box;
-	outline: none;
-}
-a,
-a:link,
-a:visited,
-a:hover,
-a:active {
-	text-decoration: none;
-}
-/* 浮动方式 */
-.fl {
-	float: left;
-}
-.fr {
-	float: right;
-}
-.clear {
-	overflow: hidden;
-	clear: both;
-	height: 0;
-	font-size: 0;
-}
-.clearfix::after {
-	display: block;
-	visibility: hidden;
-	clear: both;
-	height: 0;
-	font-size: 0;
-	content: "";
-}
-/* 定位方式 */
-.pr {
-	position: relative;
-}
-.pa {
-	position: absolute;
-}
-.pf {
-	position: fixed;
-}
-.center {
-	margin: 0 auto;
-}
-/* 对齐方式 */
-.tal {
-	text-align: left;
-}
-.tac {
-	text-align: center;
-}
-.tar {
-	text-align: right;
-}
-.taj {
-	text-align: justify;
-}
-/* 居中定位 */
-.abs-ct {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-}
-.abs-cx {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-.abs-cy {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-}
-/* 弹性布局 */
-.flex-ct-x {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.flex-ct-y {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.flex-fs {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-content: space-between;
-}
-/* 动画模式 */
-.td-camera {
-	perspective: 1000;
-}
-.td-space {
-	transform-style: preserve-3d;
-}
-.td-box {
-	backface-visibility: hidden;
-}
-.gpu-speed {
-	transform: translate3d(0, 0, 0);
-}
-/* 其他 */
-.fullscreen {
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-}
-.ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.page-at {
-	overflow: auto;
-	width: 100%;
-	height: 100%;
-}
-.page-fs {
-	overflow: hidden;
-	width: 100%;
-	height: 100%;
-}
-.round {
-	border-radius: 100%;
-}
-```
 
 ## 文字下沉效果
 
@@ -1108,11 +823,11 @@ body { font-size: 16px; }
 
 ## css 常用字体
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509891039.png)
+![image-20220805094949217](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805094949217.png)
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509965969.png)
+![image-20220805095005983](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095005983.png)
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1598509977692.png)
+![image-20220805095015586](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095015586.png)
 
 ## 弹窗蒙层显示隐藏
 
@@ -1245,40 +960,6 @@ input:focus {
 input{
   border: none;
   outline: none;
-}
-```
-
-## 隐藏滚动条或更改滚动条样式 
-
-```css
-/*css主要部分的样式*//*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
-::-webkit-scrollbar {
-    width: 10px; /*对垂直流动条有效*/
-    height: 10px; /*对水平流动条有效*/
-}
-
-/*定义滚动条的轨道颜色、内阴影及圆角*/
-::-webkit-scrollbar-track{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: rosybrown;
-    border-radius: 3px;
-}
-
-/*定义滑块颜色、内阴影及圆角*/
-::-webkit-scrollbar-thumb{ 
-    border-radius: 7px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #E8E8E8;
-}
-
-/*定义两端按钮的样式*/
-::-webkit-scrollbar-button {
-    background-color:cyan;
-}
-
-/*定义右下角汇合处的样式*/
-::-webkit-scrollbar-corner {
-    background:khaki;
 }
 ```
 
@@ -1510,7 +1191,7 @@ ul > li {
 
 效果图：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1597662032516.png)
+![image-20220805095042145](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095042145.png)
 
 10倍大小模拟
 ```css
@@ -1529,7 +1210,7 @@ ul > li {
 
 效果图：
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1597397829490.png)
+![image-20220805095059804](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805095059804.png)
 
 
 10倍大小模拟

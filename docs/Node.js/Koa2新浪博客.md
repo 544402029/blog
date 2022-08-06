@@ -73,11 +73,11 @@ koa2 -e 项目名称
 具体操作：
 
 
-![外键](https://gitee.com/l544402029/res/raw/master/小书匠/1622952230872.png)
+![image-20220805090750267](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090750267.png)
 
 在blogs表中将userid与user表中id进行了关联
 
-![关联表](https://gitee.com/l544402029/res/raw/master/小书匠/1623073950598.png)
+![image-20220805090803593](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220805090803593.png)
 
 ### 连表查询
 
