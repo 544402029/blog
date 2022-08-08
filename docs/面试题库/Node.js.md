@@ -11,11 +11,11 @@ next: 其它
 - nodejs 出现之前， js 只能在浏览器运行。（浏览器也相当于是一个运行环境）
 - nodejs 出现之后，js 可以在任何安装 nodejs 的环境运行。
 
-<a name="SUV0J"></a>
+
 
 ## 和前端 js 有何区别？
 
-<a name="vACVb"></a>
+
 
 ### 语法方面
 
@@ -23,9 +23,9 @@ next: 其它
 - 前端 js 使用 JS WEB API
 - nodejs 使用 node API
 
-![输入图片说明](../../static/images/jsyufa.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jsyufa.png)
 
-<a name="Q0Zbx"></a>
+
 
 ### 应用层面
 
@@ -33,13 +33,13 @@ next: 其它
 - nodejs 可用于服务端， 如开发 web server
 - nodejs 也可用于本机， 如 webpack 等本机的打包工具
 
-<a name="gf1wn"></a>
+
 
 ## nodejs 如何调试
 
 可以使用 vscode 的运行调试工具进行打断点以及 debugger
 
-<a name="yK9z4"></a>
+
 
 ## 当前文件和当前目录的路径， 如何获取
 
@@ -47,7 +47,7 @@ next: 其它
 - \_\_dirname
 - 两个都是全局变量
 
-<a name="bfGQS"></a>
+
 
 ## commonjs 和 ES6 Module 的区别
 
@@ -55,9 +55,9 @@ next: 其它
 - commonjs 是动态引入，执行时引入
 - ES6 Module 是静态引入，编译时引入
 
-![输入图片说明](../../static/images/yufabutonmga.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yufabutonmga.png)
 
-<a name="KmYPU"></a>
+
 
 ## path.resolve 和 path.join 的区别
 
@@ -65,34 +65,34 @@ next: 其它
 - path.resolve 获取绝对路径
 - path.join 获取相对路径
 
-![输入图片说明](../../static/images/zhiojielaiba.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zhiojielaiba.png)
 
-<a name="RlDlG"></a>
+
 
 ## 事件循环 event loop 在 nodejs 和浏览器的区别浏览器的区别
 
-![输入图片说明](../../static/images/loopsxun.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/loopsxun.png)
 
-<a name="T6wJd"></a>
+
 
 ## cookie 如何实现登录？
 
-![输入图片说明](../../static/images/co0okiedn.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/co0okiedn.png)
 
-<a name="ZYd0b"></a>
+
 
 ## session 和 cookie 的关系
 
-![输入图片说明](../../static/images/session-cookie.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/session-cookie.png)
 
-<a name="dhCpu"></a>
+
 
 ## session 为何需要存储在 redis 中？
 
 - 进程有内存限制
 - 进程的内存是相互隔离的
 
-<a name="C4qwR"></a>
+
 
 ## 请描述 koa2 和 express 的中间件机制
 
@@ -100,13 +100,13 @@ next: 其它
 - 从业务来看，中间件则是一个独立的模块
 - 模块拆分，模块流传，即可完成复杂的功能
 
-<a name="WiNeA"></a>
+
 
 ## 请描述 koa2 洋葱圈模型
 
-![输入图片说明](../../static/images/yangcongquan.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yangcongquan.png)
 
-<a name="cOjaB"></a>
+
 
 ## nodejs 线上环境为何开启多进程？
 

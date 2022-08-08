@@ -1,6 +1,6 @@
 # 5 层网络模型
 
-![输入图片说明](../../static/images/wucengmoxing.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/wucengmoxing.png)
 
 ## 物理层
 
@@ -37,11 +37,11 @@ TCP/IP 协议， UDP 协议处于该层。
 
 # 发展历史
 
-![输入图片说明](../../static/images/http0.9.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/http0.9.png)
 
-![输入图片说明](../../static/images/http1.0.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/http1.0.png)
 
-![输入图片说明](../../static/images/http1.1.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/http1.1.png)
 
 ### 持久连接
 

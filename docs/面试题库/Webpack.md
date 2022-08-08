@@ -13,17 +13,17 @@ next: Node.js
 本篇博客 Webpack 版本是4.0+，请确保你安装了Node.js最新版本。
 ```
 
-<a name="1e6ca9f5"></a>
+
 
 ## Webpack 是什么？
 
-<a name="68544159"></a>
+
 
 ##### 核心定义
 
 webpack 的核心定义是一个模块打包工具。
 
-<a name="f918945f"></a>
+
 
 ### 官方文档查阅
 
@@ -41,13 +41,13 @@ LOADERS： 查看 loader 的作用，配置。（如果找不到到插件的 git
 
 PLUGINS： 插件的作用，配置。（如果找不到到插件的 githup 上找）
 
-<a name="9b0e8036"></a>
+
 
 ### 搭建 Webpack 环境
 
 首先要安装 node.js 以及 npm， 并保证是最新版本。（最新版本会加快打包构建速度）
 
-<a name="aafc5aa5"></a>
+
 
 #### 安装指令
 
@@ -69,7 +69,7 @@ npm install webpack webpack-cli -D
 npm install webpack@4.16.5 webpack-cli -D
 ```
 
-<a name="049b6248"></a>
+
 
 #### 卸载指令
 
@@ -77,7 +77,7 @@ npm install webpack@4.16.5 webpack-cli -D
 npm uninstall webpack webpack-cli -g
 ```
 
-<a name="29fe6aff"></a>
+
 
 #### 查看当前 Webpack 版本
 
@@ -93,7 +93,7 @@ webpack -v
 npx webpack  -v
 ```
 
-<a name="0eb247ec"></a>
+
 
 #### 查看历史 Webpack 版本
 
@@ -101,11 +101,11 @@ npx webpack  -v
 npm info webpack
 ```
 
-<a name="4227e92b"></a>
+
 
 ## 使用 Webpack 配置文件
 
-<a name="bba0d682"></a>
+
 
 ### 创建配置文件
 
@@ -129,7 +129,7 @@ module.exports = {
 };
 ```
 
-<a name="b9d740cc"></a>
+
 
 ### 修改默认配置文件名字
 
@@ -141,7 +141,7 @@ npx webpack --config webpackconfig.js
 
 > npx 会在目录下的 node_modules 下面找 webpack，没有就安装一个。npm 则先去全局，然后再去当前目录下的 node_modules 找 webpack，没有就不找了
 
-<a name="3b1c467d"></a>
+
 
 ### webpack 执行命令
 
@@ -183,17 +183,15 @@ package.json 文件
 }
 ```
 
-<a name="loader"></a>
+
 
 ## loader
 
 loader 是一个打包方案，它知道对于某一个特定的文件，webpack 该如何进行打包。本身 webpack 是不知道对于一些文件（jpg，txt，excel）该如何处理的，但是 loader 知道。 所以 webpack 去求助 loader 就可以啦。
 
-<a name="e10a2d26"></a>
+
 
 ### 打包静态资源（图片篇）
-
-<a name="49c24aaf"></a>
 
 #### 安装插件
 
@@ -208,8 +206,6 @@ npm i url-loader -D
 ```
 
 url-loader 更加友好， 它可以通过图片大小来判断是使用 base64 格式图片还是直接打包成一个图片资源文件。
-
-<a name="15c64aa0"></a>
 
 #### 配置文件
 
@@ -236,7 +232,7 @@ module: {
 }
 ```
 
-<a name="b6724cff"></a>
+
 
 #### 原理
 
@@ -244,15 +240,13 @@ File-loader 底层处理逻辑，先将文件转移到打包目录下，再将 d
 
 任何的静态文件都可以使用`file-loader`插件， 只要你希望把静态文件移动到打包目录下并且获取到此文件地址。
 
-<a name="f41e6765"></a>
+
 
 ### 打包静态资源（样式篇）
 
-<a name="49c24aaf-1"></a>
+
 
 #### 安装插件
-
-<a name="670189ba"></a>
 
 ##### css 文件打包
 
@@ -268,15 +262,13 @@ npm i style-loader css-loader -D
 
 在打包 css 文件时， 一定要`css-loader`和`style-loader`配合使用。
 
-<a name="496c55e7"></a>
-
 ##### sass 文件打包
 
 ```shell
 npm install sass-loader node-sass --save-dev
 ```
 
-<a name="5b296583"></a>
+
 
 ##### 自动加厂商前缀
 
@@ -290,7 +282,7 @@ npm i autoprefixer -D
 
 loader 打包的执行顺序是从下到上（从右到左）来执行， 如下：sass 文件会先执行`sass-loader`， 处理完后再执行`style-loader`挂载到 html 的 head 部分。
 
-<a name="224e2ccd"></a>
+
 
 #### 配置
 
@@ -353,17 +345,17 @@ module.exports = {
   ]
 ```
 
-<a name="edd086e5"></a>
+
 
 ## 使用 plugins
 
 plugin 可以在 webpack 运行到某个时刻的时候， 帮你做一些事情。 很像 vue 中的生命周期函数。
 
-<a name="99ce77f2"></a>
+
 
 ### 生成 html 文件
 
-<a name="e655a410"></a>
+
 
 #### 安装
 
@@ -373,7 +365,7 @@ npm i -D html-webpack-plugin
 
 html-webpack-plugin 会在打包结束的时刻， 自动生成一个 html 文件， 并把打包生成的 js 自动注入到这个 html 文件中。
 
-<a name="224e2ccd-1"></a>
+
 
 #### 配置
 
@@ -385,11 +377,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 plugins:[new HtmlWebpackPlugin()],
 ```
 
-<a name="fdd02578"></a>
+
 
 ### 打包时清空 dist 目录
 
-<a name="e655a410-1"></a>
+
 
 #### 安装
 
@@ -413,11 +405,11 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
     }),new CleanWebpackPlugin()],
 ```
 
-<a name="b6453aea"></a>
+
 
 ## 基础配置
 
-<a name="Entry"></a>
+
 
 ### Entry
 
@@ -430,7 +422,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 如果一个文件打包两次， 可以用以上方式配置， 一个文件会成为 main.js， 一个会成为 sub.js。
 
-<a name="Output"></a>
+
 
 ### Output
 
@@ -444,7 +436,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
     }
 ```
 
-<a name="SourceMap"></a>
+
 
 ## SourceMap
 
@@ -452,7 +444,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 比如你的 js 文件里面写的有问题，比如 dist 目录下的 main.js 文件第 96 行出错。SourceMap 他是一个映射关系， 他知道 dist 目录下的 main.js 文件 96 行实际上对应的是 src 目录下 index.js 文件中的第一行。他就知道是 index.js 第一行出错了。
 
-<a name="224e2ccd-3"></a>
+
 
 #### 配置
 
@@ -482,15 +474,17 @@ source-map 只会告诉我们业务相关的代码是否有错， 而不会告�
 
 使用`eval`配置执行效率最快， 性能最好的打包方式。它使用了`eval`的语法执行源代码。但是如果比较复杂的代码情况下， 它提示出来的内容可能不太准确。
 
-<a name="34062b25"></a>
+
 
 ##### 最佳实践
 
 如果你在开发环境中， 使用 source-map 建议使用`devtool:'cheap-module-inline-eval-source-map'`, 它提示出来的错误是比较全的， 同时它的打包速度也是比较快的。
 
-如果在线上环境中， 没必要使用 source-map 作为映射， 直接删除此配置即可。<br />当然如果你也需要看错误提示， 可以使用`devtool:'cheap-module-source-map'。`它的提示会更好一些。
+如果在线上环境中， 没必要使用 source-map 作为映射， 直接删除此配置即可。
 
-<a name="WebpackDevServer"></a>
+当然如果你也需要看错误提示， 可以使用`devtool:'cheap-module-source-map'。`它的提示会更好一些。
+
+
 
 ## WebpackDevServer
 
@@ -498,7 +492,7 @@ source-map 只会告诉我们业务相关的代码是否有错， 而不会告�
 
 总共有以下两种方式：
 
-<a name="2c91ee49"></a>
+
 
 ### webpack --watch
 
@@ -512,13 +506,13 @@ package.json
   },
 ```
 
-<a name="devServer"></a>
+
 
 ### devServer
 
 自动打包并刷新浏览器，还可以模拟服务器上的特性。 vue 以及 react 脚手架使用的都是此配置。推荐使用， 这个也是业界最经常使用的方案。
 
-<a name="49c24aaf-2"></a>
+
 
 #### 安装插件
 
@@ -526,7 +520,7 @@ package.json
 npm i webpack-dev-server -D
 ```
 
-<a name="224e2ccd-4"></a>
+
 
 #### 配置
 
@@ -552,7 +546,7 @@ package.json
   },
 ```
 
-<a name="8dce837c"></a>
+
 
 ## 热模块更新（HMR）
 
@@ -564,7 +558,7 @@ HMR 是 Hot Module Replacement 的缩写。
 
 1. 非常方便调试样式。
 
-<a name="224e2ccd-5"></a>
+
 
 #### 配置
 
@@ -599,19 +593,15 @@ const webpack = require("webpack");
 
 index.js 内
 
-![输入图片说明](../../static/images/peizhiwenj.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/peizhiwenj.png)
 
 如果开启热更新， number.js 文件只要发生变化就会重新执行一下
 
-<a name="f23c6e3c"></a>
+
 
 ## 使用 Babel 处理 ES6 语法
 
-<a name="710902d4"></a>
-
 ### 业务代码
-
-<a name="49c24aaf-3"></a>
 
 #### 安装插件
 
@@ -626,8 +616,6 @@ npm i --save @babel/polyfill
 babel-loader 插件只是作为 babel 与 webpack 沟通的桥梁， 如果想要翻译 ES6 语法， 需要安装@babel/preset-env 插件。
 
 babel/polyfill 用来补充 babel/preset-env 的， 有的语法 babel/preset-env 不能翻译（如 Promise）， 这时候可以使用 babel/polyfill。
-
-<a name="224e2ccd-6"></a>
 
 #### 配置
 
@@ -658,13 +646,9 @@ webpack.config.js
       }
 ```
 
-<a name="61dd95dc"></a>
-
 ### 打包组件库
 
 如果开发组件库或者第三方模块的时候， 不要使用@babel/polyfill 插件。因为它在注入 promise 或者 map 方法的时候， 它会通过全局变量的方式注入， 会污染到全局环境。
-
-<a name="49c24aaf-4"></a>
 
 #### 安装插件
 
@@ -677,8 +661,6 @@ webpack.config.js
  npm i --save @babel/runtime
   npm i --save @babel/runtime-corejs2
 ```
-
-<a name="224e2ccd-7"></a>
 
 #### 配置
 
@@ -733,11 +715,11 @@ babelrc
 }
 ```
 
-<a name="c6979b30"></a>
+
 
 ## 配置 React 代码打包
 
-<a name="49c24aaf-5"></a>
+
 
 #### 安装插件
 
@@ -746,7 +728,7 @@ babelrc
  npm i --save-dev @babel/preset-react
 ```
 
-<a name="224e2ccd-8"></a>
+
 
 #### 配置
 
@@ -776,7 +758,7 @@ babelrl
 这个执行顺序是按照从下到上，从右到左来执行的。顺序一定不要写反了。它是先执行react转成js， 然后执行babel转成ES5的。
 ```
 
-<a name="866b1a74"></a>
+
 
 ## Tree Shaking
 
@@ -820,7 +802,7 @@ package.json 文件内
 
 如果你的业务 js 代码引入了 js，如下：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581060281975.png#crop=0&crop=0&crop=1&crop=1&id=CiOUo&originHeight=166&originWidth=661&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![image-20220808175242375](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175242375.png)
 
 你也需要在"sideEffects"进行配置， 一般我们会对 css 文件进行以下配置：
 
@@ -832,13 +814,15 @@ package.json 文件内
 
 只要遇到任何的 css 文件，那么也不要去使用 Tree Shaking。
 
-<a name="4c67154b"></a>
+
 
 ## Develoment 和 Production 模式的区分打包
 
-在开发环境可以方便我们开发， 有热模块更新 DevServer 等配置可以更加方便我们的调试代码。<br />而线上环境会压缩代码， 对`source-map`精简（没有报错信息或者只显示行错误）。
+在开发环境可以方便我们开发， 有热模块更新 DevServer 等配置可以更加方便我们的调试代码。
 
-<a name="29c80db5"></a>
+而线上环境会压缩代码， 对`source-map`精简（没有报错信息或者只显示行错误）。
+
+
 
 ### 开发环境
 
@@ -941,7 +925,7 @@ module.exports = {
 };
 ```
 
-<a name="c99a2f7e"></a>
+
 
 #### 启动命令
 
@@ -955,7 +939,7 @@ package.json
 
 在开发环境内也可以把 hotOnly: true 去掉， 使浏览器能自动刷新。
 
-<a name="e0b56e35"></a>
+
 
 ### 线上环境
 
@@ -1033,7 +1017,7 @@ module.exports = {
 };
 ```
 
-<a name="c99a2f7e-1"></a>
+
 
 #### 启动命令
 
@@ -1048,7 +1032,7 @@ package.json
 
 打包完成后把 dist 文件夹丢给后端使用即可。
 
-<a name="84b73920"></a>
+
 
 ### 公共文件
 
@@ -1193,7 +1177,7 @@ webpack.common.js
   }
 ```
 
-<a name="7ed2df44"></a>
+
 
 ### Webpack 和 Code Splitting
 
@@ -1221,15 +1205,13 @@ webpack.common.js
   },
 ```
 
-<a name="b278b116"></a>
+
 
 ### 自动进行代码分割
 
-<a name="28021d97"></a>
-
 #### 同步代码方式
 
-![输入图片说明](../../static/images/tonghbudaimafasngshi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/tonghbudaimafasngshi.png)
 
 以上为同步引入方式，可按照一下代码进行配置：
 
@@ -1245,15 +1227,13 @@ webpack.common.js
 
 这段代码能帮你做代码分割。
 
-<a name="e139b734"></a>
-
 #### 异步代码
 
 异步引入指的是以下情况：
 
-![输入图片说明](../../static/images/yibudairu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yibudairu.png)
 
-<a name="49c24aaf-6"></a>
+
 
 ##### 安装插件
 
@@ -1284,7 +1264,7 @@ npm i babel-plugin-dynamic-import-webpack
 }
 ```
 
-<a name="5db9fd7c"></a>
+
 
 #### 小结
 
@@ -1295,15 +1275,13 @@ webpack 中实现代码分割，两种方式
 1. 同步代码： 只需要在 webpack.common.js 中做 optimization 的配置即可
 1. 异步代码(import): 异步代码，无需做任何配置，会自动进行代码分割，放置到新的文件中
 
-<a name="93e3cee7"></a>
+
 
 ## SplitChunksPlugin 配置参数详解
 
-<a name="7741b936"></a>
-
 ### 魔法注释
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581082638405.png#crop=0&crop=0&crop=1&crop=1&id=Dq2IJ&originHeight=323&originWidth=979&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![image-20220808175400125](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175400125.png)
 
 需要在 package.json 去掉 babel-plugin-dynamic-import-webpack 插件，因为它是一个第三方的插件，不支持魔法注释， 我们需要一个官方的插件来进行魔法注释。
 
@@ -1357,15 +1335,15 @@ webpack.common.js
   }
 ```
 
-<a name="21f2fa80"></a>
+
 
 ### 参数说明
 
-<a name="chunks"></a>
+
 
 #### chunks
 
-<a name="5664ca21"></a>
+
 
 ##### chunks: 'async'
 
@@ -1373,17 +1351,13 @@ webpack.common.js
 
 只对异步引入进行代码分割
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581133883503.png#crop=0&crop=0&crop=1&crop=1&id=TmlSS&originHeight=320&originWidth=996&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="9af2d594"></a>
+![image-20220808175424862](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175424862.png)
 
 ##### chunks: 'initial'
 
 只对同步引入进行代码分割
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581133971127.png#crop=0&crop=0&crop=1&crop=1&id=xOrkY&originHeight=229&originWidth=833&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="8d31ab0a"></a>
+![image-20220808175441749](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175441749.png)
 
 ##### chunks: 'all'
 
@@ -1398,7 +1372,7 @@ defaultVendors: {
 
 执行过程是首先看是否需要代码分割， 也就是 chunks 配置，如果需要分割会走到 cacheGroups 内看如何分割， 从 defaultVendors 看看是否在 node_modules 里， 那它就符合这个配置的要求， 于是他就会把需要打包的模块（如 lodash）打包在一个 Vendors 组里面去。
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581134877396.png#crop=0&crop=0&crop=1&crop=1&id=OarhF&originHeight=106&originWidth=304&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![image-20220808175459244](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175459244.png)
 
 这个文件是在 vendors 组内， 入口文件是 main.js
 
@@ -1412,7 +1386,7 @@ defaultVendors: {
 
 加上 filename 可以使文件名改为 vendors.js
 
-<a name="minSize"></a>
+
 
 #### minSize
 
@@ -1439,9 +1413,9 @@ minSize: 30000
 
 这样打包后会在文件前加 default~的前缀， 如下：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581147147218.png#crop=0&crop=0&crop=1&crop=1&id=MSiTR&originHeight=744&originWidth=1271&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
+![image-20220808175516416](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175516416.png)
 
-<a name="maxSize"></a>
+
 
 #### maxSize
 
@@ -1449,13 +1423,13 @@ minSize: 30000
 
 这个配置是进行二次拆分的选项。 比如一个 lodash 库， 你配置 50000， 也就是 50kb， 这个 lodash 库是 1m， 那么它会拆分成 20 个文件， 但是一般情况下 lodash 库是拆分不了的。
 
-<a name="minChunks"></a>
+
 
 #### minChunks
 
 当一个模块引入了多少次才会进行代码分割。
 
-<a name="maxAsyncRequests"></a>
+
 
 #### maxAsyncRequests
 
@@ -1463,7 +1437,7 @@ minSize: 30000
 
 比如我们这个选项配置为 5， 加入我引入了 10 个库， 分割了 10 个文件，那你一打开网页的时候， 同时要加载 10 个文件。那就违反了 maxAsyncRequests 配置为 5 的要求， 同时只能加载 5 个请求， 那么 webpack 在打包前 5 个库的时候会为你生成 5 个 js 文件， 超过 5 个它就不会做代码分割了。
 
-<a name="maxInitialRequests"></a>
+
 
 #### maxInitialRequests
 
@@ -1471,19 +1445,19 @@ minSize: 30000
 
 整个网站首页加载的时候， 或者说入口文件加载的时候， 入口文件可能会引入其它的 js 文件。入口文件引入的库如果是配置为 3， 那么最多做 3 次代码分割。 超过 3 个就不会再做代码分割了。
 
-<a name="automaticNameDelimiter"></a>
+
 
 #### automaticNameDelimiter
 
 组和文件名做连接时的连接符
 
-<a name="name"></a>
+
 
 #### name
 
 为`true`会让`cacheGroups`起的名字有效。也就是`filename`。
 
-<a name="cacheGroups"></a>
+
 
 #### cacheGroups
 
@@ -1495,13 +1469,13 @@ minSize: 30000
 
 假如我有一个 a 模块， 又有一个 b 模块。a 模块内又使用了 b 模块。在打包 a 代码的时候， 由于 a 模块使用了<br />b 模块，所以 b 模块代码也会被打包进去。但是如果配置这个选项，它会去看， 之前 b 模块代码已经被引入过，那么它会去复用之前打包的模块。
 
-<a name="7c508998"></a>
+
 
 ### Chunks 是什么？
 
 webpack 打包过程中生成的每个文件都是一个 chunk
 
-<a name="3ad82898"></a>
+
 
 ##### 意义
 
@@ -1509,7 +1483,7 @@ webpack 打包过程中生成的每个文件都是一个 chunk
 
 minChunks: 2 至少两个打包文件引入这个模块 才单独分割打包
 
-<a name="2b6740c7"></a>
+
 
 ## Lazy Loading 懒加载
 
@@ -1534,7 +1508,7 @@ document.addEventListener("click", () => {
 
 懒加载并不是 webpack 的功能， 它是 ESModule 的一个概念， 只不过 webpack 能够识别对它进行代码分割。
 
-<a name="4395b241"></a>
+
 
 ### 打包分析
 
@@ -1554,11 +1528,11 @@ package.json
 
 打开http://webpack.github.io/analyse/，把文件上传即可得到以下的分析图。
 
-![输入图片说明](../../static/images/bundleanaliy.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/bundleanaliy.png)
 
 当然也可以使用 Webpack Bundle Analyzer 这个插件。
 
-<a name="e405d5b9"></a>
+
 
 ## Preloading, Prefetching
 
@@ -1570,9 +1544,9 @@ show coverage 代码使用率
 
 如下：
 
-![输入图片说明](../../static/images/yubao.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yubao.png)
 
-![输入图片说明](../../static/images/woyaozhibo.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/woyaozhibo.png)
 
 但是异步加载交互代码时：例如当点击的时候才再加载异步代码，虽然提高了页面初始化速度，但是对用用户点击<br />的体验不好，速度太慢；
 
@@ -1586,7 +1560,7 @@ import(/* webpackPrefetch: true */ "LoginModal");
 
 preload：是和主线程一起加载
 
-<a name="cd7a36ea"></a>
+
 
 ## css 代码分割
 
@@ -1658,7 +1632,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
   ]
 ```
 
-<a name="66d3e599"></a>
+
 
 ##### 高级用法
 
@@ -1755,7 +1729,7 @@ module.exports = {
 };
 ```
 
-<a name="ff625f9c"></a>
+
 
 ## Webpack 与浏览器缓存
 
@@ -1780,9 +1754,7 @@ webpack.prod.js
 
 老版本如果发现即使没修改代码，打包文件的 hash 值也不一样，请按下图配置：
 
-![](https://gitee.com/l544402029/res/raw/master/%E5%B0%8F%E4%B9%A6%E5%8C%A0/1581170187547.png#crop=0&crop=0&crop=1&crop=1&id=ZoDu9&originHeight=114&originWidth=580&originalType=binary&ratio=1&rotation=0&showTitle=false&status=done&style=none&title=)
-
-<a name="bd075962"></a>
+![image-20220808175632040](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808175632040.png)
 
 ## Shimming 的作用
 
@@ -1814,7 +1786,7 @@ webpack.common.js
 
 以上代码的意思就是如果我的一个模块中使用了`$`， 那我就会在模块里自动帮你引入 jquery 这个模块。<br />使用\_join 就是 lodash 下的 join 方法
 
-<a name="fe49a39a"></a>
+
 
 ### 模块内 this 指向 window
 
@@ -1838,7 +1810,7 @@ webpack.common.js
       }
 ```
 
-<a name="3867e350"></a>
+
 
 ## 环境变量
 
@@ -2096,23 +2068,23 @@ module.exports = devConfig;
 
 我们也可以在 package.json 里这样写：
 
-![输入图片说明](../../static/images/packge.json.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/packge.json.png)
 
 那么对应的 webpack.common.js 是这样的
 
-![输入图片说明](../../static/images/commonjs.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/commonjs.png)
 
 还可以这么写：
 
 package.json
 
-![输入图片说明](../../static/images/jdakdj.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jdakdj.png)
 
 webpack.common.js
 
-![输入图片说明](../../static/images/zhendeleia.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zhendeleia.png)
 
-<a name="61dd95dc-1"></a>
+
 
 ## 打包组件库
 
@@ -2166,7 +2138,7 @@ package.json
 
 如果你想这样通过 src 引入 js， 并且想通过 library 获取它下面的方法或属性，
 
-![输入图片说明](../../static/images/srcjs.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/srcjs.png)
 
 添加`library: 'library'`即可
 
@@ -2191,7 +2163,7 @@ module.exports = {
 
 这样配置好以下几种方式都可以正确引入了：
 
-![输入图片说明](../../static/images/houqiyingx.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/houqiyingx.png)
 
 webpack.config.js
 
@@ -2216,7 +2188,7 @@ module.exports = {
 };
 ```
 
-![输入图片说明](../../static/images/3nianasannian.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/3nianasannian.png)
 
 package.json
 
@@ -2246,11 +2218,9 @@ package.json
 - 命令行`npm adduser`,输入用户名，密码
 - 命令行 `npm publish`   发布到 npm
 
-<a name="cb88729a"></a>
+
 
 ## PWA 的打包配置
-
-<a name="808f8063"></a>
 
 ### 安装插件模拟服务器
 
@@ -2270,7 +2240,7 @@ PWA：是一种强缓存技术，访问过的页面就算服务器断开，也�
 
 只在上线环境配置就可以了， 开发环境不用考虑服务器挂掉不挂掉的问题。
 
-<a name="49c24aaf-7"></a>
+
 
 #### 安装插件
 
@@ -2278,7 +2248,7 @@ PWA：是一种强缓存技术，访问过的页面就算服务器断开，也�
 npm i workbox-webpack-plugin --save-dev
 ```
 
-<a name="224e2ccd-9"></a>
+
 
 #### 配置
 
@@ -2318,7 +2288,7 @@ if ("serviceWorker" in navigator) {
 }
 ```
 
-<a name="aaead4d8"></a>
+
 
 ## TypeScript 的打包配置
 
@@ -2360,7 +2330,7 @@ webpack-config.js
 
 如下图， 如果不向`join`方法传入参数会有报错提示
 
-![输入图片说明](../../static/images/jqueryjs.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jqueryjs.png)
 
 如果还想安装 jquery 库， 那你也需要安装对应的类型文件
 
@@ -2372,11 +2342,9 @@ npm i @types/jquery --save-dev
 
 [https://microsoft.github.io/TypeSearch/](https://microsoft.github.io/TypeSearch/)
 
-<a name="WebpackDevServer-1"></a>
+
 
 ## WebpackDevServer
-
-<a name="48cc81c9"></a>
 
 ### 请求转发
 
@@ -2386,7 +2354,7 @@ npm i @types/jquery --save-dev
 npm i axios --save
 ```
 
-![输入图片说明](../../static/images/meibanfaces.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/meibanfaces.png)
 
 在项目中我们一般会在开发环境有一个请求 api 以供测试， 线上环境有一个请求 api。 这时候我们一般需要使用相对路径写接口地址， 但是使用相对路径接口地址带上的就是 localhost 了， 这时候我们需要做一个代理：
 
@@ -2415,13 +2383,15 @@ webpack.config.js
 	},
 ```
 
-secure: false： https 的接口需要设置这个<br />pathRewrite: 相当于想要去获取 header.json， 配置这个获取的是 demo.json。 一般用于后端接口还没写好的时候使用一个 demo 数据， 等写好了再使用写好的接口，只需要把这个选项注释掉， 不用去业务代码中再修改了。
+secure: false： https 的接口需要设置这个
+
+pathRewrite: 相当于想要去获取 header.json， 配置这个获取的是 demo.json。 一般用于后端接口还没写好的时候使用一个 demo 数据， 等写好了再使用写好的接口，只需要把这个选项注释掉， 不用去业务代码中再修改了。
 
 changeOrigin: true 始终配置就行， 主要为了有的网站使用了 origin 限制。
 
 headers： 设置请求头， 可设置 host, cookie
 
-<a name="b87c9300"></a>
+
 
 ### 解决单页面应用路由问题
 
@@ -2433,9 +2403,9 @@ npm i react-router-dom --save
 
 在我们使用单页应用时， 如果我们要访问 list 页面， 那么服务器会以为我们访问的是一个叫 list 的页面。但是我们的文件里并没有一个 list.html， 那它就会提示我们页面不存在。
 
-![输入图片说明](../../static/images/yuchengjinro.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yuchengjinro.png)
 
-![输入图片说明](../../static/images/langduibuxing.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/langduibuxing.png)
 
 想要达到我们预期的效果， 需要配置 devServer
 
@@ -2466,11 +2436,11 @@ webpack.config.js
 historyApiFallback只在开发环境中有效，线上环境需要和后端配合
 ```
 
-<a name="EsLint"></a>
+
 
 ## EsLint
 
-<a name="90b06bac"></a>
+
 
 ### 使用 eslint 检测代码
 
@@ -2498,22 +2468,22 @@ npm i babel-eslint --save-dev
 
 .eslintrc.js
 
-![输入图片说明](../../static/images/buwena.png)
-<a name="2ff3e803"></a>
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/buwena.png)
+
 
 ### vscode 中的 ESlint
 
 其实我们也可以不借助 webpack， 直接使用编辑器自带的插件， 如 vscode 的 Eslint 插件， 这样使用会更加方便！
 
-![输入图片说明](../../static/images/zaichongyiba.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zaichongyiba.png)
 
 如果我们的团队有些规范并不想要符合 airbnb 它的规范， 我们可以这么配置：<br />首先复制出规范的名称， 如下图：
 
-![输入图片说明](../../static/images/qiangnuzhimo.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/qiangnuzhimo.png)
 
 然后再.eslintrc.js 文件的 rules 里进行配置：
 
-![输入图片说明](../../static/images/eslintrc.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/eslintrc.png)
 
 假设我们团队有一个同学使用的不是 vscode， 他没有这样的语法提示， 就会跟我们写的代码不一样。 这时候我们就需要借助 webpack 了：
 
@@ -2525,13 +2495,13 @@ npm i eslint-loader --save-dev
 
 然后再 webpack.config.js 配置
 
-![输入图片说明](../../static/images/config.jswebpack.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/config.jswebpack.png)
 
 ```
 eslint-loader  一定要写在后面， 只有语法正确再进行转义或者其它。因为loader是先执行后边再执行前边的。
 ```
 
-<a name="d851714d"></a>
+
 
 ##### Eslint 安装使用流程
 
@@ -2540,7 +2510,7 @@ eslint-loader  一定要写在后面， 只有语法正确再进行转义或者�
 - webpack 内 devServer 配置 overlay
 - webpack 内 js 文件配置 eslint-loader
 
-<a name="9dd7644f"></a>
+
 
 #### Eslint 其他配置
 
@@ -2561,47 +2531,43 @@ webpack.config.js
     }
 ```
 
-fix: true   自动帮你修复比较浅显的问题<br />force: 'pre'   强制先执行 eslint-loader
+fix: true   自动帮你修复比较浅显的问题
 
-<a name="34062b25-1"></a>
+force: 'pre'   强制先执行 eslint-loader
+
+
 
 ### 最佳实践
 
-![输入图片说明](../../static/images/gitgouzi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/gitgouzi.png)
 
 不用配置 webpack， 直接使用 git 的钩子， 再提交代码时验证语法。
 
-<a name="042fd674"></a>
+
 
 ## webpack 性能优化
 
-<a name="bb41959c"></a>
-
 #### 1. 跟上技术的迭代（Node， Npm， Yarn）
-
-<a name="d09294bf"></a>
 
 #### 2. 在尽可能少的模块上应用 Loader
 
 可以干掉的配置：
 
-![输入图片说明](../../static/images/woshishui8.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/woshishui8.png)
 
-![输入图片说明](../../static/images/gandiaopeizhi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/gandiaopeizhi.png)
 
-<a name="95759741"></a>
+
 
 #### 3. Plugin 尽可能精简并确保可靠
 
-<a name="2ac979fd"></a>
-
 #### 4. resolve 参数合理配置
 
-![输入图片说明](../../static/images/resolvecanshu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/resolvecanshu.png)
 
 extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
 
-<a name="e83be5f6"></a>
+
 
 #### 5. 使用 DllPlugin 提高打包速度
 
@@ -2635,7 +2601,7 @@ module.exports = {
 
 运行命令打包组件库：
 
-![输入图片说明](../../static/images/dabaozuyjianku.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/dabaozuyjianku.png)
 
 然后安装一个插件：
 
@@ -2683,27 +2649,19 @@ module.exports = {
 };
 ```
 
-<a name="8e0a26fd"></a>
+
 
 #### 6. 控制包大小
 
 不要引入无用组件库， 多使用 Tree Shaking，   使用 SplitChunks 代码拆分。
 
-<a name="91511728"></a>
-
 #### 7. thread-loader, parallel-webpack, happypack 多进程打包
-
-<a name="49327609"></a>
 
 #### 8. 合理使用 SourceMap
 
 不要太详细，配置合适的即可
 
-<a name="4b3d58ce"></a>
-
 #### 9. 结合 Stats 分析打包结果
-
-<a name="a68bdc16"></a>
 
 #### 10. 开发环境内存编译， 无用插件剔除
 
@@ -2713,13 +2671,13 @@ module.exports = {
 mode: "development",
 ```
 
-<a name="06c6e2e1"></a>
+
 
 ## 多页面打包配置
 
 配置 entry：
 
-![输入图片说明](../../static/images/entrywebpack.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/entrywebpack.png)
 
 想要添加多页面首先在 src 目录增加对应的 js 文件，然后在 entry 增加入口文件
 
@@ -2834,7 +2792,7 @@ module.exports = configs;
 
 ---
 
-<a name="b5b47be1"></a>
+
 
 ## 如何编写一个 loader
 
@@ -2919,27 +2877,25 @@ module.exports = {
 npm i loader-utils --save-dev
 ```
 
-<a name="d2258043"></a>
+
 
 ## 如何编写一个 Plugin
 
-<a name="5ef29de8"></a>
-
 #### Plugin 与 loader 的区别
-
-<a name="loader-1"></a>
 
 ##### loader
 
 当我们在源代码中引入一个新的 js 文件，或者一个其他格式的文件的时候， 我们可以使用 loader 处理这个引入的文件。
 
-<a name="Plugin"></a>
-
 ##### Plugin
 
-在我们做打包的时候， 在某一个具体时刻上。 比如说， 当我打包结束后，我要自动生成一个 html 文件， 这时候我们就可以使用一个 html-webpack-plugin 的插件。它会在打包结束后生成 html 文件。<br />Plugin 可以在我们打包过程的某个时刻想做一些事情。
+在我们做打包的时候， 在某一个具体时刻上。 比如说， 当我打包结束后，我要自动生成一个 html 文件， 这时候我们就可以使用一个 html-webpack-plugin 的插件。它会在打包结束后生成 html 文件。
 
-首先我们初始化一个项目， 安装 webpack 和 webpack-cli。<br />如果我们想要生成带版权的文件， 可以这么做：
+Plugin 可以在我们打包过程的某个时刻想做一些事情。
+
+首先我们初始化一个项目， 安装 webpack 和 webpack-cli。
+
+如果我们想要生成带版权的文件， 可以这么做：
 
 创建文件夹 plugins， plugins 文件夹内创建 copyright-webpack-plugin.js
 
@@ -2996,43 +2952,43 @@ module.exports = {
 };
 ```
 
-<a name="07603846"></a>
+
 
 #### node 调试工具
 
-![输入图片说明](../../static/images/nodetiaoshigongju.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/nodetiaoshigongju.png)
 
---inspect 开启 node 调试工具<br />--inspect-brk webpack 执行命令的第一行打断点
+--inspect 开启 node 调试工具
+
+--inspect-brk webpack 执行命令的第一行打断点
 
 输入 npm run debug 后打开浏览器， 点击控制台左上角 node 小图标
 
-![输入图片说明](../../static/images/nodetiaoshi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/nodetiaoshi.png)
 
 这时候我们就可以看到插件的详细信息了
 
 可在 watch 增加 compilation 的监控
 
-![输入图片说明](../../static/images/compations.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/compations.png)
 
-<a name="a16c63c9"></a>
+
 
 ## Bundler 源码编写
 
-<a name="2c5f21de"></a>
-
 ### 模块分析
-
-<a name="e269c35e"></a>
 
 ## Vue CLI 3 的配置方法
 
 Vue 内的 Webpack 设计理念是让我们用的更爽， 即使是 webpack 小白用户我们也能够轻松使用。
 
-如果我们想配置 webpack， 需要在项目的根目录创建一个 vue.config.js<br />这里的配置和 webpack 并不一样， 它对 webpack 的配置进行了大量的封装， 如果我们需要配置， 可参考脚手架的配置参考：[https://cli.vuejs.org/zh/config/](https://cli.vuejs.org/zh/config/)
+如果我们想配置 webpack， 需要在项目的根目录创建一个 vue.config.js
 
-如果我们想实现原生的 webpack， 在脚手架参考文档使用 configureWebpack<br />即可。
+这里的配置和 webpack 并不一样， 它对 webpack 的配置进行了大量的封装， 如果我们需要配置， 可参考脚手架的配置参考：[https://cli.vuejs.org/zh/config/](https://cli.vuejs.org/zh/config/)
 
-<a name="2ad787b7"></a>
+如果我们想实现原生的 webpack， 在脚手架参考文档使用 configureWebpack即可。
+
+
 
 ## 实现小型打包工具
 
@@ -3043,7 +2999,7 @@ Vue 内的 Webpack 设计理念是让我们用的更爽， 即使是 webpack 小
 
 通过这个工具的实现，大家可以理解到打包工具的原理到底是什么。
 
-<a name="38164c8b"></a>
+
 
 #### 实现
 
@@ -3235,12 +3191,14 @@ Babel 将我们 ES6 的模块化代码转换为了 CommonJS 的代码，但是�
 });
 ```
 
-**小结:**<br />虽然实现这个工具只写了不到 100 行的代码，但是打包工具的核心原理就是这些了
+**小结:**
+
+虽然实现这个工具只写了不到 100 行的代码，但是打包工具的核心原理就是这些了
 
 1. 找出入口文件所有的依赖关系
 1. 然后通过构建 CommonJS 代码来获取 `exports` 导出的内容
 
-<a name="84f3cc60"></a>
+
 
 ## 如何配置别名
 
@@ -3256,28 +3214,28 @@ vue.config.js
   },
 ```
 
-<a name="ed5b9516"></a>
+
 
 ## 常见面试题总结
-
-<a name="a5741d77"></a>
 
 ### module chunk bundle 分别什么意思，有何区别?
 
 - module： 各个源码文件， webpack 中一切皆模块
 - chunk： 多模块合并成的， 如 entry import() splitChunk
-- bundle： 最终输出的文件<br />![输入图片说明](../../static/images/bundle.png)
+- bundle： 最终输出的文件
+- ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/bundle.png)
 
-<a name="deb9a466"></a>
+
 
 ### webpack 常见性能优化 - 综合
 
 1. Node， Npm/Yarn 更新到最新版本
 1. Plugin 尽可能精简可靠
-1. resolve 参数合理配置<br />![输入图片说明](../../static/images/resolve.png)<br />extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
-1. 合理使用 SourceMap<br />不要太详细，配置合适的即可
+1. resolve 参数合理配置
+1. ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/resolve.png)<br />extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能。
+1. 合理使用 SourceMap 不要太详细，配置合适的即可
 
-<a name="18207973"></a>
+
 
 ### webpack 常见性能优化 - 构建速度
 
@@ -3436,11 +3394,13 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 - 项目较大， 打包较慢， 开启多进程能提高速度
 - 项目较小， 打包很快， 开启多进程会降低速度（进程开销/启动/销毁/通讯）
 
-6. 自动刷新<br />![输入图片说明](../../static/images/zidongshuaxin.png)
+6. 自动刷新<br />![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zidongshuaxin.png)
 
 一般不用配置， 直接使用 devServer 就可以了。
 
-7. 热更新<br />自动刷新： 整个网页会全部刷新， 速度较慢。状态也会丢失。
+7. 热更新
+
+   自动刷新： 整个网页会全部刷新， 速度较慢。状态也会丢失。
 
 热更新： 新代码生效，网页不刷新， 状态不丢失。
 
@@ -3519,7 +3479,7 @@ module.exports = {
   - 热更新
   - DllPlugin
 
-<a name="6de514e8"></a>
+
 
 ### webpack 性能优化 - 产出代码
 
@@ -3599,9 +3559,9 @@ module.exports = {
 
 配置：
 
-![输入图片说明](../../static/images/biezhuawpo.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/biezhuawpo.png)
 
-<a name="009d093a"></a>
+
 
 ### 前端代码为何要进行构建和打包?
 
@@ -3609,7 +3569,7 @@ module.exports = {
 - 能够编译高级语言或语法（TS、ES6+、模块化、SCSS）
 - 兼容性和错误检查（Polyfill、postcss、eslint）
 
-<a name="80755f35"></a>
+
 
 #### 研发流程方面：
 
@@ -3617,32 +3577,65 @@ module.exports = {
 - 统一的构建流程和产出标准
 - 集成公司构建规范（提测、上线等）
 
-<a name="6fc15b82"></a>
+
 
 ### Plugin 与 loader 的区别？
 
-<a name="whX6U"></a>
-
 #### loader
 
-- loader 模块转换器， 如 less > css<br />loader 是一个打包方案，它是针对于某一个特定类型的文件，webpack 该如何进行打包。本身 webpack 是不知道对于一些文件（jpg，txt，excel）该如何处理的，但是 loader 知道。 所以 webpack 去求助 loader 就可以啦。
-- Plugin<br />plugin 扩展插件，如 HtmlWebpackPlugin<br />在我们做打包的时候， 在某一个具体时刻上。 比如说， 当我打包结束后，我要自动生成一个 html 文件， 这时候我们就可以使用一个 html-webpack-plugin 的插件。它会在打包结束后生成 html 文件。<br />Plugin 可以在我们打包过程的某个时刻想做一些事情。
+- loader 模块转换器， 如 less > css
 
-<a name="0c13d9e7"></a>
+  loader 是一个打包方案，它是针对于某一个特定类型的文件，webpack 该如何进行打包。本身 webpack 是不知道对于一些文件（jpg，txt，excel）该如何处理的，但是 loader 知道。 所以 webpack 去求助 loader 就可以啦。
+
+- Plugin
+
+  plugin 扩展插件，如 HtmlWebpackPlugin
+
+  在我们做打包的时候， 在某一个具体时刻上。 比如说， 当我打包结束后，我要自动生成一个 html 文件， 这时候我们就可以使用一个 html-webpack-plugin 的插件。它会在打包结束后生成 html 文件。
+
+  Plugin 可以在我们打包过程的某个时刻想做一些事情。
+
+
 
 ### 常见 loader 有哪些？
 
-1.  file-loader<br />打包图片文件，先将文件转移到打包目录下，再将 dist 中的文件路径返回给 index.js。
-1.  url-loader<br />可以通过图片大小来判断是使用 base64 格式图片还是直接打包成一个图片资源文件。
-1.  css-loader<br />帮我们分析出几个 css 文件的引入关系， 最终将这些 css 文件合并成一段 css。
-1.  style-loader<br />再得到 css-loader 生成的内容后， 会把这段代码挂载到 html 的 head 部分。
-1.  sass-loader<br />sass 文件打包
-1.  postcss-loader<br />自动加厂商前缀
-1.  babel-loader<br />babel 与 webpack 沟通的桥梁
-1.  ts-loader<br />TypeScript 的打包配置
-1.  eslint-loader<br />可以使团队统一使用一套 eslint
+1. file-loader
 
-<a name="50eb8166"></a>
+   打包图片文件，先将文件转移到打包目录下，再将 dist 中的文件路径返回给 index.js。
+
+1. url-loader
+
+   可以通过图片大小来判断是使用 base64 格式图片还是直接打包成一个图片资源文件。
+
+1. css-loader
+
+   帮我们分析出几个 css 文件的引入关系， 最终将这些 css 文件合并成一段 css。
+
+1. style-loader
+
+   再得到 css-loader 生成的内容后， 会把这段代码挂载到 html 的 head 部分。
+
+1. sass-loader
+
+   sass 文件打包
+
+1. postcss-loader
+
+   自动加厂商前缀
+
+1. babel-loader
+
+   babel 与 webpack 沟通的桥梁
+
+1. ts-loader
+
+   TypeScript 的打包配置
+
+1. eslint-loader
+
+   可以使团队统一使用一套 eslint
+
+
 
 ### 常见 plugin 有哪些？
 
@@ -3659,22 +3652,22 @@ module.exports = {
 1.  add-asset-html-webpack-plugin 将 JavaScript 或 CSS 资源添加到 html-webpack-plugin 生成的 HTML 中
 1.  webpack.DllPlugin 我们引入了一个 lodash 库， 我们知道这个库的文件它是不会变的， 但是每次打包都会打包它， 我们可以让它只在第一次打包， 下次就不打包了。
 
-<a name="776a460d"></a>
+
 
 ### babel 和 webpack 的区别
 
 - babel JS 新语法编译工具， 不关心模块化
 - webpack 打包构建工具， 是多个 loader plugin 的集合
 
-<a name="bV9Yv"></a>
+
 
 #### 如何产出一个 lib？
 
-<br />output.library
+output.library
 
-![输入图片说明](../../static/images/output.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/output.png)
 
-<a name="90c940ba"></a>
+
 
 ### babel-polyfill 和 babel-runtime 的区别？
 
@@ -3682,7 +3675,7 @@ module.exports = {
 - babel-runtime 不会污染全局
 - 产出第三方 lib 要用 babel-rumtime
 
-<a name="ccbdf1e4"></a>
+
 
 ### webpack 如何实现懒加载？
 
@@ -3690,7 +3683,7 @@ module.exports = {
 - 结合 Vue React 异步组件
 - 结合 Vue-router React-router 异步加载路由
 
-<a name="bd000a30"></a>
+
 
 ### 为何 Proxy 不能被 Polyfill？
 

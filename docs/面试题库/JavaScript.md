@@ -5,11 +5,7 @@ next: 笔试题
 
 ## JS
 
-<a name="dcc5da07"></a>
-
 ### JS 规范
-
-<a name="0c505d05"></a>
 
 #### 说几条写 JavaScript 的基本规范？
 
@@ -21,7 +17,7 @@ next: 笔试题
 - `If`语句必须使用大括号
 - `for-in`循环中的变量 应该使用`let`关键字明确限定作用域，从而避免作用域污染
 
-<a name="5f1fdeb8"></a>
+
 
 #### W3C 对 JS 的规定有哪些?
 
@@ -31,11 +27,9 @@ next: 笔试题
 - ajax 请求(包括 http 协议)
 - 存储
 
-<a name="52cbb596"></a>
+
 
 ### 变量类型
-
-<a name="48337bea"></a>
 
 #### 原始类型有哪些？
 
@@ -47,7 +41,7 @@ next: 笔试题
 
 `string` 类型是不可变的，无论你在 `string` 类型上调用何种方法，都不会对值有改变。
 
-<a name="d8bf65cc"></a>
+
 
 #### 对象类型有哪些？
 
@@ -55,20 +49,20 @@ next: 笔试题
 
 占用空间不固定，地址存在栈内存，值保存在堆中, 复制的是地址, 指向同一块内存空间。 使用 `instanceof` 检测数据类型
 
-<a name="33fb3603"></a>
+
 
 #### 为什么值类型赋值是直接赋值， 而引用类型是直接赋值一个内存地址？
 
 主要考虑到性能/存储问题，因为值类型占用空间比较少。它可以直接赋值， 不会对性能造成太大影响。而一般来说， 引用类型存储的空间占用较大，不好管理。如果我们直接复制会导致复制过程非常慢。所以说， 计算机所有的程序，所有的代码，所有的语言，都是采用这种方式。
 
-<a name="0132ee15"></a>
+
 
 #### 原始类型和对象类型区别?
 
 1. 原始类型存储的是值,保留在栈内存(空间固定)，相等都要重新创建一份
 1. 对象类型存储的是指针，保留在堆内存(空间不固定)，相等时引用的是同一份指针
 
-<a name="759165a7"></a>
+
 
 #### typeof 都能识别哪些类型？
 
@@ -76,13 +70,13 @@ next: 笔试题
 - 识别函数
 - 判断是否是引用类型（不可再细分）
 
-<a name="58675477"></a>
+
 
 #### 类数组和数组的区别是什么？
 
 类数组: 拥有 length 属性，不具有数组所具有的方法。
 
-<a name="36cb2319"></a>
+
 
 #### 类数组如何转换为数组？
 
@@ -95,7 +89,7 @@ Array.prototype.slice.call(arrayLike);
 Array.from(arrayLike);
 ```
 
-<a name="0ea44aee"></a>
+
 
 #### JS 内置函数是什么?
 
@@ -103,13 +97,13 @@ Array.from(arrayLike);
 
 作用: 作为构造器函数
 
-<a name="4c7845ba"></a>
+
 
 #### 函数参数是对象会发生什么?
 
 函数参数是对象指针的副本，当参数重新分配对象时，参数的指针会发生变化。两个变量的值也会不相同
 
-<a name="de4706ae"></a>
+
 
 #### null 和 undefined 的区别是什么?
 
@@ -118,19 +112,19 @@ Array.from(arrayLike);
 - `undefined`表示未赋值的变量
 - 在使用`==`会发生类型转换.导致相等
 
-<a name="3b507f41"></a>
+
 
 #### null 是对象嘛？
 
 null 并不是对象类型 。虽然 typeof null 会输出 object，但是这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象，然而 null 表示为全零，所以将它错误的判断为 object 。虽然现在的内部类型判断代码已经改变了，但是对于这个 Bug 却是一直流传下来。
 
-<a name="0ddaf0b7"></a>
+
 
 #### instanceof 的原理:
 
 沿着原型链一层一层向上找, 看是否能找到对应的`prototype`
 
-<a name="3b4d6238"></a>
+
 
 #### 自己实现一个 instanceof
 
@@ -146,7 +140,7 @@ function myInstanceof(left, right) {
 }
 ```
 
-<a name="edb70eef"></a>
+
 
 #### 怎么实现浅拷贝？
 
@@ -159,7 +153,7 @@ var newObj = Object.assign({}, obj);
 var newObj = { ...obj };
 ```
 
-<a name="f746531e"></a>
+
 
 #### 怎么实现深拷贝？
 
@@ -171,11 +165,11 @@ var newObj = JSON.parse(JSON.stringify(obj));
 
 但是：会忽略 `undefined`、 `symbol`、不能序列化函数、不能解决循环引用的对象
 
-<a name="f3c723ec"></a>
+
 
 ### 类型转换
 
-<a name="79a9c4fe"></a>
+
 
 #### 哪些情况下会发生类型转换?
 
@@ -192,15 +186,15 @@ var newObj = JSON.parse(JSON.stringify(obj));
 
 **类型转换表格**
 
-![输入图片说明](../../static/images/boolean.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/boolean.png)
 
-<a name="352035bd"></a>
+
 
 #### 转 Boolean
 
 在条件判断时，除了 `undefined`，`null`， `false`，`NaN`， `''`， `0`， `-0`，其他所有值都转为 `true`，包括所有对象。
 
-<a name="d7b6bb49"></a>
+
 
 #### JavaScript 中如何进行隐式类型转换？
 
@@ -214,7 +208,7 @@ var newObj = JSON.parse(JSON.stringify(obj));
 ToPrimitive(obj, type);
 ```
 
-<a name="43597289"></a>
+
 
 ##### `type` 的值为 `number` 或者 `string`。
 
@@ -224,7 +218,7 @@ ToPrimitive(obj, type);
 1. 调用 `obj` 的 `toString` 方法，后续同上；
 1. 抛出 `TypeError` 异常
 
-<a name="b50e8d3f"></a>
+
 
 ##### 当 `type` 为 `string` 时规则如下：
 
@@ -239,7 +233,7 @@ ToPrimitive(obj, type);
 
 而 JavaScript 中的隐式类型转换主要发生在 `+、-、*、/` 以及 `==、>、<` 这些运算符之间。而这些运算符只能操作基本类型值，所以在进行这些运算前的第一步就是将两边的值用 `ToPrimitive` 转换成基本类型，再进行操作。
 
-<a name="03ceb764"></a>
+
 
 #### 四则运算符
 
@@ -274,7 +268,7 @@ true + true; // 2
 4 * [1, 2]; // NaN
 ```
 
-<a name="d52f2cb3"></a>
+
 
 #### 比较运算符
 
@@ -295,7 +289,7 @@ a > -1; // true
 
 在以上代码中，因为`a`是对象，所以会通过 `valueOf` 转换为原始类型再比较值。
 
-<a name="f696adfc"></a>
+
 
 #### == 和 === 有什么区别？
 
@@ -303,13 +297,13 @@ a > -1; // true
 
 `==`运算流程图
 
-![输入图片说明](../../static/images/yuansuanliuchengtu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yuansuanliuchengtu.png)
 
-<a name="JSON"></a>
+
 
 ### JSON
 
-<a name="1d650912"></a>
+
 
 #### 怎么理解 json?
 
@@ -323,7 +317,7 @@ JSON.stringify({ a: 10, b: 11 }); //把对象变成字符串
 JSON.parse("{a:10,b:11}"); //把字符串变成对象
 ```
 
-<a name="716a9f2d"></a>
+
 
 #### XML 与 JSON 的区别?
 
@@ -331,27 +325,27 @@ JSON 数据体积小 , 传递快 , 与 JavaScript 交互更加方便 , 容易解
 
 但是数据描述性差 , 不如 XML
 
-<a name="DOM"></a>
+
 
 ### DOM
 
-<a name="a2492e03"></a>
+
 
 #### DOM 的本质?
 
-> <br />DOM: Document Object Model 文档对象模型。
+> DOM: Document Object Model 文档对象模型。
 >
 > HTML 代码就是一个字符串，但是浏览器已经把字符串结构化成树形结构了。
 
 DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成浏览器及 JS 可识别的模型 。
 
-<a name="eeb589aa"></a>
+
 
 #### DOM 是哪种数据结构?
 
 它是从 HTML 文件解译出来的一棵 DOM **树形结构**。
 
-<a name="1c3a2d05"></a>
+
 
 #### DOM 结构操作有哪些？
 
@@ -360,13 +354,15 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 - 获取子元素 `parentNode.childNodes`
 - 删除节点 `parentNode.removeChild(childNode)`
 
-<a name="6b91c283"></a>
+
 
 #### childNodes 和 children 的区别?
 
-`childNodes` 属性返回所有的节点，包括文本节点、注释节点；<br />`children` 属性只返回元素节点；
+`childNodes` 属性返回所有的节点，包括文本节点、注释节点；
 
-<a name="d05d1b08"></a>
+`children` 属性只返回元素节点；
+
+
 
 #### Attribute 和 property 有何区别?
 
@@ -375,7 +371,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 - 对于 HTML 的标准属性来说，`attribute`和`property`是同步的，是会自动更新的
 - 对于自定义的属性来说，它们是不同步的
 
-<a name="b7b8d094"></a>
+
 
 #### offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别?
 
@@ -383,11 +379,9 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 - `clientWidth/clientHeight`返回值只包含`content` + `padding`
 - `scrollWidth/scrollHeight`返回值包含`content`+ `padding` + 溢出内容的尺寸
 
-<a name="16bf4d7d"></a>
+
 
 ### 作用域和闭包
-
-<a name="f8603930"></a>
 
 #### 作用域是什么？
 
@@ -397,15 +391,15 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 作用域分为局部作用域和全局作用域，处在局部作用域里面可以访问到全局作用域的变量，而在局部作用域外面就访问不到局部作用域里面所声明的变量。
 
-![输入图片说明](../../static/images/zuoyongyu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zuoyongyu.png)
 
-<a name="f1902461"></a>
+
 
 #### 作用域链是什么?
 
 在局部作用域访问变量 , 如果访问不到 , 自由变量会一直向父级作用域寻找，这样的链条称之为作用域链。
 
-<a name="0559e110"></a>
+
 
 #### 自由变量是什么？
 
@@ -413,7 +407,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 - 向上级作用域， 一层一层依次寻找， 直到找到为止。
 - 如果到全局作用域都没找到， 则报错 `xx is not defined`
 
-<a name="8c8b54d1"></a>
+
 
 #### 什么是闭包呢?
 
@@ -463,7 +457,7 @@ print(fn); //100
 
 **所有的自由变量的查找， 是在函数定义的地方向上级作用域查找， 而不是在执行的地方！！！**
 
-<a name="97368ffa"></a>
+
 
 #### 闭包有哪些优点和缺点?
 
@@ -471,7 +465,7 @@ print(fn); //100
 
 缺点: 内存的消耗导致的性能问题（不用的闭包设置为`null`清除闭包）
 
-<a name="b63640bf"></a>
+
 
 #### 闭包使用场景?
 
@@ -480,7 +474,7 @@ print(fn); //100
 - 函数作为**返回值**
 - 函数作为**参数**传递
 
-<a name="d1d8fad2"></a>
+
 
 #### 循环中使用闭包解决 var 定义函数的问题?
 
@@ -520,7 +514,7 @@ for (let i = 1; i <= 5; i++) {
 }
 ```
 
-<a name="53e3ff7f"></a>
+
 
 #### 实际开发中闭包的应用有哪些？
 
@@ -546,24 +540,20 @@ c.set("a", 100);
 console.log(c.get("a")); //100
 ```
 
-<a name="lzo8i"></a>
+
 
 #### 内存泄漏
 
-![输入图片说明](../../static/images/neicunxielou.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/neicunxielou.png)
 
-![输入图片说明](../../static/images/neicunxielou2.png)
-<a name="8da93974"></a>
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/neicunxielou2.png)
+
 
 ### this 全解析
 
 > this 取值是在执行的时候确认的， 而不是在定义的时候。
 
-<a name="JiC4B"></a>
 
-####
-
-<a name="49464210"></a>
 
 #### this 有哪几种调用方式？
 
@@ -573,7 +563,7 @@ console.log(c.get("a")); //100
 - 在 class 方法中调用
 - 箭头函数
 
-<a name="f96bd6fd"></a>
+
 
 #### this 有哪些使用场景?
 
@@ -582,7 +572,7 @@ console.log(c.get("a")); //100
 1. 作为普通函数执行
 1. `call apply bind`
 
-<a name="94f53ba6"></a>
+
 
 #### this 指向如何判断?
 
@@ -592,7 +582,7 @@ console.log(c.get("a")); //100
 - 箭头函数无`this`,取决于上下文的`this`
 - `bind`的`this`永远指向第一次指定的对象
 
-<a name="42a1b3ae"></a>
+
 
 #### this 优先级
 
@@ -601,7 +591,7 @@ console.log(c.get("a")); //100
 1. 然后是`obj.foo()`对象调用
 1. 最后是`foo（）`直接调用，同时箭头函数 `this`一旦绑定，不会再改变
 
-<a name="77cdfb71"></a>
+
 
 #### 以下代码 this 指向谁？
 
@@ -617,11 +607,11 @@ function callback() {
 
 如果想要打印当前元素,需要在调用 `callback(this)` 时添加上 `this` 参数。
 
-<a name="89dd8547"></a>
+
 
 #### 写出打印结果，并解释为什么？
 
-1. <br />
+1. 
 
 ```javascript
 let length = 10;
@@ -642,7 +632,7 @@ obj.method(fn, "l");
 
 第二次打印 2， 此时 `this` 指向 `arguments` 对象。 此时 `arguments` 参数长度是 2。
 
-2. <br />
+2. 
 
 ```javascript
 const o1 = {
@@ -685,15 +675,13 @@ console.log(instance.user);
 
 将会输出 Lucas，也就是说此时 instance 是返回的目标对象实例 this。<br />结论：如果构造函数中显式返回一个值，且返回的是一个对象，那么 this 就指向这个返回的对象；如果返回的不是一个对象，那么 this 仍然指向实例。
 
-<a name="e09841cc"></a>
+
 
 ### 原型与原型链
 
-<a name="addcddc4"></a>
-
 #### 原型与原型链的理解,它们有什么特点?
 
-![输入图片说明](../../static/images/yuanxinglian.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yuanxinglian.png)
 
 **原型:**
 
@@ -709,7 +697,7 @@ console.log(instance.user);
 
 原型对象上的方法是被不同实例共有的 . 当我们修改原型时，与之相关的对象也会继承这一改变。
 
-<a name="abe01b0f"></a>
+
 
 #### new 的原理是什么？
 
@@ -721,7 +709,7 @@ console.log(instance.user);
 
 对于对象来说，其实都是通过 `new` 产生的，无论是 `function Foo() 还是 let a = { b : 1 }`
 
-<a name="d148a538"></a>
+
 
 #### 通过 new 的方式创建对象和通过字面量创建有什么区别?
 
@@ -731,24 +719,18 @@ console.log(instance.user);
 
 因为你使用 `new Object()` 的方式创建对象需要通过作用域链一层层找到 `Object`，但是你使用字面量的方式就没这个问题。
 
-<a name="659b5af5"></a>
+
 
 ### 面向对象
-
-<a name="8e13ae0a"></a>
 
 #### 面向对象编程思想？
 
 使用**对象**，**类**，**继承**，**封装**等基本概念来进行程序设计
 
-<a name="7bb67afd"></a>
-
 #### 什么是面向对象编程及面向过程编程？
 
 - 面向过程就是分析出解决问题的步骤，然后用函数把这些步骤一步一步实现，使用的时候依次调用。
 - 面向对象是以功能来划分问题，建立对象的目的不是为了完成一个步骤，而是把步骤统一封装在对象内，对外统一提供调用接口。
-
-<a name="3fe63ea6"></a>
 
 #### 面向对象的异同和优缺点
 
@@ -757,8 +739,6 @@ console.log(instance.user);
     - 采用面向对象思想设计的结构，可读性高，由于继承的存在，即使改变需求，那么维护也只是在局部模块，维护非常方便。
   - 易扩展
   - 复用性、继承性高.
-
-<a name="19807bdd"></a>
 
 #### 创建对象有几种方法?
 
@@ -779,7 +759,7 @@ var o = { name: "o3" };
 var o3 = Object.create(o);
 ```
 
-<a name="a23520a1"></a>
+
 
 #### 如何声明一个类?
 
@@ -798,7 +778,7 @@ class Animal2 {
 new Animal2(); //实例化
 ```
 
-<a name="32fbd0aa"></a>
+
 
 #### 如何实现继承?继承有哪几种方式?
 
@@ -889,15 +869,9 @@ console.log(c2.type); //["parent"]
 console.log(c1.play()); //child1
 ```
 
-<a name="301a1997"></a>
+
 
 ### 设计模式
-
-<a name="6e839e62"></a>
-
-####
-
-<a name="b98e9d7c"></a>
 
 #### 工厂模式
 
@@ -953,7 +927,7 @@ export function createComponent(
 
 在上述代码中，我们可以看到我们只需要调用 `createComponent` 传入参数就能创建一个组件实例，但是创建这个实例是很复杂的一个过程，工厂帮助我们隐藏了这个复杂的过程，只需要一句代码调用就能实现功能。
 
-<a name="e146dbe8"></a>
+
 
 #### 单例模式
 
@@ -996,7 +970,7 @@ export function install(_Vue) {
 }
 ```
 
-<a name="3001b97a"></a>
+
 
 #### 发布-订阅模式
 
@@ -1016,7 +990,7 @@ export function install(_Vue) {
 
 在 Vue 中，如何实现响应式也是使用了该模式。对于需要实现响应式的对象来说，在 `get` 的时候会进行依赖收集，当改变了对象的属性时，就会触发派发更新。
 
-<a name="30cf6dd7"></a>
+
 
 #### 实现一个 Storage
 
@@ -1098,7 +1072,7 @@ storage2.getItem("name");
 storage1 === storage2;
 ```
 
-<a name="0005e764"></a>
+
 
 #### 实现一个全局的模态框
 
@@ -1235,11 +1209,9 @@ storage1 === storage2;
 </html>
 ```
 
-<a name="f7fa5f4a"></a>
+
 
 ### 模块化
-
-<a name="3825cd06"></a>
 
 #### 为什么要使用模块化？
 
@@ -1342,11 +1314,9 @@ export function a() {}
 export default function () {}
 ```
 
-<a name="5d6baa03"></a>
+
 
 ### map, filter, reduce
-
-<a name="9fa80095"></a>
 
 #### map, filter, reduce 各自有什么作用？
 
@@ -1397,11 +1367,9 @@ console.log(sum);
 - 在一次执行回调函数时，当前值和初始值相加得出结果 `1`，该结果会在第二次执行回调函数时当做第一个参数传入
 - 所以在第二次执行回调函数时，相加的值就分别是 `1` 和 `2`，以此类推，循环结束后得到结果 `6`
 
-<a name="28a0168c"></a>
+
 
 ### 事件机制
-
-<a name="87b21704"></a>
 
 #### DOM 事件级别?
 
@@ -1425,13 +1393,11 @@ element.addEventListener("keyup", function () {}, false);
 
 为什么没有 DOM1 事件呢？ 因为 DOM1 没有设计事件方面的东西。
 
-<a name="39925d92"></a>
+
 
 #### DOM 事件模型是什么?
 
 捕获和冒泡
-
-<a name="ba35b6ac"></a>
 
 #### 什么是事件流?？
 
@@ -1451,7 +1417,7 @@ element.addEventListener("keyup", function () {}, false);
 
 **如果给一个 body 中的子节点同时注册冒泡和捕获事件，事件触发会按照注册的顺序执行。**
 
-<a name="114262e8"></a>
+
 
 #### Event 对象的常见应用
 
@@ -1461,7 +1427,7 @@ element.addEventListener("keyup", function () {}, false);
 1.  `event.currentTarget`：当前绑定事件的元素；
 1.  `event.target`：当前被点击的元素；
 
-<a name="2a0f0379"></a>
+
 
 #### 怎么模拟一个事件？
 
@@ -1481,7 +1447,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 });
 ```
 
-<a name="9f5bfc67"></a>
+
 
 #### 怎么注册事件？
 
@@ -1493,7 +1459,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 一般来说，如果我们只希望事件只触发在目标上，这时候可以使用 `stopPropagation` 来阻止事件的进一步传播。通常我们认为 `stopPropagation` 是用来阻止事件冒泡的，其实该函数也可以阻止捕获事件。`stopImmediatePropagation` 同样也能实现阻止事件，但是还能阻止该事件目标执行别的注册事件。
 
-<a name="dc8f4375"></a>
+
 
 #### 知道什么是事件代理吗？
 
@@ -1523,17 +1489,15 @@ document.getElementById("leo2").addEventListener("click", function () {
 - 不需要给子节点注销事件
 - 代码简洁
 
-<a name="8b5a247d"></a>
+
 
 ### 异步
-
-<a name="16ead040"></a>
 
 #### 如何理解 js 单线程?
 
 同一时间只能干一件事
 
-<a name="f5c3facd"></a>
+
 
 #### 什么是任务队列?
 
@@ -1543,7 +1507,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 同步任务执行完再执行异步任务
 
-<a name="ffd19e15"></a>
+
 
 #### 什么是同步(对比异步)?举个例子?
 
@@ -1555,13 +1519,13 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 `alert`同步,`seTimeout`异步
 
-<a name="327fc0f0"></a>
+
 
 #### 什么时候需要异步?
 
 在发生等待的情况下 , 程序仍然需要执行其他操作 , 不能阻塞程序运行
 
-<a name="1d9eb7a8"></a>
+
 
 #### 异步使用场景有哪些?
 
@@ -1569,7 +1533,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 1.  网络请求: `ajax` , `img`加载, 脚本等文件加载和下载
 1.  事件绑定
 
-<a name="5fa0ffdf"></a>
+
 
 #### 单线程和异步
 
@@ -1579,7 +1543,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 - 需要异步
 - 回调 callback 函数形式
 
-<a name="3a06ab92"></a>
+
 
 #### 什么是执行栈？
 
@@ -1587,15 +1551,11 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 当我们使用递归的时候，因为栈可存放的函数是有**限制**的，一旦存放了过多的函数且没有得到释放的话，就会出现爆栈的问题。
 
-<a name="7ffd3e01"></a>
-
 #### 解释一下什么是 Event Loop ？
-
-<a name="9b7d0cd1"></a>
 
 #### 事件循环执行顺序？
 
-![输入图片说明](../../static/images/shijianxunhuan.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/shijianxunhuan.png)
 
 Event Loop 执行顺序如下所示：
 
@@ -1607,7 +1567,7 @@ Event Loop 执行顺序如下所示：
 
 微任务包括 process.nextTick ，promise ，MutationObserver，其中 process.nextTick 为 Node 独有。<br />宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering。<br />这里很多人会有个误区，认为微任务快于宏任务，其实是错误的。因为宏任务中包括了 script ，浏览器会先执行一个宏任务，接下来有异步代码的话才会先执行微任务。
 
-<a name="335776b1"></a>
+
 
 #### 并发（concurrency）和并行（parallelism）区别？
 
@@ -1617,7 +1577,7 @@ Event Loop 执行顺序如下所示：
 
 并行是微观概念，假设 CPU 中存在两个核心，那么我就可以同时完成任务 A、B。**同时完成多个任务的情况就可以称之为并行**。
 
-<a name="f0d2e80e"></a>
+
 
 #### 什么是回调函数？
 
@@ -1647,7 +1607,7 @@ ajax(url, () => {
 
 这样写起来不利于阅读和维护。
 
-<a name="380a0122"></a>
+
 
 #### 回调函数有什么优缺点？
 
@@ -1661,14 +1621,14 @@ ajax(url, () => {
 - 不能直接`return`。
 - 容易写出回调地狱
 
-<a name="2ad2e1d8"></a>
+
 
 ##### 回调地狱的根本问题：
 
 1. 嵌套函数存在耦合性，一旦有所改动，就会牵一发而动全身
 1. 嵌套函数一多，就很难处理错误
 
-<a name="92432a85"></a>
+
 
 #### 回调的特点:
 
@@ -1678,7 +1638,7 @@ ajax(url, () => {
 - 允许传递多个回调
 - 可以嵌套
 
-<a name="8986cb47"></a>
+
 
 #### 回调的应用场景
 
@@ -1686,24 +1646,24 @@ ajax(url, () => {
 - 事件监听。
 - `setTimeout`、`setInterval` 方法。
 
-<a name="18d6b17b"></a>
+
 
 #### 如何解决回调地狱问题？
 
 - Promise，
 - async/await
 
-<a name="fad24974"></a>
+
 
 #### Promise 是什么?
 
 Promise 是异步编程的一种解决方案，比传统的异步解决方案【回调函数】和【事件】更合理、更强大。
 
-<a name="f3023f1c"></a>
+
 
 #### Promise 的特点是什么？
 
-<br />`Promise` 翻译过来就是承诺的意思，这个承诺会在未来有一个确切的答复。
+`Promise` 翻译过来就是承诺的意思，这个承诺会在未来有一个确切的答复。
 
 特点: `Promise`有三种状态,一旦执行不可更改
 
@@ -1711,20 +1671,20 @@ Promise 是异步编程的一种解决方案，比传统的异步解决方案【
 1. 完成了 （`resolved`）
 1. 拒绝了（`rejected`）
 
-<a name="cb81dbeb"></a>
+
 
 #### Promise 分别有什么优缺点？
 
 - 优点: 解决回调地狱。
 - 缺点: 无法取消 promise, 错误需要回调函数捕获
 
-<a name="d6bafecb"></a>
+
 
 #### 什么是 Promise 链？
 
 `Promise` 每次调用 `then` 之后返回的都是一个全新的 `Promise`，如果你在 `then` 中 使用了 `return`，那么 `return` 的值会被 `Promise.resolve()` 包装。这样就实现了链式调用。
 
-<a name="bf00ff37"></a>
+
 
 #### Promise 构造函数执行和 then 函数执行有什么区别？
 
@@ -1747,7 +1707,7 @@ Promise.resolve(1)
   });
 ```
 
-<a name="386dbb64"></a>
+
 
 #### async 及 await 的特点，它们的优点和缺点分别是什么？
 
@@ -1772,7 +1732,7 @@ console.log(test()); // -> Promise {<resolved>: "1"}
 
 `await` 将异步代码改造成了同步代码，如果多个异步代码没有依赖性却使用了 `await` 会导致性能上的降低。
 
-<a name="b833f09d"></a>
+
 
 #### await 原理是什么？
 
@@ -1785,7 +1745,7 @@ console.log(test()); // -> Promise {<resolved>: "1"}
 - 更广的适用性。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise 对象。而 `async` 函数的 `await` 命令后面则可以是 `Promise` 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）
 - 返回值是 Promise。`async` 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 `then()` 方法进行调用
 
-<a name="431fd97a"></a>
+
 
 #### setTimeout、setInterval、requestAnimationFrame 各有什么特点？
 
@@ -1832,7 +1792,11 @@ setTimeout(loop, currentInterval);
 
 `setInterval`，其实这个函数作用和 `setTimeout` 基本一致，只是该函数是每隔一段时间执行一次回调函数。
 
-通常来说不建议使用 setInterval。<br />第一，它和 `setTimeout` 一样，不能保证在预期的时间执行任务。<br />第二，它存在执行累积的问题.
+通常来说不建议使用 setInterval。
+
+第一，它和 `setTimeout` 一样，不能保证在预期的时间执行任务。
+
+第二，它存在执行累积的问题.
 
 如果你有循环定时器的需求，其实完全可以通过 `requestAnimationFrame` 来实现
 
@@ -1864,11 +1828,9 @@ setInterval((timer) => {
 
 首先 `requestAnimationFrame` 自带函数节流功能，基本可以保证在 16.6 毫秒内只执行一次（不掉帧的情况下），并且该函数的延时效果是精确的，没有其他定时器时间不准的问题，当然你也可以通过该函数来实现 setTimeout。
 
-<a name="e8f8c269"></a>
+
 
 ### 进程与线程
-
-<a name="ecd7bb0d"></a>
 
 #### 进程与线程区别？JS 单线程带来的好处？
 
@@ -1886,11 +1848,9 @@ JS 运行的时候可能会阻止 UI 渲染，这说明了两个线程是互斥�
 
 当然前面两点在服务端中更容易体现，对于锁的问题，形象的来说就是当我读取一个数字 15 的时候，同时有两个操作对数字进行了加减，这时候结果就出现了错误。解决这个问题也不难，只需要在读取的时候加锁，直到读取完毕之前都不能进行写入操作。
 
-<a name="6ff5b950"></a>
+
 
 ### 变量提升
-
-<a name="0d4b68e7"></a>
 
 #### 什么是提升?
 
@@ -1900,13 +1860,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 提升是为了解决函数之间相互调用的问题。
 
-<a name="72753179"></a>
-
 #### 什么是暂时性死区?
 
 `let`，`const`在声明前使用会报错，这个行为称之为暂时性死区。
-
-<a name="70a10ea3"></a>
 
 #### var,let,const 有什么区别?
 
@@ -1916,24 +1872,20 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 1. `let`，`const`只在块级作用域有效。
 1. `const`常量一旦声明时必须赋值 , 且不能修改 。`let` `var`是变量， 可以进行修改。
 
-<a name="Class"></a>
+
 
 ### Class
-
-<a name="1d28f370"></a>
 
 #### class 本质？
 
 - 本质是函数, js 中并不存在类，`class`只是语法糖， 使用`prototype`
-
-<a name="5d63eaf0"></a>
 
 #### Class 与普通的构造函数有什么区别?
 
 - 在**语法**上更贴合面向对象的写法
 - 在**继承**上更容易阅读理解
 
-<a name="98b89a5b"></a>
+
 
 #### class 如何实现继承？
 
@@ -1941,11 +1893,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 子类构造函数中必须调用`super`才能传参数
 
-<a name="00e29623"></a>
+
 
 ### Es6 常用方法
-
-<a name="9cc68ee7"></a>
 
 #### Es6 常用的方法有哪些?
 
@@ -1960,11 +1910,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 - Module(模块化)
 - async/await
 
-<a name="d86f8699"></a>
+
 
 ### 箭头函数
-
-<a name="8d43be44"></a>
 
 #### 箭头函数与普通函数有什么区别?
 
@@ -1975,11 +1923,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 1. 没有原型属性
 1. 不能当作构造函数，不能用作`Generator`函数 (不能使用`yield`命令)
 
-<a name="45089eec"></a>
+
 
 ### 综合考察题
-
-<a name="b7aac562"></a>
 
 #### 为什么 0.1 + 0.2 != 0.3
 
@@ -1993,7 +1939,7 @@ JS 采用的浮点数标准却会裁剪掉我们的数字。会造成精度丢�
 parseFloat((0.1 + 0.2).toFixed(10)) === 0.3; // true
 ```
 
-<a name="a18b4d48"></a>
+
 
 #### 请写出以下代码的打印顺序
 
@@ -2034,6 +1980,4 @@ new new Foo().getName(); //3
 //先计算. , .把前后分割，new.foo()带参数优先级19，new是18，执行new Foo.getName()
 ```
 
-<a name="iPpgN"></a>
-
-### <br />
+### 

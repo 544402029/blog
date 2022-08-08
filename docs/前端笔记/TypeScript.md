@@ -7,8 +7,8 @@
 TypeScript 是 JavaScript 的超集，拥有（静态）类型机制。
 如图所示：
 
-![输入图片说明](../../static/images/shili.png)
-![输入图片说明](../../static/images/cuowuxinxi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/shili.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/cuowuxinxi.png)
 
 
 
@@ -26,14 +26,14 @@ TypeScript 不会在浏览器直接执行， 必须通过编译器编译为 Java
 
 首先我们需要在 VScode 中进行设置，首先将引号改为单引号
 
-![输入图片说明](../../static/images/tuli.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/tuli.png)
 
 tab 可选择改为 2 个字符
 
-![输入图片说明](../../static/images/tabh.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/tabh.png)
 保存时自动格式化
 
-![输入图片说明](../../static/images/zidonggeshihua.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zidonggeshihua.png)
 
 需配合 Prettier - Code formatter 插件使用
 
@@ -127,7 +127,7 @@ const secondNumber = 2;
 const total = firstNumber + secondNumber;
 ```
 
-![输入图片说明](../../static/images/zhujie.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zhujie.png)
 ```ts
 const obj = {
   name: 'dell',
@@ -173,11 +173,11 @@ function add(first: number, second: number): number {
 const total = add(1, 2);
 ```
 
-![输入图片说明](../../static/images/hansfhz.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/hansfhz.png)
 
 如果我们想要`add`函数返回值必须为数值可以在括号后面添加一个`number`类型， 此时如果返回的值不是`number`就会出现报错提示。如图所示，返回值是字符串进行了错误提示。
 
-![输入图片说明](../../static/images/hanshufanhuizhi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/hanshufanhuizhi.png)
 
 #### 返回值为空
 
@@ -188,11 +188,11 @@ function sayHello(): void {
 }
 ```
 
-![输入图片说明](../../static/images/kongfanhuizhi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/kongfanhuizhi.png)
 
 如果有返回值就进行报错提示， 必须没有任何返回值才可以。
 
-![输入图片说明](../../static/images/wufanhuizhi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/wufanhuizhi.png)
 
 #### 函数永远不可能执行完
 
@@ -331,9 +331,9 @@ const setPersonName = (person: Person, name: string) => {
 
 以下我们需要注意的点：
 
-![输入图片说明](../../static/images/duixiangbianlianghuancun.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/duixiangbianlianghuancun.png)
 
-![输入图片说明](../../static/images/duixiangzimianl.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/duixiangzimianl.png)
 
 在我们使用字面量对象直接作为参数时，如果多增加属性会进行报错， 因为类型注解里并没有定义`sex`。但是先定义一个`person`对象再使用这个变量是没有问题的。
 
@@ -487,13 +487,13 @@ console.log(demo2.name);
 
 #### readonly
 
-![输入图片说明](../../static/images/readonly.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/readonly.png)
 
 使用`readonly`, 类里面的属性变的只能读不能修改。 如上，修改`person.name`会出现报错提示。
 
 #### 抽象类
 
-![输入图片说明](../../static/images/chouyxianglei.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/chouyxianglei.png)
 
 抽象类用来抽离出一些共用的属性或方法进行封装。 它不可以被实例化， 只能用来继承。
 
@@ -640,7 +640,7 @@ compilerOptions 下的配置就是编译时需要的配置了
 
 我们定义了两个类型接口， 我们对一个参数进行类型注解， 但是使用`animal.sing()`会出现报错。 因为 Dog 接口内根本就没有`sing()`方法。
 
-![输入图片说明](../../static/images/leixingduanyan.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/leixingduanyan.png)
 
 如果要解决这个问题， 我们必须让它强制使用 Brid 接口才可以。 在原有参数后面添加 `as` 和 接口名来强制它使用这个接口。并添加括号。
 
@@ -838,7 +838,7 @@ data.getItem(0);
 
 我们来看另外一种情况：
 
-![输入图片说明](../../static/images/jicheng.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jicheng.png)
 
 由于我们不能确定 data[index]是不是有`name`属性， 所以会出现报错提示。如果想解决这个问题， 我们可以这么做：
 
@@ -943,7 +943,7 @@ new Home.Page();
 
 具体目录如下：
 
-![输入图片说明](../../static/images/mulu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mulu.png)
 
 components.ts
 
@@ -1001,7 +1001,7 @@ namespace Home {
 }
 ```
 
-![输入图片说明](../../static/images/womenjiang.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/womenjiang.png)
 我们将所有文件都编译为一个文件， 采用 amd 规范。这样就可以使用另外一个模块的内容了。
 
 在我们的 index.html 进行引入已经编译好的 js 文件
@@ -1024,13 +1024,13 @@ namespace Home {
 
 这样就可以在页面打印出我们想要的内容了
 
-![输入图片说明](../../static/images/importantimg.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/importantimg.png)
 
 ### import 模块化
 
 具体目录如下：
 
-![输入图片说明](../../static/images/jutimului.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jutimului.png)
 
 components.ts
 
@@ -1142,7 +1142,7 @@ console.log(teacher);
 
 输出结果：
 
-![输入图片说明](../../static/images/fanshi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/fanshi.png)
 
 再去看 Sources 相应的 TS 资源文件已经被转换为 JS 文件了。
 
@@ -1293,7 +1293,7 @@ console.log(test);
 
 如果想要使用装饰器， 首先要开启以下设置：
 
-![输入图片说明](../../static/images/leizhuangshiqi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/leizhuangshiqi.png)
 
 装饰器只在类定义的时候起作用 ， 并不是实例化的时候。
 

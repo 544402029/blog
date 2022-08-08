@@ -41,7 +41,7 @@ vue create my-project
 
 #### 目录结构
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1579954026196.png)
+![](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808180548230.png)
 
 #### 可视化界面
 
@@ -56,12 +56,12 @@ vue ui
 
 #### 常用命令
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1579964179322.png)
+![image-20220808180619484](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808180619484.png)
 
 
 ### 环境设置
 
-![enter description here](https://gitee.com/l544402029/res/raw/master/小书匠/1579966959406.png)
+![](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808180631300.png)
 
 
 ## 	构建实战

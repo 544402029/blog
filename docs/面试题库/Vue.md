@@ -41,11 +41,11 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 首先很久之前就有组件化的概念， 使用 asp jsp php 就可以。node.js 中也有类似的组件化。Vue 和 React 搬过来，做了一个创新：数据驱动视图。
 
-![输入图片说明](../../static/images/zujianhua.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zujianhua.png)
 
 对比 Vue， React 组件化
 
-![输入图片说明](../../static/images/duibizujianhua.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/duibizujianhua.png)
 
 但是， 传统组件它只是静态的渲染， 也就是说我们想显示谁的个人信息， 就要在后端拼接完数据去渲染。 渲染完页面就形成了， 不会再去改变了。你再需要去改需要自己去操作 DOM。所以当时 jQuery 是很流行的。因为操作 DOM 很多。
 
@@ -53,13 +53,13 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。
 
-![输入图片说明](../../static/images/mvc.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mvc.png)
 
 但是 MVC 有一个巨大的缺陷就是**控制器承担的责任太大**了，随着项目愈加复杂，控制器中的代码会越来越**臃肿**，导致出现不利于**维护**的情况。
 
 ### MVP 是什么？
 
-![输入图片说明](../../static/images/mvp.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mvp.png)
 
 首先我们要了解一下 MVP 模式， 代码分为三层。 Model 层（也就是我们所说的数据层）， Presenter 呈现层(业务逻辑相关的控制层)， View 层（视图层，页面上的 DOM 展示）。
 
@@ -69,7 +69,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 ### 如何理解 MVVM ？
 
-![输入图片说明](../../static/images/mvvm.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mvvm.png)
 
 - M: Model 层 （数据 vuex，data ）
 - V：View 层 （视图）
@@ -345,11 +345,11 @@ function proxy(target, sourceKey, key) {
 
 首先我们需要在自定义组件上面写入 v-model
 
-![输入图片说明](../../static/images/1584147196591.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1584147196591.png)
 
 接着在自定义组件内写入 props 和 model， 如下：
 
-![输入图片说明](../../static/images/1584147338097.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1584147338097.png)
 
 ### v-model 的实现原理
 
@@ -470,7 +470,7 @@ data.nums.push(4); // 监听数组
 
 ### Proxy 基本使用
 
-![输入图片说明](../../static/images/proxy.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/proxy.png)
 
 ### Proxy 可以实现什么功能？
 
@@ -733,7 +733,7 @@ var vdom = {
 - 基于 vnode 再执行 patch 和 diff
 - 使用 webpack vue-loader, 会在开发环境编译模板（重要）
 
-![输入图片说明](../../static/images/vuemoban.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/vuemoban.png)
 
 ### 能说一下 vue 组件渲染和更新过程吗？
 
@@ -751,7 +751,7 @@ var vdom = {
 
 流程图：
 
-![输入图片说明](../../static/images/liuchengtu.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/liuchengtu.png)
 
 ### 你能讲一下 diff 算法吗？
 
@@ -768,27 +768,28 @@ diff 即对比， 是一个广泛的概念， 如 linux diff 命令， git diff 
 
 于是 React 团队优化了算法，实现了 O(n) 的复杂度来对比差异。
 
-- 只比较同一层级， 不跨级对比<br />在实际业务中很少会去跨层的移动 DOM 元素。
+- 只比较同一层级， 不跨级对比
+- 在实际业务中很少会去跨层的移动 DOM 元素。
 
 只比较同一层级示意图：
 
-![输入图片说明](../../static/images/1584421293247.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1584421293247.png)
 
 - 第一步先比较 tag，tag 不相同， 则直接删掉重建， 不再深度比较
 
-![输入图片说明](../../static/images/1584421354676.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1584421354676.png)
 
 如图，D 和 G 的 tag 不相同，直接删掉重建为 G，即便 E 和 F 相同， 也不会再向下进行比较
 
 - tag 和 key， 两者都相同， 则认为是相同节点， 不再深度比较
 
-![输入图片说明](../../static/images/1586181939507.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1586181939507.png)
 
 示例图：
 
 #### patchVnode
 
-<br /> <br />![输入图片说明](../../static/images/07-010.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/07-010.png)
 
 #### updateChildren
 
@@ -865,13 +866,17 @@ function updateChildren(parentElm, oldCh, newCh) {
 }
 ```
 
-看到代码那么多先不要着急，我们还是一点一点地讲解。<br />首先我们定义 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 分别是新老两个 VNode 的两边的索引，同时 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 分别指向这几个索引对应的 VNode 节点。<br />!<br />接下来是一个 while 循环，在这过程中，oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 会逐渐向中间靠拢。
+看到代码那么多先不要着急，我们还是一点一点地讲解。<br />首先我们定义 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 分别是新老两个 VNode 的两边的索引，同时 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 分别指向这几个索引对应的 VNode 节点。<br />!
+
+接下来是一个 while 循环，在这过程中，oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 会逐渐向中间靠拢。
 
 ```javascript
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
 ```
 
-<br />首先当 oldStartVnode 或者 oldEndVnode 不存在的时候，oldStartIdx 与 oldEndIdx 继续向中间靠拢，并更新对应的 oldStartVnode 与 oldEndVnode 的指向（注：下面讲到的 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 移动都会伴随着 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 的指向的变化，之后的部分只会讲 Idx 的移动）。
+
+
+首先当 oldStartVnode 或者 oldEndVnode 不存在的时候，oldStartIdx 与 oldEndIdx 继续向中间靠拢，并更新对应的 oldStartVnode 与 oldEndVnode 的指向（注：下面讲到的 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 移动都会伴随着 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 的指向的变化，之后的部分只会讲 Idx 的移动）。
 
 ```javascript
 if (!oldStartVnode) {
@@ -905,7 +910,17 @@ else if (sameVnode(oldStartVnode, newStartVnode)) {
 }
 ```
 
-首先是 oldStartVnode 与 newStartVnode 符合 sameVnode 时，说明老 VNode 节点的头部与新 VNode 节点的头部是相同的 VNode 节点，直接进行 patchVnode，同时 oldStartIdx 与 newStartIdx 向后移动一位。<br />其次是 oldEndVnode 与 newEndVnode 符合 sameVnode，也就是两个 VNode 的结尾是相同的 VNode，同样进行 patchVnode 操作并将 oldEndVnode 与 newEndVnode 向前移动一位。<br />接下来是两种交叉的情况。<br />先是 oldStartVnode 与 newEndVnode 符合 sameVnode 的时候，也就是老 VNode 节点的头部与新 VNode 节点的尾部是同一节点的时候，将 oldStartVnode.elm 这个节点直接移动到 oldEndVnode.elm 这个节点的后面即可。然后 oldStartIdx 向后移动一位，newEndIdx 向前移动一位。<br />同理，oldEndVnode 与 newStartVnode 符合 sameVnode 时，也就是老 VNode 节点的尾部与新 VNode 节点的头部是同一节点的时候，将 oldEndVnode.elm 插入到 oldStartVnode.elm 前面。同样的，oldEndIdx 向前移动一位，newStartIdx 向后移动一位。<br />最后是当以上情况都不符合的时候，这种情况怎么处理呢？
+首先是 oldStartVnode 与 newStartVnode 符合 sameVnode 时，说明老 VNode 节点的头部与新 VNode 节点的头部是相同的 VNode 节点，直接进行 patchVnode，同时 oldStartIdx 与 newStartIdx 向后移动一位。
+
+其次是 oldEndVnode 与 newEndVnode 符合 sameVnode，也就是两个 VNode 的结尾是相同的 VNode，同样进行 patchVnode 操作并将 oldEndVnode 与 newEndVnode 向前移动一位。
+
+接下来是两种交叉的情况。
+
+先是 oldStartVnode 与 newEndVnode 符合 sameVnode 的时候，也就是老 VNode 节点的头部与新 VNode 节点的尾部是同一节点的时候，将 oldStartVnode.elm 这个节点直接移动到 oldEndVnode.elm 这个节点的后面即可。然后 oldStartIdx 向后移动一位，newEndIdx 向前移动一位。
+
+同理，oldEndVnode 与 newStartVnode 符合 sameVnode 时，也就是老 VNode 节点的尾部与新 VNode 节点的头部是同一节点的时候，将 oldEndVnode.elm 插入到 oldStartVnode.elm 前面。同样的，oldEndIdx 向前移动一位，newStartIdx 向后移动一位。
+
+最后是当以上情况都不符合的时候，这种情况怎么处理呢？
 
 ```javascript
 else {
@@ -960,7 +975,9 @@ createKeyToOldIdx 的作用是产生 key 与 index 索引对应的一个 map 表
 }
 ```
 
-我们可以根据某一个 key 的值，快速地从 oldKeyToIdx（createKeyToOldIdx 的返回值）中获取相同 key 的节点的索引 idxInOld，然后找到相同的节点。<br />如果没有找到相同的节点，则通过 createElm 创建一个新节点，并将 newStartIdx 向后移动一位。
+我们可以根据某一个 key 的值，快速地从 oldKeyToIdx（createKeyToOldIdx 的返回值）中获取相同 key 的节点的索引 idxInOld，然后找到相同的节点。
+
+如果没有找到相同的节点，则通过 createElm 创建一个新节点，并将 newStartIdx 向后移动一位。
 
 ```javascript
 if (!idxInOld) {
@@ -969,7 +986,7 @@ if (!idxInOld) {
 }
 ```
 
-否则如果找到了节点，同时它符合 sameVnode，则将这两个节点进行 patchVnode，将该位置的老节点赋值 undefined（之后如果还有新节点与该节点 key 相同可以检测出来提示已有重复的 key ），同时将 newStartVnode.elm 插入到 oldStartVnode.elm 的前面。同理，newStartIdx 往后移动一位。<br />
+否则如果找到了节点，同时它符合 sameVnode，则将这两个节点进行 patchVnode，将该位置的老节点赋值 undefined（之后如果还有新节点与该节点 key 相同可以检测出来提示已有重复的 key ），同时将 newStartVnode.elm 插入到 oldStartVnode.elm 的前面。同理，newStartIdx 往后移动一位。
 
 ```javascript
 else {
@@ -983,7 +1000,7 @@ else {
 }
 ```
 
-<br />如果不符合 sameVnode，只能创建一个新节点插入到 parentElm 的子节点中，newStartIdx 往后移动一位。<br />
+如果不符合 sameVnode，只能创建一个新节点插入到 parentElm 的子节点中，newStartIdx 往后移动一位。
 
 ```javascript
 else {
@@ -992,7 +1009,9 @@ else {
 }
 ```
 
-最后一步就很容易啦，当 while 循环结束以后，如果 oldStartIdx > oldEndIdx，说明老节点比对完了，但是新节点还有多的，需要将新节点插入到真实 DOM 中去，调用 addVnodes 将这些节点插入即可。<br /><br />同理，如果满足 newStartIdx > newEndIdx 条件，说明新节点比对完了，老节点还有多，将这些无用的老节点通过 removeVnodes 批量删除即可。<br />
+最后一步就很容易啦，当 while 循环结束以后，如果 oldStartIdx > oldEndIdx，说明老节点比对完了，但是新节点还有多的，需要将新节点插入到真实 DOM 中去，调用 addVnodes 将这些节点插入即可。
+
+同理，如果满足 newStartIdx > newEndIdx 条件，说明新节点比对完了，老节点还有多，将这些无用的老节点通过 removeVnodes 批量删除即可。
 
 ```javascript
 if (oldStartIdx > oldEndIdx) {
@@ -1003,12 +1022,12 @@ if (oldStartIdx > oldEndIdx) {
 }
 ```
 
-![输入图片说明](../../static/images/07-026.png)
-<a name="3932c914"></a>
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/07-026.png)
+
 
 ### 生命周期是什么?
 
-> <br />`Vue`实例的生命周期就是：`Vue`实例在某一个时间点会自动执行的函数。`Vue`生命周期有 11 种之多，它分为不同的组。
+> `Vue`实例的生命周期就是：`Vue`实例在某一个时间点会自动执行的函数。`Vue`生命周期有 11 种之多，它分为不同的组。
 
 - `beforeCreate`:　 `Vue`实例创建前 (获取不到`props`和`data`数据,可以添加 loading 事件)
 - `created`:　　 `Vue`实例创建后 (可以获取数据,但组件未被加载，异步请求可以在这里调用)
@@ -1022,7 +1041,7 @@ if (oldStartIdx > oldEndIdx) {
 - `deactivated`:　　 `keep-alive`组件停用时
 - `errorCaptured`:　　捕获子 , 孙组件发生错误时触发 (2.5+版本增加)
 
-![输入图片说明](../../static/images/smzqi.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/smzqi.png)
 
 在 `beforeCreate` 钩子函数调用的时候，是获取不到 `props` 或者 `data` 中的数据的，因为这些数据的初始化都在 `initState` 中。
 
@@ -1036,7 +1055,7 @@ if (oldStartIdx > oldEndIdx) {
 
 最后就是销毁组件的钩子函数 `beforeDestroy` 和 `destroyed`。前者适合移除事件、定时器等等，否则可能会引起内存泄露的问题。然后进行一系列的销毁操作，如果有子组件的话，也会递归销毁子组件，所有子组件都销毁完毕后才会执行根组件的 `destroyed` 钩子函数。
 
-<a name="d7078512"></a>
+
 
 ### 父子组件的生命周期顺序
 
@@ -1056,7 +1075,7 @@ if (oldStartIdx > oldEndIdx) {
 
 父 beforeDestroy->子 beforeDestroy->子 destroyed->父 destroyed
 
-<a name="cb63e0d3"></a>
+
 
 ### ajax 请求应该放在哪个生命周期？
 
@@ -1074,7 +1093,7 @@ if (oldStartIdx > oldEndIdx) {
 
 放在 `created` 里可以更早地获取到数据触发 `setter`，视图的重新渲染也会提前，但因为 `created` 发生在真实 `dom` 挂载之前，可能导致首屏等待时长变长。
 
-<a name="d548ca03"></a>
+
 
 ### 何时需要使用 beforeDestory
 
@@ -1082,7 +1101,7 @@ if (oldStartIdx > oldEndIdx) {
 - 清除定时器
 - 解绑自定义 DOM 事件， 如 window scroll 等（window.addEventListener 绑定的事件）
 
-<a name="51448653"></a>
+
 
 ### keep-alive 组件有什么作用?
 
@@ -1092,7 +1111,7 @@ if (oldStartIdx > oldEndIdx) {
 
 提供 `include` 和 `exclude` 属性，两者都支持字符串或正则表达式， `include` 表示只有名称匹配的组件会被缓存，`exclude` 表示任何名称匹配的组件都不会被缓存 ，其中 `exclude` 的优先级比 `include` 高；
 
-<a name="c1e5284c"></a>
+
 
 ### 组件中 name 属性有什么用？
 
@@ -1102,14 +1121,14 @@ if (oldStartIdx > oldEndIdx) {
 1. 对某个页面取消 keep-alive 的缓存的时候会用到
 1. vue-devtools 调试工具
 
-<a name="7ae9911a"></a>
+
 
 ### 怎么强制刷新组件？
 
 - `this.$forceUpdate()`。
 - 组件上加上 key，然后变化 key 的值
 
-<a name="3a0a4430"></a>
+
 
 ### 怎么访问子组件的实例或者子元素？
 
@@ -1126,7 +1145,7 @@ if (oldStartIdx > oldEndIdx) {
 console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//第一个li
 ```
 
-<a name="0b38b16f"></a>
+
 
 ### 组件会在什么时候下被销毁？
 
@@ -1134,7 +1153,7 @@ console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//�
 - `v-if='false'；`
 - 执行 `vm.$destroy()；`
 
-<a name="5cb931cb"></a>
+
 
 ### 为何组件 data 必须是一个函数？
 
@@ -1142,13 +1161,13 @@ console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//�
 
 当我们使用 `new Vue()` 的方式的时候，无论我们将 `data` 设置为对象还是函数都是可以的，因为 `new Vue()` 的方式是生成一个根组件，该组件不会复用，也就不存在共享 `data` 的情况了。
 
-<a name="18f01822"></a>
+
 
 ### 如何将组件的所有 props 传递给子组件？
 
 - `<User v-bind="$props" />`
 
-<a name="bff9c2c5"></a>
+
 
 ### props 与非 props 特性？
 
@@ -1162,20 +1181,20 @@ props 特性：
 1.  无法接收父组件传来的数据（因为子组件中没有相应的`props`来接收父组件传来的数据）；
 1.  父组件设置的属性会在其最外层的元素上显示
 
-<a name="d06c6d80"></a>
+
 
 ### 父子组件如何进行通信？
 
 - 父组件通过`props`传递数据给子组件，子组件通过`emit`发送事件传递数据给父组件。子组件不能直接修改`props`，而是必须通过发送事件的方式告知父组件修改数据。 (单向数据流)
 - 当然我们也可以使用 `$parent` / `$children` 来实现父子组件通信。它们的主要目的是作为访问组件的应急方法。更推荐用 `props` 和 `events` 实现父子组件通信。
 
-<a name="3e1f7414"></a>
+
 
 ### 为什么要有单向数据流？
 
 为了保证数据的单向流动，便于对数据进行追踪，避免数据混乱。
 
-<a name="bcbafca3"></a>
+
 
 ### 跨多层次组件通信
 
@@ -1200,39 +1219,37 @@ export default {
 }
 ```
 
-<a name="c6883203"></a>
+
 
 ### 非父子组件传值/任意组件
 
 我们需要使用发布订阅模式或者总线机制来实现非父子组件传值。
 
-![输入图片说明](../../static/images/feifuzishengc.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/feifuzishengc.png)
 
 首先我们在 Vue 的原型链上创建一个 bus 属性， 指向一个 vue 实例。然后我们在其中一个组件上触发 change 事件， 在另外一个组件上监听绑定 change 事件， 此时就可以获取到兄弟组件传来的值了。
 
 这种方法**通过一个空的 Vue 实例作为中央事件总线（事件中心）**，用它来**触发事件和监听事件,巧妙而轻量地实现了任何组件间的通信**，包括父子、兄弟、跨级。
 
-<a name="eaa0ed87"></a>
+
 
 ### 什么是作用域插槽？
 
 如果我们的父组件需要一个子组件内定义的标题， 我们需要使用作用域插槽。
 
-![输入图片说明](../../static/images/zuoyongyuchazao.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/zuoyongyuchazao.png)
 
 父组件通过 `v-slot="slotProps"` 接收到数据。 通过 `slotProps.slotData` 拿到子组件的数据
 
-![输入图片说明](../../static/images/chacao2.1.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/chacao2.1.png)
 
-<a name="7fad4e43"></a>
+
 
 ### 什么是具名插槽?
 
-![输入图片说明](../../slotchacao.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/slotchacao.png)
 
-<a name="822f2429"></a>
 
-<a name="b4519cff"></a>
 
 ### extend 能做什么？
 
@@ -1255,7 +1272,7 @@ new SuperComponent({
 new SuperComponent().$mount("#app");
 ```
 
-<a name="b3b87db6"></a>
+
 
 ### mixin 的问题
 
@@ -1263,7 +1280,7 @@ new SuperComponent().$mount("#app");
 - 多 mixin 可能会造成命名冲突
 - mixin 和组件可能会出现多对多的关系， 复杂度较高
 
-<a name="bf74e413"></a>
+
 
 ### mixin 和 mixins 区别
 
@@ -1284,7 +1301,7 @@ Vue.mixin({
 
 另外需要注意的是 `mixins` 混入的钩子函数会先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并。
 
-<a name="501cb4c5"></a>
+
 
 ### v-show 与 v-if 区别
 
@@ -1294,7 +1311,7 @@ Vue.mixin({
 
 并且基于 `v-if` 的这种惰性渲染机制，可以在必要的时候才去渲染组件，减少整个页面的初始渲染开销。
 
-<a name="fd3e2e6b"></a>
+
 
 ### 为何在 v-for 中用 key？
 
@@ -1306,7 +1323,7 @@ Vue.mixin({
 
 而且必须要使用`key`，而不是`index`或`random`。diff 算法是通过`tag`和`key`来判断，是否更新节点。这样就**减少了渲染次数，提升渲染性能。**
 
-<a name="380144b4"></a>
+
 
 ### 常见事件修饰符有哪些？
 
@@ -1316,13 +1333,13 @@ Vue.mixin({
 - `self`只有触发元素是自身时才执行的事件
 - `once`只执行一次的事件
 - `passive`事件行为立即触发，而不会等待
-  <a name="ed7b186c"></a>
+  
 
 ### 组合键如何使用？
 
 组合键 `click.ctrl.exact` 只有`ctrl`被按下的时候才触发
 
-<a name="e98a913c"></a>
+
 
 ### 绑定 class 的数组用法
 
@@ -1330,7 +1347,7 @@ Vue.mixin({
 - 数组方法 `v-bind:class="[class1, class2]"`
 - 行内 `v-bind:style="{color: color, fontSize: fontSize+'px' }"`
 
-<a name="b32c1e61"></a>
+
 
 ### computed 与 watch 和 methods 有什么区别?
 
@@ -1368,7 +1385,7 @@ var vm = new Vue({
 });
 ```
 
-<a name="9320fa61"></a>
+
 
 ### watch 的深度监听？
 
@@ -1438,11 +1455,7 @@ this.$nextTick(function () {
 
 - 需要在视图更新之后，基于新的视图进行操作。
 - created()钩子函数进行的 DOM 操作。因为此时 DOM 并未渲染。
-  <a name="X3isl"></a>
-
-##
-
-<a name="VhtWh"></a>
+  
 
 ### NextTick 原理分析
 
@@ -1478,7 +1491,7 @@ if (typeof setImmediate !== "undefined" && isNative(setImmediate)) {
 
 以上代码很简单，就是判断能不能使用相应的 API。
 
-<a name="a6d0184d"></a>
+
 
 ### Vue 和 React 之间的区别
 
@@ -1494,7 +1507,7 @@ React 需要使用 JSX，有一定的上手成本，并且需要一整套的工�
 
 在上手成本上来说，Vue 一开始的定位就是尽可能的降低前端开发的门槛，然而 React 更多的是去改变用户去接受它的概念和思想，相较于 Vue 来说上手成本略高。
 
-<a name="182eb3ec"></a>
+
 
 ### SSR 了解吗？
 
@@ -1502,7 +1515,7 @@ SSR 也就是服务端渲染，也就是将 Vue 在客户端把标签渲染成 H
 
 SSR 有着更好的 SEO、并且首屏加载速度更快等优点。不过它也有一些缺点，比如我们的开发条件会受到限制，服务器端渲染只支持 `beforeCreate` 和 `created` 两个钩子，当我们需要一些外部扩展库时需要特殊处理。服务端渲染应用程序也需要处于 Node.js 的运行环境。还有就是服务器会有更大的负载需求。
 
-<a name="c8e464d0"></a>
+
 
 ### vue 常见性能优化方式？
 
@@ -1512,7 +1525,7 @@ SSR 有着更好的 SEO、并且首屏加载速度更快等优点。不过它也
 1. 使用路由懒加载、异步组件
 1. `data` 层级不要太深，尽量扁平化
 
-<a name="9ff4713f"></a>
+
 
 #### 懒加载
 
@@ -1532,15 +1545,9 @@ const Foo = () => import("./Foo.vue");
 
 使用 vue 的 vue-lazyload 插件
 
-在入口文件引入后把 `img` 标签里面的 `:src` 属性 改成 `v-lazy`
-
----
-
-<a name="Tk4Qc"></a>
+在入口文件引入后把 `img` 标签里面的 `:src` 属性 改成 `v-lazy
 
 ## 实践题
-
-<a name="ed69b1eb"></a>
 
 ### 实现一个观察者模式
 
@@ -1658,7 +1665,7 @@ hanMeiMei.add(B);
 hanMeiMei.setState(prd);
 ```
 
-<a name="9c986fc9"></a>
+
 
 ### 实现一个 Event Bus/ Event Emitter
 
@@ -1751,7 +1758,7 @@ class EventEmitter {
 }
 ```
 
-<a name="478f46d4"></a>
+
 
 ### 请实现一个简单的购物车实例
 
@@ -1865,7 +1872,7 @@ export default {
 </style>
 ```
 
-<a name="5a985908"></a>
+
 
 ### 请实现一个简单的 TodoList？
 
@@ -2030,19 +2037,17 @@ export default {
 </style>
 ```
 
-<a name="MNKrI"></a>
+
 
 ## Vuex
 
-<a name="NONDz"></a>
-
 ### 聊一下 Vuex？
 
-![输入图片说明](../../static/images/vuex.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/vuex.png)
 
 是一个公共存储的数据库，能够方便的在 vue 实例及其组件间传递数据。
 
-<a name="VP6kf"></a>
+
 
 ### 聊聊 Vuex 的设计思想？
 
@@ -2054,7 +2059,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 - `getters`: 获取状态,计算属性
 - `modules`: 将`state`分成多个`modules`，便于管理
 
-<a name="oQCWO"></a>
+
 
 #### 应用场景：
 
@@ -2065,7 +2070,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 
 **除非已经确定是特别简单的项目，其它都建议使用 vuex 的方式来进行数据通信，好处是数据易于管理，可维护性高，不易造成数据传递混乱**
 
-<a name="wZ7wg"></a>
+
 
 ### Vuex 中 action 和 mutation 有何区别？
 
@@ -2073,7 +2078,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 - `mutation` 做原子操作，每次只操作一个
 - `action` 可以整合多个 `mutation`
 
-<a name="y1i3p"></a>
+
 
 ### 为什么 Vuex 的 mutation 不能做异步操作？
 
@@ -2089,7 +2094,7 @@ mutations: {
 
 现在想象，我们正在 debug 一个 app 并且观察 devtool 中的 mutation 日志。每一条 mutation 被记录，devtools 都需要捕捉到前一状态和后一状态的快照。然而，在上面的例子中 mutation 中的异步函数中的回调让这不可能完成：因为当 mutation 触发的时候，回调函数还没有被调用，devtools 不知道什么时候回调函数实际上被调用——实质上任何在回调函数中进行的状态的改变都是不可追踪的。
 
-<a name="H9Z1N"></a>
+
 
 ### 双向绑定和 Vuex 是否冲突？
 
@@ -2117,17 +2122,15 @@ methods: {
 }
 ```
 
-<a name="AKT39"></a>
+
 
 ## vue-router
-
-<a name="CpI6k"></a>
 
 ### vue 怎么做路由拦截？
 
 利用`vue-router`提供的钩子函数`beforeEach()`对路由进行判断
 
-<a name="DLZoR"></a>
+
 
 ### 动态路由定义和获取？
 
@@ -2135,7 +2138,7 @@ methods: {
 
 使用 router 对象的 params.id 获取。 `id: this.$route.params.id`
 
-<a name="L9Ctz"></a>
+
 
 ### vue-router 有哪几种导航钩子?
 
@@ -2157,7 +2160,7 @@ methods: {
 - `beforeRouteUpdate`(在当前路由改变，但是该组件被复用时调用)
 - `beforeRouteLeave`(导航离开该组件的对应路由时调用)
 
-<a name="artkn"></a>
+
 
 ### 请描述一下前端路由原理
 
@@ -2166,7 +2169,7 @@ methods: {
 - Hash 模式
 - History 模式
 
-<a name="K1UFo"></a>
+
 
 ### 路由两种模式有什么区别？
 

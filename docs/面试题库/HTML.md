@@ -7,7 +7,7 @@ next: CSS
 
 ### W3C 标准
 
-<a name="3bb71186"></a>
+
 
 #### WEB 标准以及 W3C 标准是什么?
 
@@ -17,11 +17,11 @@ next: CSS
 1. 使用外链 css 和 js
 1. 结构行为表现的分离
 
-<a name="80b2466e"></a>
+
 
 ### 语义化
 
-<a name="26fc5869"></a>
+
 
 #### 谈谈你对语义化的理解？
 
@@ -31,7 +31,7 @@ next: CSS
 - **搜索引擎**的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 SEO。
 - **源代码**更容易阅读、维护、理解。
 
-<a name="4068b765"></a>
+
 
 ### xhtml 和 html
 
@@ -40,11 +40,11 @@ next: CSS
 - 另外是书写习惯的差别
   - XHTML 元素必须被正确地嵌套，闭合，区分大小写，文档必须拥有根元素
 
-<a name="8155c6ca"></a>
+
 
 ### global attribute
 
-<a name="37f4292f"></a>
+
 
 #### HTML 全局属性(global attribute)有哪些？
 
@@ -56,11 +56,11 @@ next: CSS
 - `data-*`: 为元素增加自定义属性
 - `draggable`: 设置元素是否可拖拽
 
-<a name="HTML5"></a>
+
 
 ### HTML5
 
-<a name="16633cf9"></a>
+
 
 #### 什么是 DOCTYPE 及作用？
 
@@ -77,14 +77,14 @@ HTML4.0 有传统模式和严格模式。
 
 严格模式包含所有 HTML 元素和属性，但不包括展示性和弃用的元素。（如 `font`）
 
-<a name="7ca63f84"></a>
+
 
 #### HTML5 为什么只需要写 <!DOCTYPE html>？
 
 - HTML5 不基于 SGML，因此不需要对 DTD 进行引用，但是需要`DOCTYPE`来规范浏览器的行为
 - 而 HTML4.01 基于 SGML，所以需要对 DTD 进行引用，才能告知浏览器所使用的文档类型
 
-<a name="a91b3f12"></a>
+
 
 #### html5 有哪些新特性？
 
@@ -97,14 +97,14 @@ HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存�
 - 表单控件，`date`、`time`、`email`、`url`、`search`
 - 新的技术`webworker`, `websocket`
 
-<a name="031fc2e9"></a>
+
 
 #### html5 有移除的元素?
 
 - 纯表现的元素：`basefont`，`font`, `big`，`center`，`s`
 - 对可用性产生负面影响的元素：`frame`
 
-<a name="200fd42f"></a>
+
 
 #### Canvas 和 SVG 有什么区别？
 

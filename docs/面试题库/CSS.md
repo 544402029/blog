@@ -14,11 +14,13 @@ next: JavaScript
 
 而 1rem，等于根元素的字体大小，在一个页面中，无论在哪个元素上 1rem 都是一样的。
 
-em 适合于用在需要大小需要跟随字体变化的属性上，比如 padding、margin、height、width 等等，元素继承了不同的字体大小，这些属性最好也能跟着变化；<br />大多数人可能会认为 em 相对于父元素的字体大小，但是实际上取决于应用在什么 CSS 属性上。对于 font-size 来说，em 相对于父元素的字体大小；line-height 中，em 却相对于自身字体的大小。
+em 适合于用在需要大小需要跟随字体变化的属性上，比如 padding、margin、height、width 等等，元素继承了不同的字体大小，这些属性最好也能跟着变化；
+
+大多数人可能会认为 em 相对于父元素的字体大小，但是实际上取决于应用在什么 CSS 属性上。对于 font-size 来说，em 相对于父元素的字体大小；`line-height` 中，em 却相对于自身字体的大小。
 
 rem 适用于字体，这样就可以通过改变根元素的字体大小来改变整个页面的字体大小。
 
-<a name="e27b69d5"></a>
+
 
 #### px， em， rem 的区别？
 
@@ -26,7 +28,7 @@ rem 适用于字体，这样就可以通过改变根元素的字体大小来改�
 - em 是相对长度单位。相对于当前对象内文本的字体尺寸;（参考物是父元素的 font-size）。如当前父元素的字体尺寸未设置，则相对于浏览器的默认字体尺寸
 - rem 是相对于 HTML 根元素的字体大小（font-size）来计算的长度单位。
 
-<a name="300d53e9"></a>
+
 
 #### % 相对于谁
 
@@ -54,11 +56,11 @@ rem 适用于字体，这样就可以通过改变根元素的字体大小来改�
 - `background-size` 的百分比和 `border-radius` 一样，也是相对于自身的宽高。
 - `transform` 的 `translate` 属性 % 是相对于自身的宽高，这也是我们上述代码能够实现居中的原因。
 
-<a name="0189ec93"></a>
+
 
 ### 布局方式
 
-<a name="050aa3e5"></a>
+
 
 #### 什么是 flex？写出常见属性，以及作用？
 
@@ -77,7 +79,7 @@ flex：弹性布局。
 - flex 属性是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。后两个属性可选。
 - align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。
 
-<a name="01fcdfbc"></a>
+
 
 #### display 有哪些值？说明他们的作用？
 
@@ -94,7 +96,7 @@ flex：弹性布局。
 - grid： 网格布局
 - inherit 规定应该从父元素继承 display 属性的值。
 
-<a name="60360866"></a>
+
 
 #### 隐藏一个元素有多少种方法？
 
@@ -105,7 +107,7 @@ flex：弹性布局。
 1. `overflow:hidden;`
 1. `width: 0px;height: 0px;`
 
-<a name="bf796caa"></a>
+
 
 #### `display: none` 与 `visibility: hidden`区别在哪？
 
@@ -118,23 +120,25 @@ flex：弹性布局。
 1. 修改常规流中元素的`display`通常会造成文档**回流**。修改`visibility`属性只会造成本元素的**重绘**。
 1. **读屏器**不会读取`display: none`元素内容；会读取`visibility: hidden`元素内容
 
-<a name="1cfeae1d"></a>
+
 
 ### 浮动
 
-<a name="4dd9fb90"></a>
+
 
 #### 行内元素`float:left`后是否变为块级元素？
 
 浮动后，行内元素不会成为块状元素，但是可以设置宽高。行内元素要想变成块状元素，占一行，直接设置`display:block`。但如果元素设置了浮动后再设置`display:block`那就不会占一行
 
-<a name="b0e5cdc7"></a>
+
 
 #### 为什么要清除浮动？
 
-不清除浮动会发生高度塌陷：<br />父元素不写高度时，子元素写了浮动后，父元素会发生高度塌陷。
+不清除浮动会发生高度塌陷：
 
-<a name="386ffb30"></a>
+父元素不写高度时，子元素写了浮动后，父元素会发生高度塌陷。
+
+
 
 #### 清除浮动有几种方式？
 
@@ -175,11 +179,11 @@ flex：弹性布局。
 }
 ```
 
-<a name="43aaad33"></a>
+
 
 ### CSS 盒模型
 
-<a name="8b07078c"></a>
+
 
 #### 介绍一下标准的 CSS 的盒子模型？低版本 IE 的盒子模型有什么不同的？
 
@@ -188,7 +192,7 @@ flex：弹性布局。
 
 `box-sizing` : `content-box`(标准模型-默认)/`border-box`(IE 模型)
 
-<a name="57f520c9"></a>
+
 
 #### js 中如何获取盒模型宽高?
 
@@ -197,23 +201,23 @@ flex：弹性布局。
 1.  `window.getComputedStyle(dom).width` (浏览器渲染之后的取值，兼容性更好)
 1.  `dom.getBoundingClientRect().width/height/left/top` (常用于计算位置)
 
-<a name="BFC"></a>
+
 
 ### BFC
 
-<a name="5c94b96b"></a>
+
 
 #### 什么是 BFC?(概念)
 
 块级格式化上下文
 
-<a name="7a381f31"></a>
+
 
 #### 对 BFC 规范的理解？
 
 它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用
 
-<a name="afa22aba"></a>
+
 
 #### BFC 的原理？
 
@@ -222,7 +226,7 @@ flex：弹性布局。
 1.  BFC 在页面上是一个独立的容器，外面的元素不会影响里面的元素，里面的元素也不会影响外面的元素
 1.  计算 BFC 高度时，浮动元素也会参与计算
 
-<a name="fa5cde04"></a>
+
 
 #### 如何创建 BFC？
 
@@ -232,20 +236,20 @@ flex：弹性布局。
 - 绝对定位元素（元素的 `position` 为 `absolute` 或 `fixed`）
 - `display` 的值为 `table-cell`、 `table-caption` 和 `inline-block` 中的任何一个。
 
-<a name="3cd17cfc"></a>
+
 
 #### BFC 使用场景?
 
 1.  解决垂直方向的边距重叠
 1.  清除浮动
 
-<a name="65b4304e"></a>
+
 
 ### 重绘（Repaint）和回流（Reflow）
 
 重绘和回流会在我们设置节点样式时频繁出现，同时也会很大程度上影响性能。
 
-<a name="5ae82b20"></a>
+
 
 #### 重绘与回流
 
@@ -277,7 +281,7 @@ flex：弹性布局。
 
 以上内容来自于 [HTML 文档](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)。
 
-<a name="d021a99d"></a>
+
 
 #### 减少 重绘与回流
 
@@ -300,11 +304,11 @@ for (let i = 0; i < 1000; i++) {
    - `video、iframe` 标签
 8. 不要重复添加 DOM， 如果有多个操作合并在一起添加到页面
 
-<a name="FOUC"></a>
+
 
 ### FOUC
 
-<a name="bbc70c88"></a>
+
 
 #### 什么是 FOUC?如何避免?
 
@@ -312,11 +316,7 @@ for (let i = 0; i < 1000; i++) {
 
 解决方法：把样式表放到文档的 head
 
-<a name="1489fbbf"></a>
-
 ### css sprite
-
-<a name="0cb1614d"></a>
 
 #### css sprite 是什么,有什么优缺点
 
@@ -333,11 +333,9 @@ for (let i = 0; i < 1000; i++) {
 - 图片合并麻烦
 - 维护麻烦，修改一个图片可能需要从新布局整个图片，样式
 
-<a name="CSS3"></a>
+
 
 #### CSS3
-
-<a name="e8e31572"></a>
 
 #### CSS3 有哪些新特性
 
@@ -351,7 +349,7 @@ for (let i = 0; i < 1000; i++) {
 - 过渡`transition`
 - 动画`animation`
 
-<a name="85dc4a93"></a>
+
 
 #### CSS3 新增伪类有那些？
 
@@ -368,11 +366,9 @@ for (let i = 0; i < 1000; i++) {
 * :checked 单选框或复选框被选中
 ```
 
-<a name="3b66e969"></a>
+
 
 ### 笔试题
-
-<a name="8bb8804f"></a>
 
 #### 如何用 css 实现一行文字后面...的情况?
 
@@ -386,7 +382,7 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 ```
 
-<a name="92317a85"></a>
+
 
 #### css3 如何实现 0.5px 的细线?
 
@@ -411,7 +407,7 @@ display: -webkit-box;
 <div class="line"></div>
 ```
 
-<a name="a0fe8230"></a>
+
 
 #### css 如何实现三角形?
 
@@ -424,11 +420,11 @@ span {
 }
 ```
 
-<a name="bd37de4e"></a>
+
 
 #### 宽高已知，如何实现 div 水平垂直居中?
 
-<a name="f58ce33d"></a>
+
 
 ##### 第一种方案
 
@@ -451,7 +447,7 @@ span {
 }
 ```
 
-<a name="8de187bb"></a>
+
 
 ##### 第二种方案
 
@@ -480,11 +476,11 @@ span {
 </div>
 ```
 
-<a name="4bf0d1a9"></a>
+
 
 #### 宽高未知，如何实现 div 水平垂直居中?
 
-<a name="f58ce33d-1"></a>
+
 
 ##### 第一种方案
 
@@ -504,7 +500,7 @@ span {
 }
 ```
 
-<a name="f84c0f0d"></a>
+
 
 ##### flex 解决方案:
 
@@ -524,7 +520,7 @@ span {
 }
 ```
 
-<a name="c9fe74cb"></a>
+
 
 #### 假设高度已知，请写出三栏布局(圣杯布局)，其中左栏、右栏宽度各为 100px，中间自适应
 
@@ -693,11 +689,11 @@ span {
 </section>
 ```
 
-<a name="67cfef37"></a>
+
 
 #### 如何实现下图九宫格的效果?鼠标滑过边框显示红色?
 
-![输入图片说明](../../static/images/jiugongge.png)
+![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/jiugongge.png)
 
 ```css
 .wrap {
@@ -733,5 +729,3 @@ span {
   z-index: 1;
 }
 ```
-
----
