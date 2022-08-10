@@ -107,7 +107,7 @@ MVVM 模式也有 Model 层来存储数据， 有 View（视图层）来显示�
 
 #### 生命周期
 
-![enter description here](https://cn.vuejs.org/images/lifecycle.png)
+
 
 生命周期函数就是 vue 实例在某一个时间点自动执行的函数。
 

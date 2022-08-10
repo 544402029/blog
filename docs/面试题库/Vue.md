@@ -134,7 +134,17 @@ function defineReactive(obj, key, val) {
 <div>{{ name }}</div>
 ```
 
-在解析如上模板代码时，遇到 `{{name}}` 就会进行依赖收集。
+
+
+在解析如上模板代码时，遇到 
+
+``` javascript
+{{name}} 
+```
+
+就会进行依赖收集。
+
+
 
 接下来我们先来实现一个 `Dep` 类，用于解耦属性的依赖收集和派发更新操作。
 

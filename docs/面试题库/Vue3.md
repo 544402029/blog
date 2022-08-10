@@ -5,8 +5,6 @@ next: Webpack
 
 ## Vue3
 
-
-
 ![Vue3升级说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1622731226157.png)
 
 
@@ -669,7 +667,7 @@ export default defineComponent({
 
 - 顶级变量、自定义组件, 可以直接用于模板
 - 可正常使用 ref， reactive， computed 等能力
-- 和其他 <script> 同时使用
+- 和其他 `<script>` 同时使用
 
 ```javascript
 <script>

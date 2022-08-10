@@ -152,7 +152,7 @@ HTTP 协议的初始版本中，每进行一次 HTTP 通信就要断开一次 TC
 
 ### HTTP 报文
 
-用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符串文 本。 HTTP 报文大致可分为报文首部和报文主体两块。两者由最初出现的 空行（CR+LF）来划分。通常，并不一定要有报文主体。
+用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用` CR+LF` 作换行符）数据构成的字符串文 本。 HTTP 报文大致可分为报文首部和报文主体两块。两者由最初出现的 空行（`CR+LF`）来划分。通常，并不一定要有报文主体。
 
 ### 请求报文及响应报文的结构
 
@@ -198,7 +198,7 @@ HTTP 协议的初始版本中，每进行一次 HTTP 通信就要断开一次 TC
 
 ![image-20220804150734653](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220804150734653.png)
 
-分块传输编码会将实体主体分成多个部分（块）。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用“0(CR+LF)”来标
+分块传输编码会将实体主体分成多个部分（块）。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用“0(`CR+LF`)”来标
 记。
 
 使用分块传输编码的实体主体会由接收的客户端负责解码，恢复到编码前的实体主体。
@@ -228,7 +228,7 @@ HTTP 协议中也采纳了多部分对象集合，发送的一份报文主体内
 - multipart/byteranges
 
   ![image-20220804150828212](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220804150828212.png)
-  ![输入图片说明](C:\Users\Administrator\AppData\Local\static\images\xiaban.png)
+  
 
 在 HTTP 报文中使用多部分对象集合时，需要在首部字段里加上 ** Content-type** 。
 
@@ -548,7 +548,7 @@ Accept 首部字段可通知服务器，用户代理能够处理的媒体类型�
 
 text/html, text/plain, text/css ...
 
-application/xhtml+xml, application/xml ...
+application/xhtml`+`xml, application/xml ...
 
 * 图片文件
 
@@ -1127,7 +1127,7 @@ X-Frame-Options: DENY
   页面为 SAMEORIGIN 时，那么 hackr.jp 上所有页面的 frame 都被允许可加载该页面，而 example.com 等其他域名的页面就不行了）
 
 
-支持该首部字段的浏览器有：Internet Explorer 8、Firefox 3.6.9+、Chrome 4.1.249.1042+、Safari 4+ 和 Opera 10.50+ 等。现在主流的浏览器都已经支持。
+支持该首部字段的浏览器有：`Internet Explorer 8`、`Firefox 3.6.9+`、`Chrome 4.1.249.1042+`、`Safari 4+` 和 `Opera 10.50+` 等。现在主流的浏览器都已经支持。
 
 能在所有的 Web 服务器端预先设定好 X-Frame-Options 字段值是最理想的状态。
 
@@ -1348,7 +1348,7 @@ HTTP 协议中的请求和响应不会对通信方进行确认。也就是说存
 
 
 
-### HTTP+ 加密 + 认证 + 完整性保护 =HTTPS
+### HTTP`+` 加密 `+` 认证 `+` 完整性保护 =HTTPS
 
 #### HTTP 加上加密处理和认证以及完整性保护后即是 HTTPS
 
