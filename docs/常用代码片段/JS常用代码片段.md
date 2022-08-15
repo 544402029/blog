@@ -1,10 +1,76 @@
 # JS 常用代码片段
 
+### 检查日期是否有效
+
+该方法用于检测给出的日期是否有效：
+
+```javascript
+const isDateValid = (...val) => !Number.isNaN(new Date(...val).valueOf());
+
+isDateValid("December 17, 1995 03:24:00");  // true
+```
+
+
+
+### 计算两个日期之间的间隔
+
+该方法用于检测给出的日期是否有效：
+
+```
+const dayDif = (date1, date2) => Math.ceil(Math.abs(date1.getTime() - date2.getTime()) / 86400000)
+    
+dayDif(new Date("2021-11-3"), new Date("2022-2-1"))  // 90
+```
+
+
+
+### 查找日期位于一年中的第几天
+
+该方法用于检测给出的日期位于今年的第几天：
+
+```
+const timeFromDate = date => date.toTimeString().slice(0, 8);
+    
+timeFromDate(new Date(2021, 11, 2, 12, 30, 0));  // 12:30:00
+timeFromDate(new Date());  // 返回当前时间 09:00:00
+```
+
+
+
+### 时间格式化
+
+该方法可以用于将时间转化为hour:minutes:seconds的格式：
+
+```
+const timeFromDate = date => date.toTimeString().slice(0, 8);
+    
+timeFromDate(new Date(2021, 11, 2, 12, 30, 0));  // 12:30:00
+timeFromDate(new Date());  // 返回当前时间 09:00:00
+```
+
+
+
+
+
+## 页面刷新不保留原先位置
+
+保留位置请设置为 `auto`
+
+```javascript
+if (history.scrollRestoration) {
+	history.scrollRestoration = 'manual';
+}    
+```
+
+
+
 ## input限制两位小数
 
 ```
 oninput="value = value.match(/^\d*(\.?\d{0,2})/g)[0] || null"
 ```
+
+
 
 ## Vue项目修改项目标题
 
@@ -25,6 +91,7 @@ module.exports = {
 ```
 
 
+
 ## 金额千分位加逗号
 
 比如说 999999999，直接阅读很不直观，格式化后 999,999,999或者999,999,999.00
@@ -42,6 +109,8 @@ const isPhone =
   /(^([0-9]{3,4}-)?[0-9]{7,8}$)|(^((\(\d{3}\))|(\d{3}\-))?(1[345789]\d{9})$)/;
 // 可支持格式1600999、16009999、025-83593004、0311-7046792、18282441800
 ```
+
+
 
 ## cookie 操作
 
@@ -120,6 +189,8 @@ CookieUtil.unset("name", "/books/projs/", "www.wrox.com");
 CookieUtil.set("name", "Nicholas", null, null, null, true);
 ```
 
+
+
 ## 添加查询字符串
 
 ```js
@@ -134,6 +205,8 @@ function addQueryStringArg(url, name, value) {
   return url;
 }
 ```
+
+
 
 ## 文件大小换算成单位
 
@@ -246,6 +319,8 @@ export const byteSize = (bytes, units = "metric", precision = 1) => {
 };
 ```
 
+
+
 ## 防抖
 
 ```js
@@ -276,6 +351,8 @@ export const debounce = (fn, wait, immediate) => {
   };
 };
 ```
+
+
 
 ## 节流
 
@@ -311,6 +388,8 @@ export const throttle = (fn, wait, immediate) => {
   };
 };
 ```
+
+
 
 ## 浮点数精度丢失
 
@@ -387,6 +466,8 @@ export const floatNumber = (a, b, computeType) => {
 };
 ```
 
+
+
 ## 判断当前环境是否是手机端
 
 ```js
@@ -409,6 +490,8 @@ export const isMobile = () => {
 };
 ```
 
+
+
 ## 判断当前环境是否是微信环境
 
 ```js
@@ -427,6 +510,8 @@ export const isWeixin = () => {
   }
 };
 ```
+
+
 
 ## 检测浏览器是否放大
 
@@ -458,6 +543,8 @@ export const detectZoom = (rsize) => {
 };
 ```
 
+
+
 ## 获取普通地址 url 参数
 
 ```js
@@ -476,6 +563,8 @@ export const getUrlParam = (name) => {
   return false;
 };
 ```
+
+
 
 ## 获取 hash 模式地址 url 参数
 
@@ -502,6 +591,8 @@ export const getUrlHashParam = (name) => {
   return false;
 };
 ```
+
+
 
 ## 时间戳转换
 
@@ -543,6 +634,8 @@ export const formatDate = (date, fmt) => {
 };
 ```
 
+
+
 ## 时间戳转换成什么之前
 
 ```js
@@ -574,11 +667,15 @@ export const timeAgoLabel = (times) => {
 };
 ```
 
+
+
 ## npm 淘宝镜像
 
 ```
 npm install --registry=https://registry.npm.taobao.org
 ```
+
+
 
 ## 元素在页面中的偏移量
 
@@ -610,6 +707,8 @@ function getElementTop(element) {
 }
 ```
 
+
+
 ## 查询 url 参数
 
 ```js
@@ -631,6 +730,8 @@ let getQueryStringArgs = function () {
   return args;
 };
 ```
+
+
 
 ## 洗牌算法
 
@@ -655,6 +756,8 @@ a.shuffle();
 console.log(a); // [3, 1, 4, 5, 2]
 ```
 
+
+
 ## 检查两个以上的值是否相等
 
 ```js
@@ -664,6 +767,8 @@ function recursivelyCheckEqual(x, ...rest) {
   );
 }
 ```
+
+
 
 ## 生成任意位数随机数(数字)
 
@@ -684,6 +789,8 @@ export const randomNumber = (n) => {
 };
 ```
 
+
+
 ## 生成随机ID
 
 ```js
@@ -698,6 +805,8 @@ export const randomId =(randomLength = 10) =>{
     return Number(Math.random().toString().substr(3,randomLength) + Date.now()).toString(36)
 },
 ```
+
+
 
 ## 数组去重
 
@@ -744,6 +853,8 @@ export const noRepeatArrayReduce = (repeatArray) => {
 };
 ```
 
+
+
 ## 从一组整数中随机选择一个数
 
 ```js
@@ -760,6 +871,8 @@ let colors = ["red", "green", "blue", "yellow", "black", "purple", "brown"];
 let color = colors[selectFrom(0, colors.length - 1)];
 ```
 
+
+
 ## 查找字符串出现位置
 
 ```js
@@ -774,6 +887,8 @@ while (pos > -1) {
 
 console.log(positions); // [3,24,32,35,52]
 ```
+
+
 
 ## axios 封装
 
@@ -873,6 +988,8 @@ service.interceptors.response.use(
 export default service;
 ```
 
+
+
 ## 小程序 http 封装
 
 ```js
@@ -894,6 +1011,8 @@ class Http {
 
 export { Http };
 ```
+
+
 
 ## 下拉加载更多（分页）
 
@@ -982,6 +1101,8 @@ class Paging {
 export { Paging };
 ```
 
+
+
 ## 状态机
 
 三种状态不停切换
@@ -1001,6 +1122,8 @@ console.log(status.next());
 console.log(status.next());
 console.log(status.next());
 ```
+
+
 
 ## 抽奖
 
@@ -1030,6 +1153,8 @@ document.getElementById("start").addEventListener(
   false
 );
 ```
+
+
 
 ## 长轮询
 
@@ -1061,6 +1186,8 @@ let pull = function () {
 pull();
 ```
 
+
+
 ## url 拼接
 
 ```js
@@ -1075,6 +1202,8 @@ function param() {
   return url ? url.substring(1) : "";
 }
 ```
+
+
 
 ## 获取最大 Z-index 值
 
@@ -1092,6 +1221,8 @@ function getMaxZIndex() {
 }
 ```
 
+
+
 ## jq 引入
 
 ```js
@@ -1107,6 +1238,8 @@ function getMaxZIndex() {
 1. 避免全局依赖；
 2. 避免第三方破坏；
 3. 兼容 jquery 操作符"$"和 jquery；
+
+
 
 ## 乱序排列
 
@@ -1125,6 +1258,8 @@ export function shuffle(arr) {
   return arr;
 }
 ```
+
+
 
 ## 生成随机数
 
@@ -1178,6 +1313,8 @@ const random = function generateMixed(n) {
 };
 ```
 
+
+
 ## 封装 promise
 
 将小程序内置非 promise API 转换为 promise
@@ -1200,6 +1337,8 @@ const promisic = function (func) {
 };
 ```
 
+
+
 ## 点击复制
 
 ### 第一种
@@ -1212,6 +1351,8 @@ function copyUrl1(e) {
   FoxUI.alert("已复制,马上去邀请小伙伴吧!");
 }
 ```
+
+
 
 ### 第二种
 
@@ -1243,6 +1384,8 @@ export const copyToClipboard = (str) => {
 };
 ```
 
+
+
 ## 平滑滚动到页面顶部
 
 ```js
@@ -1258,6 +1401,8 @@ export const scrollToTop = () => {
   }
 };
 ```
+
+
 
 ## 记录上次点击
 

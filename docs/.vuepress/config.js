@@ -1,7 +1,11 @@
+const { ua }  = require('./ua.js')
 module.exports = {
   title: '沧海的雨季', // 设置网站标题
   description: '记录日常所得',
   base: '/blog/',
+  head: [
+    [...ua]
+  ],
   themeConfig: {
     repo: 'https://gitee.com/l544402029/blog',
     repoLabel: 'gitee',
