@@ -6,7 +6,11 @@ module.exports = {
   head: [
     [...ua]
   ],
+  markdown: {
+    lineNumbers: false,
+  },
   themeConfig: {
+    lastUpdated: '最后更新时间',
     repo: 'https://gitee.com/l544402029/blog',
     repoLabel: 'gitee',
     editLinks: true,
@@ -15,10 +19,6 @@ module.exports = {
     sidebar: 'auto',
     nextLinks: true,
     prevLinks: true,
-    markdown: {
-      // 代码块行号
-      lineNumbers: true,
-    },
     nav: [
       {
         text: '面试题库',
