@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Git 原理详解及实用指南 | 沧海的雨季</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <script>var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?87e6dfa24d2735e29aae05a54966e81f";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();</script>
+    <meta name="description" content="记录日常所得">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.cba9e905.css" as="style"><link rel="preload" href="/blog/assets/js/app.af292ff4.js" as="script"><link rel="preload" href="/blog/assets/js/2.a77d46fd.js" as="script"><link rel="preload" href="/blog/assets/js/8.03715586.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.507b6a96.js"><link rel="prefetch" href="/blog/assets/js/11.1bc041d3.js"><link rel="prefetch" href="/blog/assets/js/12.84002a06.js"><link rel="prefetch" href="/blog/assets/js/13.9717b687.js"><link rel="prefetch" href="/blog/assets/js/14.99a23c06.js"><link rel="prefetch" href="/blog/assets/js/15.f7f95c15.js"><link rel="prefetch" href="/blog/assets/js/16.ffef6472.js"><link rel="prefetch" href="/blog/assets/js/17.ae2f21ab.js"><link rel="prefetch" href="/blog/assets/js/18.05537f5b.js"><link rel="prefetch" href="/blog/assets/js/19.192ed295.js"><link rel="prefetch" href="/blog/assets/js/20.6d8f2972.js"><link rel="prefetch" href="/blog/assets/js/21.fdfdfa55.js"><link rel="prefetch" href="/blog/assets/js/22.1612c1b2.js"><link rel="prefetch" href="/blog/assets/js/23.c960a985.js"><link rel="prefetch" href="/blog/assets/js/24.9fd7f047.js"><link rel="prefetch" href="/blog/assets/js/25.98cfb085.js"><link rel="prefetch" href="/blog/assets/js/26.33f8970f.js"><link rel="prefetch" href="/blog/assets/js/27.a87d1913.js"><link rel="prefetch" href="/blog/assets/js/28.bf7d62c1.js"><link rel="prefetch" href="/blog/assets/js/29.dc4024d5.js"><link rel="prefetch" href="/blog/assets/js/3.aefac9c2.js"><link rel="prefetch" href="/blog/assets/js/30.4359e31c.js"><link rel="prefetch" href="/blog/assets/js/31.af0fa4e7.js"><link rel="prefetch" href="/blog/assets/js/32.708d82a0.js"><link rel="prefetch" href="/blog/assets/js/33.754101f8.js"><link rel="prefetch" href="/blog/assets/js/34.bf72d1bd.js"><link rel="prefetch" href="/blog/assets/js/35.f7163f79.js"><link rel="prefetch" href="/blog/assets/js/36.d9f03f4d.js"><link rel="prefetch" href="/blog/assets/js/37.a3779045.js"><link rel="prefetch" href="/blog/assets/js/38.f655662c.js"><link rel="prefetch" href="/blog/assets/js/39.ae07d7af.js"><link rel="prefetch" href="/blog/assets/js/4.d1a04ef9.js"><link rel="prefetch" href="/blog/assets/js/40.206845e9.js"><link rel="prefetch" href="/blog/assets/js/41.9ac4a9eb.js"><link rel="prefetch" href="/blog/assets/js/42.a773ac8c.js"><link rel="prefetch" href="/blog/assets/js/43.4a84946f.js"><link rel="prefetch" href="/blog/assets/js/44.07cea1ea.js"><link rel="prefetch" href="/blog/assets/js/5.199b7f05.js"><link rel="prefetch" href="/blog/assets/js/6.42014918.js"><link rel="prefetch" href="/blog/assets/js/7.c80cd2c1.js"><link rel="prefetch" href="/blog/assets/js/9.a1fa2716.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.cba9e905.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">沧海的雨季</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试题库" class="dropdown-title"><span class="title">面试题库</span> <span class="arrow down"></span></button> <button type="button" aria-label="面试题库" class="mobile-dropdown-title"><span class="title">面试题库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/面试题库/面试真题2022.html" class="nav-link">
+  面试真题2022
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/通信类.html" class="nav-link">
+  通信类
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/HTML.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/CSS.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/JavaScript.html" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/笔试题.html" class="nav-link">
+  笔试题
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Vue3.html" class="nav-link">
+  Vue3
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Webpack.html" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Node.js.html" class="nav-link">
+  Node.js
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/其它.html" class="nav-link">
+  其它
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/vue的diff算法.html" class="nav-link">
+  vue的diff算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用代码片段" class="dropdown-title"><span class="title">常用代码片段</span> <span class="arrow down"></span></button> <button type="button" aria-label="常用代码片段" class="mobile-dropdown-title"><span class="title">常用代码片段</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/常用代码片段/CSS常用代码片段.html" class="nav-link">
+  CSS常用代码片段
+</a></li><li class="dropdown-item"><!----> <a href="/blog/常用代码片段/JS常用代码片段.html" class="nav-link">
+  JS常用代码片段
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端笔记" class="dropdown-title"><span class="title">前端笔记</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端笔记" class="mobile-dropdown-title"><span class="title">前端笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/前端笔记/深入理解 ES6.html" class="nav-link">
+  深入理解ES6
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/正则表达式.html" class="nav-link">
+  正则表达式
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/JavaScript正则迷你书.html" class="nav-link">
+  JavaScript正则迷你书
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.html" class="nav-link">
+  JavaScript 设计模式核⼼原理与应⽤实践
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/TypeScript.html" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/linux命令.html" class="nav-link">
+  linux命令
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/HTTP协议原理+实践 Web开发工程师必学.html" class="nav-link">
+  HTTP协议原理
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/图解HTTP.html" class="nav-link">
+  图解HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/后台通用提效解决方案.html" class="nav-link">
+  后台通用提效解决方案
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Vue" class="dropdown-title"><span class="title">Vue</span> <span class="arrow down"></span></button> <button type="button" aria-label="Vue" class="mobile-dropdown-title"><span class="title">Vue</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/vue/vue使用.html" class="nav-link">
+  Vue使用
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="小程序" class="dropdown-title"><span class="title">小程序</span> <span class="arrow down"></span></button> <button type="button" aria-label="小程序" class="mobile-dropdown-title"><span class="title">小程序</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/小程序/微信小程序.html" class="nav-link">
+  微信小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Node.js" class="dropdown-title"><span class="title">Node.js</span> <span class="arrow down"></span></button> <button type="button" aria-label="Node.js" class="mobile-dropdown-title"><span class="title">Node.js</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/Node.js/Node.js从零开发Web Server博客项目 前端晋升全栈工程师必备.html" class="nav-link">
+  Node.js从零开发Web Server博客项目
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Node.js+KOA2 从0到1打造超好用Web框架一步到位 掌握KOA2服务端开发.html" class="nav-link">
+  Node.js+KOA2 从0到1打造超好用Web框架一步到位
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.html" class="nav-link">
+  Vue全家桶+SSR+Koa2全栈开发美团网
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Koa2新浪博客.html" class="nav-link">
+  Koa2新浪博客
+</a></li></ul></div></div> <a href="https://gitee.com/l544402029/blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    gitee
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="面试题库" class="dropdown-title"><span class="title">面试题库</span> <span class="arrow down"></span></button> <button type="button" aria-label="面试题库" class="mobile-dropdown-title"><span class="title">面试题库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/面试题库/面试真题2022.html" class="nav-link">
+  面试真题2022
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/通信类.html" class="nav-link">
+  通信类
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/HTML.html" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/CSS.html" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/JavaScript.html" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/笔试题.html" class="nav-link">
+  笔试题
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Vue.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Vue3.html" class="nav-link">
+  Vue3
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Webpack.html" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/Node.js.html" class="nav-link">
+  Node.js
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/其它.html" class="nav-link">
+  其它
+</a></li><li class="dropdown-item"><!----> <a href="/blog/面试题库/vue的diff算法.html" class="nav-link">
+  vue的diff算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="常用代码片段" class="dropdown-title"><span class="title">常用代码片段</span> <span class="arrow down"></span></button> <button type="button" aria-label="常用代码片段" class="mobile-dropdown-title"><span class="title">常用代码片段</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/常用代码片段/CSS常用代码片段.html" class="nav-link">
+  CSS常用代码片段
+</a></li><li class="dropdown-item"><!----> <a href="/blog/常用代码片段/JS常用代码片段.html" class="nav-link">
+  JS常用代码片段
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端笔记" class="dropdown-title"><span class="title">前端笔记</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端笔记" class="mobile-dropdown-title"><span class="title">前端笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/前端笔记/深入理解 ES6.html" class="nav-link">
+  深入理解ES6
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/正则表达式.html" class="nav-link">
+  正则表达式
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/JavaScript正则迷你书.html" class="nav-link">
+  JavaScript正则迷你书
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.html" class="nav-link">
+  JavaScript 设计模式核⼼原理与应⽤实践
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/TypeScript.html" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/linux命令.html" class="nav-link">
+  linux命令
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/HTTP协议原理+实践 Web开发工程师必学.html" class="nav-link">
+  HTTP协议原理
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/图解HTTP.html" class="nav-link">
+  图解HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/blog/前端笔记/后台通用提效解决方案.html" class="nav-link">
+  后台通用提效解决方案
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Vue" class="dropdown-title"><span class="title">Vue</span> <span class="arrow down"></span></button> <button type="button" aria-label="Vue" class="mobile-dropdown-title"><span class="title">Vue</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/vue/vue使用.html" class="nav-link">
+  Vue使用
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="小程序" class="dropdown-title"><span class="title">小程序</span> <span class="arrow down"></span></button> <button type="button" aria-label="小程序" class="mobile-dropdown-title"><span class="title">小程序</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/小程序/微信小程序.html" class="nav-link">
+  微信小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Node.js" class="dropdown-title"><span class="title">Node.js</span> <span class="arrow down"></span></button> <button type="button" aria-label="Node.js" class="mobile-dropdown-title"><span class="title">Node.js</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/Node.js/Node.js从零开发Web Server博客项目 前端晋升全栈工程师必备.html" class="nav-link">
+  Node.js从零开发Web Server博客项目
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Node.js+KOA2 从0到1打造超好用Web框架一步到位 掌握KOA2服务端开发.html" class="nav-link">
+  Node.js+KOA2 从0到1打造超好用Web框架一步到位
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.html" class="nav-link">
+  Vue全家桶+SSR+Koa2全栈开发美团网
+</a></li><li class="dropdown-item"><!----> <a href="/blog/Node.js/Koa2新浪博客.html" class="nav-link">
+  Koa2新浪博客
+</a></li></ul></div></div> <a href="https://gitee.com/l544402029/blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    gitee
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Git 原理详解及实用指南</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/Git%20%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97.html#git账号密码保存" class="sidebar-link">Git账号密码保存</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/Git%20%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97.html#git常用命令" class="sidebar-link">Git常用命令</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="git-原理详解及实用指南"><a href="#git-原理详解及实用指南" class="header-anchor">#</a> Git 原理详解及实用指南</h1> <blockquote><p>本文为阅读<a href="https://juejin.cn/book/6844733697996881928" target="_blank" rel="noopener noreferrer">Git 原理详解及实用指南<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>而来，如有兴趣可阅读正版。</p></blockquote> <h2 id="git账号密码保存"><a href="#git账号密码保存" class="header-anchor">#</a> Git账号密码保存</h2> <p>如果觉得一遍遍地输入密码很烦，可以输入执行这行代码把密码保存起来。</p> <div class="language- extra-class"><pre class="language-text"><code>git config credential.helper store
+</code></pre></div><p>在这之后你只需要再输入一次密码， Git 就会把你的密码保存下来，这之后就再也不用输入了。但是「安全性低」，因为这条指令会让 Git 把你的密码以明文形式保存在你的电脑上。</p> <h2 id="git常用命令"><a href="#git常用命令" class="header-anchor">#</a> Git常用命令</h2> <h4 id="把远程仓库取到本地"><a href="#把远程仓库取到本地" class="header-anchor">#</a> 把远程仓库取到本地</h4> <div class="language- extra-class"><pre class="language-text"><code>git clone 你刚复制的地址
+</code></pre></div><h4 id="查看仓库提交历史"><a href="#查看仓库提交历史" class="header-anchor">#</a> 查看仓库提交历史</h4> <div class="language- extra-class"><pre class="language-text"><code>git log
+</code></pre></div><h4 id="查看工作目录当前状态"><a href="#查看工作目录当前状态" class="header-anchor">#</a> 查看工作目录当前状态</h4> <div class="language- extra-class"><pre class="language-text"><code>git status
+</code></pre></div><h4 id="添加到暂存区"><a href="#添加到暂存区" class="header-anchor">#</a> 添加到暂存区</h4> <div class="language- extra-class"><pre class="language-text"><code>git add shopping\ list.txt
+</code></pre></div><h4 id="提交"><a href="#提交" class="header-anchor">#</a> 提交</h4> <div class="language- extra-class"><pre class="language-text"><code>git commit
+</code></pre></div><h4 id="推送到远程仓库"><a href="#推送到远程仓库" class="header-anchor">#</a> 推送到远程仓库</h4> <p>只能推送 <code>clone</code> 或者 <code>pull</code> 下来的分支</p> <div class="language- extra-class"><pre class="language-text"><code>git push
+</code></pre></div><h5 id="本地创建分支推送到远程仓库"><a href="#本地创建分支推送到远程仓库" class="header-anchor">#</a> 本地创建分支推送到远程仓库</h5> <p>如果是本地创建分支推送到远程仓库，那么需要指定远程仓库的名称(别名) <code>origin</code> 以及远程仓库中目标 <code>branch</code> 的名字（目标分支需要与本地分支名称相同）。</p> <div class="language- extra-class"><pre class="language-text"><code>git push origin feature1
+</code></pre></div><blockquote><p>你可以通过 <code>git config</code> 指令来设置 <code>push.default</code> 的值来改变 <code>push</code> 的行为逻辑，例如可以设置为「所有分支都可以用 <code>git push</code> 来直接 push，目标自动指向 <code>origin</code> 仓库的同名分支」（对应的 <code>push.default</code> 值：<code>current</code>），或者别的什么行为逻辑，你甚至可以设置为每次执行 <code>git push</code> 时就自动把所有本地分支全部同步到远程仓库（虽然这可能有点耗时和危险）。如果希望详细了解，你可以到<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgit-scm.com%2Fdocs%2Fgit-config%23git-config-pushdefault" target="_blank" rel="noopener noreferrer">这里<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>看看。</p></blockquote> <h4 id="拉取远程仓库"><a href="#拉取远程仓库" class="header-anchor">#</a> 拉取远程仓库</h4> <div class="language- extra-class"><pre class="language-text"><code>git pull
+</code></pre></div><h4 id="创建分支"><a href="#创建分支" class="header-anchor">#</a> 创建分支</h4> <div class="language- extra-class"><pre class="language-text"><code>git branch feature1
+</code></pre></div><h4 id="切换-分支"><a href="#切换-分支" class="header-anchor">#</a> 切换 分支</h4> <div class="language- extra-class"><pre class="language-text"><code>git checkout feature1
+</code></pre></div><h4 id="创建并切换-分支"><a href="#创建并切换-分支" class="header-anchor">#</a> 创建并切换 分支</h4> <div class="language- extra-class"><pre class="language-text"><code>git checkout -b feature1
+</code></pre></div><h4 id="删除分支"><a href="#删除分支" class="header-anchor">#</a> 删除分支</h4> <h5 id="删除本地分支"><a href="#删除本地分支" class="header-anchor">#</a> 删除本地分支</h5> <div class="language- extra-class"><pre class="language-text"><code>git branch -d feature1
+</code></pre></div><ol><li><code>HEAD</code> 指向的 <code>branch</code> 不能删除。如果要删除 <code>HEAD</code> 指向的 <code>branch</code>，需要先用 <code>checkout</code> 把 <code>HEAD</code> 指向其他地方。</li> <li>由于 Git 中的 <code>branch</code> 只是一个引用，所以删除 <code>branch</code> 的操作也只会删掉这个引用，并不会删除任何的 <code>commit</code>。（不过如果一个 <code>commit</code> 不在任何一个 <code>branch</code> 的「路径」上，或者换句话说，如果没有任何一个 <code>branch</code> 可以回溯到这条 <code>commit</code>（也许可以称为野生 <code>commit</code>？），那么在一定时间后，它会被 Git 的回收机制删除掉。）</li> <li>出于安全考虑，没有被合并到 <code>master</code> 过的 <code>branch</code> 在删除时会失败（因为怕你误删掉「未完成」的 <code>branch</code> 啊）：</li></ol> <p><img src="https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220819090528371.png" alt="image-20220819090528371"></p> <p>这种情况如果你确认是要删除这个 <code>branch</code> （例如某个未完成的功能被团队确认永久毙掉了，不再做了），可以把 <code>-d</code> 改成 <code>-D</code>，小写换成大写，就能删除了。</p> <p><img src="https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220819090558290.png" alt="image-20220819090558290"></p> <h5 id="删除远程分支"><a href="#删除远程分支" class="header-anchor">#</a> 删除远程分支</h5> <p>用 -d 参数把远程仓库的 branch 也删了</p> <div class="language- extra-class"><pre class="language-text"><code>git push origin -d feature1
+</code></pre></div><h4 id="合并分支"><a href="#合并分支" class="header-anchor">#</a> 合并分支</h4> <div class="language- extra-class"><pre class="language-text"><code>git merge branch1
+</code></pre></div><h4 id="取消合并"><a href="#取消合并" class="header-anchor">#</a> 取消合并</h4> <div class="language- extra-class"><pre class="language-text"><code>git merge --abort
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://gitee.com/l544402029/blog/edit/gh-pages/Git 原理详解及实用指南.md" target="_blank" rel="noopener noreferrer">编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">最后更新时间:</span> <span class="time">8/19/2022, 11:41:26 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.af292ff4.js" defer></script><script src="/blog/assets/js/2.a77d46fd.js" defer></script><script src="/blog/assets/js/8.03715586.js" defer></script>
+  </body>
+</html>
