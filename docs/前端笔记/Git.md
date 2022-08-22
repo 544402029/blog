@@ -30,10 +30,22 @@ git clone https://gitee.com/songboy/test201907.git   httptest
 
 #### 添加远程仓库
 
+像这样添加远程仓库是需要进行分别推送的
+
 `github`  是远程仓库自定义的一个名字,  `https://github.com/78778443/gittest.git`  则是的远程仓库地址
 
 ```
 git remote add github https://github.com/78778443/gittest.git
+```
+
+
+
+#### 添加远程仓库推送地址
+
+可实现一键推送到两个仓库
+
+```
+git remote set-url --add origin https://github.com/78778443/gittest.git
 ```
 
 
@@ -206,6 +218,28 @@ git push origin feature1 -f
 git pull
 ```
 
+
+
+##### 与远程仓库保持一致
+
+ `git fetch` 只会拉取远程分支不进行自动合并
+
+```
+git fetch
+```
+
+
+
+在这条命令中，`--hard` 为 `git reset` 的选项，它的作用是 reset 之后把当前工作的差异部分丢弃掉，完全与目标一致，`origin/master` 则是目标比较分支，命令执行后，返回的信息如下图所示：
+
+![image-20220822174531404](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822174531404.png)
+
+```
+git reset --hard origin/master
+```
+
+
+
 #### 创建分支
 
 ```
@@ -233,6 +267,40 @@ git push --set-upstream origin feature1
 ```
 
 
+
+#### 找回删除的分支
+
+```
+git reflog show
+```
+
+命令执行之后返回信息如下图所示：
+
+在图中注意看红色框选区域，下面一条是我切换到 `retest` 分支时候记录下来的，另外一条是执行了提交操作，我们把 `commitid` 值 `b52b955` 复制下来。
+
+![image-20220822175612027](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822175612027.png)
+
+接着使用 `git branch 分支名称 commit_id` 方式建立一个新的分支，参考命令如下：
+
+```
+git checkout -b  retest_v3  b52b955
+```
+
+
+
+#####  回滚 reset 操作
+
+如果你不小心使用 `git reset` 回滚了提交记录，想找回之前的提交记录也是可以的；可以 `git reflog` 查看操作历史，找到执行 `git reset` 命令之前 `commitid`，然后 `git reset --hard` 到那个 `commitid` 即可。
+
+
+
+##### 从历史版本中找回删除的文件
+
+有时候，我们在某个版本中删除了文件，后来又突然发现需要这个文件，也是可以恢复的；恢复之前首先确定要恢复的文件在哪一个版本（commit）中，假设那个版本号是： 7a4312sd，文件路径为 abc.php 那么参考命如下：
+
+```
+git checkout 7a4312sd abc.php
+```
 
 
 
@@ -322,6 +390,20 @@ git merge branch1
 git merge --abort
 ```
 
+
+
+#### 还原版本
+
+**需要注意的是，在使用 `revert` 去恢复某个版本代码时，Git 只会撤销指定版本的代码，而不是指定版本后的所有版本**。比如说你提交了 1、2、3 三个版本，当你撤销版本 2 的时候，会生成版本 4，但是不会对版本 3 产生影响。
+
+```
+git revert 6d8feb147973711d08211f953f3d7c463ee1e88f
+```
+
+
+
+
+
 #### 储藏工作目录的改动
 
 ##### 储藏
@@ -340,7 +422,9 @@ git stash pop
 
 
 
-#### 查看移动历史
+#### 查看日志
+
+使用 `git reflog` 可以查看 Git 的操作的日志，`git log` 只能查看版本日志
 
 `reflog` 默认查看 `HEAD` 的移动历史，除此之外，也可以手动加上名称来查看其他引用的移动历史，例如某个 `branch`：
 
