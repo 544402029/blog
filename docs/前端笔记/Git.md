@@ -14,9 +14,37 @@ git init
 
 #### 把远程仓库取到本地
 
+##### 克隆
+
 ```
 git clone 你刚复制的地址
 ```
+
+##### 克隆并创建本地文件夹
+
+`httptest` 为本地文件夹名称
+
+```
+git clone https://gitee.com/songboy/test201907.git   httptest
+```
+
+#### 添加远程仓库
+
+`github`  是远程仓库自定义的一个名字,  `https://github.com/78778443/gittest.git`  则是的远程仓库地址
+
+```
+git remote add github https://github.com/78778443/gittest.git
+```
+
+
+
+#### 查看远程仓库
+
+```
+git remote -v
+```
+
+
 
 #### 查看仓库提交历史
 
@@ -110,11 +138,23 @@ git add shopping\ list.txt
 git add .
 ```
 
-#### 提交
+##### 添加目录
+
+`app`为目录名称
 
 ```
-git commit
+git add app
 ```
+
+#### 提交代码
+
+##### 提交
+
+```
+git commit -m “这是备注信息”
+```
+
+
 
 #### 推送到远程仓库
 
@@ -123,6 +163,22 @@ git commit
 ```
 git push
 ```
+
+
+
+##### 推送到指定远程仓库
+
+```
+git push github
+```
+
+##### 指定默认的远程仓库
+
+```
+git push -u github 
+```
+
+
 
 ##### 本地创建分支推送到远程仓库
 
@@ -156,7 +212,9 @@ git pull
 git branch feature1
 ```
 
-#### 切换 分支
+#### 切换分支
+
+把远程分支在本地创建，可以通过 `git checkout 分支名` 命令进行，这个命令其实是切换分支用的。但当它发现你本地不存在这个分支，会自动找到远程对应的分支然后在本地进行创建，参考命令如下所示：
 
 ```
 git checkout feature1
@@ -167,6 +225,16 @@ git checkout feature1
 ```
 git checkout -b feature1
 ```
+
+第一次推送的时候指定远程分支名
+
+```
+git push --set-upstream origin feature1
+```
+
+
+
+
 
 #### 删除分支
 
@@ -182,6 +250,8 @@ git branch -d feature1
 
 ![image-20220819090528371](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220819090528371.png)
 
+##### 强制删除
+
 这种情况如果你确认是要删除这个 `branch` （例如某个未完成的功能被团队确认永久毙掉了，不再做了），可以把 `-d` 改成 `-D`，小写换成大写，就能删除了。
 
 ![image-20220819090558290](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220819090558290.png)
@@ -192,6 +262,50 @@ git branch -d feature1
 
 ```
 git push origin -d feature1
+```
+
+
+
+本地分支存在，远程仓库不存在此分支。 如果想将远程的分支与本地保持一致：
+
+```
+git remote prune origin 
+```
+
+命令执行之后，返回信息如下图所示：
+
+![image-20220822165353914](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822165353914.png)
+
+Git 会将拉取远程的分支信息与本地的进行对比，当发现远程的分支已经删除，便会对本地的分支进行标注；我们可以使用 Git 的命令查看关联失效的分支，参考命令如下：
+
+```
+git branch -vv
+```
+
+命令执行之后，返回结果如下图所示：
+
+![image-20220822165427196](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822165427196.png)
+
+在分支列表中，test1 分支后面有一个 `：gone` 的标识，说明远程分支已经被删除，通过这个标识我们能够很清晰的知道该需要删除哪些分支，删除分支的命令参考如下：
+
+```
+git branch -d test1
+```
+
+
+
+
+
+#### 查看分支
+
+```
+git branch 
+```
+
+##### 查看所有分支
+
+```
+git branch -a 
 ```
 
 
@@ -236,9 +350,65 @@ git reflog master
 
 
 
+### 忽略文件
+
+`.gitignore` 文件支持通配符，当你在文件中添加一些忽略规则之后，可能匹配过于宽松，导致某一个文件无法提交到 git ;这个时候你有两种方式来处理，
+
+或者你发现，可能是 `.gitignore` 写得有问题，需要找出来到底哪个规则写错了，可以用`git check-ignore`命令检查：
+
+```
+git check-ignore -v 文件名
+```
+
+Git 会告诉我们，`.gitignore` 的第 1 行规则忽略了该文件，于是我们就可以知道应该修订哪个规则。
+
+![image-20220822155747884](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822155747884.png)
+
+
+
+除了修改 `.gitignore` 文件的规则之外还可以使用强制添加的方式，如下图所示
+
+![image-20220822155840891](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822155840891.png)
+
+如果你确实想添加该文件，可以用 `-f` 强制添加到 Git：
+
+```
+git add -f .DS_Store
+```
+
+
+
+#### 忽略已存在的文件
+
+先在 `.gitignore` 中设置该文件为忽略，然后执行删除缓存命令
+
+```
+git rm --cached test2/index.php
+```
+
+
+
+
+
 ### 配置信息
 
-#### Git账号密码保存
+#### 临时记住密码
+
+如果你不想每次都输入 git 的认证信息，可以设置缓存认证数据，默认记住 15 分钟，如下命令所示：
+
+```
+git config –-global credential.helper cache
+```
+
+如果你想缓存更长时间，也可以指定缓存时长，比如下面是自定义配置记住 1 小时的命令：
+
+```
+git config credential.helper ‘cache –timeout=3600’
+```
+
+
+
+#### 永久记住密码
 
 如果觉得一遍遍地输入密码很烦，可以输入执行这行代码把密码保存起来。
 
@@ -247,6 +417,17 @@ git config credential.helper store
 ```
 
 在这之后你只需要再输入一次密码， Git 就会把你的密码保存下来，这之后就再也不用输入了。但是「安全性低」，因为这条指令会让 Git 把你的密码以明文形式保存在你的电脑上。
+
+命令执行完毕之后，会在当前用户主目录的`.gitconfig`文件中新增一项配置，配置如下所示
+
+```
+[credential]
+    helper = store
+```
+
+也可按照以上说明直接修改配置文件。如果加上 `--global`则直接在全局配置。
+
+
 
 #### 查看昵称
 
@@ -265,6 +446,69 @@ git config user.email
 ```
 git config --global user.name "你的昵称"
 ```
+
+
+
+#### 修改配置信息
+
+在配置中如果不小心配置错了，或者后面想修改配置的时候，是不能通过重复执行上面的设置昵称命令，来修改昵称的，邮箱修改同理。如果你多次设置昵称，它会在命令执行后提示你无法重复配置或者可能不给你提示，但是这种情况会导致一个 key 配置了多个 value 的问题。
+
+不过，修改的时候，可以通过特定的方式去修改，这里我介绍两种方法， 第一种是通过命令行，第二种是通过修改配置文件。
+
+##### 命令行修改配置
+
+通过命令行修改的方式比较简单，直接执行以下的命令即可
+修改昵称参考命令如下：
+
+```
+git config --global --replace-all user.name "your user name"
+```
+
+
+
+修改邮箱地址参考命令如下：
+
+```
+git config --global --replace-all user.email"your user email"
+```
+
+
+
+##### 修改配置文件
+
+修改文件的方式，主要是修改位于主目录下`.gitconfig` 文件。在 Linux 和 Mac 中，可以通过 vim 命令进行直接编辑，比如`vim ~/.gitconfig` ；Windows 系统同样位于用户主目录下，假设你当前的用户是`administrator`，那么对应的配置文件的路径应该是 `C:\Users\administrator\.gitconfig`，可以直接使用记事本修改里边的 name 或者 email。
+
+如果之前已经配置过昵称和邮箱的情况下，当使用 vim 或者记事本打开配置文件之后，可以看到如下配置：
+
+```
+[user]
+        name = daxia
+        email = 78778443@qq.com
+```
+
+在如果有重复的 name 或 email，可以将其删掉，只剩下一个就好。修改完，通过 git bash 输入 `git config –list`可以查看是否修改成功了。
+
+
+
+#### 忽略文件权限
+
+##### 当前版本库
+
+```
+git config core.filemode false
+```
+
+全局
+
+```
+git config --global core.fileMode false
+```
+
+在配置文件中，如果看到`fileMode false`则代表配置成功，如下图所示：
+
+![image-20220822155230504](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822155230504.png)
+
+
 
 
 
@@ -396,7 +640,7 @@ git reset --hard HEAD^
 
 不过，就像图上显示的，你被撤销的那条提交并没有消失，只是你不再用到它了。如果你在撤销它之前记下了它的 `SHA-1` 码，那么你还可以通过 `SHA-1` 来找到他它。
 
-## 小结
+### 小结
 
 这一节的内容是撤销最新的提交，方式是通过 `reset --hard`：
 
@@ -594,7 +838,7 @@ git status
 
 
 
-## 小结
+### 小结
 
 本节内容讲了 `reset` 指令的本质：重置 `HEAD` 以及它所指向的 `branch` 的位置。同时，介绍了 `reset` 的三种参数：
 
@@ -603,3 +847,125 @@ git status
 3. `--mixed`（默认）：重置位置的同时，保留工作目录的内容，并清空暂存区。
 
 除了上面这三种参数，还有一些没有列出的较为不常用的参数；另外除了我讲的功能外，`reset` 其实也还有一些别的功能和用法。不过 `reset` 最关键的功能、用法和本质原理就是上面这些了，想了解更多的话，可以去官网了解一下。
+
+
+
+
+
+## SSH拉取
+
+现在我们再来看看`SSH`方式，相比`HTTP(S)`来说更加安全,因为`SSH`方式使用的是非对称加密，采用公钥与私钥的方式，不过相对来说配置起来会麻烦一些；好处是一次配置之后，后续不需要每次都进行认证，也更加安全。
+
+
+
+`sshtest` 为本地文件夹名称
+
+```
+git clone git@gitee.com:songboy/test201907.git  sshtest
+```
+
+回车执行后，会提示需要权限验证，返回信息如下所示：
+
+```
+➜  ~ git clone git@gitee.com:songboy/test201907.git  sshtest
+Cloning into 'sshtest'...
+The authenticity of host 'gitee.com (218.11.0.86)' can't be established.
+ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gitee.com,218.11.0.86' (ECDSA) to the list of known hosts.
+git@gitee.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+因为并没有配置公钥与私钥，所以拉取代码并没有成功。
+
+
+
+### 创建一个ssh key
+
+通过 ssh 协议拉取代码首先要保证当前用户的主目录存在一个`.ssh`的文件夹，并且里面已经存在私钥文件，如果没有的话我们可以通过`ssh-keygen`，生成一份公钥与私钥，如下命令所示：
+
+```
+➜  ~ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Created directory '/root/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:288AB3QWkp0hB5TOwzTCzkZTnLlO7IZ6YEgXpmXSLF0 root@93268ac888a1
+The key's randomart image is:
++---[RSA 2048]----+
+|   + oE+BB*+     |
+|  o O =.O*o      |
+|   B = O.o       |
+|  o . + O.       |
+| . o . =S..      |
+|  . o . +=       |
+|   . o .. o      |
+|    . .    +     |
+|     .      o    |
++----[SHA256]-----+
+```
+
+
+
+在执行命令的交互中，可以直接回车使用默认选项，最终会在当前用户目录下生成公钥和私钥，查看生成的公钥的命令为`cat ~/.ssh/id_rsa.pub`,在返回的信息中可以看到类似如下信息：
+
+```
+➜  ~ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC65v2fz8/7N8/dw3sfjIkxav75MdLKLDTvTIs1XMj3PItPUXdUgsr7RR2WfpJUbtkU6xGAxF9SpNFw275ithvk85qx6PebQxfTTzqypawNwAOMy4CAOsRNybQWp//whtWfCUR2TvVtOQErq9ISEYhi+YQgoRg2ykYz9VZj8cFz99/Gtb3ApN3oHtqD9qcGUDPvL7MKjta3qrAX4KZHM++8FXz0qYrDgz9J/8+oLSebC6MOJiPuc7ut0rfICKaAU7XS4xvU39sNtES/j531AB/Xixb/ufaMPUKhIdASmUFP1WFoVU4268mtW1dZ99t6AsdQ9X2wjNI1QAVX/lJQe2Ox root@93268ac888a1
+```
+
+
+
+### 添加公钥到服务器
+
+当确认公钥和私钥生成完毕之后，我们还需要将公钥放到远程的 git 仓库中去，在码云的版本库中，右上角有一个管理，在管理页面的左侧菜单中有一个添加公钥的选项，我们将上面的公钥内容复制进去，如下图所示
+
+![image-20220822154147733](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220822154147733.png)
+
+
+
+### 拉取代码
+
+当公钥添加进去之后，就已经完成了权限配置，此时我们再次使用ssh方式拉取代码，就不会提示没有权限，执行结果如下所示
+
+```
+➜  ~ git clone git@gitee.com:songboy/test201907.git  sshtest
+Cloning into 'sshtest'...
+The authenticity of host 'gitee.com (218.11.0.86)' can't be established.
+ECDSA key fingerprint is SHA256:FQGC9Kn/eye1W8icdBgrQp+KkGYoFgbVr17bmjey0Wc.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gitee.com,218.11.0.86' (ECDSA) to the list of known hosts.
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (4/4), done.
+```
+
+可以看到在代码执行之后，代码已经拉取完成。
+
+
+
+### 更新代码
+
+ssh 方式更新代码命令和上面的 http 方式拉取代码命令一致，同样需要在 sshtest 目录下执行命令：`git pull`，然后可以看到git成功的拉取到了代码
+
+```
+➜  sshtest git:(master) git pull
+Already up to date.
+```
+
+
+
+
+
+## 忽略指定文件或目录
+
