@@ -28,6 +28,14 @@ git clone 你刚复制的地址
 git clone https://gitee.com/songboy/test201907.git   httptest
 ```
 
+克隆仓库最后一个版本
+
+```
+git clone https://gitee.com/songboy/test201907.git  tempdemo --depth==1
+```
+
+
+
 #### 添加远程仓库
 
 像这样添加远程仓库是需要进行分别推送的
@@ -165,6 +173,22 @@ git add app
 ```
 git commit -m “这是备注信息”
 ```
+
+
+
+##### 冲突解决后提交
+
+```
+git commit -a
+```
+
+解决冲突后这里提交版本的方式稍微有一些区别，会在`git commit` 后面增加一个`-a`参数，而且不需要`-m`参数；但是执行之后会单独多出一个步骤让你填写冲突解决的备注信息，如下图所示：
+
+![image-20220823103807995](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220823103807995.png)
+
+
+
+在上图中会默认生成一些备注信息，你也可以增加或删减部分信息，然后用`:wq`或者`:x`进行保存并退出，退出之后会新增加一个版本，可以使用`git log`命令查看版本记录。
 
 
 
@@ -412,13 +436,49 @@ git revert 6d8feb147973711d08211f953f3d7c463ee1e88f
 git stash
 ```
 
+
+
 ##### 取出
+
+###### 取出后移除此 `stash`
 
 ```
 git stash pop
 ```
 
-> 注意：没有被 track 的文件（即从来没有被 add 过的文件不会被 stash 起来，因为 Git 会忽略它们。如果想把这些文件也一起 stash，可以加上 `-u` 参数，它是 `--include-untracked` 的简写。就像这样：
+> 注意：没有被 track 的文件（即从来没有被 add 过的文件不会被 stash 起来，因为 Git 会忽略它们。如果想把这些文件也一起 stash，可以加上 `-u` 参数，它是 `--include-untracked` 的简写。
+
+
+
+###### 取出后依旧保留在存储列表
+
+```
+git stash apply stash@{0}
+```
+
+`git stash apply` 为固定格式，`stash@{0}`为编号，如果想恢复最近的一个改动也可以不填写编号，直接执行命令的前半部分就可以了，如下命令所示：
+
+```
+git stash apply
+```
+
+
+
+##### 移除
+
+```
+git stash drop
+```
+
+
+
+##### 查看列表
+
+```
+git stash list
+```
+
+
 
 
 
@@ -1051,5 +1111,5 @@ Already up to date.
 
 
 
-## 忽略指定文件或目录
+
 
