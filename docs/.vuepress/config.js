@@ -17,15 +17,6 @@ export default {
     ],
   ],
   theme: hopeTheme({
-    lastUpdated: "最后更新时间",
-    repo: "https://gitee.com/l544402029/blog",
-    repoLabel: "gitee",
-    editLink: true,
-    editLinkText: "编辑此页",
-    docsBranch: "gh-pages",
-    sidebar: "auto",
-    nextLinks: true,
-    prevLinks: true,
     navbar: [
       {
         text: "面试题库",

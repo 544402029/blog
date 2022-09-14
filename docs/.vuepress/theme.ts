@@ -1,6 +1,6 @@
 import { hopeTheme } from "vuepress-theme-hope";
-import * as navbar from "./navbar/index.js";
-import * as sidebar from "./sidebar/index.js";
+import navbar from "./navbar.js";
+import sidebar from "./sidebar.js";
 
 export default hopeTheme({
   hostname: "https://vuepress-theme-hope-v2-demo.mrhope.site",
@@ -18,9 +18,21 @@ export default hopeTheme({
 
   docsDir: "demo/src",
 
+  // navbar
+  navbar: navbar,
+
+  // sidebar
+  sidebar: sidebar,
+
+  footer: "默认页脚",
+
+  displayFooter: true,
+
   pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
 
   blog: {
+    description: "一个前端开发者",
+    intro: "/intro.html",
     medias: {
       Baidu: "https://example.com",
       Bitbucket: "https://example.com",
@@ -54,49 +66,9 @@ export default hopeTheme({
     },
   },
 
-  locales: {
-    "/": {
-      // navbar
-      navbar: navbar.en,
-
-      // sidebar
-      sidebar: sidebar.en,
-
-      footer: "Default footer",
-
-      displayFooter: true,
-
-      blog: {
-        description: "A FrontEnd programmer",
-        intro: "/intro.html",
-      },
-    },
-
-    /**
-     * Chinese locale config
-     */
-    "/zh/": {
-      // navbar
-      navbar: navbar.zh,
-
-      // sidebar
-      sidebar: sidebar.zh,
-
-      footer: "默认页脚",
-
-      displayFooter: true,
-
-      blog: {
-        description: "一个前端开发者",
-        intro: "/zh/intro.html",
-      },
-    },
-  },
-
   encrypt: {
     config: {
       "/guide/encrypt.html": ["1234"],
-      "/zh/guide/encrypt.html": ["1234"],
     },
   },
 
@@ -105,9 +77,9 @@ export default hopeTheme({
       autoExcerpt: true,
     },
 
-    // If you don't need comment feature, you can remove following option
-    // The following config is for demo ONLY, if you need comment feature, please generate and use your own config, see comment plugin documentation for details.
-    // To avoid disturbing the theme developer and consuming his resources, please DO NOT use the following config directly in your production environment!!!!!
+    // 如果你不需要评论，可以直接删除 comment 配置，
+    // 以下配置仅供体验，如果你需要评论，请自行配置并使用自己的环境，详见文档。
+    // 为了避免打扰主题开发者以及消耗他的资源，请不要在你的正式环境中直接使用下列配置!!!!!
     comment: {
       /**
        * Using Giscus
