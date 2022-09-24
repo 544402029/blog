@@ -1,5 +1,5 @@
 import { hopeTheme } from "vuepress-theme-hope";
-import { searchPlugin } from '@vuepress/plugin-search'
+import { searchPlugin } from "@vuepress/plugin-search";
 export default {
   title: "沧海的雨季", // 设置网站标题
   description: "记录日常所得",
@@ -18,9 +18,11 @@ export default {
     ],
   ],
   plugins: [
-    {copyCode: {
-      showInMobile: true
-    }},
+    {
+      copyCode: {
+        showInMobile: true,
+      },
+    },
     searchPlugin({
       // 配置项
     }),
@@ -47,39 +49,39 @@ export default {
     prevLinks: true,
     plugins: {
       comment: {
-        provider: 'Giscus',
-        repo: '544402029/discuss',
-        repoId: 'R_kgDOH_p7pg',
-        category: 'General',
-        categoryId: 'DIC_kwDOH_p7ps4CRbHM',
-        lang: 'zh-CN'
+        provider: "Giscus",
+        repo: "544402029/discuss",
+        repoId: "R_kgDOH_p7pg",
+        category: "General",
+        categoryId: "DIC_kwDOH_p7ps4CRbHM",
+        lang: "zh-CN",
       },
     },
-    sidebar: [
-      {
-        text: "面试题库",
-        icon: "creative",
-        prefix: "面试题库/",
-        children: [
-          { text: "面试真题2022", link: "/面试题库/面试真题2022.md" },
-          { text: "通信类", link: "/面试题库/通信类.md" },
-          { text: "HTML", link: "/面试题库/HTML.md" },
-          { text: "CSS", link: "/面试题库/CSS.md" },
-          { text: "JavaScript", link: "/面试题库/JavaScript.md" },
-          { text: "笔试题", link: "/面试题库/笔试题.md" },
-          { text: "Vue", link: "/面试题库/Vue.md" },
-          { text: "Vue3", link: "/面试题库/Vue3.md" },
-          { text: "Webpack", link: "/面试题库/Webpack.md" },
-          { text: "Node.js", link: "/面试题库/Node.js.md" },
-          { text: "其它", link: "/面试题库/其它.md" },
-          { text: "vue的diff算法", link: "/面试题库/vue的diff算法.md" },
-        ],
-      },
-    ],
+    sidebar: {
+      "/面试题库/": [
+        { text: "面试真题2022", link: "/面试题库/面试真题2022.md" },
+        { text: "通信类", link: "/面试题库/通信类.md" },
+        { text: "HTML", link: "/面试题库/HTML.md" },
+        { text: "CSS", link: "/面试题库/CSS.md" },
+        { text: "JavaScript", link: "/面试题库/JavaScript.md" },
+        { text: "笔试题", link: "/面试题库/笔试题.md" },
+        { text: "Vue", link: "/面试题库/Vue.md" },
+        { text: "Vue3", link: "/面试题库/Vue3.md" },
+        { text: "Webpack", link: "/面试题库/Webpack.md" },
+        { text: "Node.js", link: "/面试题库/Node.js.md" },
+        { text: "其它", link: "/面试题库/其它.md" },
+        { text: "vue的diff算法", link: "/面试题库/vue的diff算法.md" },
+      ],
+      "/常用代码片段/": false,
+      "/前端笔记/": false,
+      "/Vue/": false,
+      "/小程序/": false,
+      "/Node.js": false,
+    },
     navbar: [
       {
         text: "面试题库",
-        link: "/面试题库/面试真题2022.md"
+        link: "/面试题库/面试真题2022.md",
       },
       {
         text: "常用代码片段",
