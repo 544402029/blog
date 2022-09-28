@@ -2,7 +2,7 @@
 记录个人博客，见证成长之路 <br/>
 
 Github博客地址：https://544402029.github.io/blog/ <br/>
-Gitee国内镜像：http://l544402029.gitee.io/blog/ (暂时废弃) <br/>
+Gitee国内镜像：http://l544402029.gitee.io/blog/ <br/>
 
 ## 面试
 [面试大全](https://544402029.github.io/blog/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%BA%93/%E9%80%9A%E4%BF%A1%E7%B1%BB.html)
