@@ -2,7 +2,7 @@
 home: true
 icon: home
 title: 首页
-heroImage: /logo.png
+heroImage: /logo.jpg
 heroText: 记录日常所得
 tagline: 专注写作前端博客，记录日常所得。
 features:

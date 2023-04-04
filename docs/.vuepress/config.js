@@ -1,5 +1,5 @@
-import { hopeTheme } from "vuepress-theme-hope";
-import { searchPlugin } from '@vuepress/plugin-search'
+import { defaultTheme } from 'vuepress'
+import { searchPlugin } from "@vuepress/plugin-search";
 export default {
   title: "沧海的雨季", // 设置网站标题
   description: "记录日常所得",
@@ -18,9 +18,11 @@ export default {
     ],
   ],
   plugins: [
-    {copyCode: {
-      showInMobile: true
-    }},
+    {
+      copyCode: {
+        showInMobile: true,
+      },
+    },
     searchPlugin({
       // 配置项
     }),
@@ -28,14 +30,7 @@ export default {
   themeConfig: {
     search: true,
   },
-  theme: hopeTheme({
-    themeColor: {
-      blue: "#2196f3",
-      red: "#f26d6d",
-      green: "#3eaf7c",
-      orange: "#fb9b5f",
-    },
-    fullscreen: true,
+  theme: defaultTheme({
     lastUpdated: "最后更新时间",
     repo: "https://gitee.com/l544402029/blog",
     repoLabel: "gitee",
@@ -45,21 +40,10 @@ export default {
     docsBranch: "gh-pages",
     nextLinks: true,
     prevLinks: true,
-    plugins: {
-      comment: {
-        provider: 'Giscus',
-        repo: '544402029/discuss',
-        repoId: 'R_kgDOH_p7pg',
-        category: 'General',
-        categoryId: 'DIC_kwDOH_p7ps4CRbHM',
-        lang: 'zh-CN'
-      },
-    },
-    sidebar: [
+    sidebar: 'auto',
+    navbar: [
       {
         text: "面试题库",
-        icon: "creative",
-        prefix: "面试题库/",
         children: [
           { text: "面试真题2022", link: "/面试题库/面试真题2022.md" },
           { text: "通信类", link: "/面试题库/通信类.md" },
@@ -73,13 +57,7 @@ export default {
           { text: "Node.js", link: "/面试题库/Node.js.md" },
           { text: "其它", link: "/面试题库/其它.md" },
           { text: "vue的diff算法", link: "/面试题库/vue的diff算法.md" },
-        ],
-      },
-    ],
-    navbar: [
-      {
-        text: "面试题库",
-        link: "/面试题库/面试真题2022.md"
+        ]
       },
       {
         text: "常用代码片段",
