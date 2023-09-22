@@ -1,16 +1,24 @@
 {
-  "name": "vuepress-starter",
+  "name": "vuepress-starter2.0",
   "version": "1.0.0",
-  "description": "",
+  "description": "沧海的雨季的个人博客",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --clean-cache"
   },
+  "keywords": [
+    "vue",
+    "前端面试",
+    "沧海的雨季的博客"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vuepress": "^1.9.7"
+    "@vuepress/client": "2.0.0-beta.51",
+    "@vuepress/plugin-search": "^2.0.0-beta.51",
+    "vue": "^3.2.29",
+    "vuepress": "2.0.0-beta.51"
   }
 }
