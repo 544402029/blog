@@ -1,1 +1,0 @@
-import{_ as s,c as i,o as a,a3 as h}from"./chunks/framework.COm4hYgr.js";const y=JSON.parse('{"title":"正则表达式","description":"","frontmatter":{},"headers":[],"relativePath":"前端笔记/正则表达式.md","filePath":"前端笔记/正则表达式.md"}'),t={name:"前端笔记/正则表达式.md"},n=h("",183),k=[n];function l(p,e,r,E,d,g){return a(),i("div",null,k)}const o=s(t,[["render",l]]);export{y as __pageData,o as default};
