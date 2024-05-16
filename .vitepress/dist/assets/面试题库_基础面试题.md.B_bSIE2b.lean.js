@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a3 as n}from"./chunks/framework.COm4hYgr.js";const o=JSON.parse('{"title":"前端面试题库","description":"","frontmatter":{},"headers":[],"relativePath":"面试题库/基础面试题.md","filePath":"面试题库/基础面试题.md"}'),h={name:"面试题库/基础面试题.md"},l=n("",1149),k=[l];function t(p,e,E,r,d,g){return a(),i("div",null,k)}const c=s(h,[["render",t]]);export{o as __pageData,c as default};

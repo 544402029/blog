@@ -72,23 +72,19 @@ export default defineConfig({
         items: [
           {
             text: 'Node.js从零开发Web Server博客项目',
-            link:
-                '/Node.js/Node.js从零开发Web Server博客项目 前端晋升全栈工程师必备.md',
+            link: '/Node.js/Node.js从零开发WebServer博客项目,前端晋升全栈工程师必备.md',
           },
           {
             text: 'Node.js+KOA2 从0到1打造超好用Web框架一步到位',
-            link:
-                '/Node.js/Node.js+KOA2 从0到1打造超好用Web框架一步到位 掌握KOA2服务端开发.md',
+            link: '/Node.js/Node.js+KOA2从0到1打造超好用Web框架一步到位,掌握KOA2服务端开发.md',
           },
           {
             text: 'Vue全家桶+SSR+Koa2全栈开发美团网',
-            link:
-                '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.md',
+            link: '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.md',
           },
           {
             text: 'Koa2新浪博客',
-            link:
-                '/Node.js/Koa2新浪博客.md',
+            link: '/Node.js/Koa2新浪博客.md',
           }
         ],
       },

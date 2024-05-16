@@ -592,7 +592,11 @@ nginx -v
 
 后端端口代理需要把host传进去， 因为此时他的host不一样了。
 
-此时在访问http://localhost:8080/（前端）和 http://localhost:8080/api/blog/list（server端）就可以了
+此时在访问
+
+[前端]: http://localhost:8080/
+[server端]: http://localhost:8080/api/blog/list
+就可以了
 
 
 ## 安全
