@@ -12,7 +12,6 @@ export default defineConfig({
     var s = document.getElementsByTagName("script")[0]; 
     s.parentNode.insertBefore(hm, s);
   })();`]],
-  lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     search: {
@@ -57,6 +56,8 @@ export default defineConfig({
           { text: '图解HTTP', link: '/前端笔记/图解HTTP.md' },
           { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
           { text: 'Git', link: '/前端笔记/Git.md' },
+          { text: 'Git 原理详解及实用指南', link: '/前端笔记/Git 原理详解及实用指南.md' },
+          { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
         ],
       },
       {
@@ -92,7 +93,6 @@ export default defineConfig({
         ],
       },
     ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/544402029/blog' }
     ]
