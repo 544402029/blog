@@ -15,6 +15,9 @@ export default defineConfig({
   })();`]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    footer: {
+      copyright: 'Copyright © 2019-present 544402029'
+    },
     docFooter: {
       prev: '上一页',
       next: '下一页'
