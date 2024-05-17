@@ -5,6 +5,8 @@ export default defineConfig({
   title: "沧海的雨季",
   description: "专注写作前端博客，记录日常所得。",
   base: '/blog/',
+  lang: 'zh-CN',
+  lastUpdated: true,
   head: [['script', {},`var _hmt = _hmt || [];
   (function() {
     var hm = document.createElement("script");

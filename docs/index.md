@@ -19,8 +19,9 @@ features:
     details: 专注写作前端博客，记录日常所得。
     link: https://juejin.cn/user/2612095358870350
   - title: Look for me
-    details: 微信：l544402029
+    details: QQ：544402029
   - title: For Interview
     details: 开始学习吧!
+    link: /常用代码片段/CSS常用代码片段.md
 ---
 
