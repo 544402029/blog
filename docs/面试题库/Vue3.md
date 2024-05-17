@@ -1,15 +1,19 @@
 ---
-prev: Vue
-next: Webpack
+prev: 
+    text: 'Vue'
+    link: '/面试题库/Vue'
+next: 
+    text: 'Webpack'
+    link: '/面试题库/Webpack'
 ---
 
-## Vue3
+# Vue3
 
 ![Vue3升级说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1622731226157.png)
 
 
 
-### Vue3 升级内容？
+## Vue3 升级内容？
 
 - 全部用 TS 重写（响应式、vdom、模板编译等）
 - 性能提升，（打包出来的）代码量减少
@@ -17,7 +21,7 @@ next: Webpack
 
 
 
-### Vue3 比 Vue2 有什么优势？
+## Vue3 比 Vue2 有什么优势？
 
 - 性能更好
 - 体积更小
@@ -28,11 +32,11 @@ next: Webpack
 
 
 
-### Vue3 生命周期和 Vue2 生命周期有什么区别？
+## Vue3 生命周期和 Vue2 生命周期有什么区别？
 
 
 
-#### Options API 生命周期
+### Options API 生命周期
 
 - beforeDestory 改为 beforeUnmount
 - destroyed 改为 unmounted
@@ -40,7 +44,7 @@ next: Webpack
 
 
 
-### Composition API 带来了什么？
+## Composition API 带来了什么？
 
 - 更好的代码组织
 - 更好的逻辑复用
@@ -54,11 +58,11 @@ next: Webpack
 
 
 
-### 如何理解 ref toRef 和 toRefs
+## 如何理解 ref toRef 和 toRefs
 
 
 
-#### ref
+### ref
 
 - 生成值类型的响应式数据
 - 可用于模板和 reactive
@@ -66,7 +70,7 @@ next: Webpack
 
 
 
-#### toref
+### toref
 
 - 针对一个响应式对象（reactive 封装）的 prop
 - 创建一个 ref， 具有响应式
@@ -119,7 +123,7 @@ export default {
 
 
 
-#### toRefs
+### toRefs
 
 - 将响应式对象( reactive 封装) 转换为普通对象
 - 对象的每个 prop 都是对应的 ref
@@ -161,7 +165,7 @@ export default {
 
 
 
-### ref toRef 和 toRefs 的最佳使用方式
+## ref toRef 和 toRefs 的最佳使用方式
 
 - 用 reactive 做对象的响应式, 用 ref 做值类型响应式
 - setup 中返回 toRefs(state) , 或者 toRef(state，'xxX' )
@@ -170,7 +174,7 @@ export default {
 
 
 
-### 为何需要 ref
+## 为何需要 ref
 
 - 返回值类型, 会丢失响应式
 - 如在 setup、computed、 合成函数,都有可能返回值类型
@@ -180,7 +184,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### 为何需要 .value
+## 为何需要 .value
 
 - ref 是一个对象(不丢失响应式) , value 存储值
 - 通过.value 属性的 get 和 set 实现响应式
@@ -188,7 +192,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### 为何需要 toRef 和 toRefs ?
+## 为何需要 toRef 和 toRefs ?
 
 - 初衷:不丢失响应式的情况下, 把对象数据**解构/扩散**
 - 前提:针对的是响应式对象( reactive 封装的)非普通对象
@@ -196,7 +200,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### vue3 升级了哪些重要功能
+## vue3 升级了哪些重要功能
 
 - createApp
 - emits 属性
@@ -212,7 +216,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### createApp
+### createApp
 
 
 
@@ -220,59 +224,59 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### emits 属性
+### emits 属性
 
 ![image-20220808173620004](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173620004.png)
 
 
 
-#### 多事件处理
+### 多事件处理
 
 ![image-20220808173646903](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173646903.png)
 
 
 
-#### Fragment
+### Fragment
 
 ![image-20220808173733270](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173733270.png)
 
 
 
-#### 移除 .sync
+### 移除 .sync
 
 ![image-20220808173805261](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173805261.png)
 
 
 
-#### 异步组件的写法
+### 异步组件的写法
 
 ![image-20220808173900335](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173900335.png)
 
-#### 移除 filter
+### 移除 filter
 
 ![image-20220808173917433](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173917433.png)
 
 
 
-#### Teleport
+### Teleport
 
 ![image-20220808173939272](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808173939272.png)
 
 
 
-#### Suspense
+### Suspense
 
 ![image-20220808174002376](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808174002376.png)
 
 
 
-#### Composition API
+### Composition API
 
 ![image-20220808174021740](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808174021740.png)
 
 
 
-### watch 和 watchEffect 的区别
+## watch 和 watchEffect 的区别
 
 - 两者都可监听 data 属性变化
 - watch 需要明确监听哪个属性
@@ -280,7 +284,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### setup 中如何获取组件实例
+## setup 中如何获取组件实例
 
 - 在 setup 和其他 Composition API 中没有 this
 - 可通过 getCurrentInstance 获取当前实例
@@ -288,7 +292,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### Vue3 为何比 Vue2 快
+## Vue3 为何比 Vue2 快
 
 - Proxy 响应式
 - PatchFlag
@@ -299,7 +303,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### PatchFlag
+### PatchFlag
 
 - 编译模板时,动态节点做标记
 - 标记,分为不同的类型,如 TEXT PROPS
@@ -309,7 +313,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### HoistStatic
+### HoistStatic
 
 - 将静态节点的定义,提升到父作用域,缓存起来
 - 多个相邻的静态节点,会被合并起来
@@ -323,7 +327,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### CacheHandler
+### CacheHandler
 
 - 缓存事件
 
@@ -331,7 +335,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-#### SSR 优化
+### SSR 优化
 
 - 静态节点直接输出, 绕过了 vdom
 - 动态节点, 还是需要动态渲染
@@ -340,7 +344,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 - ![image-20220808174327021](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808174327021.png)
 
-#### Tree-shaking 的优化
+### Tree-shaking 的优化
 
 - 编译时, 根据不同的情况,引入不同的 API
 
@@ -350,7 +354,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### Vite 是什么？
+## Vite 是什么？
 
 - 一个前端打包工具, Vue 作者发起的项目
 - 借助 Vue 的影响力,发展较快,和 webpack 竞争
@@ -358,14 +362,14 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### Vite 为什么启动非常快
+## Vite 为什么启动非常快
 
 - 开发环境使用 ES6 Module， 无需打包一非常快
 - 生产环境使用 rollup , 并不会快很多
 
 
 
-#### ES Module 在浏览器中的应用
+### ES Module 在浏览器中的应用
 
 ![image-20220808174426879](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20220808174426879.png)
 
@@ -381,7 +385,7 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### Composition API 和 React Hooks 的对比
+## Composition API 和 React Hooks 的对比
 
 - 前者 setup 只会被调用一次,而后者函数会被多次调用
 - 前者无需 useMemo useCallback ,因为 setup 只调用一次
@@ -390,13 +394,13 @@ proxy 只能针对对象，对值类型是无能为力的。
 
 
 
-### Composition API 给 Vue 带来了什么？
+## Composition API 给 Vue 带来了什么？
 
 - 提高了组件的复用性和可读性
 
 
 
-### Vue3 和 JSX-基本使用
+## Vue3 和 JSX-基本使用
 
 ```javascript
 <template>
@@ -505,7 +509,7 @@ export default defineComponent({
 
 
 
-### Vue3 和 JSX-JSX 和 template 的区别
+## Vue3 和 JSX-JSX 和 template 的区别
 
 - JSX 本质就是 js 代码, 可以使用 js 的任何能力
 - template 只能嵌入简单的 js 表达式,其他需要指令,如 v-if
@@ -514,11 +518,11 @@ export default defineComponent({
 
 
 
-### Vue3 和 JSX-slot
+## Vue3 和 JSX-slot
 
 
 
-#### tabs-jsx
+### tabs-jsx
 
 ```javascript
 <template>
@@ -622,7 +626,7 @@ export default {
 
 
 
-#### 使用 JSX 实现作用域 slot
+### 使用 JSX 实现作用域 slot
 
 ```javascript
 import { defineComponent } from "vue";
@@ -661,9 +665,9 @@ export default defineComponent({
 
 
 
-### Vue3-script-setup
+## Vue3-script-setup
 
-#### 基本使用
+### 基本使用
 
 - 顶级变量、自定义组件, 可以直接用于模板
 - 可正常使用 ref， reactive， computed 等能力
@@ -725,7 +729,7 @@ onMounted(() => {
 
 
 
-#### defineProps 和 defineEmits
+### defineProps 和 defineEmits
 
 ```javascript
 <script setup>
@@ -754,7 +758,7 @@ function deleteHandler() {
 
 
 
-### defineExpose
+## defineExpose
 
 ```javascript
 <script setup>

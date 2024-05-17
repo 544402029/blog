@@ -1,15 +1,19 @@
 ---
-prev: 通信类
-next: CSS
+prev: 
+    text: '通信类'
+    link: '/面试题库/通信类'
+next: 
+    text: 'CSS'
+    link: '/面试题库/CSS'
 ---
 
-## HTML
+# HTML
 
-### W3C 标准
+## W3C 标准
 
 
 
-#### WEB 标准以及 W3C 标准是什么?
+### WEB 标准以及 W3C 标准是什么?
 
 1. 标签闭合
 1. 标签小写
@@ -19,11 +23,11 @@ next: CSS
 
 
 
-### 语义化
+## 语义化
 
 
 
-#### 谈谈你对语义化的理解？
+### 谈谈你对语义化的理解？
 
 - 用**正确**的标签做正确的事情！
 - 语义化就是让页面的**内容结构化**，便于对浏览器、搜索引擎解析。
@@ -33,7 +37,7 @@ next: CSS
 
 
 
-### xhtml 和 html
+## xhtml 和 html
 
 - 一个是功能上的差别
   - 主要是 XHTML 可兼容各大浏览器、手机以及 PDA，并且浏览器也能快速正确地编译网页
@@ -42,11 +46,11 @@ next: CSS
 
 
 
-### global attribute
+## global attribute
 
 
 
-#### HTML 全局属性(global attribute)有哪些？
+### HTML 全局属性(global attribute)有哪些？
 
 - `id`: 元素 id，文档内唯一
 - `class`: 为元素设置类标识
@@ -58,11 +62,11 @@ next: CSS
 
 
 
-### HTML5
+## HTML5
 
 
 
-#### 什么是 DOCTYPE 及作用？
+### 什么是 DOCTYPE 及作用？
 
 ```html
 <!DOCTYPE html>
@@ -79,14 +83,14 @@ HTML4.0 有传统模式和严格模式。
 
 
 
-#### HTML5 为什么只需要写 <!DOCTYPE html>？
+### HTML5 为什么只需要写 <!DOCTYPE html>？
 
 - HTML5 不基于 SGML，因此不需要对 DTD 进行引用，但是需要`DOCTYPE`来规范浏览器的行为
 - 而 HTML4.01 基于 SGML，所以需要对 DTD 进行引用，才能告知浏览器所使用的文档类型
 
 
 
-#### html5 有哪些新特性？
+### html5 有哪些新特性？
 
 HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加
 
@@ -99,14 +103,14 @@ HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存�
 
 
 
-#### html5 有移除的元素?
+### html5 有移除的元素?
 
 - 纯表现的元素：`basefont`，`font`, `big`，`center`，`s`
 - 对可用性产生负面影响的元素：`frame`
 
 
 
-#### Canvas 和 SVG 有什么区别？
+### Canvas 和 SVG 有什么区别？
 
 - `svg`输出的图形是**矢量图形**，它绘制出来的每一个图形元素都是独立的 DOM 节点，能够方便的绑定事件或用来修改。,也可以修改参数来自由放大缩小，不会**失真和有锯齿**。
 - 而`canvas`输出**标量画布**，就像一张图片一样，放大会失真或者锯齿

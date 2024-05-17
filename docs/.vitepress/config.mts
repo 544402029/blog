@@ -6,7 +6,6 @@ export default defineConfig({
   description: "专注写作前端博客，记录日常所得。",
   base: '/blog/',
   lang: 'zh-CN',
-  lastUpdated: true,
   head: [['script', {},`var _hmt = _hmt || [];
   (function() {
     var hm = document.createElement("script");
@@ -16,6 +15,10 @@ export default defineConfig({
   })();`]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
     search: {
       provider: 'local'
     },

@@ -1,13 +1,17 @@
 ---
-prev: CSS
-next: 笔试题
+prev:
+    text: 'CSS'
+    link: '/面试题库/CSS'
+next: 
+    text: '笔试题'
+    link: '/面试题库/笔试题'
 ---
 
-## JS
+# JS
 
-### JS 规范
+## JS 规范
 
-#### 说几条写 JavaScript 的基本规范？
+### 说几条写 JavaScript 的基本规范？
 
 - 不要在同一行声明多个变量
 - 请使用`===/!==`来比较`true/false`或者数值
@@ -19,7 +23,7 @@ next: 笔试题
 
 
 
-#### W3C 对 JS 的规定有哪些?
+### W3C 对 JS 的规定有哪些?
 
 - DOM
 - BOM
@@ -29,9 +33,9 @@ next: 笔试题
 
 
 
-### 变量类型
+## 变量类型
 
-#### 原始类型有哪些？
+### 原始类型有哪些？
 
 字符串（`String`）、数值（`Number`）、布尔值（`Boolean`）、`Undefined`、`Null`、 `symbol`
 
@@ -43,7 +47,7 @@ next: 笔试题
 
 
 
-#### 对象类型有哪些？
+### 对象类型有哪些？
 
 对象（`Object`）、数组（`Array`）、函数（`Function`）
 
@@ -51,20 +55,20 @@ next: 笔试题
 
 
 
-#### 为什么值类型赋值是直接赋值， 而引用类型是直接赋值一个内存地址？
+### 为什么值类型赋值是直接赋值， 而引用类型是直接赋值一个内存地址？
 
 主要考虑到性能/存储问题，因为值类型占用空间比较少。它可以直接赋值， 不会对性能造成太大影响。而一般来说， 引用类型存储的空间占用较大，不好管理。如果我们直接复制会导致复制过程非常慢。所以说， 计算机所有的程序，所有的代码，所有的语言，都是采用这种方式。
 
 
 
-#### 原始类型和对象类型区别?
+### 原始类型和对象类型区别?
 
 1. 原始类型存储的是值,保留在栈内存(空间固定)，相等都要重新创建一份
 1. 对象类型存储的是指针，保留在堆内存(空间不固定)，相等时引用的是同一份指针
 
 
 
-#### typeof 都能识别哪些类型？
+### typeof 都能识别哪些类型？
 
 - 识别除了`null`之外的所有值类型
 - 识别函数
@@ -72,13 +76,13 @@ next: 笔试题
 
 
 
-#### 类数组和数组的区别是什么？
+### 类数组和数组的区别是什么？
 
 类数组: 拥有 length 属性，不具有数组所具有的方法。
 
 
 
-#### 类数组如何转换为数组？
+### 类数组如何转换为数组？
 
 ```javascript
 //第一种方法
@@ -91,7 +95,7 @@ Array.from(arrayLike);
 
 
 
-#### JS 内置函数是什么?
+### JS 内置函数是什么?
 
 内置函数: `Object`, `Array` , `Function` , `Boolean` , `Number` , `String` , `Date` , `RegExp` , `Error` , `Json` .
 
@@ -99,13 +103,13 @@ Array.from(arrayLike);
 
 
 
-#### 函数参数是对象会发生什么?
+### 函数参数是对象会发生什么?
 
 函数参数是对象指针的副本，当参数重新分配对象时，参数的指针会发生变化。两个变量的值也会不相同
 
 
 
-#### null 和 undefined 的区别是什么?
+### null 和 undefined 的区别是什么?
 
 - `null`表示空对象指针
   - 如果定义的变量准备用来保存对象，那么最好初始化为`null`
@@ -114,19 +118,19 @@ Array.from(arrayLike);
 
 
 
-#### null 是对象嘛？
+### null 是对象嘛？
 
 null 并不是对象类型 。虽然 typeof null 会输出 object，但是这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象，然而 null 表示为全零，所以将它错误的判断为 object 。虽然现在的内部类型判断代码已经改变了，但是对于这个 Bug 却是一直流传下来。
 
 
 
-#### instanceof 的原理:
+### instanceof 的原理:
 
 沿着原型链一层一层向上找, 看是否能找到对应的`prototype`
 
 
 
-#### 自己实现一个 instanceof
+### 自己实现一个 instanceof
 
 ```javascript
 function myInstanceof(left, right) {
@@ -142,7 +146,7 @@ function myInstanceof(left, right) {
 
 
 
-#### 怎么实现浅拷贝？
+### 怎么实现浅拷贝？
 
 浅拷贝是指只拷贝所有属性到新对象,如果属性值是对象,只拷贝地址.
 
@@ -155,7 +159,7 @@ var newObj = { ...obj };
 
 
 
-#### 怎么实现深拷贝？
+### 怎么实现深拷贝？
 
 - 通过 JSON.parse(JSON.stringify(object)) 来解决
 
@@ -167,11 +171,11 @@ var newObj = JSON.parse(JSON.stringify(obj));
 
 
 
-### 类型转换
+## 类型转换
 
 
 
-#### 哪些情况下会发生类型转换?
+### 哪些情况下会发生类型转换?
 
 - ==
 - 逻辑运算符
@@ -190,13 +194,13 @@ var newObj = JSON.parse(JSON.stringify(obj));
 
 
 
-#### 转 Boolean
+### 转 Boolean
 
 在条件判断时，除了 `undefined`，`null`， `false`，`NaN`， `''`， `0`， `-0`，其他所有值都转为 `true`，包括所有对象。
 
 
 
-#### JavaScript 中如何进行隐式类型转换？
+### JavaScript 中如何进行隐式类型转换？
 
 首先要介绍 `ToPrimitive` 方法，这是 JavaScript 中每个值隐含的自带的方法，用来将值 （无论是基本类型值还是对象）转换为基本类型值。如果值为基本类型，则直接返回值本身；如果值为对象，其看起来大概是这样：
 
@@ -210,7 +214,7 @@ ToPrimitive(obj, type);
 
 
 
-##### `type` 的值为 `number` 或者 `string`。
+#### `type` 的值为 `number` 或者 `string`。
 
 当 `type` 为 `number` 时规则如下：
 
@@ -220,7 +224,7 @@ ToPrimitive(obj, type);
 
 
 
-##### 当 `type` 为 `string` 时规则如下：
+#### 当 `type` 为 `string` 时规则如下：
 
 1. 调用 `obj` 的 `toString` 方法，如果为原始值，则返回，否则下一步；
 1. 调用 `obj` 的 `valueOf` 方法，后续同上；
@@ -235,7 +239,7 @@ ToPrimitive(obj, type);
 
 
 
-#### 四则运算符
+### 四则运算符
 
 加法运算符不同于其他几个运算符，它有以下几个特点：
 
@@ -270,7 +274,7 @@ true + true; // 2
 
 
 
-#### 比较运算符
+### 比较运算符
 
 1. 如果是对象，就通过 toPrimitive 转换对象
 1. 如果是字符串，就通过 unicode 字符索引来比较
@@ -291,7 +295,7 @@ a > -1; // true
 
 
 
-#### == 和 === 有什么区别？
+### == 和 === 有什么区别？
 
 首先使用 `==` 是会发生隐式类型转换的。 一般只有判断一个变量是不是`null`和`undefined`时会使用`==`。其它地方一律用`===`。
 
@@ -301,11 +305,11 @@ a > -1; // true
 
 
 
-### JSON
+## JSON
 
 
 
-#### 怎么理解 json?
+### 怎么理解 json?
 
 是内置的 js 对象,也是一种数据格式
 
@@ -319,7 +323,7 @@ JSON.parse("{a:10,b:11}"); //把字符串变成对象
 
 
 
-#### XML 与 JSON 的区别?
+### XML 与 JSON 的区别?
 
 JSON 数据体积小 , 传递快 , 与 JavaScript 交互更加方便 , 容易解析 。
 
@@ -327,11 +331,11 @@ JSON 数据体积小 , 传递快 , 与 JavaScript 交互更加方便 , 容易解
 
 
 
-### DOM
+## DOM
 
 
 
-#### DOM 的本质?
+### DOM 的本质?
 
 > DOM: Document Object Model 文档对象模型。
 >
@@ -341,13 +345,13 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### DOM 是哪种数据结构?
+### DOM 是哪种数据结构?
 
 它是从 HTML 文件解译出来的一棵 DOM **树形结构**。
 
 
 
-#### DOM 结构操作有哪些？
+### DOM 结构操作有哪些？
 
 - 新增节点 `document.createElement(node)`
 - 获取父元素 `childNode.parentElement`
@@ -356,7 +360,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### childNodes 和 children 的区别?
+### childNodes 和 children 的区别?
 
 `childNodes` 属性返回所有的节点，包括文本节点、注释节点；
 
@@ -364,7 +368,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### Attribute 和 property 有何区别?
+### Attribute 和 property 有何区别?
 
 - `attribute` (自定义)属性在 HTML 上设置修改， 会直接反应到 HTML 上， 两者同步。
 - `porperty` (固有)属性可以看做是 DOM 对象的键值对， 用点操作符对他们进行操作。 实际编程中， 基本的 DOM 操作都是使用 `peoperty` 的点操作符。
@@ -373,7 +377,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别?
+### offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别?
 
 - `offsetWidth/offsetHeight`返回值包含`content` + `padding` + `border`
 - `clientWidth/clientHeight`返回值只包含`content` + `padding`
@@ -381,9 +385,9 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-### 作用域和闭包
+## 作用域和闭包
 
-#### 作用域是什么？
+### 作用域是什么？
 
 **一个函数的父级作用域是在它定义的时候的作用域，而非它执行时候的作用域。**
 
@@ -395,13 +399,13 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### 作用域链是什么?
+### 作用域链是什么?
 
 在局部作用域访问变量 , 如果访问不到 , 自由变量会一直向父级作用域寻找，这样的链条称之为作用域链。
 
 
 
-#### 自由变量是什么？
+### 自由变量是什么？
 
 - 一个变量在当前作用域没有定义， 但被使用了。
 - 向上级作用域， 一层一层依次寻找， 直到找到为止。
@@ -409,7 +413,7 @@ DOM 本质就是浏览器拿到 HTML 代码后，DOM 把 HTML 代码结构化成
 
 
 
-#### 什么是闭包呢?
+### 什么是闭包呢?
 
 闭包的定义其实很简单：函数 A 内部有一个函数 B，函数 B 可以访问到函数 A 中的变量，那么函数 B 就是闭包。
 
@@ -459,7 +463,7 @@ print(fn); //100
 
 
 
-#### 闭包有哪些优点和缺点?
+### 闭包有哪些优点和缺点?
 
 优点: 封装性强，使得变量始终保持在内存中。
 
@@ -467,7 +471,7 @@ print(fn); //100
 
 
 
-#### 闭包使用场景?
+### 闭包使用场景?
 
 使用场景:
 
@@ -476,7 +480,7 @@ print(fn); //100
 
 
 
-#### 循环中使用闭包解决 var 定义函数的问题?
+### 循环中使用闭包解决 var 定义函数的问题?
 
 - 闭包解决方案
 
@@ -516,7 +520,7 @@ for (let i = 1; i <= 5; i++) {
 
 
 
-#### 实际开发中闭包的应用有哪些？
+### 实际开发中闭包的应用有哪些？
 
 - 隐藏数据， 只提供 API
 - 做一个简单的 cache 工具
@@ -542,20 +546,20 @@ console.log(c.get("a")); //100
 
 
 
-#### 内存泄漏
+### 内存泄漏
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/neicunxielou.png)
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/neicunxielou2.png)
 
 
-### this 全解析
+## this 全解析
 
 > this 取值是在执行的时候确认的， 而不是在定义的时候。
 
 
 
-#### this 有哪几种调用方式？
+### this 有哪几种调用方式？
 
 - 作为普通函数
 - 作为 `call, apply, bind`
@@ -565,7 +569,7 @@ console.log(c.get("a")); //100
 
 
 
-#### this 有哪些使用场景?
+### this 有哪些使用场景?
 
 1. 作为对象属性执行
 1. 作为构造函数执行
@@ -574,7 +578,7 @@ console.log(c.get("a")); //100
 
 
 
-#### this 指向如何判断?
+### this 指向如何判断?
 
 - 函数直接调用指向`window`
 - 对象调用,`this`指向调用的对象
@@ -584,7 +588,7 @@ console.log(c.get("a")); //100
 
 
 
-#### this 优先级
+### this 优先级
 
 1. `new`优先级最高
 1. `bind`次之
@@ -593,7 +597,7 @@ console.log(c.get("a")); //100
 
 
 
-#### 以下代码 this 指向谁？
+### 以下代码 this 指向谁？
 
 ```javascript
 <div class="table" onclick="callback()"></div>;
@@ -609,7 +613,7 @@ function callback() {
 
 
 
-#### 写出打印结果，并解释为什么？
+### 写出打印结果，并解释为什么？
 
 1. 
 
@@ -677,9 +681,9 @@ console.log(instance.user);
 
 
 
-### 原型与原型链
+## 原型与原型链
 
-#### 原型与原型链的理解,它们有什么特点?
+### 原型与原型链的理解,它们有什么特点?
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/yuanxinglian.png)
 
@@ -699,7 +703,7 @@ console.log(instance.user);
 
 
 
-#### new 的原理是什么？
+### new 的原理是什么？
 
 - 新生成了一个对象
 - 链接到原型
@@ -711,7 +715,7 @@ console.log(instance.user);
 
 
 
-#### 通过 new 的方式创建对象和通过字面量创建有什么区别?
+### 通过 new 的方式创建对象和通过字面量创建有什么区别?
 
 区别:
 
@@ -721,18 +725,18 @@ console.log(instance.user);
 
 
 
-### 面向对象
+## 面向对象
 
-#### 面向对象编程思想？
+### 面向对象编程思想？
 
 使用**对象**，**类**，**继承**，**封装**等基本概念来进行程序设计
 
-#### 什么是面向对象编程及面向过程编程？
+### 什么是面向对象编程及面向过程编程？
 
 - 面向过程就是分析出解决问题的步骤，然后用函数把这些步骤一步一步实现，使用的时候依次调用。
 - 面向对象是以功能来划分问题，建立对象的目的不是为了完成一个步骤，而是把步骤统一封装在对象内，对外统一提供调用接口。
 
-#### 面向对象的异同和优缺点
+### 面向对象的异同和优缺点
 
 - 优点
   - 易维护
@@ -740,7 +744,7 @@ console.log(instance.user);
   - 易扩展
   - 复用性、继承性高.
 
-#### 创建对象有几种方法?
+### 创建对象有几种方法?
 
 ```javascript
 //字面量
@@ -761,7 +765,7 @@ var o3 = Object.create(o);
 
 
 
-#### 如何声明一个类?
+### 如何声明一个类?
 
 ```javascript
 function Animal(name) {
@@ -780,7 +784,7 @@ new Animal2(); //实例化
 
 
 
-#### 如何实现继承?继承有哪几种方式?
+### 如何实现继承?继承有哪几种方式?
 
 - 构造函数实现继承:
   - 缺点: 无法继承父类原型对象上的属性方法
@@ -871,9 +875,9 @@ console.log(c1.play()); //child1
 
 
 
-### 设计模式
+## 设计模式
 
-#### 工厂模式
+### 工厂模式
 
 ```javascript
 class Man {
@@ -929,7 +933,7 @@ export function createComponent(
 
 
 
-#### 单例模式
+### 单例模式
 
 单例模式很常用，比如全局缓存、全局状态管理等等这些只需要一个对象，就可以使用单例模式。
 
@@ -972,7 +976,7 @@ export function install(_Vue) {
 
 
 
-#### 发布-订阅模式
+### 发布-订阅模式
 
 发布-订阅模式也叫做观察者模式。通过一对一或者一对多的依赖关系，当对象发生改变时，订阅方都会收到通知。在现实生活中，也有很多类似场景，比如我需要在购物网站上购买一个产品，但是发现该产品目前处于缺货状态，这时候我可以点击有货通知的按钮，让网站在产品有货的时候通过短信通知我。
 
@@ -992,7 +996,7 @@ export function install(_Vue) {
 
 
 
-#### 实现一个 Storage
+### 实现一个 Storage
 
 实现 Storage，使得该对象为单例，基于 localStorage 进行封装。实现方法 setItem(key,value) 和 getItem(key)。
 
@@ -1074,7 +1078,7 @@ storage1 === storage2;
 
 
 
-#### 实现一个全局的模态框
+### 实现一个全局的模态框
 
 实现一个全局唯一的 Modal 弹框
 
@@ -1211,9 +1215,9 @@ storage1 === storage2;
 
 
 
-### 模块化
+## 模块化
 
-#### 为什么要使用模块化？
+### 为什么要使用模块化？
 
 - 解决命名冲突
 - 提供复用性
@@ -1316,9 +1320,9 @@ export default function () {}
 
 
 
-### map, filter, reduce
+## map, filter, reduce
 
-#### map, filter, reduce 各自有什么作用？
+### map, filter, reduce 各自有什么作用？
 
 **map**
 
@@ -1369,9 +1373,9 @@ console.log(sum);
 
 
 
-### 事件机制
+## 事件机制
 
-#### DOM 事件级别?
+### DOM 事件级别?
 
 - DOM0 （缺点:后定义的事件会被覆盖之前定义的事件）
 
@@ -1395,17 +1399,17 @@ element.addEventListener("keyup", function () {}, false);
 
 
 
-#### DOM 事件模型是什么?
+### DOM 事件模型是什么?
 
 捕获和冒泡
 
-#### 什么是事件流?？
+### 什么是事件流?？
 
 一个完整的事件流分三个阶段：捕获 > 目标元素 > 冒泡
 
 <a name="616cac2b"></a>
 
-#### 事件的触发过程是怎么样的？
+### 事件的触发过程是怎么样的？
 
 事件触发过程:
 
@@ -1419,7 +1423,7 @@ element.addEventListener("keyup", function () {}, false);
 
 
 
-#### Event 对象的常见应用
+### Event 对象的常见应用
 
 1.  `event.preventDefault()`：阻止默认事件；
 1.  `event.stopPropagation()`：阻止冒泡事件；(其实也可以阻止捕获)
@@ -1429,7 +1433,7 @@ element.addEventListener("keyup", function () {}, false);
 
 
 
-#### 怎么模拟一个事件？
+### 怎么模拟一个事件？
 
 ```javascript
 // 创建事件
@@ -1449,7 +1453,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 怎么注册事件？
+### 怎么注册事件？
 
 通常我们使用 `addEventListener` 注册事件，该函数的第三个参数可以是布尔值，也可以是对象。对于布尔值 `useCapture` 参数来说，该参数默认值为 `false` ，`useCapture` 决定了注册的事件是捕获事件还是冒泡事件。对于对象参数来说，可以使用以下几个属性
 
@@ -1461,7 +1465,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 知道什么是事件代理吗？
+### 知道什么是事件代理吗？
 
 把原本需要绑定的事件委托给父元素，让父元素担当事件监听的职务。事件代理的原理是 DOM 元素的事件冒泡。
 
@@ -1491,15 +1495,15 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-### 异步
+## 异步
 
-#### 如何理解 js 单线程?
+### 如何理解 js 单线程?
 
 同一时间只能干一件事
 
 
 
-#### 什么是任务队列?
+### 什么是任务队列?
 
 有同步任务和异步任务
 
@@ -1509,7 +1513,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 什么是同步(对比异步)?举个例子?
+### 什么是同步(对比异步)?举个例子?
 
 同步：浏览器向服务器请求，用户看到页面，**重新发个请求** , 请求完，页面刷新，新内容才出现。
 
@@ -1521,13 +1525,13 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 什么时候需要异步?
+### 什么时候需要异步?
 
 在发生等待的情况下 , 程序仍然需要执行其他操作 , 不能阻塞程序运行
 
 
 
-#### 异步使用场景有哪些?
+### 异步使用场景有哪些?
 
 1.  定时任务
 1.  网络请求: `ajax` , `img`加载, 脚本等文件加载和下载
@@ -1535,7 +1539,7 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 单线程和异步
+### 单线程和异步
 
 - JS 是单线程语言， 只能同时做一件事
 - JS 和 DOM 渲染共用同一个线程， 因为 JS 可修改 DOM 结构。
@@ -1545,15 +1549,15 @@ document.getElementById("leo2").addEventListener("click", function () {
 
 
 
-#### 什么是执行栈？
+### 什么是执行栈？
 
 可以把执行栈认为是一个存储函数调用的**栈结构**，遵循先进后出的原则。
 
 当我们使用递归的时候，因为栈可存放的函数是有**限制**的，一旦存放了过多的函数且没有得到释放的话，就会出现爆栈的问题。
 
-#### 解释一下什么是 Event Loop ？
+### 解释一下什么是 Event Loop ？
 
-#### 事件循环执行顺序？
+### 事件循环执行顺序？
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/shijianxunhuan.png)
 
@@ -1569,7 +1573,7 @@ Event Loop 执行顺序如下所示：
 
 
 
-#### 并发（concurrency）和并行（parallelism）区别？
+### 并发（concurrency）和并行（parallelism）区别？
 
 这两个名词确实是很多人都常会混淆的知识点。其实混淆的原因可能只是两个名词在中文上的相似，在英文上来说完全是不同的单词。
 
@@ -1579,7 +1583,7 @@ Event Loop 执行顺序如下所示：
 
 
 
-#### 什么是回调函数？
+### 什么是回调函数？
 
 回调函数是一段可执行的代码，它作为参数传给其他代码，方便需要的时候复用这段代码。
 
@@ -1609,7 +1613,7 @@ ajax(url, () => {
 
 
 
-#### 回调函数有什么优缺点？
+### 回调函数有什么优缺点？
 
 **优点:**
 
@@ -1623,14 +1627,14 @@ ajax(url, () => {
 
 
 
-##### 回调地狱的根本问题：
+#### 回调地狱的根本问题：
 
 1. 嵌套函数存在耦合性，一旦有所改动，就会牵一发而动全身
 1. 嵌套函数一多，就很难处理错误
 
 
 
-#### 回调的特点:
+### 回调的特点:
 
 - 不会立刻执行
 - 是闭包
@@ -1640,7 +1644,7 @@ ajax(url, () => {
 
 
 
-#### 回调的应用场景
+### 回调的应用场景
 
 - 异步编程。
 - 事件监听。
@@ -1648,20 +1652,20 @@ ajax(url, () => {
 
 
 
-#### 如何解决回调地狱问题？
+### 如何解决回调地狱问题？
 
 - Promise，
 - async/await
 
 
 
-#### Promise 是什么?
+### Promise 是什么?
 
 Promise 是异步编程的一种解决方案，比传统的异步解决方案【回调函数】和【事件】更合理、更强大。
 
 
 
-#### Promise 的特点是什么？
+### Promise 的特点是什么？
 
 `Promise` 翻译过来就是承诺的意思，这个承诺会在未来有一个确切的答复。
 
@@ -1673,20 +1677,20 @@ Promise 是异步编程的一种解决方案，比传统的异步解决方案【
 
 
 
-#### Promise 分别有什么优缺点？
+### Promise 分别有什么优缺点？
 
 - 优点: 解决回调地狱。
 - 缺点: 无法取消 promise, 错误需要回调函数捕获
 
 
 
-#### 什么是 Promise 链？
+### 什么是 Promise 链？
 
 `Promise` 每次调用 `then` 之后返回的都是一个全新的 `Promise`，如果你在 `then` 中 使用了 `return`，那么 `return` 的值会被 `Promise.resolve()` 包装。这样就实现了链式调用。
 
 
 
-#### Promise 构造函数执行和 then 函数执行有什么区别？
+### Promise 构造函数执行和 then 函数执行有什么区别？
 
 当我们在构造 `Promise` 的时候，构造函数内部的代码是立即执行的。
 
@@ -1709,7 +1713,7 @@ Promise.resolve(1)
 
 
 
-#### async 及 await 的特点，它们的优点和缺点分别是什么？
+### async 及 await 的特点，它们的优点和缺点分别是什么？
 
 **特点**
 
@@ -1734,7 +1738,7 @@ console.log(test()); // -> Promise {<resolved>: "1"}
 
 
 
-#### await 原理是什么？
+### await 原理是什么？
 
 `async` 函数是 Generator 函数的语法糖。使用 关键字 `async` 来表示，在函数内部使用 `await` 来表示异步。
 
@@ -1747,7 +1751,7 @@ console.log(test()); // -> Promise {<resolved>: "1"}
 
 
 
-#### setTimeout、setInterval、requestAnimationFrame 各有什么特点？
+### setTimeout、setInterval、requestAnimationFrame 各有什么特点？
 
 异步编程当然少不了定时器了，常见的定时器函数有 `setTimeout`、`setInterval`、`requestAnimationFrame`。我们先来讲讲最常用的`setTimeout`，很多人认为 `setTimeout` 是延时多久，那就应该是多久后执行。
 
@@ -1830,9 +1834,9 @@ setInterval((timer) => {
 
 
 
-### 进程与线程
+## 进程与线程
 
-#### 进程与线程区别？JS 单线程带来的好处？
+### 进程与线程区别？JS 单线程带来的好处？
 
 **区别**
 
@@ -1850,9 +1854,9 @@ JS 运行的时候可能会阻止 UI 渲染，这说明了两个线程是互斥�
 
 
 
-### 变量提升
+## 变量提升
 
-#### 什么是提升?
+### 什么是提升?
 
 js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部。
 
@@ -1860,11 +1864,11 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 提升是为了解决函数之间相互调用的问题。
 
-#### 什么是暂时性死区?
+### 什么是暂时性死区?
 
 `let`，`const`在声明前使用会报错，这个行为称之为暂时性死区。
 
-#### var,let,const 有什么区别?
+### var,let,const 有什么区别?
 
 1. `let`，`const`声明不会挂载在`window`上。var 声明会挂载到`window`上。
 1. `let`，`const`不能重复声明, var 可以重复声明。
@@ -1874,20 +1878,20 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 
 
-### Class
+## Class
 
-#### class 本质？
+### class 本质？
 
 - 本质是函数, js 中并不存在类，`class`只是语法糖， 使用`prototype`
 
-#### Class 与普通的构造函数有什么区别?
+### Class 与普通的构造函数有什么区别?
 
 - 在**语法**上更贴合面向对象的写法
 - 在**继承**上更容易阅读理解
 
 
 
-#### class 如何实现继承？
+### class 如何实现继承？
 
 `class` 实现继承的核心在于使用 `extends` 表明继承自哪个父类。
 
@@ -1895,9 +1899,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 
 
-### Es6 常用方法
+## Es6 常用方法
 
-#### Es6 常用的方法有哪些?
+### Es6 常用的方法有哪些?
 
 - let 和 const
 - 解构赋值
@@ -1912,9 +1916,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 
 
-### 箭头函数
+## 箭头函数
 
-#### 箭头函数与普通函数有什么区别?
+### 箭头函数与普通函数有什么区别?
 
 1. 语法更加简洁
 1. 不会创建自己的`this`
@@ -1925,9 +1929,9 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 
 
 
-### 综合考察题
+## 综合考察题
 
-#### 为什么 0.1 + 0.2 != 0.3
+### 为什么 0.1 + 0.2 != 0.3
 
 先说原因，因为 JS 采用 **IEEE 754 双精度版本（64 位）**标准，并且只要采用 IEEE 754 的语言都有该问题。
 
@@ -1941,7 +1945,7 @@ parseFloat((0.1 + 0.2).toFixed(10)) === 0.3; // true
 
 
 
-#### 请写出以下代码的打印顺序
+### 请写出以下代码的打印顺序
 
 ```javascript
 function Foo() {
@@ -1980,4 +1984,4 @@ new new Foo().getName(); //3
 //先计算. , .把前后分割，new.foo()带参数优先级19，new是18，执行new Foo.getName()
 ```
 
-### 
+## 

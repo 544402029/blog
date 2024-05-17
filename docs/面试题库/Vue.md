@@ -1,11 +1,15 @@
 ---
-prev: 笔试题
-next: Vue3
+prev: 
+  text: '笔试题'
+  link: '/面试题库/笔试题'
+next: 
+  text: 'Vue3'
+  link: '/面试题库/Vue3'
 ---
 
-## Vue2
+# Vue2
 
-### 多页面应用与单页应用的区别?
+## 多页面应用与单页应用的区别?
 
 ##### 多页应用
 
@@ -29,15 +33,15 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 在 vue 中不使用`<a>`标签进行页面跳转，使用`<router-link>`标签进行页面跳转 `<router-link to="/list">`列表页`</router-link>` 其中`to=""` 相当于`href=""`
 
-### 了解 MVVM 框架吗？
+## 了解 MVVM 框架吗？
 
 了解 Vue.js。
 
-### MVVM 使用了什么设计模式?
+## MVVM 使用了什么设计模式?
 
 观察者模式
 
-### 什么是组件化？
+## 什么是组件化？
 
 首先很久之前就有组件化的概念， 使用 asp jsp php 就可以。node.js 中也有类似的组件化。Vue 和 React 搬过来，做了一个创新：数据驱动视图。
 
@@ -49,7 +53,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 但是， 传统组件它只是静态的渲染， 也就是说我们想显示谁的个人信息， 就要在后端拼接完数据去渲染。 渲染完页面就形成了， 不会再去改变了。你再需要去改需要自己去操作 DOM。所以当时 jQuery 是很流行的。因为操作 DOM 很多。
 
-### MVC 是什么？
+## MVC 是什么？
 
 传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。
 
@@ -57,7 +61,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 但是 MVC 有一个巨大的缺陷就是**控制器承担的责任太大**了，随着项目愈加复杂，控制器中的代码会越来越**臃肿**，导致出现不利于**维护**的情况。
 
-### MVP 是什么？
+## MVP 是什么？
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mvp.png)
 
@@ -67,7 +71,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 使用 MVP 模式我们大部分代码都是操作 DOM。可以说是面向 DOM 开发。
 
-### 如何理解 MVVM ？
+## 如何理解 MVVM ？
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/mvvm.png)
 
@@ -87,7 +91,7 @@ JS 感知路由（URL）变化，动态清除页面内容并将新页面的内�
 
 同样以 Vue 框架来举例，这个隐式的 Binder 层就是 Vue 通过解析模板中的插值和指令从而实现 View 与 ViewModel 的绑定。
 
-### Vue 的响应式原理?
+## Vue 的响应式原理?
 
 Vue 内部使用了 `Object.defineProperty()` 来实现数据响应式，通过这个函数可以监听到 `set` 和 `get` 的事件。
 
@@ -244,7 +248,7 @@ new Watcher(data, "name", update);
 data.name = "yyy";
 ```
 
-### Object.defineProperty 的缺陷?
+## Object.defineProperty 的缺陷?
 
 以上已经分析完了 Vue 的响应式原理，接下来说一点 `Object.defineProperty` 中的缺陷。
 
@@ -324,7 +328,7 @@ methodsToPatch.forEach(function (method) {
 });
 ```
 
-### 为什么 vue 中通过`this.`的方式就可以获取`data`,`method`,`prop`内的数据，而不是`this.data.`的方式？
+## 为什么 vue 中通过`this.`的方式就可以获取`data`,`method`,`prop`内的数据，而不是`this.data.`的方式？
 
 具体请看一下的代码， 在初始化数据`initState(vm);`中对`data`,`prop`做了一层代理，将三个属性下的所有`key`值都代理到了 vue 实例上。
 
@@ -351,7 +355,7 @@ function proxy(target, sourceKey, key) {
 }
 ```
 
-### 如何自己实现组件 v-model？
+## 如何自己实现组件 v-model？
 
 首先我们需要在自定义组件上面写入 v-model
 
@@ -361,20 +365,20 @@ function proxy(target, sourceKey, key) {
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/1584147338097.png)
 
-### v-model 的实现原理
+## v-model 的实现原理
 
 - input 元素的 `value = this.name`
 - 绑定 input 事件 `this.name = $event.target.value`
 - data 更新触发 re-render
 
-### 双向绑定是什么原理?
+## 双向绑定是什么原理?
 
 Vue 采用**数据劫持**结合**发布者-订阅者模式**的方式，通过`Object.defineProperty()`来劫持各个属性的`setter`，`getter`，在数据变动时发布消息给订阅者，触发相应的监听回调。
 
 - data 更新 view 是使用 `Object.defineProperty()`监听 data 的变化，实现了数据响应式。通过这个函数可以监听到 `set` 和 `get` 的事件。当数据发生改变时就触发这个函数， 更新的方法放在`set`内就行了。
 - view 更新 data 通过事件监听即可。比如`input`标签监听 `input` 事件就可以实现了。只不过框架执行了我们看不到。
 
-### 如何深度监听 data ，数组变化？
+## 如何深度监听 data ，数组变化？
 
 深度监听、监听数组
 
@@ -459,17 +463,17 @@ data.nums.push(4); // 监听数组
 
 以上代码重新定义原型，重写 push， pop 等方法， 实现监听。
 
-### Object.defineProperty 的缺点？
+## Object.defineProperty 的缺点？
 
 - 深度监听，需要递归到底，一次性计算量大
 - 无法监听新增属性、删除属性（Vue.set Vue.delete）
 - 无法原生监听数组，需要特殊处理
 
-### Object.defineProperty 的优点？
+## Object.defineProperty 的优点？
 
 - 兼容性好，支持 IE9
 
-### Proxy 相比于 defineProperty 的优势？
+## Proxy 相比于 defineProperty 的优势？
 
 - 深度监听不用递归到底
 - 可以监听新增属性， 删除属性
@@ -478,11 +482,11 @@ data.nums.push(4); // 监听数组
 - 支持更多的拦截方法
 - 性能更好 （Proxy 作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利；）
 
-### Proxy 基本使用
+## Proxy 基本使用
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/proxy.png)
 
-### Proxy 可以实现什么功能？
+## Proxy 可以实现什么功能？
 
 相当于是一个对象的代理 ，可以自定义对象中的操作。内部拥有`set`，`get`...等方法，可以实现数据响应式
 
@@ -494,7 +498,7 @@ Proxy 代理/拦截
 - 拦截删除: `deleteProperty (target, key)`
 - 拦截遍历: `ownKeys(target)` // 拦截`Object.keys,Object.getOwnPropertySymbols,Object.getOwnPropertyNames`
 
-### Proxy 如何实现响应式？
+## Proxy 如何实现响应式？
 
 ```javascript
 // 创建响应式
@@ -571,19 +575,19 @@ const data = {
 const proxyData = reactive(data);
 ```
 
-### Reflect 作用
+## Reflect 作用
 
 - 和 proxy 能力一一对应
 - 规范化、标准化、函数式
 - 替代掉 object 上的工具函数
 
-### 为什么要使用虚拟 DOM？
+## 为什么要使用虚拟 DOM？
 
 因为 DOM 操作非常耗费性能，
 
 所谓 v-dom 就是使用 JS 模拟 DOM 结构， 我们都知道 JS 执行速度很快， 我们可以使用 JS 计算出最小的变更来操作 DOM。
 
-### 如何用 JS 模拟 DOM 结构？
+## 如何用 JS 模拟 DOM 结构？
 
 DOM
 
@@ -681,7 +685,7 @@ var vdom = {
 };
 ```
 
-### vue 编译过程?
+## vue 编译过程?
 
 想必大家在使用 Vue 开发的过程中，基本都是使用模板的方式。那么你有过「模板是怎么在浏览器中运行的」这种疑虑嘛？
 
@@ -720,18 +724,18 @@ var vdom = {
 
 最后一个阶段就是通过 AST 生成 `render` 函数了。其实这一阶段虽然分支有很多，但是最主要的目的就是遍历整个 AST，根据不同的条件生成不同的代码罢了。
 
-### 为什么 Virtual DOM 比原生 DOM 快？
+## 为什么 Virtual DOM 比原生 DOM 快？
 
 首先这个问题得分场景来说，如果无脑替换所有的 DOM 这种场景来说，Virtual DOM 的局部更新肯定要来的快。但是如果你可以人肉也同样去局部替换 DOM，那么 Virtual DOM 必然没有你直接操作 DOM 来的快，毕竟还有一层 diff 算法的损耗。
 
-### Virtual DOM 的优势？
+## Virtual DOM 的优势？
 
 - vdom 拥有了跨平台的优势，因为不涉及 dom。这也让 vue 可是开发其它平台，比如小程序以及 app, SSR，有类似的 weex，uniapp 平台可以使用 vue 实现。
 - 操作 dom 性能大部分来说会更快，因为 dom 渲染引擎和 js 引擎本就不是一个线程，如果直接用 js 去操作 dom 耗费的性能还是挺大的，直接用 js 先渲染为 vdom，然后一次性的去渲染，并在更新时与旧节点对比，只更新差异的部分，无疑会性能会更高一些（对于节点很多的情况，如果节点非常少，引入 vdom 应该会得不偿失）
 - 实现组件的高度抽象化。
 - 相较于 1.0，应该是粒度由 dom 元素级别改为了组件级别，这样不会因为粒度太细，反而导致性能会降低的情况。
 
-### vue 模板到底是什么？
+## vue 模板到底是什么？
 
 - 模板不是 html， 有指令、插值、JS 表达式， 能实现判断、循环
 - html 只是标签语言， 只有 JS 才能实现判断、循环(图灵完备的)
@@ -745,7 +749,7 @@ var vdom = {
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/vuemoban.png)
 
-### 能说一下 vue 组件渲染和更新过程吗？
+## 能说一下 vue 组件渲染和更新过程吗？
 
 **初次渲染过程：**
 
@@ -763,7 +767,7 @@ var vdom = {
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/liuchengtu.png)
 
-### 你能讲一下 diff 算法吗？
+## 你能讲一下 diff 算法吗？
 
 diff 算法是 v-dom 中最核心，最关键的部分。
 
@@ -1035,7 +1039,7 @@ if (oldStartIdx > oldEndIdx) {
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/07-026.png)
 
 
-### 生命周期是什么?
+## 生命周期是什么?
 
 > `Vue`实例的生命周期就是：`Vue`实例在某一个时间点会自动执行的函数。`Vue`生命周期有 11 种之多，它分为不同的组。
 
@@ -1067,7 +1071,7 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### 父子组件的生命周期顺序
+## 父子组件的生命周期顺序
 
 - 加载渲染过程
 
@@ -1087,7 +1091,7 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### ajax 请求应该放在哪个生命周期？
+## ajax 请求应该放在哪个生命周期？
 
 **答案:**
 
@@ -1105,7 +1109,7 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### 何时需要使用 beforeDestory
+## 何时需要使用 beforeDestory
 
 - 自定义事件（$on $emit ）
 - 清除定时器
@@ -1113,7 +1117,7 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### keep-alive 组件有什么作用?
+## keep-alive 组件有什么作用?
 
 如果你需要在组件切换的时候，保存一些组件的状态防止多次渲染，就可以使用 `keep-alive` 组件包裹需要保存的组件。
 
@@ -1123,7 +1127,7 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### 组件中 name 属性有什么用？
+## 组件中 name 属性有什么用？
 
 组件系统是 Vue 的另一个重要概念，因为它是一种抽象，允许我们使用小型、独立和通常可复用的组件构建大型应用。
 
@@ -1133,14 +1137,14 @@ if (oldStartIdx > oldEndIdx) {
 
 
 
-### 怎么强制刷新组件？
+## 怎么强制刷新组件？
 
 - `this.$forceUpdate()`。
 - 组件上加上 key，然后变化 key 的值
 
 
 
-### 怎么访问子组件的实例或者子元素？
+## 怎么访问子组件的实例或者子元素？
 
 - 先用 ref 特性为子组件赋予一个 ID 引用 `<base-input ref="myInput"></<base-input>`
   - 比如子组件有个 `focus` 的方法，可以这样调用 `this.$refs.myInput.focus()`；
@@ -1157,7 +1161,7 @@ console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//�
 
 
 
-### 组件会在什么时候下被销毁？
+## 组件会在什么时候下被销毁？
 
 - 没有使用 `keep-alive` 时的路由切换；
 - `v-if='false'；`
@@ -1165,7 +1169,7 @@ console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//�
 
 
 
-### 为何组件 data 必须是一个函数？
+## 为何组件 data 必须是一个函数？
 
 组件复用时所有组件实例都会共享 `data`，如果 `data` 是对象的话，就会造成一个组件修改 `data` 以后会影响到其他所有组件，所以需要将 `data` 写成函数，每次用到就调用一次函数获得新的数据。。
 
@@ -1173,13 +1177,13 @@ console.log(this.$refs['mydiv'].getElementsByClassName('item')[0].innerHTML)//�
 
 
 
-### 如何将组件的所有 props 传递给子组件？
+## 如何将组件的所有 props 传递给子组件？
 
 - `<User v-bind="$props" />`
 
 
 
-### props 与非 props 特性？
+## props 与非 props 特性？
 
 props 特性：
 
@@ -1193,20 +1197,20 @@ props 特性：
 
 
 
-### 父子组件如何进行通信？
+## 父子组件如何进行通信？
 
 - 父组件通过`props`传递数据给子组件，子组件通过`emit`发送事件传递数据给父组件。子组件不能直接修改`props`，而是必须通过发送事件的方式告知父组件修改数据。 (单向数据流)
 - 当然我们也可以使用 `$parent` / `$children` 来实现父子组件通信。它们的主要目的是作为访问组件的应急方法。更推荐用 `props` 和 `events` 实现父子组件通信。
 
 
 
-### 为什么要有单向数据流？
+## 为什么要有单向数据流？
 
 为了保证数据的单向流动，便于对数据进行追踪，避免数据混乱。
 
 
 
-### 跨多层次组件通信
+## 跨多层次组件通信
 
 对于这种情况可以使用 Vue 2.2 新增的 API `provide / inject`，虽然文档中不推荐直接使用在业务中，但是如果用得好的话还是很有用的。
 
@@ -1231,7 +1235,7 @@ export default {
 
 
 
-### 非父子组件传值/任意组件
+## 非父子组件传值/任意组件
 
 我们需要使用发布订阅模式或者总线机制来实现非父子组件传值。
 
@@ -1243,7 +1247,7 @@ export default {
 
 
 
-### 什么是作用域插槽？
+## 什么是作用域插槽？
 
 如果我们的父组件需要一个子组件内定义的标题， 我们需要使用作用域插槽。
 
@@ -1255,13 +1259,13 @@ export default {
 
 
 
-### 什么是具名插槽?
+## 什么是具名插槽?
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/slotchacao.png)
 
 
 
-### extend 能做什么？
+## extend 能做什么？
 
 这个 API 很少用到，作用是**扩展组件生成一个构造器，通常会与 **`**$mount**`** 一起使用**。
 
@@ -1284,7 +1288,7 @@ new SuperComponent().$mount("#app");
 
 
 
-### mixin 的问题
+## mixin 的问题
 
 - 变量来源不明确， 不利于阅读
 - 多 mixin 可能会造成命名冲突
@@ -1292,7 +1296,7 @@ new SuperComponent().$mount("#app");
 
 
 
-### mixin 和 mixins 区别
+## mixin 和 mixins 区别
 
 `mixin` 用于全局混入，会影响到每个组件实例，通常插件都是这样做初始化的。
 
@@ -1313,7 +1317,7 @@ Vue.mixin({
 
 
 
-### v-show 与 v-if 区别
+## v-show 与 v-if 区别
 
 `v-show` 只是在 `display: none` 和 `display: block` 之间切换。无论初始条件是什么都会被渲染出来，后面只需要切换 CSS，DOM 还是一直保留着的。所以总的来说 `v-show` 在初始渲染时有更高的开销，但是切换开销很小，更适合于频繁切换的场景。
 
@@ -1323,7 +1327,7 @@ Vue.mixin({
 
 
 
-### 为何在 v-for 中用 key？
+## 为何在 v-for 中用 key？
 
 使用 `v-for`更新已渲染的元素列表时,默认用就地复用策略。
 
@@ -1335,7 +1339,7 @@ Vue.mixin({
 
 
 
-### 常见事件修饰符有哪些？
+## 常见事件修饰符有哪些？
 
 - `stop`阻止冒泡
 - `prevent`阻止浏览器的默认行为、
@@ -1345,13 +1349,13 @@ Vue.mixin({
 - `passive`事件行为立即触发，而不会等待
   
 
-### 组合键如何使用？
+## 组合键如何使用？
 
 组合键 `click.ctrl.exact` 只有`ctrl`被按下的时候才触发
 
 
 
-### 绑定 class 的数组用法
+## 绑定 class 的数组用法
 
 - 对象方法 `v-bind:class="{'orange': isRipe, 'green': isNotRipe}"`
 - 数组方法 `v-bind:class="[class1, class2]"`
@@ -1359,7 +1363,7 @@ Vue.mixin({
 
 
 
-### computed 与 watch 和 methods 有什么区别?
+## computed 与 watch 和 methods 有什么区别?
 
 - `computed`是计算属性，依赖其他属性来计算值，并且 `computed` 的值有**缓存**，只有当计算值变化才会返回内容。
 - `watch` 监听到值的变化就会执行回调，在回调中可以进行一些逻辑操作。
@@ -1397,7 +1401,7 @@ var vm = new Vue({
 
 
 
-### watch 的深度监听？
+## watch 的深度监听？
 
 首先对于引用类型是没有深度监听的， 也就是说它下面的属性值改变并不会被监听到。 我们如果想做深度监听可以按照以下方式进行：
 
@@ -1441,14 +1445,14 @@ export default {
 
 对于引用类型来说也拿不到原先的属性值。
 
-### $nextTick 有什么用？
+## $nextTick 有什么用？
 
 - 首先 Vue 是异步渲染
 - data 改变之后， DOM 不会立刻渲染
 - 异步渲染时会将 data 的修改做整合， 多次 data 修改只会渲染一次。也就是说 `$nextTick` 只会触发一次
 - `$nextTick` 会在 DOM 渲染之后被触发， 以获取最新 DOM 节点
 
-### nextTick 应用场景
+## nextTick 应用场景
 
 ```javascript
 // DOM 还没有更新
@@ -1467,7 +1471,7 @@ this.$nextTick(function () {
 - created()钩子函数进行的 DOM 操作。因为此时 DOM 并未渲染。
   
 
-### NextTick 原理分析
+## NextTick 原理分析
 
 `nextTick` 可以让我们在下次 DOM 更新循环结束之后执行延迟回调，用于获得更新后的 DOM。
 
@@ -1503,7 +1507,7 @@ if (typeof setImmediate !== "undefined" && isNative(setImmediate)) {
 
 
 
-### Vue 和 React 之间的区别
+## Vue 和 React 之间的区别
 
 Vue 的表单可以使用 `v-model` 支持双向绑定，相比于 React 来说开发上更加方便，当然了 `v-model` 其实就是个语法糖，本质上和 React 写表单的方式没什么区别。
 
@@ -1519,7 +1523,7 @@ React 需要使用 JSX，有一定的上手成本，并且需要一整套的工�
 
 
 
-### SSR 了解吗？
+## SSR 了解吗？
 
 SSR 也就是服务端渲染，也就是将 Vue 在客户端把标签渲染成 HTML 的工作放在服务端完成，然后再把 HTML 直接返回给客户端。
 
@@ -1527,7 +1531,7 @@ SSR 有着更好的 SEO、并且首屏加载速度更快等优点。不过它也
 
 
 
-### vue 常见性能优化方式？
+## vue 常见性能优化方式？
 
 1. 合理使用`v-show`、`v-if`、`computed`、`keep-alive`
 1. `v-for`时加`key`，以及避免和`v-if`同时使用
@@ -1557,9 +1561,8 @@ const Foo = () => import("./Foo.vue");
 
 在入口文件引入后把 `img` 标签里面的 `:src` 属性 改成 `v-lazy
 
-## 实践题
 
-### 实现一个观察者模式
+## 实现一个观察者模式
 
 ```javascript
 // 定义发布者类
@@ -1677,7 +1680,7 @@ hanMeiMei.setState(prd);
 
 
 
-### 实现一个 Event Bus/ Event Emitter
+## 实现一个 Event Bus/ Event Emitter
 
 Event Bus，即全局事件总线，严格来说不能说是观察者模式，而是发布-订阅模式。
 
@@ -1770,7 +1773,7 @@ class EventEmitter {
 
 
 
-### 请实现一个简单的购物车实例
+## 请实现一个简单的购物车实例
 
 ```vue
 <template>
@@ -1884,7 +1887,7 @@ export default {
 
 
 
-### 请实现一个简单的 TodoList？
+## 请实现一个简单的 TodoList？
 
 ```vue
 <template>
@@ -2049,9 +2052,8 @@ export default {
 
 
 
-## Vuex
 
-### 聊一下 Vuex？
+## 聊一下 Vuex？
 
 ![输入图片说明](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/vuex.png)
 
@@ -2059,7 +2061,7 @@ export default {
 
 
 
-### 聊聊 Vuex 的设计思想？
+## 聊聊 Vuex 的设计思想？
 
 Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 里面存放的数据是**响应式**的，Vue 组件从 `store` 读取数据，若是 `store` 中的数据发生改变，依赖项数据的组件也会发生更新。并且只能通过 `commit` 的方式改变状态，实现了**单向数据流模式**。
 
@@ -2082,7 +2084,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 
 
 
-### Vuex 中 action 和 mutation 有何区别？
+## Vuex 中 action 和 mutation 有何区别？
 
 - `action` 中处理异步， `mutation` 不可以
 - `mutation` 做原子操作，每次只操作一个
@@ -2090,7 +2092,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 
 
 
-### 为什么 Vuex 的 mutation 不能做异步操作？
+## 为什么 Vuex 的 mutation 不能做异步操作？
 
 ```javascript
 mutations: {
@@ -2106,7 +2108,7 @@ mutations: {
 
 
 
-### 双向绑定和 Vuex 是否冲突？
+## 双向绑定和 Vuex 是否冲突？
 
 严格模式中，会冲突，抛出一个错误。
 
@@ -2134,15 +2136,14 @@ methods: {
 
 
 
-## vue-router
 
-### vue 怎么做路由拦截？
+## vue 怎么做路由拦截？
 
 利用`vue-router`提供的钩子函数`beforeEach()`对路由进行判断
 
 
 
-### 动态路由定义和获取？
+## 动态路由定义和获取？
 
 在 router 目录下的 index.js 文件中，对 path 属性加上 /:id。 `path: '/bookdetail/:id',`
 
@@ -2150,7 +2151,7 @@ methods: {
 
 
 
-### vue-router 有哪几种导航钩子?
+## vue-router 有哪几种导航钩子?
 
 三种
 
@@ -2172,7 +2173,7 @@ methods: {
 
 
 
-### 请描述一下前端路由原理
+## 请描述一下前端路由原理
 
 前端路由实现起来其实很简单，本质就是**监听 URL 的变化**，然后匹配路由规则，显示相应的页面，并且无须刷新页面。目前前端使用的路由就只有两种实现方式
 
@@ -2181,7 +2182,7 @@ methods: {
 
 
 
-### 路由两种模式有什么区别？
+## 路由两种模式有什么区别？
 
 **Hash 模式**
 

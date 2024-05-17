@@ -1,3 +1,10 @@
+---
+prev: 
+    text: '其它'
+    link: '/面试题库/其它'
+next: false
+
+---
 ### 你能讲一下 diff 算法吗？
 
 diff 算法是 v-dom 中最核心，最关键的部分。
