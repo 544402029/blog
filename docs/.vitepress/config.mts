@@ -57,12 +57,11 @@ export default defineConfig({
           { text: 'JavaScript 设计模式核⼼原理与应⽤实践', link: '/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.md' },
           { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
           { text: 'linux命令', link: '/前端笔记/linux命令.md' },
-          { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
           { text: '图解HTTP', link: '/前端笔记/图解HTTP.md' },
+          { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
+          { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
           { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
           { text: 'Git', link: '/前端笔记/Git.md' },
-          { text: 'Git 原理详解及实用指南', link: '/前端笔记/Git 原理详解及实用指南.md' },
-          { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
         ],
       },
       {
@@ -93,6 +92,15 @@ export default defineConfig({
           }
         ],
       },
+      {
+        text: '珠峰架构',
+        items: [
+          {
+            text: 'Node.js核心',
+            link: '/zhufeng/Node.js核心.md',
+          }
+        ]
+      }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/544402029/blog' }

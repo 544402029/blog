@@ -15,12 +15,12 @@ hero:
       link: /前端笔记/深入理解 ES6.md
 
 features:
-  - title: A Blog
-    details: 专注写作前端博客，记录日常所得。
+  - title: 掘金
+    details: 日常问题解决方案记录
     link: https://juejin.cn/user/2612095358870350
-  - title: Look for me
+  - title: 联系方式
     details: QQ：544402029
-  - title: For Interview
+  - title: 日常记录
     details: 开始学习吧!
     link: /常用代码片段/CSS常用代码片段.md
 ---
