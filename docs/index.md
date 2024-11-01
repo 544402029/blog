@@ -16,7 +16,7 @@ hero:
 
 features:
   - title: 掘金
-    details: 日常问题解决方案记录
+    details: 日常问题、解决方案记录
     link: https://juejin.cn/user/2612095358870350
   - title: 联系方式
     details: QQ：544402029

@@ -99,8 +99,16 @@ export default defineConfig({
         text: '珠峰架构',
         items: [
           {
+            text: 'Vue全家桶',
+            link: '/zhufeng/vue全家桶.md',
+          },
+          {
             text: 'Node.js核心',
             link: '/zhufeng/Node.js核心.md',
+          },
+          {
+            text: '前端工程化',
+            link: '/zhufeng/前端工程化.md',
           }
         ]
       }
