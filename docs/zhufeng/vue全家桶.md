@@ -213,9 +213,79 @@ display:none; 不占位, 无法进行DOM事件监听。
 
 
 
+### 九、vue3组合式API生命周期钩子函数有变化吗？
+
+- beforeCreate  created -> setup
+- beforeMount -> onBeforeMount
+- render
+- Mounted -> onMounted
+- beforeUpdate -> onBeforeUpdate
+- Updated -> onUpdated
+- beforeUnmount -> onBeforeUnmount
+- unmounted -> onUnmounted
+- errorCaptured -> onErrorCaptured 捕获错误
+- activated -> onActivated  Kee-Alive相关的
+- deactivated -> onDeactivated
 
 
 
+### 十、Vue3中如何进行组件通信？
+
+- 父子 `props`来进行通信，通过 `ref` 来获取儿子， 儿子通过 `exposed`暴露方法让父亲调用，`$attrs`可以获取父亲传递的属性、插槽。
+- 子父通过 `props` 来进行通信。`emit` 来触发给子组件绑定的事件 `$parent`, 作用域插槽
+- 跨级 `provide/inject`
+- 兄弟 通过共同的父级来通信，vuex、pinia、自定义发布订阅来实现（不推荐）
+- v-model语法糖 本质就是 `props`+`emit` 
 
 
+
+### 十一、说说你对双向绑定的理解，以及它的实现原理？
+
+> v-model 实现原理 1）组件上 2）表单元素上（v-model是 input  + value 语法糖?）
+
+
+
+- 双向绑定一般针对的就是表单元素，当数据变化后会更新视图，当视图修改的时候会更新数据。MVVM  v-> vm -> model
+- 针对表单元素的 v-model 会根据表单类型解析出对应的事件（text类型会对中文做处理）
+- 针对组件来说就是语法糖。传递属性和事件，可以通过 `v-model:xxx`方式来修改绑定的名字 （缩写）
+
+
+
+### 十二、谈谈pinia？
+
+- vuex 只有一份，基于复杂的树结构，管理困难
+- 模块和根状态名字冲突怎么办？
+- 数据调用的时候过程复杂，数据非扁平化。
+- mutation和action区别，功能繁琐
+- 模块避免共用需要namespaced
+- 不是ts写的，对ts支持也不好
+- vuex基于 optionsAPI, 针对vue3不友好
+
+
+
+### 十三、Vue-Router
+
+- vue-router 两种前端模式 
+  - hash （丑，不会出现404、但是无法seo优化）
+  - history （好看，需要服务端支持来解决404问题，可以seo）
+- 404问题咋解决，后端访问不存在的资源跳转到首页，首页会加载js根据路径渲染对应的组件。
+- 路由守卫的执行过程（组合函数，promise链）
+- 菜单权限 addRoute。访问权限 meta 属性 来做限制 （路由守卫）
+
+
+
+### 十四、Vue中异步组件的作用及原理
+
+defineAsyncComponent 来定义异步组件，内部传递工厂函数，来异步加载组件
+
+- 类似图片懒加载，默认展示异步占位符，后续加载完毕后显示真正的内容（响应式原理）
+- 一般配合工程化工具，实现代码分割。
+
+
+
+### 十五、Keep-Alive的原理
+
+- 缓存组件的虚拟节点（真实DOM） 直接在激活的时候可以复用老节点
+- 缓存算法 LRU 最近最久未使用法。
+- keep-alive 因为走了缓存而数据无法得到更新（beforeRouteUpdate，activated 来更新数据）
 
