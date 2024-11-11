@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e85cda71-89e0-4526-9780-238307925c39" name="更改" comment="调整文档">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vitepress.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.obsidian/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.obsidian/appearance.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.obsidian/core-plugins-migration.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.obsidian/core-plugins.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.obsidian/workspace.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/appearance.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/community-plugins.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/core-plugins-migration.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/core-plugins.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/graph.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/hotkeys.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/page-preview.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-git/data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-git/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-git/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-git/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-image-auto-upload-plugin/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/plugins/obsidian-image-auto-upload-plugin/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/workspace.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.obsidian/workspaces.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/@theme_index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/@theme_index.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/_metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/chunk-RY5ODQAQ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/chunk-RY5ODQAQ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/chunk-ZEI2HCB7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/chunk-ZEI2HCB7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vue_devtools-api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vue_devtools-api.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vueuse_core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vueuse_core.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vueuse_integrations_useFocusTrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___@vueuse_integrations_useFocusTrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___mark__js_src_vanilla__js.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___mark__js_src_vanilla__js.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___minisearch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vitepress___minisearch.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vue.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/cache/deps/vue.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vitepress/config.mts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Node.js/Koa2新浪博客.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Node.js/Node.js+KOA2从0到1打造超好用Web框架一步到位,掌握KOA2服务端开发.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Node.js/Node.js从零开发WebServer博客项目,前端晋升全栈工程师必备.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/vue/vue使用.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/zhufeng/Node.js核心.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/zhufeng/vue全家桶.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/zhufeng/前端工程化.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/Git.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/JavaScript正则迷你书.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/TypeScript.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/linux命令.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/后台通用提效解决方案.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/图解HTTP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/正则表达式.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/深入理解 ES6.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/前端笔记/计算机网络通关29讲.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/小程序/微信小程序.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/常用代码片段/CSS常用代码片段.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/常用代码片段/JS常用代码片段.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/CSS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/HTML.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/JavaScript.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/Node.js.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/Vue.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/Vue3.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/Webpack.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/vue的diff算法.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/其它.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/基础面试题.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/笔试题.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/通信类.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/面试题库/面试真题2022.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hashmap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2gXV0Hk6RF8IWrBQDMtREicCRvq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "gh-pages",
+    "last_opened_file_path": "D:/学习/个人博客/vitepress/.vitepress/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.docs:build.executor": "Run",
+    "npm.docs:dev.executor": "Run",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\学习\个人博客\vitepress\.vitepress\public" />
+      <recent name="D:\学习\个人博客\vitepress" />
+      <recent name="D:\学习\个人博客\vitepress\docs\面试题库" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\学习\个人博客\vitepress\docs" />
+      <recent name="D:\学习\个人博客\vitepress\docs\zhufeng" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.docs:build">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="docs:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="docs:build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="docs:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="docs:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="docs:preview" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="docs:preview" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.docs:build" />
+        <item itemvalue="npm.docs:dev" />
+        <item itemvalue="npm.docs:preview" />
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="e85cda71-89e0-4526-9780-238307925c39" name="更改" comment="" />
+      <created>1715843684489</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715843684489</updated>
+      <workItem from="1715843685584" duration="159000" />
+      <workItem from="1715843852241" duration="1372000" />
+      <workItem from="1715845255668" duration="3802000" />
+      <workItem from="1715849865761" duration="2182000" />
+      <workItem from="1715852727729" duration="1907000" />
+      <workItem from="1715854897907" duration="4752000" />
+      <workItem from="1715912704031" duration="4351000" />
+      <workItem from="1730451124640" duration="909000" />
+      <workItem from="1731308313942" duration="942000" />
+      <workItem from="1731309269971" duration="66000" />
+      <workItem from="1731309344224" duration="776000" />
+    </task>
+    <task id="LOCAL-00001" summary="改用vitePress，初始化">
+      <option name="closed" value="true" />
+      <created>1715845050595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715845050595</updated>
+    </task>
+    <task id="LOCAL-00002" summary="改用vitePress，初始化">
+      <option name="closed" value="true" />
+      <created>1715845269006</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715845269006</updated>
+    </task>
+    <task id="LOCAL-00003" summary="处理报错信息">
+      <option name="closed" value="true" />
+      <created>1715848374457</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715848374457</updated>
+    </task>
+    <task id="LOCAL-00004" summary="调整，删除不需要的文档">
+      <option name="closed" value="true" />
+      <created>1715851208580</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715851208580</updated>
+    </task>
+    <task id="LOCAL-00005" summary="调整，删除不需要的文档">
+      <option name="closed" value="true" />
+      <created>1715854979834</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715854979834</updated>
+    </task>
+    <task id="LOCAL-00006" summary="调整，删除不需要的文档">
+      <option name="closed" value="true" />
+      <created>1715855051381</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715855051381</updated>
+    </task>
+    <task id="LOCAL-00007" summary="调整，删除不需要的文档">
+      <option name="closed" value="true" />
+      <created>1715855064355</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715855064355</updated>
+    </task>
+    <task id="LOCAL-00008" summary="调整文档">
+      <option name="closed" value="true" />
+      <created>1715912713995</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715912713995</updated>
+    </task>
+    <task id="LOCAL-00009" summary="调整面试文档标题，调整上一页下一页">
+      <option name="closed" value="true" />
+      <created>1715914883124</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715914883124</updated>
+    </task>
+    <task id="LOCAL-00010" summary="调整文档">
+      <option name="closed" value="true" />
+      <created>1715915743937</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715915743937</updated>
+    </task>
+    <task id="LOCAL-00011" summary="调整文档">
+      <option name="closed" value="true" />
+      <created>1715916449873</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715916449873</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="改用vitePress，初始化" />
+    <MESSAGE value="处理报错信息" />
+    <MESSAGE value="调整，删除不需要的文档" />
+    <MESSAGE value="调整面试文档标题，调整上一页下一页" />
+    <MESSAGE value="调整文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整文档" />
+  </component>
+</project>
