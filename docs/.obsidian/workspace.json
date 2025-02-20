@@ -6,7 +6,7 @@
       {
         "id": "aa84ac8e11af5d5f",
         "type": "tabs",
-        "dimension": 81.15482233502537,
+        "dimension": 81.15482233502539,
         "children": [
           {
             "id": "227a2a991577d5af",
@@ -14,7 +14,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zhufeng/vue全家桶.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": true
               }
@@ -26,7 +26,7 @@
       {
         "id": "14e3724acd5b9a25",
         "type": "tabs",
-        "dimension": 18.845177664974617,
+        "dimension": 18.84517766497462,
         "children": [
           {
             "id": "b260e275271704f3",
@@ -34,7 +34,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "zhufeng/vue全家桶.md"
+                "file": "index.md"
               }
             },
             "group": "473b73a00cba7b6c"
@@ -105,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "zhufeng/vue全家桶.md",
+                "file": "index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,7 +122,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "zhufeng/vue全家桶.md",
+                "file": "index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -145,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "zhufeng/vue全家桶.md"
+                "file": "index.md"
               }
             }
           },
@@ -179,10 +179,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "227a2a991577d5af",
+  "active": "ccbd2ddf883f8bd4",
   "lastOpenFiles": [
-    "zhufeng/前端工程化.md",
     "zhufeng/vue全家桶.md",
+    "zhufeng/前端工程化.md",
     "zhufeng/Node.js核心.md",
     "2024-09-03.md",
     "202409031723.md",
