@@ -7,17 +7,17 @@ hero:
   text: "记录日常所得"
   tagline: "但行好事，莫问前程"
   actions:
-    - theme: brand
+    - theme: alt
       text: 前端面试
       link: /面试题库/面试真题2022.md
-    - theme: alt
-      text: 前端笔记
-      link: /前端笔记/深入理解 ES6.md
+    - theme: brand
+      text: 掘金
+      link: https://juejin.cn/user/2612095358870350
 
 features:
-  - title: 掘金
-    details: 日常问题、解决方案记录
-    link: https://juejin.cn/user/2612095358870350
+  - title: 前端笔记
+    details: 日常学习所得
+    link: /前端笔记/Electron+Vue3+AI+云存储--实战跨平台桌面应用.md
   - title: 联系方式
     details: QQ：544402029
   - title: 日常记录

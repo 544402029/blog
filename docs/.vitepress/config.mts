@@ -30,6 +30,10 @@ export default defineConfig({
       {
         text: '面试题库',
         items: [
+          {
+            text: 'Vue全家桶',
+            link: '/面试题库/vue全家桶.md',
+          },
           { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
           { text: '通信类', link: '/面试题库/通信类.md' },
           { text: 'HTML', link: '/面试题库/HTML.md' },
@@ -54,6 +58,9 @@ export default defineConfig({
       {
         text: '前端笔记',
         items: [
+          { text: 'Vue使用', link: '/前端笔记/vue使用.md' },
+          { text: 'Git', link: '/前端笔记/Git.md' },
+          { text: '微信小程序',link: '/前端笔记/微信小程序.md'  },
           { text: '深入理解ES6', link: '/前端笔记/深入理解 ES6.md' },
           { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
           { text: 'JavaScript正则迷你书', link: '/前端笔记/JavaScript正则迷你书.md' },
@@ -64,44 +71,41 @@ export default defineConfig({
           { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
           { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
           { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
-          { text: 'Git', link: '/前端笔记/Git.md' },
-        ],
-      },
-      {
-        text: 'Vue',
-        items: [
-          { text: 'Vue使用', link: '/vue/vue使用.md' },
-        ],
-      },
-      { text: '小程序', items: [{ text: '微信小程序', link: '/小程序/微信小程序.md' }] },
-      {
-        text: 'Node.js',
-        items: [
           {
             text: 'Node.js从零开发Web Server博客项目',
-            link: '/Node.js/Node.js从零开发WebServer博客项目,前端晋升全栈工程师必备.md',
+            link: '/前端笔记/Node.js从零开发WebServer博客项目,前端晋升全栈工程师必备.md',
           },
           {
             text: 'Node.js+KOA2 从0到1打造超好用Web框架一步到位',
-            link: '/Node.js/Node.js+KOA2从0到1打造超好用Web框架一步到位,掌握KOA2服务端开发.md',
+            link: '/前端笔记/Node.js+KOA2从0到1打造超好用Web框架一步到位,掌握KOA2服务端开发.md',
           },
           {
             text: 'Vue全家桶+SSR+Koa2全栈开发美团网',
-            link: '/Node.js/Vue全家桶+SSR+Koa2全栈开发美团网.md',
+            link: '/前端笔记/Vue全家桶+SSR+Koa2全栈开发美团网.md',
           },
           {
             text: 'Koa2新浪博客',
-            link: '/Node.js/Koa2新浪博客.md',
+            link: '/前端笔记/Koa2新浪博客.md',
+          },
+          {
+            text: 'Electron+Vue3+AI+云存储--实战跨平台桌面应用',
+            link: '/前端笔记/Electron+Vue3+AI+云存储--实战跨平台桌面应用.md',
           }
+        ],
+      },
+      {
+        text: 'Vue源码',
+        items: [
+          { text: 'Vue源码day1', link: '/vue源码/vue源码day1.md' },
+          { text: 'Vue源码day2', link: '/vue源码/vue源码day2.md' },
+          { text: 'Vue源码day3', link: '/vue源码/vue源码day3.md' },
+          { text: 'Vue源码day4', link: '/vue源码/vue源码day4.md' },
+          { text: 'Vue源码day5', link: '/vue源码/vue源码day5.md' },
         ],
       },
       {
         text: '珠峰架构',
         items: [
-          {
-            text: 'Vue全家桶',
-            link: '/zhufeng/vue全家桶.md',
-          },
           {
             text: 'Node.js核心',
             link: '/zhufeng/Node.js核心.md',

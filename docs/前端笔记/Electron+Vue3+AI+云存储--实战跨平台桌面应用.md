@@ -31,7 +31,7 @@
 
 
 
-![](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20250218113656155.png)![image-20250218140554150](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20250218140554150.png)
+![image-20250218140554150](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/image-20250224095745335.png)
 
 1. **进程间通信**：Electron应用中有两种类型的进程 - 主进程和渲染进程。它们通过IPC（进程间通信）进行交流。主进程使用`ipcMain`模块来定义通信通道，而渲染进程则利用`ipcRenderer`来调用这些通道。
 
