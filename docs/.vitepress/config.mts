@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "沧海的雨季",
+  title: "似若秋叶",
   description: "专注写作前端博客，记录日常所得。",
   base: '/blog/',
   lang: 'zh-CN',

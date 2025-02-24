@@ -12,7 +12,7 @@ hero:
       link: /面试题库/面试真题2022.md
     - theme: brand
       text: 掘金
-      link: https://juejin.cn/user/2612095358870350
+      link: https://juejin.cn/user/2612095358870350/posts?sort=popular
 
 features:
   - title: 前端笔记
