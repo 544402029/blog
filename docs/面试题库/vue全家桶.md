@@ -16,7 +16,6 @@
 - hash（#）
 - history（h5）
 - memory （内存型，不会修改url地址，服务端用的多）
-- 
 
 **hash**
 
