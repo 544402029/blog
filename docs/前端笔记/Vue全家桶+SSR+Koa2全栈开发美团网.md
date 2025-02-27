@@ -437,7 +437,7 @@ npx create-nuxt-app mt-app
 
 
 使用babel
-```{2,4}
+```js
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server --exec babel-node",
     "build": "nuxt build",

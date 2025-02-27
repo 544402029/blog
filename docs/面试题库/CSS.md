@@ -28,7 +28,7 @@ rem 适用于字体，这样就可以通过改变根元素的字体大小来改�
 
 ### px， em， rem 的区别？
 
-- px 是相对长度单位。像素 px 是相对于显示器屏幕分辨率而言的。
+- px 是绝对长度单位。像素 px 是根据显示器屏幕分辨率显示的。
 - em 是相对长度单位。相对于当前对象内文本的字体尺寸;（参考物是父元素的 font-size）。如当前父元素的字体尺寸未设置，则相对于浏览器的默认字体尺寸
 - rem 是相对于 HTML 根元素的字体大小（font-size）来计算的长度单位。
 
@@ -126,6 +126,70 @@ flex：弹性布局。
 
 
 
+## CSS 盒模型
+
+
+
+### 介绍一下标准的 CSS 的盒子模型？低版本 IE 的盒子模型有什么不同的？
+
+- 标准模型`width`不计算`padding`和`border`
+- IE 模型`width`计算`padding`和`border`。
+
+`box-sizing` : `content-box`(标准模型-默认)/`border-box`(IE 模型)
+
+
+
+### js 中如何获取盒模型宽高?
+
+1.  `dom.style.width`（只能取内联宽高)
+1.  `dom.currentStyle.width` (浏览器渲染之后的取值，只有 IE 支持)
+1.  `window.getComputedStyle(dom).width` (浏览器渲染之后的取值，兼容性更好)
+1.  `dom.getBoundingClientRect().width/height/left/top` (常用于计算位置)
+
+
+
+## BFC
+
+
+
+### 什么是 BFC?(概念)
+
+块级格式化上下文
+
+
+
+### 对 BFC 规范的理解？
+
+它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用
+
+
+
+### BFC 的原理？
+
+1.  同一 BFC 内块级元素之间的垂直方向边距会发生重叠。
+1.  浮动元素区域不会与 BFC 重叠
+1.  BFC 在页面上是一个独立的容器，外面的元素不会影响里面的元素，里面的元素也不会影响外面的元素
+1.  计算 BFC 高度时，浮动元素也会参与计算
+
+
+
+### 如何创建 BFC？
+
+- `<html>` 根元素。
+- `float` 的值不为 `none` 。
+- `overflow`为 `auto`、` scroll`、`hidden`
+- `position` 为 `absolute` 或 `fixed`
+- `display` 为 `inline-block`、`table-cell`、`table-caption` 、`flex`、`inline-flex`中的任何一个
+
+
+
+### BFC 使用场景?
+
+1.  解决垂直方向的边距重叠
+1.  清除浮动
+
+
+
 ## 浮动
 
 
@@ -182,70 +246,6 @@ flex：弹性布局。
   *zoom: 1;
 }
 ```
-
-
-
-## CSS 盒模型
-
-
-
-### 介绍一下标准的 CSS 的盒子模型？低版本 IE 的盒子模型有什么不同的？
-
-- 标准模型`width`不计算`padding`和`border`
-- IE 模型`width`计算`padding`和`border`。
-
-`box-sizing` : `content-box`(标准模型-默认)/`border-box`(IE 模型)
-
-
-
-### js 中如何获取盒模型宽高?
-
-1.  `dom.style.width`（只能取内联宽高)
-1.  `dom.currentStyle.width` (浏览器渲染之后的取值，只有 IE 支持)
-1.  `window.getComputedStyle(dom).width` (浏览器渲染之后的取值，兼容性更好)
-1.  `dom.getBoundingClientRect().width/height/left/top` (常用于计算位置)
-
-
-
-## BFC
-
-
-
-### 什么是 BFC?(概念)
-
-块级格式化上下文
-
-
-
-### 对 BFC 规范的理解？
-
-它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用
-
-
-
-### BFC 的原理？
-
-1.  同一 BFC 内块级元素之间的垂直方向边距会发生重叠。
-1.  浮动元素区域不会与 BFC 重叠
-1.  BFC 在页面上是一个独立的容器，外面的元素不会影响里面的元素，里面的元素也不会影响外面的元素
-1.  计算 BFC 高度时，浮动元素也会参与计算
-
-
-
-### 如何创建 BFC？
-
-- `<html>` 根元素。
-- `float` 的值不为 `none` 。
-- `overflow` 值不为 `visible` 的块元素。
-- 绝对定位元素（元素的 `position` 为 `absolute` 或 `fixed`）
-- `display` 的值为 `table-cell`、 `table-caption` 和 `inline-block` 中的任何一个。
-
-
-
-### BFC 使用场景?
-
-1.  解决垂直方向的边距重叠
-1.  清除浮动
 
 
 

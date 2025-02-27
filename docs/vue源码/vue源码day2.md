@@ -118,7 +118,8 @@ export let ReactiveFlags;
 })(ReactiveFlags || (ReactiveFlags = {}));
 ```
 
-```reactive.js
+```js
+// reactive.js
 // 已经是代理对象直接返回代理对象
 if (target[ReactiveFlags.IS_REACTIVE]) {
     return target;

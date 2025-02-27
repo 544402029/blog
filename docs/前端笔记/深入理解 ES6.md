@@ -1962,7 +1962,7 @@ console.log(typeof PersonClass); //function
 console.log(typeof PersonClass.prototype.sayName); //function
 ```
 
-:::tip
+:::
 相对于函数声明与函数表达式之间的区别， 类声明与类表达式都不会被提升。对代码运行影响甚微。
 :::
 
@@ -2113,7 +2113,7 @@ class square extends Rectange {
 
 此例中的第二个类展示了与所有派生类默认构造器等价的写法， 所有的参数都按顺序传递给了基类的构造器。 在当前需求下， 这种做法并不完全准确，因为`square`构造器只需要单个参数， 因此最好手动定义构造器。
 
-:::tip
+:::
 使用`super()`时要牢记以下几点：
 
 1. 你只能在派生类中使用`super()`。若尝试在非派生的类（即：没有使用`extends`关键字的类）或函数中使用它，会抛出错误。
@@ -2184,7 +2184,7 @@ console.log(y instanceof Shape); //true
 
 此例中的`shape`类构造器会在`new.target`为`shape`的时候抛出错误， 意味着`new Shape()`永远会抛出错误。 然而， 你依然可以将`shape`用作一个基类， 正如`Rectangle`所做的那样。 `super()`的调用执行了`shape`构造器， 而且`new target`的值等于`Rectangle`， 因此该构造器能够无错误的继续执行。
 
-:::tip
+:::
 由于调用类是不能缺少`new`， 于是`new target`属性在类构造器内部据不会是`undefined`。
 :::
 
