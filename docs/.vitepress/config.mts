@@ -31,6 +31,10 @@ export default defineConfig({
         text: '面试题库',
         items: [
           {
+            text: '珠峰面试题合集',
+            link: '/面试题库/珠峰面试题合集.md',
+          },
+          {
             text: 'Vue全家桶',
             link: '/面试题库/vue全家桶.md',
           },
