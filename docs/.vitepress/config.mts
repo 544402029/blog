@@ -94,6 +94,10 @@ export default defineConfig({
           {
             text: 'Electron+Vue3+AI+云存储--实战跨平台桌面应用',
             link: '/前端笔记/Electron+Vue3+AI+云存储--实战跨平台桌面应用.md',
+          },
+          {
+            text: 'Vue.js设计与实现',
+            link: '/前端笔记/Vue.js设计与实现.md',
           }
         ],
       },
