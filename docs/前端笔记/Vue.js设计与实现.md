@@ -1672,7 +1672,7 @@ Vue.js 的模板会被一个叫作编译器的程序编译为渲染函数。
 
 　　如以上代码及注释所示，在上一步的更新操作完成之后，我们还需要遍历旧的一组子节点，目的是检查旧子节点在新的一组子节点中是否仍然存在，如果已经不存在了，则调用 `unmount` 函数将其卸载。
 
-## 9.7　总结
+### 9.7　总结
 
 　　在本章中，我们首先讨论了 Diff 算法的作用。Diff 算法用来计算两组子节点的差异，并试图最大程度地复用 DOM 元素。在上一章中，我们采用了一种简单的方式来更新子节点，即卸载所有旧子节点，再挂载所有新子节点。然而这种更新方式无法对 DOM 元素进行复用，需要大量的 DOM 操作才能完成更新，非常消耗性能。于是，我们对它进行了改进。改进后的方案是，遍历新旧两组子节点中数量较少的那一组，并逐个调用 `patch` 函数进行打补丁，然后比较新旧两组子节点的数量，如果新的一组子节点数量更多，说明有新子节点需要挂载；否则说明在旧的一组子节点中，有节点需要卸载。
 
@@ -1681,3 +1681,1514 @@ Vue.js 的模板会被一个叫作编译器的程序编译为渲染函数。
 　　接着，我们讨论了简单 Diff 算法是如何寻找需要移动的节点的。简单 Diff 算法的核心逻辑是，拿新的一组子节点中的节点去旧的一组子节点中寻找可复用的节点。如果找到了，则记录该节点的位置索引。我们把这个位置索引称为最大索引。在整个更新过程中，如果一个节点的索引值小于最大索引，则说明该节点对应的真实 DOM 元素需要移动。
 
 　　最后，我们通过几个例子讲解了渲染器是如何移动、添加、删除虚拟节点所对应的 DOM 元素的。
+
+
+
+## 第 10 章　双端 Diff 算法
+
+### 10.1　双端比较的原理
+
+　　简单 Diff 算法的问题在于，它对 DOM 的移动操作并不是最优的。我们拿上一章的例子来看，如图 10-1 所示。
+
+![图 10-1](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/064.jpg)
+
+**图 10-1　新旧两组子节点及索引**
+
+　　在这个例子中，如果使用简单 Diff 算法来更新它，则会发生两次 DOM 移动操作，如图 10-2 所示。
+
+![图 10-2](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/065.jpg)
+
+**图 10-2　两次 DOM 移动操作完成更新**
+
+　　第一次 DOM 移动操作会将真实 DOM 节点 `p-1` 移动到真实 DOM 节点 `p-3` 后面。第二次移动操作会将真实 DOM 节点 `p-2` 移动到真实 DOM 节点 `p-1` 后面。最终，真实 DOM 节点的顺序与新的一组子节点顺序一致：`p-3`、`p-1`、`p-2`。
+
+　　然而，上述更新过程并非最优解。在这个例子中，其实只需要通过一步 DOM 节点的移动操作即可完成更新，即只需要把真实 DOM 节点 `p-3` 移动到真实 DOM 节点 `p-1` 前面，如图 10-3 所示。
+
+![图 10-3 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/066.jpg)
+
+**图 10-3　把真实 DOM 节点 `p-3` 移动到真实 DOM 节点 `p-1` 前面**
+
+　　可以看到，理论上只需要一次 DOM 移动操作即可完成更新。但简单 Diff 算法做不到这一点，不过本章我们要介绍的双端 Diff 算法可以做到。接下来，我们就来讨论双端 Diff 算法的原理。
+
+　　顾名思义，双端 Diff 算法是一种同时对新旧两组子节点的两个端点进行比较的算法。因此，我们需要四个索引值，分别指向新旧两组子节点的端点，如图 10-4 所示。
+
+![图 10-4](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/067.jpg)
+
+**图 10-4　四个索引值，分别指向新旧两组子节点的端点**
+
+　　用代码来表达四个端点，如下面 `patchChildren` 和 `patchKeyedChildren` 函数的代码所示：
+
+```
+01 function patchChildren(n1, n2, container) {
+02   if (typeof n2.children === 'string') {
+03     // 省略部分代码
+04   } else if (Array.isArray(n2.children)) {
+05     // 封装 patchKeyedChildren 函数处理两组子节点
+06     patchKeyedChildren(n1, n2, container)
+07   } else {
+08     // 省略部分代码
+09   }
+10 }
+11
+12 function patchKeyedChildren(n1, n2, container) {
+13   const oldChildren = n1.children
+14   const newChildren = n2.children
+15   // 四个索引值
+16   let oldStartIdx = 0
+17   let oldEndIdx = oldChildren.length - 1
+18   let newStartIdx = 0
+19   let newEndIdx = newChildren.length - 1
+20 }
+```
+
+　　在上面这段代码中，我们将两组子节点的打补丁工作封装到了 `patchKeyedChildren` 函数中。在该函数内，首先获取新旧两组子节点 `oldChildren` 和 `newChildren`，接着创建四个索引值，分别指向新旧两组子节点的头和尾，即 `oldStartIdx`、`oldEndIdx`、`newStartIdx` 和 `newEndIdx`。有了索引后，就可以找到它所指向的虚拟节点了，如下面的代码所示：
+
+```
+01 function patchKeyedChildren(n1, n2, container) {
+02   const oldChildren = n1.children
+03   const newChildren = n2.children
+04   // 四个索引值
+05   let oldStartIdx = 0
+06   let oldEndIdx = oldChildren.length - 1
+07   let newStartIdx = 0
+08   let newEndIdx = newChildren.length - 1
+09   // 四个索引指向的 vnode 节点
+10   let oldStartVNode = oldChildren[oldStartIdx]
+11   let oldEndVNode = oldChildren[oldEndIdx]
+12   let newStartVNode = newChildren[newStartIdx]
+13   let newEndVNode = newChildren[newEndIdx]
+14 }
+```
+
+其中，`oldStartVNode` 和 `oldEndVNode` 是旧的一组子节点中的第一个节点和最后一个节点，`newStartVNode` 和 `newEndVNode` 则是新的一组子节点的第一个节点和最后一个节点。有了这些信息之后，我们就可以开始进行双端比较了。怎么比较呢？如图 10-5 所示。
+
+![图 10-5 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/068.jpg)
+
+**图 10-5　双端比较的方式**
+
+　　在双端比较中，每一轮比较都分为四个步骤，如图 10-5 中的连线所示。
+
+- 第一步：比较旧的一组子节点中的第一个子节点 `p-1` 与新的一组子节点中的第一个子节点 `p-4`，看看它们是否相同。由于两者的 `key` 值不同，因此不相同，不可复用，于是什么都不做。
+- 第二步：比较旧的一组子节点中的最后一个子节点 `p-4` 与新的一组子节点中的最后一个子节点 `p-3`，看看它们是否相同。由于两者的 `key` 值不同，因此不相同，不可复用，于是什么都不做。
+- 第三步：比较旧的一组子节点中的第一个子节点 `p-1` 与新的一组子节点中的最后一个子节点 `p-3`，看看它们是否相同。由于两者的 `key` 值不同，因此不相同，不可复用，于是什么都不做。
+- 第四步：比较旧的一组子节点中的最后一个子节点 `p-4` 与新的一组子节点中的第一个子节点 `p-4`。由于它们的 `key` 值相同，因此可以进行 DOM 复用。
+
+　　可以看到，我们在第四步时找到了相同的节点，这说明它们对应的真实 DOM 节点可以复用。对于可复用的 DOM 节点，我们只需要通过 DOM 移动操作完成更新即可。那么应该如何移动 DOM 元素呢？为了搞清楚这个问题，我们需要分析第四步比较过程中的细节。我们注意到，第四步是比较旧的一组子节点的最后一个子节点与新的一组子节点的第一个子节点，发现两者相同。这说明：**节点** `p-4` **原本是最后一个子节点，但在新的顺序中，它变成了第一个子节点**。换句话说，节点 `p-4` 在更新之后应该是第一个子节点。对应到程序的逻辑，可以将其翻译为：**将索引** `oldEndIdx` **指向的虚拟节点所对应的真实 DOM 移动到索引** `oldStartIdx` **指向的虚拟节点所对应的真实 DOM 前面**。如下面的代码所示：
+
+```
+01 function patchKeyedChildren(n1, n2, container) {
+02   const oldChildren = n1.children
+03   const newChildren = n2.children
+04   // 四个索引值
+05   let oldStartIdx = 0
+06   let oldEndIdx = oldChildren.length - 1
+07   let newStartIdx = 0
+08   let newEndIdx = newChildren.length - 1
+09   // 四个索引指向的 vnode 节点
+10   let oldStartVNode = oldChildren[oldStartIdx]
+11   let oldEndVNode = oldChildren[oldEndIdx]
+12   let newStartVNode = newChildren[newStartIdx]
+13   let newEndVNode = newChildren[newEndIdx]
+14
+15   if (oldStartVNode.key === newStartVNode.key) {
+16     // 第一步：oldStartVNode 和 newStartVNode 比较
+17   } else if (oldEndVNode.key === newEndVNode.key) {
+18     // 第二步：oldEndVNode 和 newEndVNode 比较
+19   } else if (oldStartVNode.key === newEndVNode.key) {
+20     // 第三步：oldStartVNode 和 newEndVNode 比较
+21   } else if (oldEndVNode.key === newStartVNode.key) {
+22     // 第四步：oldEndVNode 和 newStartVNode 比较
+23     // 仍然需要调用 patch 函数进行打补丁
+24     patch(oldEndVNode, newStartVNode, container)
+25     // 移动 DOM 操作
+26     // oldEndVNode.el 移动到 oldStartVNode.el 前面
+27     insert(oldEndVNode.el, container, oldStartVNode.el)
+28
+29     // 移动 DOM 完成后，更新索引值，并指向下一个位置
+30     oldEndVNode = oldChildren[--oldEndIdx]
+31     newStartVNode = newChildren[++newStartIdx]
+32   }
+33 }
+```
+
+　　在这段代码中，我们增加了一系列的 `if...else if...` 语句，用来实现四个索引指向的虚拟节点之间的比较。拿上例来说，在第四步中，我们找到了具有相同 `key` 值的节点。这说明，原来处于尾部的节点在新的顺序中应该处于头部。于是，我们只需要以头部元素 `oldStartVNode.el` 作为锚点，将尾部元素 `oldEndVNode.el` 移动到锚点前面即可。但需要注意的是，在进行 DOM 的移动操作之前，仍然需要调用 `patch` 函数在新旧虚拟节点之间打补丁。
+
+　　在这一步 DOM 的移动操作完成后，接下来是比较关键的步骤，即更新索引值。由于第四步中涉及的两个索引分别是 `oldEndIdx` 和 `newStartIdx`，所以我们需要更新两者的值，让它们各自朝正确的方向前进一步，并指向下一个节点。图 10-6 给出了更新前新旧两组子节点以及真实 DOM 节点的状态。
+
+![图 10-6](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/069.jpg)
+
+**图 10-6　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　图 10-7 给出了在第四步的比较中，第一步 DOM 移动操作完成后，新旧两组子节点以及真实 DOM 节点的状态。
+
+![图 10-7](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/070.jpg)
+
+**图 10-7　新旧两组子节点以及真实 DOM 节点的状态**
+
+
+
+　此时，真实 DOM 节点顺序为 `p-4`、`p-1`、`p-2`、`p-3`，这与新的一组子节点顺序不一致。这是因为 Diff 算法还没有结束，还需要进行下一轮更新。因此，我们需要将更新逻辑封装到一个 `while` 循环中，如下面的代码所示：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   if (oldStartVNode.key === newStartVNode.key) {
+03     // 步骤一：oldStartVNode 和 newStartVNode 比较
+04   } else if (oldEndVNode.key === newEndVNode.key) {
+05     // 步骤二：oldEndVNode 和 newEndVNode 比较
+06   } else if (oldStartVNode.key === newEndVNode.key) {
+07     // 步骤三：oldStartVNode 和 newEndVNode 比较
+08   } else if (oldEndVNode.key === newStartVNode.key) {
+09     // 步骤四：oldEndVNode 和 newStartVNode 比较
+10     // 仍然需要调用 patch 函数进行打补丁
+11     patch(oldEndVNode, newStartVNode, container)
+12     // 移动 DOM 操作
+13     // oldEndVNode.el 移动到 oldStartVNode.el 前面
+14     insert(oldEndVNode.el, container, oldStartVNode.el)
+15
+16     // 移动 DOM 完成后，更新索引值，指向下一个位置
+17     oldEndVNode = oldChildren[--oldEndIdx]
+18     newStartVNode = newChildren[++newStartIdx]
+19   }
+20 }
+```
+
+　　由于在每一轮更新完成之后，紧接着都会更新四个索引中与当前更新轮次相关联的索引，所以整个 `while` 循环执行的条件是：头部索引值要小于等于尾部索引值。
+
+　　在第一轮更新结束后循环条件仍然成立，因此需要进行下一轮的比较，如图 10-7 所示。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-2`，看看它们是否相同。由于两者的 `key` 值不同，不可复用，所以什么都不做。
+
+  这里，我们使用了新的名词：**头部节点**。它指的是头部索引 `oldStartIdx` 和 `newStartIdx` 所指向的节点。
+
+- 第二步：比较旧的一组子节点中的尾部节点 `p-3` 与新的一组子节点中的尾部节点 `p-3`，两者的 `key` 值相同，可以复用。另外，由于两者都处于尾部，因此不需要对真实 DOM 进行移动操作，只需要打补丁即可，如下面的代码所示：
+
+  ```
+  01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+  02   if (oldStartVNode.key === newStartVNode.key) {
+  03     // 步骤一：oldStartVNode 和 newStartVNode 比较
+  04   } else if (oldEndVNode.key === newEndVNode.key) {
+  05     // 步骤二：oldEndVNode 和 newEndVNode 比较
+  06     // 节点在新的顺序中仍然处于尾部，不需要移动，但仍需打补丁
+  07     patch(oldEndVNode, newEndVNode, container)
+  08     // 更新索引和头尾部节点变量
+  09     oldEndVNode = oldChildren[--oldEndIdx]
+  10     newEndVNode = newChildren[--newEndIdx]
+  11   } else if (oldStartVNode.key === newEndVNode.key) {
+  12     // 步骤三：oldStartVNode 和 newEndVNode 比较
+  13   } else if (oldEndVNode.key === newStartVNode.key) {
+  14     // 步骤四：oldEndVNode 和 newStartVNode 比较
+  15     patch(oldEndVNode, newStartVNode, container)
+  16     insert(oldEndVNode.el, container, oldStartVNode.el)
+  17     oldEndVNode = oldChildren[--oldEndIdx]
+  18     newStartVNode = newChildren[++newStartIdx]
+  19   }
+  20 }
+  ```
+
+　　在这一轮更新完成之后，新旧两组子节点与真实 DOM 节点的状态如图 10-8 所示。
+
+![图 10-8](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/071.jpg)
+
+**图 10-8　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　真实 DOM 的顺序相比上一轮没有变化，因为在这一轮的比较中没有对 DOM 节点进行移动，只是对 `p-3` 节点打补丁。接下来，我们再根据图 10-8 所示的状态执行下一轮的比较。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-2`，看看它们是否相同。由于两者的 `key` 值不同，不可复用，因此什么都不做。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-2` 与新的一组子节点中的尾部节点 `p-1`，看看它们是否相同，由于两者的 `key` 值不同，不可复用，因此什么都不做。
+- 第三步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的尾部节点 `p-1`。两者的 `key` 值相同，可以复用。
+
+　　在第三步的比较中，我们找到了相同的节点，这说明：**节点** `p-1` **原本是头部节点，但在新的顺序中，它变成了尾部节点**。因此，我们需要将节点 `p-1` 对应的真实 DOM 移动到旧的一组子节点的尾部节点 `p-2` 所对应的真实 DOM 后面，同时还需要更新相应的索引到下一个位置，如图 10-9 所示。
+
+![图 10-9](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/072.jpg)
+
+**图 10-9　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　这一步的代码实现如下：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   if (oldStartVNode.key === newStartVNode.key) {
+03   } else if (oldEndVNode.key === newEndVNode.key) {
+04     patch(oldEndVNode, newEndVNode, container)
+05     oldEndVNode = oldChildren[--oldEndIdx]
+06     newEndVNode = newChildren[--newEndIdx]
+07   } else if (oldStartVNode.key === newEndVNode.key) {
+08     // 调用 patch 函数在 oldStartVNode 和 newEndVNode 之间打补丁
+09     patch(oldStartVNode, newEndVNode, container)
+10     // 将旧的一组子节点的头部节点对应的真实 DOM 节点 oldStartVNode.el 移动到
+11     // 旧的一组子节点的尾部节点对应的真实 DOM 节点后面
+12     insert(oldStartVNode.el, container, oldEndVNode.el.nextSibling)
+13     // 更新相关索引到下一个位置
+14     oldStartVNode = oldChildren[++oldStartIdx]
+15     newEndVNode = newChildren[--newEndIdx]
+16   } else if (oldEndVNode.key === newStartVNode.key) {
+17     patch(oldEndVNode, newStartVNode, container)
+18     insert(oldEndVNode.el, container, oldStartVNode.el)
+19
+20     oldEndVNode = oldChildren[--oldEndIdx]
+21     newStartVNode = newChildren[++newStartIdx]
+22   }
+23 }
+```
+
+　　如上面的代码所示，如果旧的一组子节点的头部节点与新的一组子节点的尾部节点匹配，则说明该旧节点所对应的真实 DOM 节点需要移动到尾部。因此，我们需要获取当前尾部节点的下一个兄弟节点作为锚点，即 `oldEndVNode.el.nextSibling`。最后，更新相关索引到下一个位置。
+
+　　通过图 10-9 可知，此时，新旧两组子节点的头部索引和尾部索引发生重合，但仍然满足循环的条件，所以还会进行下一轮的更新。而在接下来的这一轮的更新中，更新步骤也发生了重合。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-2` 与新的一组子节点中的头部节点 `p-2`。发现两者 `key` 值相同，可以复用。但两者在新旧两组子节点中都是头部节点，因此不需要移动，只需要调用 `patch` 函数进行打补丁即可。
+
+　　代码实现如下：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   if (oldStartVNode.key === newStartVNode.key) {
+03     // 调用 patch 函数在 oldStartVNode 与 newStartVNode 之间打补丁
+04     patch(oldStartVNode, newStartVNode, container)
+05     // 更新相关索引，指向下一个位置
+06     oldStartVNode = oldChildren[++oldStartIdx]
+07     newStartVNode = newChildren[++newStartIdx]
+08   } else if (oldEndVNode.key === newEndVNode.key) {
+09     patch(oldEndVNode, newEndVNode, container)
+10     oldEndVNode = oldChildren[--oldEndIdx]
+11     newEndVNode = newChildren[--newEndIdx]
+12   } else if (oldStartVNode.key === newEndVNode.key) {
+13     patch(oldStartVNode, newEndVNode, container)
+14     insert(oldStartVNode.el, container, oldEndVNode.el.nextSibling)
+15
+16     oldStartVNode = oldChildren[++oldStartIdx]
+17     newEndVNode = newChildren[--newEndIdx]
+18   } else if (oldEndVNode.key === newStartVNode.key) {
+19     patch(oldEndVNode, newStartVNode, container)
+20     insert(oldEndVNode.el, container, oldStartVNode.el)
+21
+22     oldEndVNode = oldChildren[--oldEndIdx]
+23     newStartVNode = newChildren[++newStartIdx]
+24   }
+25 }
+```
+
+　　在这一轮更新之后，新旧两组子节点与真实 DOM 节点的状态如图 10-10 所示。
+
+![图 10-10 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/073.jpg)
+
+**图 10-10　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　此时，真实 DOM 节点的顺序与新的一组子节点的顺序相同了：`p-4`、`p-2`、`p-1`、`p-3`。另外，在这一轮更新完成之后，索引 `newStartIdx` 和索引 `oldStartIdx` 的值都小于 `newEndIdx` 和 `oldEndIdx`，所以循环终止，双端 Diff 算法执行完毕。
+
+
+
+### 10.2　双端比较的优势
+
+　　理解了双端比较的原理之后，我们来看看与简单 Diff 算法相比，双端 Diff 算法具有怎样的优势。我们拿第 9 章的例子来看，如图 10-11 所示。
+
+![图 10-11](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/074.jpg)
+
+**图 10-11　新旧两组子节点**
+
+　　图 10-11 给出了新旧两组子节点的节点顺序。当使用简单 Diff 算法对此例进行更新时，会发生两次 DOM 移动操作，如图 10-12 所示。
+
+![图 10-12](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/075.jpg)
+
+**图 10-12　两次 DOM 移动**
+
+　　如果使用双端 Diff 算法对此例进行更新，会有怎样的表现呢？接下来，我们就以双端比较的思路来完成此例的更新，看一看双端 Diff 算法能否减少 DOM 移动操作次数。
+
+　　图 10-13 给出了算法执行之前新旧两组子节点与真实 DOM 节点的状态。
+
+![图 10-13](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/076.jpg)
+
+**图 10-13　新旧两组子节点与真实 DOM 节点的状态**
+
+　　接下来，我们按照双端比较的步骤执行更新。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-3`，两者 `key` 值不同，不可复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-3` 与新的一组子节点中的尾部节点 `p-2`，两者 `key` 值不同，不可复用。
+- 第三步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的尾部节点 `p-2`，两者 `key` 值不同，不可复用。
+- 第四步：比较旧的一组子节点中的尾部节点 `p-3` 与新的一组子节点中的头部节点 `p-3`，发现可以进行复用。
+
+　　可以看到，在第四步的比较中，我们找到了可复用的节点 `p-3`。该节点原本处于所有子节点的尾部，但在新的一组子节点中它处于头部。因此，只需要让节点 `p-3` 对应的真实 DOM 变成新的头部节点即可。在这一步移动操作之后，新旧两组子节点以及真实 DOM 节点的状态如图 10-14 所示。
+
+![图 10-14](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/077.jpg)
+
+**图 10-14　新旧两组子节点与真实 DOM 节点的状态**
+
+　　观察图 10-14 能够发现，在这一轮比较过后，真实 DOM 节点的顺序已经与新的一组子节点的顺序一致了。换句话说，我们完成了更新，不过算法仍然会继续执行。开始下一轮的比较。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-1`，两者的 `key` 值相同，可以复用。但由于两者都处于头部，因此不需要移动，只需要打补丁即可。
+
+　　在这一轮比较过后，新旧两组子节点与真实 DOM 节点的状态如图 10-15 所示。
+
+![图 10-15](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/078.jpg)
+
+**图 10-15　新旧两组子节点与真实 DOM 节点的状态**
+
+　　此时，双端 Diff 算法仍然没有停止，开始新一轮的比较。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-2` 与新的一组子节点中的头部节点 `p-2`，两者的 `key` 值相同，可以复用。但由于两者都处于头部，因此不需要移动，只需要打补丁即可。
+
+　　在这一轮比较过后，新旧两组子节点与真实 DOM 节点的状态如图 10-16 所示。
+
+![图 10-16](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/079.jpg)
+
+**图 10-16　新旧两组子节点与真实 DOM 节点的状态**
+
+　　到这一步后，索引 `newStartIdx` 和 `oldStartIdx` 的值比索引 `newEndIdx` 和 `oldEndIdx` 的值大，于是更新结束。可以看到，对于同样的例子，采用简单 Diff 算法需要两次 DOM 移动操作才能完成更新，而使用双端 Diff 算法只需要一次 DOM 移动操作即可完成更新。
+
+
+
+### 10.3　非理想状况的处理方式
+
+　　在上一节的讲解中，我们用了一个比较理想的例子。我们知道，双端 Diff 算法的每一轮比较的过程都分为四个步骤。在上一节的例子中，每一轮比较都会命中四个步骤中的一个，这是非常理想的情况。但实际上，并非所有情况都这么理想，如图 10-17 所示。
+
+![图 10-17](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/080.jpg)
+
+**图 10-17　第一轮比较都无法命中**
+
+　　在这个例子中，新旧两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`、`p-4`。
+- 新的一组子节点：`p-2`、`p-4`、`p-1`、`p-3`。
+
+　　当我们尝试按照双端 Diff 算法的思路进行第一轮比较时，会发现无法命中四个步骤中的任何一步。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-2`，不可复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-4` 与新的一组子节点中的尾部节点 `p-3`，不可复用。
+- 第三步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的尾部节点 `p-3`，不可复用。
+- 第四步：比较旧的一组子节点中的尾部节点 `p-4` 与新的一组子节点中的头部节点 `p-2`，不可复用。
+
+　　在四个步骤的比较过程中，都无法找到可复用的节点，应该怎么办呢？这时，我们只能通过增加额外的处理步骤来处理这种非理想情况。既然两个头部和两个尾部的四个节点中都没有可复用的节点，那么我们就尝试看看非头部、非尾部的节点能否复用。具体做法是，拿新的一组子节点中的头部节点去旧的一组子节点中寻找，如下面的代码所示：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   if (oldStartVNode.key === newStartVNode.key) {
+03     // 省略部分代码
+04   } else if (oldEndVNode.key === newEndVNode.key) {
+05     // 省略部分代码
+06   } else if (oldStartVNode.key === newEndVNode.key) {
+07     // 省略部分代码
+08   } else if (oldEndVNode.key === newStartVNode.key) {
+09     // 省略部分代码
+10   } else {
+11     // 遍历旧的一组子节点，试图寻找与 newStartVNode 拥有相同 key 值的节点
+12     // idxInOld 就是新的一组子节点的头部节点在旧的一组子节点中的索引
+13     const idxInOld = oldChildren.findIndex(
+14       node => node.key === newStartVNode.key
+15     )
+16   }
+17 }
+```
+
+　　在上面这段代码中，我们遍历旧的一组子节点，尝试在其中寻找与新的一组子节点的头部节点具有相同 `key` 值的节点，并将该节点在旧的一组子节点中的索引存储到变量 `idxInOld` 中。这么做的目的是什么呢？想要搞清楚这个问题，本质上需要我们先搞清楚：在旧的一组子节点中，找到与新的一组子节点的头部节点具有相同 `key` 值的节点意味着什么？如图 10-18 所示。
+
+![图 10-18](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/081.jpg)
+
+**图 10-18　在旧子节点中寻找可复用节点**
+
+　　观察图 10-18，当我们拿新的一组子节点的头部节点 `p-2` 去旧的一组子节点中查找时，会在索引为 `1` 的位置找到可复用的节点。这意味着，节点 `p-2` 原本不是头部节点，但在更新之后，它应该变成头部节点。所以我们需要将节点 `p-2` 对应的真实 DOM 节点移动到当前旧的一组子节点的头部节点 `p-1` 所对应的真实 DOM 节点之前。具体实现如下：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   if (oldStartVNode.key === newStartVNode.key) {
+03     // 省略部分代码
+04   } else if (oldEndVNode.key === newEndVNode.key) {
+05     // 省略部分代码
+06   } else if (oldStartVNode.key === newEndVNode.key) {
+07     // 省略部分代码
+08   } else if (oldEndVNode.key === newStartVNode.key) {
+09     // 省略部分代码
+10   } else {
+11     // 遍历旧 children，试图寻找与 newStartVNode 拥有相同 key 值的元素
+12     const idxInOld = oldChildren.findIndex(
+13       node => node.key === newStartVNode.key
+14     )
+15     // idxInOld 大于 0，说明找到了可复用的节点，并且需要将其对应的真实 DOM 移动到头部
+16     if (idxInOld > 0) {
+17       // idxInOld 位置对应的 vnode 就是需要移动的节点
+18       const vnodeToMove = oldChildren[idxInOld]
+19       // 不要忘记除移动操作外还应该打补丁
+20       patch(vnodeToMove, newStartVNode, container)
+21       // 将 vnodeToMove.el 移动到头部节点 oldStartVNode.el 之前，因此使用后者作为锚点
+22       insert(vnodeToMove.el, container, oldStartVNode.el)
+23       // 由于位置 idxInOld 处的节点所对应的真实 DOM 已经移动到了别处，因此将其设置为 undefined
+24       oldChildren[idxInOld] = undefined
+25       // 最后更新 newStartIdx 到下一个位置
+26       newStartVNode = newChildren[++newStartIdx]
+27     }
+28   }
+29 }
+```
+
+　　在上面这段代码中，首先判断 `idxInOld` 是否大于 `0`。如果条件成立，则说明找到了可复用的节点，然后将该节点对应的真实 DOM 移动到头部。为此，我们先要获取需要移动的节点，这里的 `oldChildren[idxInOld]` 所指向的节点就是需要移动的节点。在移动节点之前，不要忘记调用 `patch` 函数进行打补丁。接着，调用 `insert` 函数，并以现在的头部节点对应的真实 DOM 节点 `oldStartVNode.el` 作为锚点参数来完成节点的移动操作。当节点移动完成后，还有两步工作需要做。
+
+- 由于处于 `idxInOld` 处的节点已经处理过了（对应的真实 DOM 移到了别处），因此我们应该将 `oldChildren[idxInOld]` 设置为 `undefined`。
+- 新的一组子节点中的头部节点已经处理完毕，因此将 `newStartIdx` 前进到下一个位置。
+
+　　经过上述两个步骤的操作后，新旧两组子节点以及真实 DOM 节点的状态如图 10-19 所示。
+
+![图 10-19 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/082.jpg)
+
+**图 10-19　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　此时，真实 DOM 的顺序为：`p-2`、`p-1`、`p-3`、`p-4`。接着，双端 Diff 算法会继续进行，如图 10-20 所示。
+
+![图 10-20](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/083.jpg)
+
+**图 10-20　新旧两组子节点以及真实 DOM 节点的状态**
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-4`，两者 `key` 值不同，不可复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-4` 与新的一组子节点中的尾部节点 `p-3`，两者 `key` 值不同，不可复用。
+- 第三步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的尾部节点 `p-3`，两者 `key` 值不同，不可复用。
+- 第四步：比较旧的一组子节点中的尾部节点 `p-4` 与新的一组子节点中的头部节点 `p-4`，两者的 `key` 值相同，可以复用。
+
+　　在这一轮比较的第四步中，我们找到了可复用的节点。因此，按照双端 Diff 算法的逻辑移动真实 DOM，即把节点 `p-4` 对应的真实 DOM 移动到旧的一组子节点中头部节点 `p-1` 所对应的真实 DOM 前面，如图 10-21 所示。
+
+![图 10-21](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/084.jpg)
+
+**图 10-21　移动节点 `p-4`**
+
+　　此时，真实 DOM 节点的顺序是：`p-2`、`p-4`、`p-1`、`p-3`。接着，开始下一轮的比较。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-1`，两者的 `key` 值相同，可以复用。
+
+　　在这一轮比较中，第一步就找到了可复用的节点。由于两者都处于头部，所以不需要对真实 DOM 进行移动，只需要打补丁即可。在这一步操作过后，新旧两组子节点与真实 DOM 节点的状态如图 10-22 所示。
+
+![图 10-22](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/085.jpg)
+
+**图 10-22　新旧两组子节点与真实 DOM 节点的状态**
+
+　　此时，真实 DOM 节点的顺序是：`p-2`、`p-4`、`p-1`、`p-3`。接着，进行下一轮的比较。需要注意的一点是，此时旧的一组子节点的头部节点是 `undefined`。这说明该节点已经被处理过了，因此不需要再处理它了，直接跳过即可。为此，我们需要补充这部分逻辑的代码，具体实现如下：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   // 增加两个判断分支，如果头尾部节点为 undefined，则说明该节点已经被处理过了，直接跳到下一个位置
+03   if (!oldStartVNode) {
+04     oldStartVNode = oldChildren[++oldStartIdx]
+05   } else if (!oldEndVNode) {
+06     oldEndVNode = oldChildren[--oldEndIdx]
+07   } else if (oldStartVNode.key === newStartVNode.key) {
+08     // 省略部分代码
+09   } else if (oldEndVNode.key === newEndVNode.key) {
+10     // 省略部分代码
+11   } else if (oldStartVNode.key === newEndVNode.key) {
+12     // 省略部分代码
+13   } else if (oldEndVNode.key === newStartVNode.key) {
+14     // 省略部分代码
+15   } else {
+16     const idxInOld = oldChildren.findIndex(
+17       node => node.key === newStartVNode.key
+18     )
+19     if (idxInOld > 0) {
+20       const vnodeToMove = oldChildren[idxInOld]
+21       patch(vnodeToMove, newStartVNode, container)
+22       insert(vnodeToMove.el, container, oldStartVNode.el)
+23       oldChildren[idxInOld] = undefined
+24       newStartVNode = newChildren[++newStartIdx]
+25     }
+26
+27   }
+28 }
+```
+
+　　观察上面的代码，在循环开始时，我们优先判断头部节点和尾部节点是否存在。如果不存在，则说明它们已经被处理过了，直接跳到下一个位置即可。在这一轮比较过后，新旧两组子节点与真实 DOM 节点的状态如图 10-23 所示。
+
+![图 10-23 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/086.jpg)
+
+**图 10-23　新旧两组子节点与真实 DOM 节点的状态**
+
+　　现在，四个步骤又重合了，接着进行最后一轮的比较。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-3` 与新的一组子节点中的头部节点 `p-3`，两者的 `key` 值相同，可以复用。
+
+　　在第一步中找到了可复用的节点。由于两者都是头部节点，因此不需要进行 DOM 移动操作，直接打补丁即可。在这一轮比较过后，最终状态如图 10-24 所示。
+
+![图 10-24](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/087.jpg)
+
+**图 10-24　新旧两组子节点与真实 DOM 节点的状态**
+
+　　这时，满足循环停止的条件，于是更新完成。最终，真实 DOM 节点的顺序与新的一组子节点的顺序一致，都是：`p-2`、`p-4`、`p-1`、`p-3`。
+
+
+
+### 10.4　添加新元素
+
+　　在 10.3 节中，我们讲解了非理想情况的处理，即在一轮比较过程中，不会命中四个步骤中的任何一步。这时，我们会拿新的一组子节点中的头部节点去旧的一组子节点中寻找可复用的节点，然而并非总能找得到，如图 10-25 的例子所示。
+
+![图 10-25](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/088.jpg)
+
+**图 10-25　新增节点的情况**
+
+　　在这个例子中，新旧两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`。
+- 新的一组子节点：`p-4`、`p-1`、`p-3`、`p-2`。
+
+　　首先，我们尝试进行第一轮比较，发现在四个步骤的比较中都找不到可复用的节点。于是我们尝试拿新的一组子节点中的头部节点 `p-4` 去旧的一组子节点中寻找具有相同 `key` 值的节点，但在旧的一组子节点中根本就没有 `p-4` 节点，如图 10-26 所示。
+
+![图 10-26](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/089.jpg)
+
+**图 10-26　在旧的一组子节点中找不到可复用的节点**
+
+　　这说明节点 `p-4` 是一个新增节点，我们应该将它挂载到正确的位置。那么应该挂载到哪里呢？很简单，因为节点 `p-4` 是新的一组子节点中的头部节点，所以只需要将它挂载到当前头部节点之前即可。“当前”头部节点指的是，旧的一组子节点中的头部节点所对应的真实 DOM 节点 `p-1`。下面是用来完成挂载操作的代码：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   // 增加两个判断分支，如果头尾部节点为 undefined，则说明该节点已经被处理过了，直接跳到下一个位置
+03   if (!oldStartVNode) {
+04     oldStartVNode = oldChildren[++oldStartIdx]
+05   } else if (!oldEndVNode) {
+06     oldEndVNode = newChildren[--oldEndIdx]
+07   } else if (oldStartVNode.key === newStartVNode.key) {
+08     // 省略部分代码
+09   } else if (oldEndVNode.key === newEndVNode.key) {
+10     // 省略部分代码
+11   } else if (oldStartVNode.key === newEndVNode.key) {
+12     // 省略部分代码
+13   } else if (oldEndVNode.key === newStartVNode.key) {
+14     // 省略部分代码
+15   } else {
+16     const idxInOld = oldChildren.findIndex(
+17       node => node.key === newStartVNode.key
+18     )
+19     if (idxInOld > 0) {
+20       const vnodeToMove = oldChildren[idxInOld]
+21       patch(vnodeToMove, newStartVNode, container)
+22       insert(vnodeToMove.el, container, oldStartVNode.el)
+23       oldChildren[idxInOld] = undefined
+24     } else {
+25       // 将 newStartVNode 作为新节点挂载到头部，使用当前头部节点 oldStartVNode.el 作为锚点
+26       patch(null, newStartVNode, container, oldStartVNode.el)
+27     }
+28     newStartVNode = newChildren[++newStartIdx]
+29   }
+30 }
+```
+
+　　如上面的代码所示，当条件 `idxInOld > 0` 不成立时，说明 `newStartVNode` 节点是全新的节点。又由于 `newStartVNode` 节点是头部节点，因此我们应该将其作为新的头部节点进行挂载。所以，在调用 `patch` 函数挂载节点时，我们使用 `oldStartVNode.el` 作为锚点。在这一步操作完成之后，新旧两组子节点以及真实 DOM 节点的状态如图 10-27 所示。
+
+![图 10-27 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/090.jpg)
+
+**图 10-27　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　当新节点 `p-4` 挂载完成后，会进行后续的更新，直到全部更新完成为止。但这样就完美了吗？答案是否定的，我们再来看另外一个例子，如图 10-28 所示。
+
+![图 10-28](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/091.jpg)
+
+**图 10-28　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　这个例子与上一个的例子的不同之处在于，我们调整了新的一组子节点的顺序：`p-4`、`p-1`、`p-2`、`p-3`。下面我们按照双端 Diff 算法的思路来执行更新，看看会发生什么。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-4`，两者的 `key` 值不同，不可以复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-3` 与新的一组子节点中的尾部节点 `p-3`，两者的 `key` 值相同，可以复用。
+
+　　在第二步中找到了可复用的节点，因此进行更新。更新后的新旧两组子节点以及真实 DOM 节点的状态如图 10-29 所示。
+
+![图 10-29 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/092.jpg)
+
+**图 10-29　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　接着进行下一轮的比较。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-4`，两者的 `key` 值不同，不可以复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-2` 与新的一组子节点中的尾部节点 `p-2`，两者的 `key` 值相同，可以复用。
+
+　　我们又在第二步找到了可复用的节点，于是再次进行更新。更新后的新旧两组子节点以及真实 DOM 节点的状态如图 10-30 所示。
+
+![图 10-30](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/093.jpg)
+
+**图 10-30　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　接着，进行下一轮的更新。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-4`，两者的 `key` 值不同，不可以复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-1` 与新的一组子节点中的尾部节点 `p-1`，两者的 `key` 值相同，可以复用。
+
+　　还是在第二步找到了可复用的节点，再次进行更新。更新后的新旧两组子节点以及真实 DOM 节点的状态如图 10-31 所示。
+
+![图 10-31](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/094.jpg)
+
+**图 10-31　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　当这一轮更新完毕后，由于变量 `oldStartIdx` 的值大于 `oldEndIdx` 的值，满足更新停止的条件，因此更新停止。但通过观察可知，节点 `p-4` 在整个更新过程中被遗漏了，没有得到任何处理，这说明我们的算法是有缺陷的。为了弥补这个缺陷，我们需要添加额外的处理代码，如下所示：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   // 省略部分代码
+03 }
+04
+05 // 循环结束后检查索引值的情况，
+06 if (oldEndIdx < oldStartIdx && newStartIdx <= newEndIdx) {
+07   // 如果满足条件，则说明有新的节点遗留，需要挂载它们
+08   for (let i = newStartIdx; i <= newEndIdx; i++) {
+09     const anchor = newChildren[newEndIdx + 1] ? newChildren[newEndIdx + 1].el : null;
+10     patch(null, newChildren[i], container, anchor);
+11   }
+12 }
+```
+
+　　我们在 `while` 循环结束后增加了一个 `if` 条件语句，检查四个索引值的情况。根据图 10-31 可知，如果条件 `oldEndIdx < oldStartIdx && newStartIdx <= newEndIdx` 成立，说明新的一组子节点中有遗留的节点需要作为新节点挂载。哪些节点是新节点呢？索引值位于 `newStartIdx` 和 `newEndIdx` 这个区间内的节点都是新节点。于是我们开启一个 `for` 循环来遍历这个区间内的节点并逐一挂载。挂载时的锚点仍然使用当前的头部节点 `oldStartVNode.el`，这样就完成了对新增元素的处理。
+
+
+
+### 10.5　移除不存在的元素
+
+　　解决了新增节点的问题后，我们再来讨论关于移除元素的情况，如图 10-32 的例子所示。
+
+![图 10-32](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/095.jpg)
+
+**图 10-32　移除节点的情况**
+
+　　在这个例子中，新旧两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`。
+- 新的一组子节点：`p-1`、`p-3`。
+
+　　可以看到，在新的一组子节点中 `p-2` 节点已经不存在了。为了搞清楚应该如何处理节点被移除的情况，我们还是按照双端 Diff 算法的思路执行更新。
+
+> 　　第一步：比较旧的一组子节点中的头部节点 `p-1` 与新的一组子节点中的头部节点 `p-1`，两者的 `key` 值相同，可以复用。
+
+　　在第一步的比较中找到了可复用的节点，于是执行更新。在这一轮比较过后，新旧两组子节点以及真实 DOM 节点的状态如图 10-33 所示。
+
+![图 10-33](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/096.jpg)
+
+**图 10-33　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　接着，执行下一轮更新。
+
+- 第一步：比较旧的一组子节点中的头部节点 `p-2` 与新的一组子节点中的头部节点 `p-3`，两者的 `key` 值不同，不可以复用。
+- 第二步：比较旧的一组子节点中的尾部节点 `p-3` 与新的一组子节点中的尾部节点 `p-3`，两者的 `key` 值相同，可以复用。
+
+　　在第二步中找到了可复用的节点，于是进行更新。更新后的新旧两组子节点以及真实 DOM 节点的状态如图 10-34 所示。
+
+![图 10-34](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/097.jpg)
+
+**图 10-34　新旧两组子节点以及真实 DOM 节点的状态**
+
+　　此时变量 `newStartIdx` 的值大于变量 `newEndIdx` 的值，满足更新停止的条件，于是更新结束。但观察图 10-34 可知，旧的一组子节点中存在未被处理的节点，应该将其移除。因此，我们需要增加额外的代码来处理它，如下所示：
+
+```
+01 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+02   // 省略部分代码
+03 }
+04
+05 if (oldEndIdx < oldStartIdx && newStartIdx <= newEndIdx) {
+06   // 添加新节点
+07   // 省略部分代码
+08 } else if (newEndIdx < newStartIdx && oldStartIdx <= oldEndIdx) {
+09   // 移除操作
+10   for (let i = oldStartIdx; i <= oldEndIdx; i++) {
+11     unmount(oldChildren[i])
+12   }
+13 }
+```
+
+　　与处理新增节点类似，我们在 `while` 循环结束后又增加了一个 `else...if` 分支，用于卸载已经不存在的节点。由图 10-34 可知，索引值位于 `oldStartIdx` 和 `oldEndIdx` 这个区间内的节点都应该被卸载，于是我们开启一个 `for` 循环将它们逐一卸载。
+
+
+
+### 10.6　总结
+
+　　本章我们介绍了双端 Diff 算法的原理及其优势。顾名思义，双端 Diff 算法指的是，在新旧两组子节点的四个端点之间分别进行比较，并试图找到可复用的节点。相比简单 Diff 算法，双端 Diff 算法的优势在于，对于同样的更新场景，执行的 DOM 移动操作次数更少。
+
+
+
+## 第 11 章　快速 Diff 算法
+
+### 11.1　相同的前置元素和后置元素
+
+　　不同于简单 Diff 算法和双端 Diff 算法，快速 Diff 算法包含预处理步骤，这其实是借鉴了纯文本 Diff 算法的思路。在纯文本 Diff 算法中，存在对两段文本进行预处理的过程。例如，在对两段文本进行 Diff 之前，可以先对它们进行全等比较：
+
+```js
+01 if (text1 === text2) return
+```
+
+　　这也称为快捷路径。如果两段文本全等，那么就无须进入核心 Diff 算法的步骤了。除此之外，预处理过程还会处理两段文本相同的前缀和后缀。假设有如下两段文本：
+
+```
+01 TEXT1: I use vue for app development
+02 TEXT2: I use react for app development
+```
+
+　　通过肉眼可以很容易发现，这两段文本的头部和尾部分别有一段相同的内容，如图 11-2 所示。
+
+![图 11-2](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/099.jpg)
+
+**图 11-2　文本预处理**
+
+　　图 11-2 突出显示了 `TEXT1` 和 `TEXT2` 中相同的内容。对于内容相同的问题，是不需要进行核心 Diff 操作的。因此，对于 `TEXT1` 和 `TEXT2` 来说，真正需要进行 Diff 操作的部分是：
+
+```
+01 TEXT1: vue
+02 TEXT2: react
+```
+
+　　这实际上是简化问题的一种方式。这么做的好处是，在特定情况下我们能够轻松地判断文本的插入和删除，例如：
+
+```
+01 TEXT1: I like you
+02 TEXT2: I like you too
+```
+
+经过预处理，去掉这两段文本中相同的前缀内容和后缀内容之后，它将变成：
+
+```
+01 TEXT1:
+02 TEXT2: too
+```
+
+　　可以看到，经过预处理后，`TEXT1` 的内容为空。这说明 `TEXT2` 在 `TEXT1` 的基础上增加了字符串 `too`。相反，我们还可以将这两段文本的位置互换：
+
+```
+01 TEXT1: I like you too
+02 TEXT2: I like you
+```
+
+　　这两段文本经过预处理后将变成：
+
+```
+01 TEXT1: too
+02 TEXT2:
+```
+
+　　由此可知，`TEXT2` 是在 `TEXT1` 的基础上删除了字符串 `too`。
+
+　　快速 Diff 算法借鉴了纯文本 Diff 算法中预处理的步骤。以图 11-3 给出的两组子节点为例。
+
+![图 11-3 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/100.jpg)
+
+**图 11-3　新旧两组子节点**
+
+　　这两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`。
+- 新的一组子节点：`p-1`、`p-4`、`p-2`、`p-3`。
+
+　　通过观察可以发现，两组子节点具有相同的前置节点 `p-1`，以及相同的后置节点 `p-2` 和 `p-3`，如图 11-4 所示。
+
+![图 11-4 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/101.jpg)
+
+**图 11-4　相同的前置节点和后置节点**
+
+　　对于相同的前置节点和后置节点，由于它们在新旧两组子节点中的相对位置不变，所以我们无须移动它们，但仍然需要在它们之间打补丁。
+
+　　对于前置节点，我们可以建立索引 `j`，其初始值为 `0`，用来指向两组子节点的开头，如图 11-5 所示。
+
+![图 11-5](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/102.jpg)
+
+**图 11-5　建立索引 j，指向两组子节点的开头**
+
+　　然后开启一个 `while` 循环，让索引 `j` 递增，直到遇到不相同的节点为止，如下面 `patchKeyedChildren` 函数的代码所示：
+
+```js
+01 function patchKeyedChildren(n1, n2, container) {
+02   const newChildren = n2.children
+03   const oldChildren = n1.children
+04   // 处理相同的前置节点
+05   // 索引 j 指向新旧两组子节点的开头
+06   let j = 0
+07   let oldVNode = oldChildren[j]
+08   let newVNode = newChildren[j]
+09   // while 循环向后遍历，直到遇到拥有不同 key 值的节点为止
+10   while (oldVNode.key === newVNode.key) {
+11     // 调用 patch 函数进行更新
+12     patch(oldVNode, newVNode, container)
+13     // 更新索引 j，让其递增
+14     j++
+15     oldVNode = oldChildren[j]
+16     newVNode = newChildren[j]
+17   }
+18
+19 }
+```
+
+　　在上面这段代码中，我们使用 `while` 循环查找所有相同的前置节点，并调用 `patch` 函数进行打补丁，直到遇到 `key` 值不同的节点为止。这样，我们就完成了对前置节点的更新。在这一步更新操作过后，新旧两组子节点的状态如图 11-6 所示。
+
+![图 11-6 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/103.jpg)
+
+**图 11-6　处理完前置节点后的状态**
+
+　　这里需要注意的是，当 `while` 循环终止时，索引 `j` 的值为 `1`。接下来，我们需要处理相同的后置节点。由于新旧两组子节点的数量可能不同，所以我们需要两个索引 `newEnd` 和 `oldEnd`，分别指向新旧两组子节点中的最后一个节点，如图 11-7 所示。
+
+![图 11-7](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/104.jpg)
+
+**图 11-7　建立索引，指向两组子节点的最后一个节点**
+
+　　然后，再开启一个 `while` 循环，并从后向前遍历这两组子节点，直到遇到 `key` 值不同的节点为止，如下面的代码所示：
+
+```js
+01 function patchKeyedChildren(n1, n2, container) {
+02   const newChildren = n2.children
+03   const oldChildren = n1.children
+04   // 更新相同的前置节点
+05   let j = 0
+06   let oldVNode = oldChildren[j]
+07   let newVNode = newChildren[j]
+08   while (oldVNode.key === newVNode.key) {
+09     patch(oldVNode, newVNode, container)
+10     j++
+11     oldVNode = oldChildren[j]
+12     newVNode = newChildren[j]
+13   }
+14
+15   // 更新相同的后置节点
+16   // 索引 oldEnd 指向旧的一组子节点的最后一个节点
+17   let oldEnd = oldChildren.length - 1
+18   // 索引 newEnd 指向新的一组子节点的最后一个节点
+19   let newEnd = newChildren.length - 1
+20
+21   oldVNode = oldChildren[oldEnd]
+22   newVNode = newChildren[newEnd]
+23
+24   // while 循环从后向前遍历，直到遇到拥有不同 key 值的节点为止
+25   while (oldVNode.key === newVNode.key) {
+26     // 调用 patch 函数进行更新
+27     patch(oldVNode, newVNode, container)
+28     // 递减 oldEnd 和 nextEnd
+29     oldEnd--
+30     newEnd--
+31     oldVNode = oldChildren[oldEnd]
+32     newVNode = newChildren[newEnd]
+33   }
+34
+35 }
+```
+
+　　与处理相同的前置节点一样，在 `while` 循环内，需要调用 `patch` 函数进行打补丁，然后递减两个索引 `oldEnd`、`newEnd` 的值。在这一步更新操作过后，新旧两组子节点的状态如图 11-8 所示。
+
+![图 11-8](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/105.jpg)
+
+**图 11-8　处理完后置节点后的状态**
+
+　　由图 11-8 可知，当相同的前置节点和后置节点被处理完毕后，旧的一组子节点已经全部被处理了，而在新的一组子节点中，还遗留了一个未被处理的节点 `p-4`。其实不难发现，节点 `p-4` 是一个新增节点。那么，如何用程序得出“节点 `p-4` 是新增节点”这个结论呢？这需要我们观察三个索引 `j`、`newEnd` 和 `oldEnd` 之间的关系。
+
+- 条件一 `oldEnd < j` 成立：说明在预处理过程中，所有旧子节点都处理完毕了。
+- 条件二 `newEnd >= j` 成立：说明在预处理过后，在新的一组子节点中，仍然有未被处理的节点，而这些遗留的节点将被视作**新增节点**。
+
+　　如果条件一和条件二同时成立，说明在新的一组子节点中，存在遗留节点，且这些节点都是新增节点。因此我们需要将它们挂载到正确的位置，如图 11-9 所示。
+
+![图 11-9](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/106.jpg)
+
+**图 11-9　新增节点的情况**
+
+　　在新的一组子节点中，索引值处于 `j` 和 `newEnd` 之间的任何节点都需要作为新的子节点进行挂载。那么，应该怎样将这些节点挂载到正确位置呢？这就要求我们必须找到正确的锚点元素。观察图 11-9 中新的一组子节点可知，新增节点应该挂载到节点 `p-2` 所对应的真实 DOM 前面。所以，节点 `p-2` 对应的真实 DOM 节点就是挂载操作的锚点元素。有了这些信息，我们就可以给出具体的代码实现了，如下所示：
+
+```js
+01 function patchKeyedChildren(n1, n2, container) {
+02   const newChildren = n2.children
+03   const oldChildren = n1.children
+04   // 更新相同的前置节点
+05   // 省略部分代码
+06
+07   // 更新相同的后置节点
+08   // 省略部分代码
+09
+10   // 预处理完毕后，如果满足如下条件，则说明从 j --> newEnd 之间的节点应作为新节点插入
+11   if (j > oldEnd && j <= newEnd) {
+12     // 锚点的索引
+13     const anchorIndex = newEnd + 1
+14     // 锚点元素
+15     const anchor = anchorIndex < newChildren.length ? newChildren[anchorIndex].el : null
+16     // 采用 while 循环，调用 patch 函数逐个挂载新增节点
+17     while (j <= newEnd) {
+18       patch(null, newChildren[j++], container, anchor)
+19     }
+20   }
+21
+22 }
+```
+
+　　在上面这段代码中，首先计算锚点的索引值（即 `anchorIndex`）为 `newEnd + 1`。如果小于新的一组子节点的数量，则说明锚点元素在新的一组子节点中，所以直接使用 `newChildren[anchorIndex].el` 作为锚点元素；否则说明索引 `newEnd` 对应的节点已经是尾部节点了，这时无须提供锚点元素。有了锚点元素之后，我们开启了一个 `while` 循环，用来遍历索引 `j` 和索引 `newEnd` 之间的节点，并调用 `patch` 函数挂载它们。
+
+　　上面的案例展示了新增节点的情况，我们再来看看删除节点的情况，如图 11-10 所示。
+
+![图 11-10](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/107.jpg)
+
+**图 11-10　删除节点的情况**
+
+　　在这个例子中，新旧两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`。
+- 新的一组子节点：`p-1`、`p-3`。
+
+　　我们同样使用索引 `j`、`oldEnd` 和 `newEnd` 进行标记，如图 11-11 所示。
+
+![图 11-11 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/108.jpg)
+
+**图 11-11　在删除节点的情况下，各个索引的关系**
+
+　　接着，对相同的前置节点进行预处理，处理后的状态如图 11-12 所示。
+
+![图 11-12](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/109.jpg)
+
+**图 11-12　处理完前置节点后，各个索引的关系**
+
+　　然后，对相同的后置节点进行预处理，处理后的状态如图 11-13 所示。
+
+![图 11-13 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/110.jpg)
+
+**图 11-13　处理完后置节点后，各个索引的关系**
+
+　　由图 11-13 可知，当相同的前置节点和后置节点全部被处理完毕后，新的一组子节点已经全部被处理完毕了，而旧的一组子节点中遗留了一个节点 `p-2`。这说明，应该卸载节点 `p-2`。实际上，遗留的节点可能有多个，如图 11-14 所示。
+
+![图 11-14 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/111.jpg)
+
+**图 11-14　遗留的节点可能有多个**
+
+　　索引 `j` 和索引 `oldEnd` 之间的任何节点都应该被卸载，具体实现如下：
+
+```js
+01 function patchKeyedChildren(n1, n2, container) {
+02   const newChildren = n2.children
+03   const oldChildren = n1.children
+04   // 更新相同的前置节点
+05   // 省略部分代码
+06
+07   // 更新相同的后置节点
+08   // 省略部分代码
+09
+10   if (j > oldEnd && j <= newEnd) {
+11     // 省略部分代码
+12   } else if (j > newEnd && j <= oldEnd) {
+13     // j -> oldEnd 之间的节点应该被卸载
+14     while (j <= oldEnd) {
+15       unmount(oldChildren[j++])
+16     }
+17   }
+18
+19 }
+```
+
+　　在上面这段代码中，我们新增了一个 `else...if` 分支。当满足条件 `j > newEnd && j <= oldEnd` 时，则开启一个 `while` 循环，并调用 `unmount` 函数逐个卸载这些遗留节点。
+
+### 11.2　判断是否需要进行 DOM 移动操作
+
+　　在上一节中，我们讲解了快速 Diff 算法的预处理过程，即处理相同的前置节点和后置节点。但是，上一节给出的例子比较理想化，当处理完相同的前置节点或后置节点后，新旧两组子节点中总会有一组子节点全部被处理完毕。在这种情况下，只需要简单地挂载、卸载节点即可。但有时情况会比较复杂，如图 11-15 中给出的例子。
+
+![图 11-15](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/112.jpg)
+
+**图 11-15　复杂情况下的新旧两组子节点**
+
+　　在这个例子中，新旧两组子节点的顺序如下。
+
+- 旧的一组子节点：`p-1`、`p-2`、`p-3`、`p-4`、`p-6`、`p-5`。
+- 新的一组子节点：`p-1`、`p-3`、`p-4`、`p-2`、`p-7`、`p-5`。
+
+　　可以看到，与旧的一组子节点相比，新的一组子节点多出了一个新节点 `p-7`，少了一个节点 `p-6`。这个例子并不像上一节给出的例子那样理想化，我们无法简单地通过预处理过程完成更新。在这个例子中，相同的前置节点只有 `p-1`，而相同的后置节点只有 `p-5`，如图 11-16 所示。
+
+![图 11-16](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/113.jpg)
+
+**图 11-16　复杂情况下仅有少量相同的前置节点和后置节点**
+
+图 11-17 给出了经过预处理后两组子节点的状态。
+
+![图 11-17 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/114.jpg)
+
+**图 11-17　处理完前置节点和后置节点后的状态**
+
+　　可以看到，经过预处理后，无论是新的一组子节点，还是旧的一组子节点，都有部分节点未经处理。这时就需要我们进一步处理。怎么处理呢？其实无论是简单 Diff 算法，还是双端 Diff 算法，抑或本章介绍的快速 Diff 算法，它们都遵循同样的处理规则：
+
+- 判断是否有节点需要移动，以及应该如何移动；
+- 找出那些需要被添加或移除的节点。
+
+　　所以接下来我们的任务就是，判断哪些节点需要移动，以及应该如何移动。观察图 11-17 可知，在这种非理想的情况下，当相同的前置节点和后置节点被处理完毕后，索引 `j`、`newEnd` 和 `oldEnd` 不满足下面两个条件中的任何一个：
+
+- `j > oldEnd && j <= newEnd`
+- `j > newEnd && j <= oldEnd`
+
+　　因此，我们需要增加新的 `else` 分支来处理图 11-17 所示的情况，如下面的代码所示：
+
+```js
+01 function patchKeyedChildren(n1, n2, container) {
+02   const newChildren = n2.children
+03   const oldChildren = n1.children
+04   // 更新相同的前置节点
+05   // 省略部分代码
+06
+07   // 更新相同的后置节点
+08   // 省略部分代码
+09
+10   if (j > oldEnd && j <= newEnd) {
+11     // 省略部分代码
+12   } else if (j > newEnd && j <= oldEnd) {
+13     // 省略部分代码
+14   } else {
+15     // 增加 else 分支来处理非理想情况
+16   }
+17
+18 }
+```
+
+　　后续的处理逻辑将会编写在这个 `else` 分支内。知道了在哪里编写处理代码，接下来我们讲解具体的处理思路。首先，我们需要构造一个数组 `source`，它的长度等于新的一组子节点在经过预处理之后剩余未处理节点的数量，并且 `source` 中每个元素的初始值都是 `-1`，如图 11-18 所示。
+
+![图 11-18](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/115.jpg)
+
+**图 11-18　构造 `source` 数组**
+
+　　我们可以通过下面的代码完成 `source` 数组的构造：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   // 构造 source 数组
+07   // 新的一组子节点中剩余未处理节点的数量
+08   const count = newEnd - j + 1
+09   const source = new Array(count)
+10   source.fill(-1)
+11 }
+```
+
+　　如上面的代码所示。首先，我们需要计算新的一组子节点中剩余未处理节点的数量，即 `newEnd - j + 1`，然后创建一个长度与之相同的数组 `source`，最后使用 `fill` 函数完成数组的填充。那么，数组 `source` 的作用是什么呢？观察图 11-18 可以发现，数组 `source` 中的每一个元素分别与新的一组子节点中剩余未处理节点对应。实际上，`source` 数组将用来存储**新的一组子节点中的节点在旧的一组子节点中的位置索引，后面将会使用它计算出一个最长递增子序列，并用于辅助完成 DOM 移动的操作**，如图 11-19 所示。
+
+![图 11-19](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/116.jpg)
+
+**图 11-19　填充 `source` 数组**
+
+　　图 11-19 展示了填充 `source` 数组的过程。由于 `source` 数组存储的是新子节点在旧的一组子节点中的位置索引，所以有：
+
+- 新的一组子节点中的节点 `p-3` 在旧的一组子节点中的索引为 `2`，因此 `source` 数组的第一个元素值为 `2`；
+- 新的一组子节点中的节点 `p-4` 在旧的一组子节点中的索引为 `3`，因此 `source` 数组的第二个元素值为 `3`；
+- 新的一组子节点中的节点 `p-2` 在旧的一组子节点中的索引为 `1`，因此 `source` 数组的第三个元素值为 `1`；
+- 新的一组子节点中的节点 `p-7` 比较特殊，因为在旧的一组子节点中没有与其 `key` 值相等的节点，所以 `source` 数组的第四个元素值保留原来的 `-1`。
+
+　　我们可以通过两层 `for` 循环来完成 `source` 数组的填充工作，外层循环用于遍历旧的一组子节点，内层循环用于遍历新的一组子节点：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   const count = newEnd - j + 1
+07   const source = new Array(count)
+08   source.fill(-1)
+09
+10   // oldStart 和 newStart 分别为起始索引，即 j
+11   const oldStart = j
+12   const newStart = j
+13   // 遍历旧的一组子节点
+14   for (let i = oldStart; i <= oldEnd; i++) {
+15     const oldVNode = oldChildren[i]
+16     // 遍历新的一组子节点
+17     for (let k = newStart; k <= newEnd; k++) {
+18       const newVNode = newChildren[k]
+19       // 找到拥有相同 key 值的可复用节点
+20       if (oldVNode.key === newVNode.key) {
+21         // 调用 patch 进行更新
+22         patch(oldVNode, newVNode, container)
+23         // 最后填充 source 数组
+24         source[k - newStart] = i
+25       }
+26     }
+27   }
+28 }
+```
+
+　　这里需要注意的是，由于数组 `source` 的索引是从 `0` 开始的，而未处理节点的索引未必从 `0` 开始，所以在填充数组时需要使用表达式 `k - newStart` 的值作为数组的索引值。外层循环的变量 `i` 就是当前节点在旧的一组子节点中的位置索引，因此直接将变量 `i` 的值赋给 `source[k - newStart]` 即可。
+
+　　现在，`source` 数组已经填充完毕，我们后面会用到它。不过在进一步讲解之前，我们需要回头思考一下上面那段用于填充 `source` 数组的代码存在怎样的问题。这段代码中我们采用了两层嵌套的循环，其时间复杂度为 `O(n1 * n2)`，其中 `n1` 和 `n2` 为新旧两组子节点的数量，我们也可以使用 `O(n^2)` 来表示。当新旧两组子节点的数量较多时，两层嵌套的循环会带来性能问题。出于优化的目的，我们可以为新的一组子节点构建一张**索引表**，用来存储节点的 `key` 和节点位置索引之间的映射，如图 11-20 所示。
+
+![图 11-20](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/117.jpg)
+
+**图 11-20　使用索引表填充 `source` 数组**
+
+　　有了索引表，我们就可以利用它快速地填充 `source` 数组，如下面的代码所示：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   const count = newEnd - j + 1
+07   const source = new Array(count)
+08   source.fill(-1)
+09
+10   // oldStart 和 newStart 分别为起始索引，即 j
+11   const oldStart = j
+12   const newStart = j
+13   // 构建索引表
+14   const keyIndex = {}
+15   for(let i = newStart; i <= newEnd; i++) {
+16     keyIndex[newChildren[i].key] = i
+17   }
+18   // 遍历旧的一组子节点中剩余未处理的节点
+19   for(let i = oldStart; i <= oldEnd; i++) {
+20     oldVNode = oldChildren[i]
+21     // 通过索引表快速找到新的一组子节点中具有相同 key 值的节点位置
+22     const k = keyIndex[oldVNode.key]
+23
+24     if (typeof k !== 'undefined') {
+25       newVNode = newChildren[k]
+26       // 调用 patch 函数完成更新
+27       patch(oldVNode, newVNode, container)
+28       // 填充 source 数组
+29       source[k - newStart] = i
+30     } else {
+31       // 没找到
+32       unmount(oldVNode)
+33     }
+34   }
+35 }
+```
+
+　　在上面这段代码中，同样使用了两个 `for` 循环，不过它们不再是嵌套的关系，所以能够将代码的时间复杂度降至 `O(n)`。其中，第一个 `for` 循环用来构建索引表，索引表存储的是节点的 `key` 值与节点在新的一组子节点中位置索引之间的映射，第二个 `for` 循环用来遍历旧的一组子节点。可以看到，我们拿旧子节点的 `key` 值去索引表 `keyIndex` 中查找该节点在新的一组子节点中的位置，并将查找结果存储到变量 `k` 中。如果 `k` 存在，说明该节点是可复用的，所以我们调用 `patch` 函数进行打补丁，并填充 `source` 数组；否则说明该节点已经不存在于新的一组子节点中了，这时我们需要调用 `unmount` 函数卸载它。
+
+　　上述流程执行完毕后，`source` 数组已经填充完毕了。接下来我们应该思考的是，如何判断节点是否需要移动。实际上，快速 Diff 算法判断节点是否需要移动的方法与简单 Diff 算法类似，如下面的代码所示：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   // 构造 source 数组
+07   const count = newEnd - j + 1  // 新的一组子节点中剩余未处理节点的数量
+08   const source = new Array(count)
+09   source.fill(-1)
+10
+11   const oldStart = j
+12   const newStart = j
+13   // 新增两个变量，moved 和 pos
+14   let moved = false
+15   let pos = 0
+16
+17   const keyIndex = {}
+18   for(let i = newStart; i <= newEnd; i++) {
+19     keyIndex[newChildren[i].key] = i
+20   }
+21   for(let i = oldStart; i <= oldEnd; i++) {
+22     oldVNode = oldChildren[i]
+23     const k = keyIndex[oldVNode.key]
+24
+25     if (typeof k !== 'undefined') {
+26       newVNode = newChildren[k]
+27       patch(oldVNode, newVNode, container)
+28       source[k - newStart] = i
+29       // 判断节点是否需要移动
+30       if (k < pos) {
+31         moved = true
+32       } else {
+33         pos = k
+34       }
+35     } else {
+36       unmount(oldVNode)
+37     }
+38   }
+39 }
+```
+
+　　在上面这段代码中，我们新增了两个变量 `moved` 和 `pos`。前者的初始值为 `false`，代表是否需要移动节点，后者的初始值为 `0`，代表遍历旧的一组子节点的过程中遇到的最大索引值 `k`。我们在讲解简单 Diff 算法时曾提到，如果在遍历过程中遇到的索引值呈现递增趋势，则说明不需要移动节点，反之则需要。所以在第二个 `for` 循环内，我们通过比较变量 `k` 与变量 `pos` 的值来判断是否需要移动节点。
+
+　　除此之外，我们还需要一个数量标识，代表**已经更新过的节点数量**。我们知道，**已经更新过的节点数量**应该小于新的一组子节点中需要更新的节点数量。一旦前者超过后者，则说明有多余的节点，我们应该将它们卸载，如下面的代码所示：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   // 构造 source 数组
+07   const count = newEnd - j + 1
+08   const source = new Array(count)
+09   source.fill(-1)
+10
+11   const oldStart = j
+12   const newStart = j
+13   let moved = false
+14   let pos = 0
+15   const keyIndex = {}
+16   for(let i = newStart; i <= newEnd; i++) {
+17     keyIndex[newChildren[i].key] = i
+18   }
+19   // 新增 patched 变量，代表更新过的节点数量
+20   let patched = 0
+21   for(let i = oldStart; i <= oldEnd; i++) {
+22     oldVNode = oldChildren[i]
+23     // 如果更新过的节点数量小于等于需要更新的节点数量，则执行更新
+24     if (patched <= count) {
+25       const k = keyIndex[oldVNode.key]
+26       if (typeof k !== 'undefined') {
+27         newVNode = newChildren[k]
+28         patch(oldVNode, newVNode, container)
+29         // 每更新一个节点，都将 patched 变量 +1
+30         patched++
+31         source[k - newStart] = i
+32         if (k < pos) {
+33           moved = true
+34         } else {
+35           pos = k
+36         }
+37       } else {
+38         // 没找到
+39         unmount(oldVNode)
+40       }
+41     } else {
+42       // 如果更新过的节点数量大于需要更新的节点数量，则卸载多余的节点
+43       unmount(oldVNode)
+44     }
+45   }
+46 }
+```
+
+　　在上面这段代码中，我们增加了 `patched` 变量，其初始值为 `0`，代表更新过的节点数量。接着，在第二个 `for` 循环中增加了判断 `patched <= count`，如果此条件成立，则正常执行更新，并且每次更新后都让变量 `patched` 自增；否则说明剩余的节点都是多余的，于是调用 `unmount` 函数将它们卸载。
+
+　　现在，我们通过判断变量 `moved` 的值，已经能够知道是否需要移动节点，同时也处理了很多边界条件。接下来我们讨论如何移动节点。
+
+### 11.3　如何移动元素
+
+　　在上一节中，我们实现了两个目标。
+
+- 判断是否需要进行 DOM 移动操作。我们创建了变量 `moved` 作为标识，当它的值为 `true` 时，说明需要进行 DOM 移动操作。
+- 构建 `source` 数组。该数组的长度等于新的一组子节点**去掉**相同的前置/后置节点后，剩余未处理节点的数量。`source` 数组中存储着新的一组子节点中的节点在旧的一组子节点中的位置，后面我们会根据 `source` 数组计算出一个**最长递增子序列**，用于 DOM 移动操作。
+
+　　接下来，我们讨论如何进行 DOM 移动操作，如下面的代码所示：
+
+```js
+01 if (j > oldEnd && j <= newEnd) {
+02   // 省略部分代码
+03 } else if (j > newEnd && j <= oldEnd) {
+04   // 省略部分代码
+05 } else {
+06   // 省略部分代码
+07   for(let i = oldStart; i <= oldEnd; i++) {
+08     // 省略部分代码
+09   }
+10
+11   if (moved) {
+12     // 如果 moved 为真，则需要进行 DOM 移动操作
+13   }
+14 }
+```
+
+　　在上面这段代码中，我们在 `for` 循环后增加了一个 `if` 判断分支。如果变量 `moved` 的值为 `true`，则说明需要进行 DOM 移动操作，所以用于 DOM 移动操作的逻辑将编写在该 `if` 语句块内。
+
+　　为了进行 DOM 移动操作，我们首先要根据 `source` 数组计算出它的最长递增子序列。`source` 数组仍然取用在 11.2 节中给出的例子，如图 11-21 所示。
+
+![图 11-21](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/118.jpg)
+
+**图 11-21　用于计算 `source` 数组的递增子序列的例子**
+
+　　在这个例子中，我们计算出 `source` 数组为 `[2, 3, 1, -1]`。那么，该数组的最长递增子序列是什么呢？这就需要我们了解最长递增子序列的概念。为此，我们先要搞清楚什么是一个序列的递增子序列。简单来说，给定一个数值序列，找到它的一个子序列，并且该子序列中的值是递增的，子序列中的元素在原序列中不一定连续。一个序列可能有很多个递增子序列，其中最长的那一个就称为最长递增子序列。举个例子，假设给定数值序列 `[ 0, 8, 4, 12 ]`，那么它的最长递增子序列就是 `[0, 8, 12]`。当然，对于同一个数值序列来说，它的最长递增子序列可能有多个，例如 `[0, 4, 12]` 也是本例的答案之一。
+
+　　理解了什么是最长递增子序列，接下来我们就可以求解 `source` 数组的最长递增子序列了，如下面的代码所示：
+
+```js
+01 if (moved) {
+02   // 计算最长递增子序列
+03   const seq = lis(sources) // [ 0, 1 ]
+04 }
+```
+
+　　在上面这段代码中，我们使用 `lis` 函数计算一个数组的最长递增子序列。`lis` 函数接收 `source` 数组作为参数，并返回 `source` 数组的最长递增子序列之一。在上例中，你可能疑惑为什么通过 `lis` 函数计算得到的是 `[0, 1]`？实际上，`source` 数组 `[2, 3, 1, -1]` 的最长递增子序列应该是 `[2, 3]`，但我们得到的结果是 `[0, 1]`，这是为什么呢？这是因为 `lis` 函数的返回结果是最长递增子序列中的元素在 `source` 数组中的位置索引，如图 11-22 所示。
+
+![图 11-22 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/119.jpg)
+
+**图 11-22　递增子序列中存储的是 `source` 数组内元素的位置索引**
+
+　　因为 `source` 数组的最长递增子序列为 `[2, 3]`，其中元素 `2` 在该数组中的索引为 `0`，而数组 `3` 在该数组中的索引为 `1`，所以最终结果为 `[0, 1]`。
+
+　　有了最长递增子序列的索引信息后，下一步要重新对节点进行编号，如图 11-23 所示。
+
+![图 11-23](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/120.jpg)
+
+**图 11-23　重新对节点进行编号后的状态**
+
+　　观察图 11-23，在编号时，我们忽略了经过预处理的节点 `p-1` 和 `p-5`。所以，索引为 `0` 的节点是 `p-2`，而索引为 `1` 节点是 `p-3`，以此类推。重新编号是为了让子序列 `seq` 与新的索引值产生对应关系。其实，最长递增子序列 `seq` 拥有一个非常重要的意义。以上例来说，子序列 `seq` 的值为 `[0, 1]`，它的含义是：**在新的一组子节点中，重新编号后索引值为 `0` 和 `1` 的这两个节点在更新前后顺序没有发生变化**。换句话说，重新编号后，索引值为 `0` 和 `1` 的节点不需要移动。在新的一组子节点中，节点 `p-3` 的索引为 `0`，节点 `p-4` 的索引为 `1`，所以节点 `p-3` 和 `p-4` 所对应的真实 DOM 不需要移动。换句话说，只有节点 `p-2` 和 `p-7` 可能需要移动。
+
+　　为了完成节点的移动，我们还需要创建两个索引值 `i` 和 `s`：
+
+- 用索引 `i` 指向新的一组子节点中的最后一个节点；
+- 用索引 `s` 指向最长递增子序列中的最后一个元素。
+
+　　如图 11-24 所示。
+
+![图 11-24](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/121.jpg)
+
+**图 11-24　建立索引 `s` 和 `i`，分别指向子序列和索引的最后一个位置**
+
+　　观察图 11-24，为了简化图示，我们在去掉了旧的一组子节点以及无关的线条和变量。接下来，我们将开启一个 `for` 循环，让变量 `i` 和 `s` 按照图 11-24 中箭头的方向移动，如下面的代码所示：
+
+```js
+01 if (moved) {
+02   const seq = lis(sources)
+03
+04   // s 指向最长递增子序列的最后一个元素
+05   let s = seq.length - 1
+06   // i 指向新的一组子节点的最后一个元素
+07   let i = count - 1
+08   // for 循环使得 i 递减，即按照图 11-24 中箭头的方向移动
+09   for (i; i >= 0; i--) {
+10     if (i !== seq[s]) {
+11       // 如果节点的索引 i 不等于 seq[s] 的值，说明该节点需要移动
+12     } else {
+13       // 当 i === seq[s] 时，说明该位置的节点不需要移动
+14       // 只需要让 s 指向下一个位置
+15       s--
+16     }
+17   }
+18 }
+```
+
+其中，`for` 循环的目的是让变量 `i` 按照图 11-24 中箭头的方向移动，以便能够逐个访问新的一组子节点中的节点，这里的变量 `i` 就是节点的索引。在 `for` 循环内，判断条件 `i !== seq[s]`，如果节点的索引 `i` 不等于 `seq[s]` 的值，则说明该节点对应的真实 DOM 需要移动，否则说明当前访问的节点不需要移动，但这时变量 `s` 需要按照图 11-24 中箭头的方向移动，即让变量 `s` 递减。
+
+　　接下来我们就按照上述思路执行更新。初始时索引 `i` 指向节点 `p-7`。由于节点 `p-7` 对应的 `source` 数组中相同位置的元素值为 `-1`，所以我们应该将节点 `p-7` 作为全新的节点进行挂载，如下面的代码所示：
+
+```js
+01 if (moved) {
+02   const seq = lis(sources)
+03
+04   // s 指向最长递增子序列的最后一个元素
+05   let s = seq.length - 1
+06   // i 指向新的一组子节点的最后一个元素
+07   let i = count - 1
+08   // for 循环使得 i 递减，即按照图 11-24 中箭头的方向移动
+09   for (i; i >= 0; i--) {
+10     if (source[i] === -1) {
+11       // 说明索引为 i 的节点是全新的节点，应该将其挂载
+12       // 该节点在新 children 中的真实位置索引
+13       const pos = i + newStart
+14       const newVNode = newChildren[pos]
+15       // 该节点的下一个节点的位置索引
+16       const nextPos = pos + 1
+17       // 锚点
+18       const anchor = nextPos < newChildren.length
+19         ? newChildren[nextPos].el
+20         : null
+21       // 挂载
+22       patch(null, newVNode, container, anchor)
+23     } else if (i !== seq[s]) {
+24       // 如果节点的索引 i 不等于 seq[s] 的值，说明该节点需要移动
+25     } else {
+26       // 当 i === seq[s] 时，说明该位置的节点不需要移动
+27       // 只需要让 s 指向下一个位置
+28       s--
+29     }
+30   }
+31 }
+```
+
+　　如果 `source[i]` 的值为 `-1`，则说明索引为 `i` 的节点是全新的节点，于是我们调用 `patch` 函数将其挂载到容器中。这里需要注意的是，由于索引 `i` 是重新编号后的，因此为了得到真实索引值，我们需要计算表达式 `i + newStart` 的值。
+
+　　新节点创建完毕后，`for` 循环已经执行了一次，此时索引 `i` 向上移动一步，指向了节点 `p-2`，如图 11-25 所示。
+
+![图 11-25 ](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/122.jpg)
+
+**图 11-25　节点以及索引的当前状态**
+
+　　接着，进行下一轮 `for` 循环，步骤如下。
+
+- 第一步：`source[i]` 是否等于 `-1`？很明显，此时索引 `i` 的值为 `2`，`source[2]` 的值等于 `1`，因此节点 `p-2` 不是全新的节点，不需要挂载它，进行下一步的判断。
+- 第二步：`i !== seq[s]` 是否成立？此时索引 `i` 的值为 `2`，索引 `s` 的值为 `1`。因此 `2 !== seq[1]` 成立，节点 `p-2` 所对应的真实 DOM 需要移动。
+
+　　在第二步中，我们知道了节点 `p-2` 所对应的真实 DOM 应该移动。实现代码如下：
+
+```js
+01 if (moved) {
+02   const seq = lis(sources)
+03
+04   // s 指向最长递增子序列的最后一个元素
+05   let s = seq.length - 1
+06   let i = count - 1
+07   for (i; i >= 0; i--) {
+08     if (source[i] === -1) {
+09       // 省略部分代码
+10     } else if (i !== seq[s]) {
+11       // 说明该节点需要移动
+12       // 该节点在新的一组子节点中的真实位置索引
+13       const pos = i + newStart
+14       const newVNode = newChildren[pos]
+15       // 该节点的下一个节点的位置索引
+16       const nextPos = pos + 1
+17       // 锚点
+18       const anchor = nextPos < newChildren.length
+19         ? newChildren[nextPos].el
+20         : null
+21       // 移动
+22       insert(newVNode.el, container, anchor)
+23     } else {
+24       // 当 i === seq[s] 时，说明该位置的节点不需要移动
+25       // 并让 s 指向下一个位置
+26       s--
+27     }
+28   }
+29 }
+```
+
+　　可以看到，移动节点的实现思路类似于挂载全新的节点。不同点在于，移动节点是通过 `insert` 函数来完成的。
+
+　　接着，进行下一轮的循环。此时索引 `i` 指向节点 `p-4`，如图 11-26 所示。
+
+![ 11-26](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/123.jpg)
+
+**图 11-26　节点以及索引的当前状态**
+
+　　更新过程仍然分为三个步骤。
+
+- 第一步：判断表达式 `source[i]` 的值是否等于 `-1`？很明显，此时索引 `i` 的值为 `1`，表达式 `source[1]` 的值等于 `3`，条件不成立。所以节点 `p-4` 不是全新的节点，不需要挂载它。接着进行下一步判断。
+- 第二步：判断表达式 `i !== seq[s]` 是否成立？此时索引 `i` 的值为 `1`，索引 `s` 的值为 `1`。这时表达式 `1 === seq[1]` 为真，所以条件 `i !== seq[s]` 也不成立。
+- 第三步：由于第一步和第二步中的条件都不成立，所以代码会执行最终的 `else` 分支。这意味着，节点 `p-4` 所对应的真实 DOM 不需要移动，但我们仍然需要让索引 `s` 的值递减，即 `s--`。
+
+　　经过三步判断之后，我们得出结论：节点 `p-4` 不需要移动。于是进行下一轮循环，此时的状态如图 11-27 所示。
+
+![图 11-27](https://blog-picgo-typora.oss-cn-hangzhou.aliyuncs.com/124.jpg)
+
+**图 11-27　节点以及索引的当前状态**
+
+　　由图 11-27 可知，此时索引 `i` 指向节点 `p-3`。我们继续进行三个步骤的判断。
+
+- 第一步：判断表达式 `source[i]` 的值是否等于 `-1`？很明显，此时索引 `i` 的值为 `0`，表达式 `source[0]` 的值等于 `2`，所以节点 `p-3` 不是全新的节点，不需要挂载它，接着进行下一步判断。
+- 第二步：判断表达式 `i !== seq[s]` 是否成立？此时索引 `i` 的值为 `0`，索引 `s` 的值也为 `0`。这时表达式 `0 === seq[0]` 为真，因此条件也不成立，最终将执行 `else` 分支的代码，也就是第三步。
+- 第三步：到了这里，意味着节点 `p-3` 所对应的真实 DOM 也不需要移动。
+
+　　在这一轮更新完成之后，循环将会停止，更新完成。
+
+　　需要强调的是，关于给定序列的递增子序列的求法不在本书的讲解范围内，网络上有大量文章讲解了这方面的内容，读者可以自行查阅。如下是用于求解给定序列的最长递增子序列的代码，取自 Vue.js 3：
+
+```js
+01 function getSequence(arr) {
+02   const p = arr.slice()
+03   const result = [0]
+04   let i, j, u, v, c
+05   const len = arr.length
+06   for (i = 0; i < len; i++) {
+07     const arrI = arr[i]
+08     if (arrI !== 0) {
+09       j = result[result.length - 1]
+10       if (arr[j] < arrI) {
+11         p[i] = j
+12         result.push(i)
+13         continue
+14       }
+15       u = 0
+16       v = result.length - 1
+17       while (u < v) {
+18         c = ((u + v) / 2) | 0
+19         if (arr[result[c]] < arrI) {
+20           u = c + 1
+21         } else {
+22           v = c
+23         }
+24       }
+25       if (arrI < arr[result[u]]) {
+26         if (u > 0) {
+27           p[i] = result[u - 1]
+28         }
+29         result[u] = i
+30       }
+31     }
+32   }
+33   u = result.length
+34   v = result[u - 1]
+35   while (u-- > 0) {
+36     result[u] = v
+37     v = p[v]
+38   }
+39   return result
+40 }
+```
+
+### 11.4　总结
+
+　　快速 Diff 算法在实测中性能最优。它借鉴了文本 Diff 中的预处理思路，先处理新旧两组子节点中相同的前置节点和相同的后置节点。当前置节点和后置节点全部处理完毕后，如果无法简单地通过挂载新节点或者卸载已经不存在的节点来完成更新，则需要根据节点的索引关系，构造出一个最长递增子序列。最长递增子序列所指向的节点即为不需要移动的节点。
