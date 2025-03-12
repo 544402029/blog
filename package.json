@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "vitepress": "^1.1.4"
   },
   "scripts": {
