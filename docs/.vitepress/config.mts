@@ -28,31 +28,6 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/index.md' },
       {
-        text: '面试题库',
-        items: [
-          {
-            text: '珠峰面试题合集',
-            link: '/面试题库/珠峰面试题合集.md',
-          },
-          {
-            text: 'Vue全家桶',
-            link: '/面试题库/vue全家桶.md',
-          },
-          { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
-          { text: '通信类', link: '/面试题库/通信类.md' },
-          { text: 'HTML', link: '/面试题库/HTML.md' },
-          { text: 'CSS', link: '/面试题库/CSS.md' },
-          { text: 'JavaScript', link: '/面试题库/JavaScript.md' },
-          { text: '笔试题', link: '/面试题库/笔试题.md' },
-          { text: 'Vue', link: '/面试题库/Vue.md' },
-          { text: 'Vue3', link: '/面试题库/Vue3.md' },
-          { text: 'Webpack', link: '/面试题库/Webpack.md' },
-          { text: 'Node.js', link: '/面试题库/Node.js.md' },
-          { text: '其它', link: '/面试题库/其它.md' },
-          { text: 'vue的diff算法', link: '/面试题库/vue的diff算法.md' },
-        ],
-      },
-      {
         text: '常用代码片段',
         items: [
           { text: 'CSS常用代码片段', link: '/常用代码片段/CSS常用代码片段.md' },
@@ -123,7 +98,32 @@ export default defineConfig({
             link: '/zhufeng/前端工程化.md',
           }
         ]
-      }
+      },
+      {
+        text: '面试题库',
+        items: [
+          {
+            text: 'Vue全家桶',
+            link: '/面试题库/vue全家桶.md',
+          },
+          { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
+          { text: '通信类', link: '/面试题库/通信类.md' },
+          { text: 'HTML', link: '/面试题库/HTML.md' },
+          { text: 'CSS', link: '/面试题库/CSS.md' },
+          { text: 'JavaScript', link: '/面试题库/JavaScript.md' },
+          { text: '笔试题', link: '/面试题库/笔试题.md' },
+          { text: 'Vue', link: '/面试题库/Vue.md' },
+          { text: 'Vue3', link: '/面试题库/Vue3.md' },
+          { text: 'Webpack', link: '/面试题库/Webpack.md' },
+          { text: 'Node.js', link: '/面试题库/Node.js.md' },
+          { text: '其它', link: '/面试题库/其它.md' },
+          { text: 'vue的diff算法', link: '/面试题库/vue的diff算法.md' },
+          {
+            text: '面试题合集2025',
+            link: '/面试题库/面试题合集2025.md',
+          },
+        ],
+      },
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/544402029/blog' }

@@ -8,8 +8,8 @@ hero:
   tagline: "但行好事，莫问前程"
   actions:
     - theme: alt
-      text: 前端面试
-      link: /面试题库/面试真题2022.md
+      text: 前端笔记
+      link: /前端笔记/Vue.js设计与实现.md
     - theme: brand
       text: 掘金
       link: https://juejin.cn/user/2612095358870350/posts?sort=popular
@@ -17,7 +17,7 @@ hero:
 features:
   - title: 前端笔记
     details: 日常学习所得
-    link: /前端笔记/Electron+Vue3+AI+云存储--实战跨平台桌面应用.md
+    link: /前端笔记/Vue.js设计与实现.md
   - title: 联系方式
     details: QQ：544402029
   - title: 日常记录
