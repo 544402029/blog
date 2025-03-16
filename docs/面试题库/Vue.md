@@ -500,7 +500,7 @@ Proxy 代理/拦截
 
 ## Proxy 如何实现响应式？
 
-```javascript
+```vue
 // 创建响应式
 function reactive(target = {}) {
   if (typeof target !== "object" || target == null) {
@@ -604,7 +604,7 @@ DOM
 
 JS 模拟 DOM
 
-```javascript
+```vue
 var vdom = {
   tag: 'div',
   type: 1,
@@ -699,7 +699,7 @@ var vdom = {
 
 在第一个阶段中，最主要的事情还是通过各种各样的正则表达式去匹配模板中的内容，然后将内容提取出来做各种逻辑操作，接下来会生成一个最基本的 AST 对象
 
-```javascript
+```vue
 {
     // 类型
     type: 1,
@@ -884,7 +884,7 @@ function updateChildren(parentElm, oldCh, newCh) {
 
 接下来是一个 while 循环，在这过程中，oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 会逐渐向中间靠拢。
 
-```javascript
+```vue
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
 ```
 
@@ -892,7 +892,7 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
 
 首先当 oldStartVnode 或者 oldEndVnode 不存在的时候，oldStartIdx 与 oldEndIdx 继续向中间靠拢，并更新对应的 oldStartVnode 与 oldEndVnode 的指向（注：下面讲到的 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 移动都会伴随着 oldStartVnode、newStartVnode、oldEndVnode 以及 newEndVnode 的指向的变化，之后的部分只会讲 Idx 的移动）。
 
-```javascript
+```vue
 if (!oldStartVnode) {
   oldStartVnode = oldCh[++oldStartIdx];
 } else if (!oldEndVnode) {
@@ -902,7 +902,7 @@ if (!oldStartVnode) {
 
 接下来这一块，是将 oldStartIdx、newStartIdx、oldEndIdx 以及 newEndIdx 两两比对的过程，一共会出现 2\*2=4 种情况。
 
-```javascript
+```vue
 else if (sameVnode(oldStartVnode, newStartVnode)) {
     patchVnode(oldStartVnode, newStartVnode);
     oldStartVnode = oldCh[++oldStartIdx];
@@ -936,7 +936,7 @@ else if (sameVnode(oldStartVnode, newStartVnode)) {
 
 最后是当以上情况都不符合的时候，这种情况怎么处理呢？
 
-```javascript
+```vue
 else {
     let elmToMove = oldCh[idxInOld];
     if (!oldKeyToIdx) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
@@ -981,7 +981,7 @@ createKeyToOldIdx 的作用是产生 key 与 index 索引对应的一个 map 表
 
 在经过 createKeyToOldIdx 转化以后会变成：
 
-```javascript
+```vue
 {
     key0: 0,
     key1: 1,
@@ -1002,7 +1002,7 @@ if (!idxInOld) {
 
 否则如果找到了节点，同时它符合 sameVnode，则将这两个节点进行 patchVnode，将该位置的老节点赋值 undefined（之后如果还有新节点与该节点 key 相同可以检测出来提示已有重复的 key ），同时将 newStartVnode.elm 插入到 oldStartVnode.elm 的前面。同理，newStartIdx 往后移动一位。
 
-```javascript
+```vue
 else {
     elmToMove = oldCh[idxInOld];
     if (sameVnode(elmToMove, newStartVnode)) {
@@ -1016,7 +1016,7 @@ else {
 
 如果不符合 sameVnode，只能创建一个新节点插入到 parentElm 的子节点中，newStartIdx 往后移动一位。
 
-```javascript
+```vue
 else {
     createElm(newStartVnode, parentElm);
     newStartVnode = newCh[++newStartIdx];
@@ -1868,7 +1868,7 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .btn
   display inline-flex
   align-items center
@@ -2094,7 +2094,7 @@ Vuex 全局维护着一个对象，使用到了**单例设计模式**。`state` 
 
 ## 为什么 Vuex 的 mutation 不能做异步操作？
 
-```javascript
+```vue
 mutations: {
   someMutation (state) {
     api.callAsyncMethod(() => {
@@ -2120,7 +2120,7 @@ mutations: {
 <input :value="message" @input="updateMessage" />
 ```
 
-```javascript
+```vue
 // ...
 computed: {
   ...mapState({
