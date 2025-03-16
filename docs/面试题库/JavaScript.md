@@ -1875,7 +1875,7 @@ js 执行时会把`var`声明，函数声明 , `argument` 提到作用域顶部�
 1. `let`，`const`声明不会挂载在`window`上。var 声明会挂载到`window`上。
 1. `let`，`const`不能重复声明, var 可以重复声明。
 1. `let`，`const`不存在变量提升, var 存在变量提升。
-1. `let`，`const`只在块级作用域有效。
+1. `let`，`const`拥有块级作用域。
 1. `const`常量一旦声明时必须赋值 , 且不能修改 。`let` `var`是变量， 可以进行修改。
 
 
