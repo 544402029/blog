@@ -44,12 +44,8 @@ export default defineConfig({
           { text: '正则表达式', link: '/前端笔记/正则表达式.md' },
           { text: 'JavaScript正则迷你书', link: '/前端笔记/JavaScript正则迷你书.md' },
           { text: 'JavaScript 设计模式核⼼原理与应⽤实践', link: '/前端笔记/JavaScript 设计模式核⼼原理与应⽤实践.md' },
+          { text: 'Webpack', link: '/前端笔记/Webpack.md' },
           { text: 'TypeScript', link: '/前端笔记/TypeScript.md' },
-          { text: 'linux命令', link: '/前端笔记/linux命令.md' },
-          { text: '图解HTTP', link: '/前端笔记/图解HTTP.md' },
-          { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
-          { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
-          { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
           {
             text: 'Node.js从零开发Web Server博客项目',
             link: '/前端笔记/Node.js从零开发WebServer博客项目,前端晋升全栈工程师必备.md',
@@ -66,6 +62,11 @@ export default defineConfig({
             text: 'Koa2新浪博客',
             link: '/前端笔记/Koa2新浪博客.md',
           },
+          { text: 'linux命令', link: '/前端笔记/linux命令.md' },
+          { text: '图解HTTP', link: '/前端笔记/图解HTTP.md' },
+          { text: 'HTTP协议原理', link: '/前端笔记/HTTP协议原理+实践 Web开发工程师必学.md' },
+          { text: '计算机网络通关29讲', link: '/前端笔记/计算机网络通关29讲.md' },
+          { text: '后台通用提效解决方案', link: '/前端笔记/后台通用提效解决方案.md' },
           {
             text: 'Electron+Vue3+AI+云存储--实战跨平台桌面应用',
             link: '/前端笔记/Electron+Vue3+AI+云存储--实战跨平台桌面应用.md',
@@ -102,11 +103,6 @@ export default defineConfig({
       {
         text: '面试题库',
         items: [
-          {
-            text: 'Vue全家桶',
-            link: '/面试题库/vue全家桶.md',
-          },
-          { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
           { text: '通信类', link: '/面试题库/通信类.md' },
           { text: 'HTML', link: '/面试题库/HTML.md' },
           { text: 'CSS', link: '/面试题库/CSS.md' },
@@ -114,10 +110,14 @@ export default defineConfig({
           { text: '笔试题', link: '/面试题库/笔试题.md' },
           { text: 'Vue', link: '/面试题库/Vue.md' },
           { text: 'Vue3', link: '/面试题库/Vue3.md' },
-          { text: 'Webpack', link: '/面试题库/Webpack.md' },
           { text: 'Node.js', link: '/面试题库/Node.js.md' },
           { text: '其它', link: '/面试题库/其它.md' },
           { text: 'vue的diff算法', link: '/面试题库/vue的diff算法.md' },
+          {
+            text: 'Vue全家桶',
+            link: '/面试题库/vue全家桶.md',
+          },
+          { text: '面试真题2022', link: '/面试题库/面试真题2022.md' },
           {
             text: '面试题合集2025',
             link: '/面试题库/面试题合集2025.md',

@@ -2,9 +2,6 @@
 prev: 
     text: 'Vue'
     link: '/面试题库/Vue'
-next: 
-    text: 'Webpack'
-    link: '/面试题库/Webpack'
 ---
 
 # Vue3

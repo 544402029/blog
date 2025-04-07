@@ -569,7 +569,7 @@ HMR 是 Hot Module Replacement 的缩写。
 webpack.config.js
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 ```
 
 ```javascript
@@ -835,97 +835,97 @@ package.json 文件内
 ```javascript
 const path = require("path"); //引入node核心模块
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const webpack = require("docs/前端笔记/Webpack");
 
 module.exports = {
-  //mode: 'production',//默认模式,会压缩代码，不写即是默认，不写会有提示
-  mode: "development", //开发模式， 不会压缩代码
-  devtool: "cheap-module-eval-source-map",
-  entry: {
-    main: "./src/index.js",
-  }, //从哪一个文件开始打包
-  devServer: {
-    contentBase: "./dist", //服务器起在哪一个文件夹下
-    open: true, //自动打开浏览器
-    port: 8080, //使用哪个端口号
-    // proxy: {
-    //     './api':'http://locallhost:3000'
-    // }//如果访问api这个地址，也就是locallhost:8000/api, 它会帮你转发到http://locallhost:3000这个地址上
-    hot: true, //开启热更新
-    hotOnly: true, //即便热更新没有生效，也不刷新浏览器
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: {
-          // loader: 'file-loader',// 遇到jpg格式不知道怎么打包就去求助file-loader插件
-          loader: "url-loader", //图片转化为base64， 不是单独生成一个文件。
-          options: {
-            // placeholder 占位符
-            name: "[name]_[hash].[ext]", //name 打包文件名字   name/原有文件名字  hash/本次打包哈希值  ext/原有名字后缀
-            outputPath: "images/", //把图片文件打包到images目录下
-            limit: 204800, //如果文件超过204800字节，就会像file-loader打包到dist目录下生成一个文件，
-            //如果文件小于204800字节，那就回变成base64字符串， 放到js内
-          },
-        },
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2|svg)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            outputPath: "fonts/",
-          },
-        },
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2, //在scss又引入另外一个scss时，有可能直接走css-loader，不走sass-loader和postcss-loader，加上此配置项可以让它继续走下面两个loader
-              //modules: true//开启css模块化打包  解决全局样式冲突
+    //mode: 'production',//默认模式,会压缩代码，不写即是默认，不写会有提示
+    mode: "development", //开发模式， 不会压缩代码
+    devtool: "cheap-module-eval-source-map",
+    entry: {
+        main: "./src/index.js",
+    }, //从哪一个文件开始打包
+    devServer: {
+        contentBase: "./dist", //服务器起在哪一个文件夹下
+        open: true, //自动打开浏览器
+        port: 8080, //使用哪个端口号
+        // proxy: {
+        //     './api':'http://locallhost:3000'
+        // }//如果访问api这个地址，也就是locallhost:8000/api, 它会帮你转发到http://locallhost:3000这个地址上
+        hot: true, //开启热更新
+        hotOnly: true, //即便热更新没有生效，也不刷新浏览器
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: {
+                    // loader: 'file-loader',// 遇到jpg格式不知道怎么打包就去求助file-loader插件
+                    loader: "url-loader", //图片转化为base64， 不是单独生成一个文件。
+                    options: {
+                        // placeholder 占位符
+                        name: "[name]_[hash].[ext]", //name 打包文件名字   name/原有文件名字  hash/本次打包哈希值  ext/原有名字后缀
+                        outputPath: "images/", //把图片文件打包到images目录下
+                        limit: 204800, //如果文件超过204800字节，就会像file-loader打包到dist目录下生成一个文件，
+                        //如果文件小于204800字节，那就回变成base64字符串， 放到js内
+                    },
+                },
             },
-          },
-          "sass-loader", //sass文件编译
-          "postcss-loader", //加厂商前缀
+            {
+                test: /\.(eot|ttf|woff|woff2|svg)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        outputPath: "fonts/",
+                    },
+                },
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2, //在scss又引入另外一个scss时，有可能直接走css-loader，不走sass-loader和postcss-loader，加上此配置项可以让它继续走下面两个loader
+                            //modules: true//开启css模块化打包  解决全局样式冲突
+                        },
+                    },
+                    "sass-loader", //sass文件编译
+                    "postcss-loader", //加厂商前缀
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "postcss-loader", //加厂商前缀
+                ],
+            },
+            {
+                test: /\.js$/, //js文件由ES6转成ES5
+                exclude: /node_modules/, //不管这个文件夹下的js文件
+                loader: "babel-loader",
+            },
         ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "postcss-loader", //加厂商前缀
-        ],
-      },
-      {
-        test: /\.js$/, //js文件由ES6转成ES5
-        exclude: /node_modules/, //不管这个文件夹下的js文件
-        loader: "babel-loader",
-      },
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "src/index.html",
+        }),
+        new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "src/index.html",
-    }),
-    new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-  optimization: {
-    usedExports: true,
-  },
-  output: {
-    //输出到哪里
-    filename: "[name].js", //输出的文件名称  name对应的是entry里的key值
-    path: path.resolve(__dirname, "dist"), //输出到哪一个文件夹下, path后面跟绝对路径
-    //__dirname指的是webpack.config.js文件当前所在的路径
-  },
+    optimization: {
+        usedExports: true,
+    },
+    output: {
+        //输出到哪里
+        filename: "[name].js", //输出的文件名称  name对应的是entry里的key值
+        path: path.resolve(__dirname, "dist"), //输出到哪一个文件夹下, path后面跟绝对路径
+        //__dirname指的是webpack.config.js文件当前所在的路径
+    },
 };
 ```
 
@@ -952,72 +952,72 @@ package.json
 ```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const webpack = require("docs/前端笔记/Webpack");
 
 module.exports = {
-  mode: "production",
-  devtool: "cheap-module-source-map",
-  entry: {
-    main: "./src/index.js",
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            name: "[name]_[hash].[ext]",
-            outputPath: "images/",
-            limit: 204800,
-          },
-        },
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2|svg)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            outputPath: "fonts/",
-          },
-        },
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
+    mode: "production",
+    devtool: "cheap-module-source-map",
+    entry: {
+        main: "./src/index.js",
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        name: "[name]_[hash].[ext]",
+                        outputPath: "images/",
+                        limit: 204800,
+                    },
+                },
             },
-          },
-          "sass-loader",
-          "postcss-loader",
+            {
+                test: /\.(eot|ttf|woff|woff2|svg)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        outputPath: "fonts/",
+                    },
+                },
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    "sass-loader",
+                    "postcss-loader",
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader", "postcss-loader"],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+            },
         ],
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-      },
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "src/index.html",
+        }),
+        new CleanWebpackPlugin(),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "src/index.html",
-    }),
-    new CleanWebpackPlugin(),
-  ],
-  output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist"),
-  },
+    output: {
+        filename: "[name].js",
+        path: path.resolve(__dirname, "dist"),
+    },
 };
 ```
 
@@ -1122,24 +1122,24 @@ module.exports = {
 webpack.dev.js
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 const merge = require("webpack-merge");
 const commonConfig = require("./webpack.common.js");
 
 const devConfig = (module.exports = {
-  mode: "development",
-  devtool: "cheap-module-eval-source-map",
-  devServer: {
-    contentBase: "./dist",
-    open: true,
-    port: 8080,
-    hot: true,
-    hotOnly: true,
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  optimization: {
-    usedExports: true,
-  },
+    mode: "development",
+    devtool: "cheap-module-eval-source-map",
+    devServer: {
+        contentBase: "./dist",
+        open: true,
+        port: 8080,
+        hot: true,
+        hotOnly: true,
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    optimization: {
+        usedExports: true,
+    },
 });
 
 module.exports = merge(commonConfig, devConfig);
@@ -1769,7 +1769,7 @@ shimming 作用：解决 webpack 打包的兼容性问题.
 webpack.common.js
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 ```
 
 webpack.common.js
@@ -1879,145 +1879,145 @@ webpack.common.js
 ```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const webpack = require("webpack");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const webpack = require("docs/前端笔记/Webpack");
 const merge = require("webpack-merge");
 const devConfig = require("./webpack.dev.js");
 const prodConfig = require("./webpack.prod.js");
 
 const commonConfig = {
-  entry: {
-    main: "./src/index.js",
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            name: "[name]_[hash].[ext]",
-            outputPath: "images/",
-            limit: 204800,
-          },
-        },
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2|svg)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            outputPath: "fonts/",
-          },
-        },
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
-            },
-          },
-          "sass-loader",
-          "postcss-loader",
-        ],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-          },
-          {
-            loader: "imports-loader?this=>window",
-          },
-        ],
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "src/index.html",
-    }),
-    new CleanWebpackPlugin(),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-    }),
-  ],
-  optimization: {
-    usedExports: true,
-    splitChunks: {
-      chunks: "all",
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          name: "vendors",
-        },
-      },
+    entry: {
+        main: "./src/index.js",
     },
-  },
-  performance: false,
-  output: {
-    path: path.resolve(__dirname, "../dist"),
-  },
+    module: {
+        rules: [
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        name: "[name]_[hash].[ext]",
+                        outputPath: "images/",
+                        limit: 204800,
+                    },
+                },
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2|svg)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        outputPath: "fonts/",
+                    },
+                },
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    "sass-loader",
+                    "postcss-loader",
+                ],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                    },
+                    {
+                        loader: "imports-loader?this=>window",
+                    },
+                ],
+            },
+        ],
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "src/index.html",
+        }),
+        new CleanWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+        }),
+    ],
+    optimization: {
+        usedExports: true,
+        splitChunks: {
+            chunks: "all",
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    name: "vendors",
+                },
+            },
+        },
+    },
+    performance: false,
+    output: {
+        path: path.resolve(__dirname, "../dist"),
+    },
 };
 
 module.exports = (env) => {
-  if (env && env.production) {
-    return merge(commonConfig, prodConfig);
-  } else {
-    return merge(commonConfig, devConfig);
-  }
+    if (env && env.production) {
+        return merge(commonConfig, prodConfig);
+    } else {
+        return merge(commonConfig, devConfig);
+    }
 };
 ```
 
 webpack.dev.js
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 
 const devConfig = (module.exports = {
-  mode: "development",
-  devtool: "cheap-module-eval-source-map",
-  devServer: {
-    contentBase: "./dist",
-    open: true,
-    port: 8080,
-    hot: true,
-    hotOnly: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
+    mode: "development",
+    devtool: "cheap-module-eval-source-map",
+    devServer: {
+        contentBase: "./dist",
+        open: true,
+        port: 8080,
+        hot: true,
+        hotOnly: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    "sass-loader",
+                    "postcss-loader",
+                ],
             },
-          },
-          "sass-loader",
-          "postcss-loader",
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader", "postcss-loader"],
+            },
         ],
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-    ],
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  output: {
-    filename: "[name].js",
-    chunkFilename: "[name].js",
-  },
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    output: {
+        filename: "[name].js",
+        chunkFilename: "[name].js",
+    },
 });
 
 module.exports = devConfig;
@@ -2026,45 +2026,45 @@ module.exports = devConfig;
 webpack.prod.js
 
 ```javascript
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 
 const devConfig = (module.exports = {
-  mode: "development",
-  devtool: "cheap-module-eval-source-map",
-  devServer: {
-    contentBase: "./dist",
-    open: true,
-    port: 8080,
-    hot: true,
-    hotOnly: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
+    mode: "development",
+    devtool: "cheap-module-eval-source-map",
+    devServer: {
+        contentBase: "./dist",
+        open: true,
+        port: 8080,
+        hot: true,
+        hotOnly: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 2,
+                        },
+                    },
+                    "sass-loader",
+                    "postcss-loader",
+                ],
             },
-          },
-          "sass-loader",
-          "postcss-loader",
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader", "postcss-loader"],
+            },
         ],
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-      },
-    ],
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
-  output: {
-    filename: "[name].js",
-    chunkFilename: "[name].js",
-  },
+    },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    output: {
+        filename: "[name].js",
+        chunkFilename: "[name].js",
+    },
 });
 
 module.exports = devConfig;
@@ -2581,25 +2581,25 @@ extensions 建议配逻辑文件， css，图片类不要配置， 浪费性能�
 
 ```javascript
 const path = require("path");
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 
 module.exports = {
-  mode: "production",
-  entry: {
-    vendors: ["lodash"],
-    react: ["react", "react-dom"],
-  },
-  output: {
-    filename: "[name].dll.js",
-    path: path.resolve(__dirname, "../dll"),
-    library: "[name]",
-  },
-  plugins: [
-    new webpack.DllPlugin({
-      name: "[name]",
-      path: path.resolve(__dirname, "../dll/[name].manifest.json"),
-    }),
-  ],
+    mode: "production",
+    entry: {
+        vendors: ["lodash"],
+        react: ["react", "react-dom"],
+    },
+    output: {
+        filename: "[name].dll.js",
+        path: path.resolve(__dirname, "../dll"),
+        library: "[name]",
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            name: "[name]",
+            path: path.resolve(__dirname, "../dll/[name].manifest.json"),
+        }),
+    ],
 };
 ```
 
@@ -2690,103 +2690,103 @@ webpack.common.js
 ```javascript
 const path = require("path");
 const fs = require("fs");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin");
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 
 const makePlugins = (configs) => {
-  const plugins = [new CleanWebpackPlugin()];
+    const plugins = [new CleanWebpackPlugin()];
 
-  Object.keys(configs.entry).forEach((item) => {
-    plugins.push(
-      new HtmlWebpackPlugin({
-        template: "src/index.html",
-        filename: `${item}.html`,
-        chunks: ["runtime", "vendors", item],
-      })
-    );
-  });
+    Object.keys(configs.entry).forEach((item) => {
+        plugins.push(
+            new HtmlWebpackPlugin({
+                template: "src/index.html",
+                filename: `${item}.html`,
+                chunks: ["runtime", "vendors", item],
+            })
+        );
+    });
 
-  const files = fs.readdirSync(path.resolve(__dirname, "../dll"));
-  files.forEach((file) => {
-    if (/.*\.dll.js/.test(file)) {
-      plugins.push(
-        new AddAssetHtmlWebpackPlugin({
-          filepath: path.resolve(__dirname, "../dll", file),
-        })
-      );
-    }
-    if (/.*\.manifest.json/.test(file)) {
-      plugins.push(
-        new webpack.DllReferencePlugin({
-          manifest: path.resolve(__dirname, "../dll", file),
-        })
-      );
-    }
-  });
+    const files = fs.readdirSync(path.resolve(__dirname, "../dll"));
+    files.forEach((file) => {
+        if (/.*\.dll.js/.test(file)) {
+            plugins.push(
+                new AddAssetHtmlWebpackPlugin({
+                    filepath: path.resolve(__dirname, "../dll", file),
+                })
+            );
+        }
+        if (/.*\.manifest.json/.test(file)) {
+            plugins.push(
+                new webpack.DllReferencePlugin({
+                    manifest: path.resolve(__dirname, "../dll", file),
+                })
+            );
+        }
+    });
 
-  return plugins;
+    return plugins;
 };
 
 const configs = {
-  entry: {
-    main: "./src/index.js",
-    list: "./src/list.js",
-  },
-  resolve: {
-    extensions: [".js", ".jsx"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        include: path.resolve(__dirname, "../src"),
-        use: [
-          {
-            loader: "babel-loader",
-          },
+    entry: {
+        main: "./src/index.js",
+        list: "./src/list.js",
+    },
+    resolve: {
+        extensions: [".js", ".jsx"],
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
+                include: path.resolve(__dirname, "../src"),
+                use: [
+                    {
+                        loader: "babel-loader",
+                    },
+                ],
+            },
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: {
+                    loader: "url-loader",
+                    options: {
+                        name: "[name]_[hash].[ext]",
+                        outputPath: "images/",
+                        limit: 10240,
+                    },
+                },
+            },
+            {
+                test: /\.(eot|ttf|svg)$/,
+                use: {
+                    loader: "file-loader",
+                },
+            },
         ],
-      },
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            name: "[name]_[hash].[ext]",
-            outputPath: "images/",
-            limit: 10240,
-          },
-        },
-      },
-      {
-        test: /\.(eot|ttf|svg)$/,
-        use: {
-          loader: "file-loader",
-        },
-      },
-    ],
-  },
-  optimization: {
-    runtimeChunk: {
-      name: "runtime",
     },
-    usedExports: true,
-    splitChunks: {
-      chunks: "all",
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          name: "vendors",
+    optimization: {
+        runtimeChunk: {
+            name: "runtime",
         },
-      },
+        usedExports: true,
+        splitChunks: {
+            chunks: "all",
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    name: "vendors",
+                },
+            },
+        },
     },
-  },
-  performance: false,
-  output: {
-    path: path.resolve(__dirname, "../dist"),
-  },
+    performance: false,
+    output: {
+        path: path.resolve(__dirname, "../dist"),
+    },
 };
 
 configs.plugins = makePlugins(configs);
@@ -3424,26 +3424,26 @@ DllPlugin 可以将特定的类库提前打包然后引入。这种方式可以�
 // 单独配置在一个文件中
 // webpack.dll.conf.js
 const path = require("path");
-const webpack = require("webpack");
+const webpack = require("docs/前端笔记/Webpack");
 module.exports = {
-  entry: {
-    // 想统一打包的类库
-    vendor: ["react"],
-  },
-  output: {
-    path: path.join(__dirname, "dist"),
-    filename: "[name].dll.js",
-    library: "[name]-[hash]",
-  },
-  plugins: [
-    new webpack.DllPlugin({
-      // name 必须和 output.library 一致
-      name: "[name]-[hash]",
-      // 该属性需要与 DllReferencePlugin 中一致
-      context: __dirname,
-      path: path.join(__dirname, "dist", "[name]-manifest.json"),
-    }),
-  ],
+    entry: {
+        // 想统一打包的类库
+        vendor: ["react"],
+    },
+    output: {
+        path: path.join(__dirname, "dist"),
+        filename: "[name].dll.js",
+        library: "[name]-[hash]",
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            // name 必须和 output.library 一致
+            name: "[name]-[hash]",
+            // 该属性需要与 DllReferencePlugin 中一致
+            context: __dirname,
+            path: path.join(__dirname, "dist", "[name]-manifest.json"),
+        }),
+    ],
 };
 ```
 
